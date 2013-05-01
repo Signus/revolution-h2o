@@ -1,2 +1,4 @@
 #this is the git ignore file so no class or build objects are sent to the server
 *.class
+BuildConfig.java
+R.java
