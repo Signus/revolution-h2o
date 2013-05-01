@@ -1,3 +1,7 @@
+/*
+ * Chris and others
+ */
+ 
 package csci307.theGivingChild.CleanWaterGame;
 
 import android.os.Bundle;
