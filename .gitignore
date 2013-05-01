@@ -2,3 +2,7 @@
 *.class
 BuildConfig.java
 R.java
+
+.classpath
+.project
+org.eclipse.jdt.core.prefs
