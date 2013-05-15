@@ -28,7 +28,11 @@
             android:label="@string/title_activity_mini_game_selection"
             android:theme="@style/AppBaseTheme" >
         </activity>
-        
+        <activity
+            android:name="csci307.theGivingChild.CleanWaterGame.Extras_menu"
+            android:label="@string/title_activity_extras_menu" 
+            android:theme="@style/AppBaseTheme">
+        </activity>
     </application>
 
 </manifest>
