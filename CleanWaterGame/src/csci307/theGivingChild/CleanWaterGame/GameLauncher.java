@@ -1,5 +1,7 @@
 /*
- * Chris and others
+ * Authors: Chris Card, Tony Nguyen, Gurpreet Nanda, Dylan Chau, Dustin Liang, Maria Deslis
+ * Date: 05/13/13
+ * Description: This is the starting activity that the user will see whne starting the app
  */
  
 package csci307.theGivingChild.CleanWaterGame;
