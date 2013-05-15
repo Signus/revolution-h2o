@@ -19,19 +19,22 @@
             android:id="@+id/playGame"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/menu_play_game"/>
+            android:text="@string/menu_play_game"
+            android:background="@drawable/menu_btn_background"/>
 
         <Button
             android:id="@+id/extraBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/menu_extra_btn"/>
+            android:text="@string/menu_extra_btn"
+            android:background="@drawable/menu_btn_background"/>
 
         <Button
             android:id="@+id/donateBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/menu_donate_btn"/>
+            android:text="@string/menu_donate_btn"
+            android:background="@drawable/menu_btn_background"/>
 
     </LinearLayout>
 
