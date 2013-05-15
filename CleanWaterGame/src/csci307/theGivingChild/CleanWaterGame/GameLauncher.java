@@ -26,14 +26,6 @@ public class GameLauncher extends Activity {
     }
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.game_launcher, menu);
-        return true;
-    }
-
-
     /**
     * This function is linked to the mute button in the activity_game_launcher.xml file
     * @param The view that is calling this method
