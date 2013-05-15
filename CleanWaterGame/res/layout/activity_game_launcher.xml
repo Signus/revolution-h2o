@@ -10,31 +10,37 @@
 
     <LinearLayout
         android:orientation="vertical"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
         android:gravity="center">
 
         <Button
             android:id="@+id/playGame"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/menu_play_game"
-            android:width="40dp" />
+            android:text="@string/menu_play_game"/>
 
         <Button
             android:id="@+id/extraBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/menu_extra_btn"
-            android:width="40dp" />
+            android:text="@string/menu_extra_btn"/>
 
         <Button
             android:id="@+id/donateBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/menu_donate_btn"
-            android:width="40dp" />
+            android:text="@string/menu_donate_btn"/>
 
     </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/muting"
+        android:src="@drawable/unmuted"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"/>
 
 </RelativeLayout>
