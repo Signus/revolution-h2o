@@ -31,7 +31,8 @@
         <activity
             android:name="csci307.theGivingChild.CleanWaterGame.Extras_menu"
             android:label="@string/title_activity_extras_menu" 
-            android:theme="@style/AppBaseTheme">
+            android:theme="@style/AppBaseTheme"
+            android:parentActivityName="csci307.theGivingChild.CleanWaterGame.GameLauncher">
         </activity>
     </application>
 
