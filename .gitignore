@@ -7,3 +7,4 @@ R.java
 .project
 org.eclipse.jdt.core.prefs
 lint.xml
+*/bin/*
