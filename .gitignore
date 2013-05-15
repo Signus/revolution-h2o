@@ -6,3 +6,4 @@ R.java
 .classpath
 .project
 org.eclipse.jdt.core.prefs
+lint.xml
