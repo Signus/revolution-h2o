@@ -12,5 +12,7 @@
 
 <!-- app name strings and activity name strings-->
     <string name="app_name">CleanWaterGame</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
 
 </resources>
