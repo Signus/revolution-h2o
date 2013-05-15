@@ -25,9 +25,10 @@
         </activity>
         <activity
             android:name="csci307.theGivingChild.CleanWaterGame.MiniGame_selection"
-            android:label="@string/title_activity_mini_game_selection" 
-            android:theme="@style/AppBaseTheme">
+            android:label="@string/title_activity_mini_game_selection"
+            android:theme="@style/AppBaseTheme" >
         </activity>
+        
     </application>
 
 </manifest>
