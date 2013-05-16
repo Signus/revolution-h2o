@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  Chris, Maria, Tony, Gurpreet, Dylan, Dustin | This is the form for a user bug report| 5/16/13 --> 
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+    
+    <LinearLayout
+    	android:orientation="vertical"
+    	android:layout_width="match_parent"
+    	android:layout_height="wrap_content">
+
+    	<LinearLayout
+    		android:orientation="horizontal"
+    		android:layout_width="match_parent"
+    		android:layout_height="wrap_content">
+
+    		<TextView
+    			android:text="@string/userbug_subject_title"
+    			android:layout_width="wrap_content"
+    			android:layout_height="wrap_content"/>
+
+    		<EditText
+    		    android:id="@+id/userbug_sub"
+    		    android:layout_width="fill_parent"
+    		    android:layout_height="wrap_content"
+    		    android:hint="@string/userbug_subject_hint"
+    		    android:nextFocusForward="@+id/userbug_related_list"
+    		    android:scrollHorizontally="true" />
+
+    	</LinearLayout>
+
+    	<LinearLayout
+    		android:orientation="horizontal"
+    		android:layout_width="match_parent"
+    		android:layout_height="wrap_content">
+
+    		<TextView
+    			android:text="@string/userbug_relatedto_title"
+    			android:layout_height="wrap_content"
+    			android:layout_width="wrap_content"/>
+
+    		<ExpandableListView
+    			android:id="@+id/userbug_related_list"
+    			android:layout_width="fill_parent"
+    			android:layout_height="wrap_content"
+    			android:nextFocusForward="@+id/userbug_body"/>
+
+    	</LinearLayout>
+
+    	<TextView
+    		android:text="@string/userbug_body_title"
+    		android:layout_height="wrap_content"
+    		android:layout_width="wrap_content"/>
+
+    	<EditText
+    		android:id="@+id/userbug_body"
+    		android:layout_width="match_parent"
+    		android:layout_height="100dp"
+    		android:hint="@string/userbug_body_hint"
+    		android:scrollHorizontally="false"
+    		android:inputType="textMultiLine|textCapSentences"/>
+
+
+
+    </LinearLayout>
+
+    <LinearLayout
+    	android:orientation="horizontal"
+    	android:layout_width="match_parent"
+    	android:layout_height="wrap_content"
+    	android:layout_alignParentBottom="true">
+
+    	<Button
+    		android:id="@+id/userbug_send"
+    		android:layout_height="wrap_content"
+    		android:layout_width="0dp"
+    		android:layout_weight="1"
+    		android:text="@string/send"/>
+
+    	<Button
+    		android:id="@+id/userbug_cancle"
+    		android:layout_height="wrap_content"
+    		android:layout_width="0dp"
+    		android:layout_weight="1"
+    		android:text="@string/dontsend"/>
+    </LinearLayout>
+
+</RelativeLayout>

@@ -1,14 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
      Chris, Tony, Gurpreet, Dylan, Dustin, Maria| This is the resource file for the strings we will be user|
-		5/15/13
+		5/15/13
+
+
+
 -->
 <resources>
+
+    <!-- Global strings -->
+    <string name="send">Send</string>
+    <string name="dontsend">Cancel</string>
 
     <!-- Main menu Strins -->
     <string name="menu_play_game">Play</string>
     <string name="menu_extra_btn">Extras</string>
     <string name="menu_donate_btn">Donate</string>
+
+    <!-- Bug reporting activity -->
+    <string name="userbug_subject_title">Subject</string>
+    <string name="userbug_subject_hint">I have a problem with ...</string>
+    <string name="userbug_relatedto_title">Bug options</string>
+    <string name="userbug_body_title">Body</string>
+    <string name="userbug_body_hint">Describe the problem you are having</string>
 
     <!-- app name strings and activity name strings -->
     <string name="app_name">CleanWaterGame</string>
@@ -16,5 +30,6 @@
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_mini_game_selection">MiniGame_selection</string>
     <string name="title_activity_extras_menu">Extras_menu</string>
+    <string name="title_activity_error_dialog">ErrorDialog</string>
 
 </resources>
