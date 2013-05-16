@@ -1,8 +1,19 @@
+/**
+ * Authors: Chris, Tony, Gurpreet, Dylan, Dustin
+ * Date: 5/15/13
+ * Version: 1.0
+ * Description: This is the background file for the extras menu
+ * 
+ * History:
+ *   original 1.0
+ */
+
 package csci307.theGivingChild.CleanWaterGame;
 
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
+import android.view.View;
 
 public class Extras_menu extends Activity {
 
@@ -12,11 +23,12 @@ public class Extras_menu extends Activity {
 		setContentView(R.layout.activity_extras_menu);
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.extras_menu, menu);
-		return true;
+	/**
+	 * for testing purposes for error reporting
+	 */
+	public void testReport(View v)
+	{
+		
 	}
 
 }
