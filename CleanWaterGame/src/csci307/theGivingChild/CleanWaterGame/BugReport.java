@@ -15,18 +15,16 @@ import android.view.Menu;
 
 public class BugReport extends Activity {
 
-	public static final Stirng ERROR_CODE_KEY = "csci370.theGivingChild.Error.boolerror";
-	private boolean userSysBug;
+	public static final String ERROR_CODE_KEY = "csci370.theGivingChild.Error.boolerror";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		userSysBug = false;
+
 		if(savedInstanceState != null)
 		{
 			if (savedInstanceState.getBoolean(ERROR_CODE_KEY,false)) 
 			{
-				userSysBug = true;
 				setContentView(R.layout.userbugreport);
 			}
 			else
@@ -39,8 +37,9 @@ public class BugReport extends Activity {
 		{
 			//error fun
 		}
-
-		
 	}
+
+
+
 
 }
