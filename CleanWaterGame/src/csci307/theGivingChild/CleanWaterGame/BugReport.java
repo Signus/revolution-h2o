@@ -10,8 +10,8 @@
 package csci307.theGivingChild.CleanWaterGame;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.app.Activity;
-import android.view.Menu;
 
 public class BugReport extends Activity {
 
@@ -20,10 +20,10 @@ public class BugReport extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
-		if(savedInstanceState != null)
+		Bundle b = this.getIntent().getExtras();
+		if(b != null)
 		{
-			if (savedInstanceState.getBoolean(ERROR_CODE_KEY,false)) 
+			if (b.getBoolean(ERROR_CODE_KEY,false)) 
 			{
 				setContentView(R.layout.userbugreport);
 			}

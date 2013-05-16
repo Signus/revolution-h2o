@@ -55,10 +55,10 @@
     	<EditText
     		android:id="@+id/userbug_body"
     		android:layout_width="match_parent"
-    		android:layout_height="fill_parent"
+    		android:layout_height="100dp"
     		android:hint="@string/userbug_body_hint"
     		android:scrollHorizontally="false"
-    		android:inputType="textFilter"/>
+    		android:inputType="textMultiLine|textCapSentences"/>
 
 
 
