@@ -10,7 +10,7 @@
 
     <!-- Global strings -->
     <string name="send">Send</string>
-    <string name="dontsend">Cancle</string>
+    <string name="dontsend">Cancel</string>
 
     <!-- Main menu Strins -->
     <string name="menu_play_game">Play</string>
