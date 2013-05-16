@@ -1,4 +1,4 @@
-package csci307.theGivingChild.CleanWaterGame;
+package csci307.theGivingChild.CleanWaterGame.LevelOne;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -11,6 +11,7 @@ public class DrawingPanel extends SurfaceView implements SurfaceHolder.Callback 
 
     private static Paint paint = new Paint();
     private PanelThread thread;
+    private int i = 0;
 
     public DrawingPanel(Context context) {
         super(context);
@@ -21,7 +22,11 @@ public class DrawingPanel extends SurfaceView implements SurfaceHolder.Callback 
     public void onDraw(Canvas canvas) {
         // Do Stuff Here
         canvas.drawColor(Color.BLUE);
-        canvas.drawRect(50, 50, 50, 50, paint);
+        paint.setColor(Color.RED);
+
+        canvas.drawRect(0, 0, 50 + i, 50 + i, paint);
+        ++i;
+
     }
 
     @Override

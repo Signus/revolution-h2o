@@ -10,7 +10,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
-import android.view.Menu;
 import android.view.View;
 import android.widget.ImageButton;
 
@@ -56,7 +55,7 @@ public class GameLauncher extends Activity {
     */
     public void openMiniGames(View v)
     {
-        Intent play = new Intent(this, MiniGame_selection.class);
+        Intent play = new Intent(this, MiniGameSelection.class);
         startActivity(play);
     }
 
@@ -66,7 +65,7 @@ public class GameLauncher extends Activity {
     */
     public void openExtras(View v)
     {
-        Intent extra = new Intent(this, Extras_menu.class);
+        Intent extra = new Intent(this, ExtrasMenu.class);
         startActivity(extra);
     }
     

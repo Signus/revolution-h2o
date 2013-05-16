@@ -1,7 +1,8 @@
-package csci307.theGivingChild.CleanWaterGame;
+package csci307.theGivingChild.CleanWaterGame.LevelOne;
 
 import android.graphics.Canvas;
 import android.view.SurfaceHolder;
+import csci307.theGivingChild.CleanWaterGame.LevelOne.DrawingPanel;
 
 public class PanelThread extends Thread {
 

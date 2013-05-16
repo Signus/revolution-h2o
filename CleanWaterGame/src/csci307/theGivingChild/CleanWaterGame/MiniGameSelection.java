@@ -1,10 +1,13 @@
 package csci307.theGivingChild.CleanWaterGame;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
+import android.view.View;
+import csci307.theGivingChild.CleanWaterGame.LevelOne.LevelOneActivity;
 
-public class MiniGame_selection extends Activity {
+public class MiniGameSelection extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -19,4 +22,8 @@ public class MiniGame_selection extends Activity {
 		return true;
 	}
 
+    public void openLevelOne(View v) {
+        Intent levelOne = new Intent(this, LevelOneActivity.class);
+        startActivity(levelOne);
+    }
 }

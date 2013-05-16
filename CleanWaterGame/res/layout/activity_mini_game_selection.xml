@@ -8,9 +8,11 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".MiniGame_selection" >
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
-
+    <Button
+            android:layout_width="206dp"
+            android:layout_height="wrap_content"
+            android:text="Level 1"
+            android:id="@+id/level_one"
+            android:layout_centerHorizontal="true" android:layout_alignParentTop="true"
+            android:layout_marginTop="80dp" android:background="@drawable/blue_btn" android:onClick="openLevelOne"/>
 </RelativeLayout>
