@@ -28,7 +28,7 @@ public class GameLauncher extends Activity {
 
     /**
     * This function is linked to the mute button in the activity_game_launcher.xml file
-    * @param The view that is calling this method
+    * @param v The view that is calling this method
     */
     public void toggleMute(View v)
     {
@@ -41,7 +41,7 @@ public class GameLauncher extends Activity {
     /**
     * This method is linked to the donate button in the activity
     * it opens the donation url in their phones web browser
-    * @param the view calling this method
+    * @param v the view calling this method
     */
     public void openDonate(View v)
     {
@@ -52,7 +52,7 @@ public class GameLauncher extends Activity {
     /**
     * This method opens the minigames selection activity and is linked
     * to the play game button
-    * @param the view calling this mehtod
+    * @param v the view calling this mehtod
     */
     public void openMiniGames(View v)
     {
@@ -62,7 +62,7 @@ public class GameLauncher extends Activity {
 
     /**
     * This method opens the extras menu activity and is linked to the extras button
-    * @param the view calling this method
+    * @param v the view calling this method
     */
     public void openExtras(View v)
     {
