@@ -12,6 +12,7 @@ package csci307.theGivingChild.CleanWaterGame;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
 
@@ -28,7 +29,9 @@ public class Extras_menu extends Activity {
 	 */
 	public void testReport(View v)
 	{
-		
+		Intent userbug = new Intent(this, BugReport.class);
+		userbug.putExtra(BugReport.ERROR_CODE_KEY, true);
+		startActivity(userbug);
 	}
 
 }
