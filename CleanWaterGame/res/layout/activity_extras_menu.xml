@@ -1,3 +1,5 @@
+<!--  Chris, Maria, Tony, Gurpreet, Dylan, Dustin | This is the extras file that will contain the credits and bug reporting
+        that by user that wasn't caught by the system | 5/16/13 --> 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,9 +10,12 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".Extras_menu" >
 
-    <TextView
+    <Button
+        android:id="@+id/testButton"
+        android:text="test reporting"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+        android:onClick="testReport"
+        />
 
 </RelativeLayout>
