@@ -17,27 +17,35 @@
 
         <Button
             android:id="@+id/playGame"
-            android:layout_width="wrap_content"
+            android:layout_width="206dp"
             android:layout_height="wrap_content"
             android:text="@string/menu_play_game"
             android:onClick="openMiniGames"
-            android:background="@drawable/menu_btn_background"/>
+            android:background="@drawable/blue_btn"/>
 
+        <Space
+                android:layout_width="20px"
+                android:layout_height="20px"
+                android:id="@+id/space" android:layout_gravity="center"/>
         <Button
             android:id="@+id/extraBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
             android:text="@string/menu_extra_btn"
             android:onClick="openExtras"
-            android:background="@drawable/menu_btn_background"/>
+            android:background="@drawable/blue_btn"/>
 
+        <Space
+                android:layout_width="20px"
+                android:layout_height="20px"
+                android:id="@+id/space1" android:layout_gravity="right|center_vertical"/>
         <Button
             android:id="@+id/donateBtn"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="@string/menu_donate_btn"
             android:onClick="openDonate"
-            android:background="@drawable/menu_btn_background"/>
+            android:background="@drawable/blue_btn"/>
 
     </LinearLayout>
 

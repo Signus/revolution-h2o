@@ -16,7 +16,7 @@ import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
 
-public class Extras_menu extends Activity {
+public class ExtrasMenu extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
