@@ -8,9 +8,46 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".GameLauncher" >
 
-    <TextView
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+        android:layout_centerInParent="true"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/playGame"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/menu_play_game"
+            android:onClick="openMiniGames"
+            android:background="@drawable/menu_btn_background"/>
+
+        <Button
+            android:id="@+id/extraBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/menu_extra_btn"
+            android:onClick="openExtras"
+            android:background="@drawable/menu_btn_background"/>
+
+        <Button
+            android:id="@+id/donateBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/menu_donate_btn"
+            android:onClick="openDonate"
+            android:background="@drawable/menu_btn_background"/>
+
+    </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/muting"
+        android:src="@drawable/unmuted"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:onClick="toggleMute"/>
 
 </RelativeLayout>
