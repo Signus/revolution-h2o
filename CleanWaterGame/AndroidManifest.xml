@@ -34,6 +34,10 @@
             android:parentActivityName="csci307.theGivingChild.CleanWaterGame.GameLauncher"
             android:theme="@style/AppBaseTheme" >
         </activity>
+        <activity
+            android:name="csci307.theGivingChild.CleanWaterGame.ErrorDialog"
+            android:label="@string/title_activity_error_dialog" >
+        </activity>
     </application>
 
 </manifest>

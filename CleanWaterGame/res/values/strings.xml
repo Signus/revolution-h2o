@@ -16,5 +16,6 @@
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_mini_game_selection">MiniGame_selection</string>
     <string name="title_activity_extras_menu">Extras_menu</string>
+    <string name="title_activity_error_dialog">ErrorDialog</string>
 
 </resources>
