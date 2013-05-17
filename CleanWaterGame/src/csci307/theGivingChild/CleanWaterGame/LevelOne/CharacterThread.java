@@ -1,38 +1,26 @@
 package csci307.theGivingChild.CleanWaterGame.LevelOne;
 
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.view.SurfaceHolder;
 
 import java.util.Random;
 
-import csci307.theGivingChild.CleanWaterGame.LevelOne.DrawingPanel;
+import csci307.theGivingChild.CleanWaterGame.LevelOne.DomainClasses.GameCharacter;
 
-public class PanelThread extends Thread {
+public class CharacterThread extends Thread {
 
     public static final float SPEED = 4;
     public static final float RADIUS = 50;
     public static final Random rnd = new Random();
     private SurfaceHolder surfaceHolder;
     private DrawingPanel drawingPanel;
-    private static Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+    private GameCharacter character;
     private boolean run = false;
 
-    private float x;
-    private float y;
-    private float v_x;
-    private float v_y;
-
-    public PanelThread(SurfaceHolder surfaceHolder, DrawingPanel drawingPanel) {
+    public CharacterThread(SurfaceHolder surfaceHolder, DrawingPanel drawingPanel) {
         this.surfaceHolder = surfaceHolder;
         this.drawingPanel = drawingPanel;
-
-        x = RADIUS + rnd.nextInt(drawingPanel.getWidth() - (int) RADIUS);
-        y = RADIUS + rnd.nextInt(drawingPanel.getHeight() - (int) RADIUS);
-        v_x = (float) (-1 + (rnd.nextFloat()*2));
-        v_y = (float) (-1 + (rnd.nextFloat()*2));
-        paint.setColor(Color.RED);
+        character = new GameCharacter(drawingPanel.getResources(), drawingPanel.getWidth() / 4, 5 * drawingPanel.getHeight() / 8);
     }
 
     public void setRunning(boolean run) {
@@ -62,15 +50,10 @@ public class PanelThread extends Thread {
     }
 
     public void doDraw(Canvas canvas) {
-        x += v_x * SPEED;
-        y += v_y * SPEED;
-        if (x - RADIUS <= 0 || x + RADIUS >= canvas.getWidth()) {
-            v_x *= -1;
-        }
-        if (y - RADIUS <= 0 || y + RADIUS >= canvas.getHeight()) {
-            v_y *= -1;
-        }
+        character.doDraw(canvas);
+    }
 
-        canvas.drawCircle(x, y, RADIUS, paint);
+    public void jump() {
+        character.setIsJumping(true);
     }
 }

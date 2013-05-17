@@ -10,23 +10,47 @@ import android.graphics.Rect;
 
 import csci307.theGivingChild.CleanWaterGame.R;
 
-public class Character {
+public class GameCharacter {
 
+    public static final int JUMP_HEIGHT = 100;
+    private Point initialPosition;
     private Paint paint;
     private Point position;
     private Bitmap image;
     private Rect bounds;
+    private boolean isJumping = false;
+    private int jumpDirection = -1;
 
-    public Character(Resources resources, int x, int y) {
+    public GameCharacter(Resources resources, int x, int y) {
         paint = new Paint();
+        initialPosition = new Point(x, y);
         position = new Point(x, y);
         image = BitmapFactory.decodeResource(resources, R.drawable.character);
         bounds = new Rect(0, 0, image.getWidth(), image.getHeight());
     }
 
-    synchronized public void draw(Canvas canvas) {
+    synchronized public void doDraw(Canvas canvas) {
         if (position.x > 0) {
+            performJump();
             canvas.drawBitmap(image, position.x, position.y, null);
         }
+    }
+
+    private void performJump() {
+        if (!isJumping) return;
+        if (position.y >= initialPosition.y) {
+            isJumping = false;
+            jumpDirection = -1;
+        }
+        if (position.y <= initialPosition.y - JUMP_HEIGHT) {
+            jumpDirection = 1;
+        }
+
+        position.y += jumpDirection;
+
+    }
+
+    public void setIsJumping(boolean b) {
+        isJumping = b;
     }
 }

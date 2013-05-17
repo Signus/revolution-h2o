@@ -3,16 +3,15 @@ package csci307.theGivingChild.CleanWaterGame.LevelOne;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Paint;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 
-public class DrawingPanel extends SurfaceView implements SurfaceHolder.Callback, View.OnTouchListener {
+public class DrawingPanel extends SurfaceView implements SurfaceHolder.Callback, View.OnClickListener {
 
-    private PanelThread thread;
-    private PanelThread thread2;
+    private CharacterThread characterThread;
 
     public DrawingPanel(Context context) {
         super(context);
@@ -23,21 +22,15 @@ public class DrawingPanel extends SurfaceView implements SurfaceHolder.Callback,
     public void onDraw(Canvas canvas) {
         // Do Stuff Here
         canvas.drawColor(Color.BLUE);
-        thread.doDraw(canvas);
-        thread2.doDraw(canvas);
+        characterThread.doDraw(canvas);
     }
 
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
         setWillNotDraw(false);
-        thread = new PanelThread(getHolder(), this);
-        thread.setRunning(true);
-
-        thread2 = new PanelThread(getHolder(), this);
-        thread2.setRunning(true);
-
-        thread.start();
-        thread2.start();
+        characterThread = new CharacterThread(getHolder(), this);
+        characterThread.setRunning(true);
+        characterThread.start();
     }
 
     @Override
@@ -48,18 +41,22 @@ public class DrawingPanel extends SurfaceView implements SurfaceHolder.Callback,
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
         try {
-            thread.setRunning(false);
-            thread.join();
-
-            thread2.setRunning(false);
-            thread2.join();
+            characterThread.setRunning(false);
+            characterThread.join();
         } catch (InterruptedException e) {}
 
     }
 
     @Override
-    public boolean onTouch(View view, MotionEvent motionEvent) {
-        return false;
+    synchronized public boolean onTouchEvent(MotionEvent motionEvent) {
+        Log.d("MYSTUFF", "Begin Jumping");
+        characterThread.jump();
+        Log.d("MYSTUFF", "Finished Jumping");
+        return true;
     }
 
+    @Override
+    public void onClick(View view) {
+
+    }
 }
