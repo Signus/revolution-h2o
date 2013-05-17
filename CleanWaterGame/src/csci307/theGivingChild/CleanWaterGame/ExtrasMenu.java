@@ -30,7 +30,8 @@ public class ExtrasMenu extends Activity {
 	public void testReport(View v)
 	{
 		Intent userbug = new Intent(this, BugReport.class);
-		userbug.putExtra(BugReport.ERROR_CODE_KEY, true);
+		userbug.putExtra(BugReport.ERROR_CODE_NUM,"45");
+		userbug.putExtra(BugReport.ERROR_CODE_DESC, "This is fun");
 		startActivity(userbug);
 	}
 
