@@ -11,6 +11,7 @@
     <!-- Global strings -->
     <string name="send">Send</string>
     <string name="dontsend">Cancel</string>
+    <string name="okBtn">Ok</string>
 
     <!-- Main menu Strins -->
     <string name="menu_play_game">Play</string>
@@ -23,6 +24,14 @@
     <string name="userbug_relatedto_title">Bug options</string>
     <string name="userbug_body_title">Body</string>
     <string name="userbug_body_hint">Describe the problem you are having</string>
+    <string name="sysbug_error_code">Error Code:</string>
+    <string name="sysbug_error_descript">Description:</string>
+    <string-array name="userbug_relatedto_spinner">
+            <item>Animation</item>
+            <item>Menus</item>
+            <item>Sound</item>
+            <item>Feedback</item>
+    </string-array>
 
     <!-- app name strings and activity name strings -->
     <string name="app_name">CleanWaterGame</string>
