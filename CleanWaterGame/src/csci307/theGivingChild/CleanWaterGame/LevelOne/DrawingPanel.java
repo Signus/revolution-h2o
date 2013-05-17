@@ -9,9 +9,7 @@ import android.view.SurfaceView;
 
 public class DrawingPanel extends SurfaceView implements SurfaceHolder.Callback {
 
-    private static Paint paint = new Paint();
     private PanelThread thread;
-    private int i = 0;
 
     public DrawingPanel(Context context) {
         super(context);
@@ -21,12 +19,7 @@ public class DrawingPanel extends SurfaceView implements SurfaceHolder.Callback 
     @Override
     public void onDraw(Canvas canvas) {
         // Do Stuff Here
-        canvas.drawColor(Color.BLUE);
-        paint.setColor(Color.RED);
-
-        canvas.drawRect(0, 0, 50 + i, 50 + i, paint);
-        ++i;
-
+        thread.doDraw(canvas);
     }
 
     @Override
