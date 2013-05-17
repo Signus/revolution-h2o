@@ -10,6 +10,7 @@ import android.view.SurfaceView;
 public class DrawingPanel extends SurfaceView implements SurfaceHolder.Callback {
 
     private PanelThread thread;
+    private PanelThread thread2;
 
     public DrawingPanel(Context context) {
         super(context);
@@ -19,7 +20,9 @@ public class DrawingPanel extends SurfaceView implements SurfaceHolder.Callback 
     @Override
     public void onDraw(Canvas canvas) {
         // Do Stuff Here
+        canvas.drawColor(Color.BLUE);
         thread.doDraw(canvas);
+        thread2.doDraw(canvas);
     }
 
     @Override
@@ -27,7 +30,12 @@ public class DrawingPanel extends SurfaceView implements SurfaceHolder.Callback 
         setWillNotDraw(false);
         thread = new PanelThread(getHolder(), this);
         thread.setRunning(true);
+
+        thread2 = new PanelThread(getHolder(), this);
+        thread2.setRunning(true);
+
         thread.start();
+        thread2.start();
     }
 
     @Override
@@ -40,6 +48,9 @@ public class DrawingPanel extends SurfaceView implements SurfaceHolder.Callback 
         try {
             thread.setRunning(false);
             thread.join();
+
+            thread2.setRunning(false);
+            thread2.join();
         } catch (InterruptedException e) {}
 
     }
