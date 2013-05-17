@@ -1,14 +1,32 @@
 package csci307.theGivingChild.CleanWaterGame.LevelOne.DomainClasses;
 
-/**
- * Created with IntelliJ IDEA.
- * User: DA
- * Date: 5/16/13
- * Time: 12:42 PM
- * To change this template use File | Settings | File Templates.
- */
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.Point;
+import android.graphics.Rect;
+
+import csci307.theGivingChild.CleanWaterGame.R;
+
 public class Character {
 
-    public Character() {
+    private Paint paint;
+    private Point position;
+    private Bitmap image;
+    private Rect bounds;
+
+    public Character(Resources resources, int x, int y) {
+        paint = new Paint();
+        position = new Point(x, y);
+        image = BitmapFactory.decodeResource(resources, R.drawable.character);
+        bounds = new Rect(0, 0, image.getWidth(), image.getHeight());
+    }
+
+    synchronized public void draw(Canvas canvas) {
+        if (position.x > 0) {
+            canvas.drawBitmap(image, position.x, position.y, null);
+        }
     }
 }
