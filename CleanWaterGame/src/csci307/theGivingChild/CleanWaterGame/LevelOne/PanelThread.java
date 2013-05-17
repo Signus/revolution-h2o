@@ -28,8 +28,8 @@ public class PanelThread extends Thread {
         this.surfaceHolder = surfaceHolder;
         this.drawingPanel = drawingPanel;
 
-        x = rnd.nextInt(drawingPanel.getWidth());
-        y = rnd.nextInt(drawingPanel.getHeight());
+        x = RADIUS + rnd.nextInt(drawingPanel.getWidth() - (int) RADIUS);
+        y = RADIUS + rnd.nextInt(drawingPanel.getHeight() - (int) RADIUS);
         v_x = (float) (-1 + (rnd.nextFloat()*2));
         v_y = (float) (-1 + (rnd.nextFloat()*2));
         paint.setColor(Color.RED);

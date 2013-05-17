@@ -4,10 +4,12 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.View;
 
-public class DrawingPanel extends SurfaceView implements SurfaceHolder.Callback {
+public class DrawingPanel extends SurfaceView implements SurfaceHolder.Callback, View.OnTouchListener {
 
     private PanelThread thread;
     private PanelThread thread2;
@@ -54,4 +56,10 @@ public class DrawingPanel extends SurfaceView implements SurfaceHolder.Callback 
         } catch (InterruptedException e) {}
 
     }
+
+    @Override
+    public boolean onTouch(View view, MotionEvent motionEvent) {
+        return false;
+    }
+
 }
