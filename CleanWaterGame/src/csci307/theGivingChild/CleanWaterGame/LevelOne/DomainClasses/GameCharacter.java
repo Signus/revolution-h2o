@@ -8,7 +8,7 @@ import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Rect;
 
-import csci307.theGivingChild.CleanWaterGame.R;
+
 
 public class GameCharacter {
 
