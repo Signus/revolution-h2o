@@ -49,9 +49,7 @@ public class DrawingPanel extends SurfaceView implements SurfaceHolder.Callback,
 
     @Override
     synchronized public boolean onTouchEvent(MotionEvent motionEvent) {
-        Log.d("MYSTUFF", "Begin Jumping");
         characterThread.jump();
-        Log.d("MYSTUFF", "Finished Jumping");
         return true;
     }
 
