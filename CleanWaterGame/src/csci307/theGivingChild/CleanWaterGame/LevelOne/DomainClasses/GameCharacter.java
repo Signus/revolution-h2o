@@ -1,5 +1,6 @@
 package csci307.theGivingChild.CleanWaterGame.LevelOne.DomainClasses;
 
+import csci307.theGivingChild.CleanWaterGame.R;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
