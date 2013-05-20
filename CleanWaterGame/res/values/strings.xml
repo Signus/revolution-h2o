@@ -25,7 +25,7 @@
     
     <!-- Bug reporting activity -->
     <string name="userbug_subject_title">Subject</string>
-    <string name="userbug_subject_hint">I have a problem with ...</string>
+    <string name="userbug_subject_hint">I have a problem with ....</string>
     <string name="userbug_relatedto_title">Bug options</string>
     <string name="userbug_body_title">Body</string>
     <string name="userbug_body_hint">Describe the problem you are having</string>
