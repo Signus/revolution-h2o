@@ -24,10 +24,30 @@ public class ExtrasMenu extends Activity {
 		setContentView(R.layout.activity_extras_menu);
 	}
 
+	
 	/**
-	 * for testing purposes for error reporting
+	 * This will show the user the privacy policy
+	 * @param the view calling this method
 	 */
-	public void testReport(View v)
+	public void showPolicy(View v)
+	{
+		
+	}
+	
+	/**
+	 * This shows the credits for the app
+	 * @param the view calling this method
+	 */
+	public void credits(View v)
+	{
+		
+	}
+	
+	/**
+	 * This opens the bug reporting / feed back dialog
+	 * @param the view calling this
+	 */
+	public void feedBack(View v)
 	{
 		Intent userbug = new Intent(this, BugReport.class);
 		userbug.putExtra(BugReport.ERROR_CODE_NUM,"45");

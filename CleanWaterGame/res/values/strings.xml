@@ -18,6 +18,11 @@
     <string name="menu_extra_btn">Extras</string>
     <string name="menu_donate_btn">Donate</string>
 
+    <!-- Extras menu -->
+    <string name="extra_credits_btn">Credits</string>
+    <string name="extra_feedback_btn">Feed Back</string>
+    <string name="extra_privacypolicy_btn">Privacy Policy</string>
+    
     <!-- Bug reporting activity -->
     <string name="userbug_subject_title">Subject</string>
     <string name="userbug_subject_hint">I have a problem with ...</string>
@@ -27,10 +32,10 @@
     <string name="sysbug_error_code">Error Code:</string>
     <string name="sysbug_error_descript">Description:</string>
     <string-array name="userbug_relatedto_spinner">
+             <item>Feedback</item>
             <item>Animation</item>
             <item>Menus</item>
             <item>Sound</item>
-            <item>Feedback</item>
     </string-array>
 
     <!-- app name strings and activity name strings -->
