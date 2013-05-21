@@ -56,4 +56,12 @@ public class CharacterThread extends Thread {
     public void jump() {
         character.setIsJumping(true);
     }
+
+    public void sprint() {
+        character.setIsSprinting(true);
+    }
+
+    public void slide() {
+        character.setIsSliding(true);
+    }
 }
