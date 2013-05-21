@@ -33,6 +33,7 @@ public class GameCharacter {
         paint = new Paint();
         initialPosition = new Point(x, y);
         position = new Point(x, y);
+
         readInImages(resources);
 
         image = INITIAL_IMAGE;
@@ -53,7 +54,8 @@ public class GameCharacter {
         }
     }
 
-    public void performAction() {
+    public synchronized void performAction() {
+
         if (isJumping)
             performJump();
         else if (isSliding)
@@ -103,7 +105,7 @@ public class GameCharacter {
         }
     }
 
-    private boolean noActions() {
+    private synchronized boolean noActions() {
         return !(isSprinting || isSliding || isJumping);
     }
 

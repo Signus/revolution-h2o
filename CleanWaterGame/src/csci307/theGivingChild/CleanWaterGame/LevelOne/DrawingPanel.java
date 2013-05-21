@@ -15,6 +15,7 @@ public class DrawingPanel extends SurfaceView implements SurfaceHolder.Callback,
         super(context);
         getHolder().addCallback(this);
         gestureScanner = new GestureDetector(context, this);
+        gestureScanner.setIsLongpressEnabled(false);
     }
 
     @Override
@@ -22,6 +23,7 @@ public class DrawingPanel extends SurfaceView implements SurfaceHolder.Callback,
         // Do Stuff Here
         canvas.drawColor(Color.BLUE);
         characterThread.doDraw(canvas);
+        invalidate();
     }
 
     @Override
@@ -38,26 +40,27 @@ public class DrawingPanel extends SurfaceView implements SurfaceHolder.Callback,
     }
 
     @Override
-    public void surfaceDestroyed(SurfaceHolder holder) {
+    synchronized public void surfaceDestroyed(SurfaceHolder holder) {
         endThreads();
     }
 
     @Override
     synchronized public boolean onTouchEvent(MotionEvent motionEvent) {
-        Log.d("MYTAG", "Touch Event");
+        //Log.d("MYTAG", "Touch Event");
 
-        return gestureScanner.onTouchEvent(motionEvent);
+        gestureScanner.onTouchEvent(motionEvent);
+        return true;
     }
 
     @Override
     synchronized public boolean onDown(MotionEvent e) {
-        Log.d("MYTAG", "DOWN");
+        //Log.d("MYTAG", "DOWN");
         return false;
     }
 
     @Override
     synchronized public void onShowPress(MotionEvent e) {
-        //To change body of implemented methods use File | Settings | File Templates.
+        //Log.d("MYTAG", "ShowPress");
     }
 
     @Override
@@ -69,14 +72,13 @@ public class DrawingPanel extends SurfaceView implements SurfaceHolder.Callback,
 
     @Override
     synchronized public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
-        Log.d("MYTAG", "Scroll");
+        //Log.d("MYTAG", "Scroll");
         return false;
     }
 
     @Override
     synchronized public void onLongPress(MotionEvent e) {
-        Log.d("MYTAG", "Long Press");
-
+        //Log.d("MYTAG", "Long Press");
     }
 
     @Override
