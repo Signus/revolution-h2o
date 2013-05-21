@@ -5,8 +5,12 @@ import android.os.Bundle;
 import csci307.theGivingChild.CleanWaterGame.LevelOne.DrawingPanel;
 
 public class LevelOneActivity extends Activity {
+    DrawingPanel drawingPanel;
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(new DrawingPanel(this));
+        drawingPanel = new DrawingPanel(this);
+        setContentView(drawingPanel);
     }
 }

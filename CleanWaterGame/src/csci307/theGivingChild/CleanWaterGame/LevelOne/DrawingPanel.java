@@ -39,11 +39,7 @@ public class DrawingPanel extends SurfaceView implements SurfaceHolder.Callback,
 
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
-        try {
-            characterThread.setRunning(false);
-            characterThread.join();
-        } catch (InterruptedException e) {}
-
+        endThreads();
     }
 
     @Override
@@ -96,5 +92,14 @@ public class DrawingPanel extends SurfaceView implements SurfaceHolder.Callback,
         }
         Log.d("MYTAG", "Nothing");
         return false;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    synchronized private void endThreads() {
+        try {
+            characterThread.setRunning(false);
+            characterThread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }
