@@ -44,7 +44,7 @@ public class ResourceManager {
 	
 	//menu textures
 	public ITextureRegion menu_background_TR;
-	public ITextureRegion play_button_TR, options_button_TR;
+	public ITextureRegion play_button_TR, options_button_TR, scene_one_TR;
 	
 	//game textures
 	
@@ -68,8 +68,9 @@ public class ResourceManager {
 	public void loadMenuGraphics() {
 		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/");
 		menuTA = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024, TextureOptions.BILINEAR);
-		play_button_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(menuTA, activity, "play.png");
+//		play_button_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(menuTA, activity, "play.png");
 		options_button_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(menuTA, activity, "options.png");
+		scene_one_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(menuTA, activity, "level_one_button.png");
 		
 		
 		try {

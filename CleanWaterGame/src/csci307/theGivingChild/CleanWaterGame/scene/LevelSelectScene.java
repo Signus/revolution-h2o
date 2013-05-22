@@ -16,16 +16,17 @@ public class LevelSelectScene extends BaseScene implements IOnMenuItemClickListe
 
 	private MenuScene menuChildScene;
 	
-	private final int MENU_PLAY = 0;
-	private final int MENU_OPTIONS = 1;
+	private final int SCENE_ONE = 0;
+	private final int SCENE_TWO = 1;
+	
 	
 	@Override
 	public boolean onMenuItemClicked(org.andengine.entity.scene.menu.MenuScene pMenuScene, IMenuItem pMenuItem, float pMenuItemLocalX, float pMenuItemLocalY) {
 		switch (pMenuItem.getID()) {
-			case MENU_PLAY:
+			case SCENE_ONE:
 				SceneManager.getInstance().loadGameScene(engine);
 				return true;
-			case MENU_OPTIONS:
+			case SCENE_TWO:
 				return true;
 			default:
 				return false;
@@ -57,24 +58,30 @@ public class LevelSelectScene extends BaseScene implements IOnMenuItemClickListe
 	
 	private void createBackground() {
 		setBackground(new Background(Color.BLACK));
-		attachChild(new Text(400, 10, resourcesManager.font, "Nyan Cannon", vbom));
+		attachChild(new Text(400, camera.getHeight() - 40, resourcesManager.font, "Act I", vbom));
 	}
 	
 	private void createMenuChildScene() {
 		menuChildScene = new MenuScene(camera);
 		menuChildScene.setPosition(0, 0);
 		
-		final IMenuItem playMenuItem = new ScaleMenuItemDecorator(new SpriteMenuItem(MENU_PLAY, resourcesManager.play_button_TR, vbom), 1.2f, 1);
-		final IMenuItem optionsMenuItem = new ScaleMenuItemDecorator(new SpriteMenuItem(MENU_OPTIONS, resourcesManager.options_button_TR, vbom), 1.2f, 1);
+//		final IMenuItem playMenuItem = new ScaleMenuItemDecorator(new SpriteMenuItem(MENU_PLAY, resourcesManager.play_button_TR, vbom), 1.2f, 1);
+//		final IMenuItem optionsMenuItem = new ScaleMenuItemDecorator(new SpriteMenuItem(MENU_OPTIONS, resourcesManager.options_button_TR, vbom), 1.2f, 1);
 		
-		menuChildScene.addMenuItem(playMenuItem);
-		menuChildScene.addMenuItem(optionsMenuItem);
+		final IMenuItem levelOneMenuItem = new ScaleMenuItemDecorator(new SpriteMenuItem(SCENE_ONE, resourcesManager.scene_one_TR, vbom), 1.2f, 1);
+		
+//		menuChildScene.addMenuItem(playMenuItem);
+//		menuChildScene.addMenuItem(optionsMenuItem);
+		
+		menuChildScene.addMenuItem(levelOneMenuItem);
 		
 		menuChildScene.buildAnimations();
 		menuChildScene.setBackgroundEnabled(false);
 		
-		playMenuItem.setPosition(playMenuItem.getX(), playMenuItem.getY() + 10);
-		optionsMenuItem.setPosition(optionsMenuItem.getX(), optionsMenuItem.getY() + 50);
+//		playMenuItem.setPosition(playMenuItem.getX(), playMenuItem.getY() + 10);
+//		optionsMenuItem.setPosition(optionsMenuItem.getX(), optionsMenuItem.getY() + 50);
+		
+		levelOneMenuItem.setPosition(100, 100);
 		
 		menuChildScene.setOnMenuItemClickListener(this);
 		
