@@ -126,7 +126,7 @@ public class ActOneActivity extends SimpleBaseGameActivity implements IOnSceneTo
 //		scene.setBackground(new Background(Color.BLUE));
 		
 		final float playerX = 20;
-		final float playerY = 20;
+		final float playerY = 85;
 		
 		this.player = new AnimatedSprite(playerX, playerY, nyanRegion, this.getVertexBufferObjectManager());
 		this.player.animate(100);

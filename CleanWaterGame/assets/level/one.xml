@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<level width="2000" height="800">
-    <entity x="500" y="0" width="50" height="100" type="obstacle1"/>
-    <entity x="0" y="0" width="2000" height="10" type="ground1"/>
+<level width="200000000" height="800">
+    <entity x="500" y="105" width="50" height="50" type="obstacle1"/>
+    <entity x="0" y="85" width="200000000" height="0" type="ground1"/>
     
 </level>
