@@ -50,6 +50,10 @@ public class ActOneActivity extends SimpleBaseGameActivity implements IOnSceneTo
 	private static final String TAG_ENTITY_ATTRIBUTE_Y = "y";
 	private static final String TAG_ENTITY_ATTRIBUTE_WIDTH = "width";
 	private static final String TAG_ENTITY_ATTRIBUTE_HEIGHT = "height";
+	private static final String TAG_ENTITY_ATTRIBUTE_TYPE = "type";
+	
+	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_OBSTACLE1 = "obstacle1";
+	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_GROUND1 = "ground1";
 	
 	private BitmapTextureAtlas playerTextureAtlas;
 	private TiledTextureRegion playerTextureRegion;
@@ -98,10 +102,10 @@ public class ActOneActivity extends SimpleBaseGameActivity implements IOnSceneTo
 		scene = new Scene();
 		scene.setOnSceneTouchListener(this);
 		
-		Rectangle ground = new Rectangle(0, 0, CAMERA_WIDTH, 2, this.getVertexBufferObjectManager());
-		ground.setColor(Color.RED);
-		scene.attachChild(ground);
-		PhysicsFactory.createBoxBody(physicsWorld, ground, BodyType.StaticBody, WALL_FIX);
+//		Rectangle ground = new Rectangle(0, 0, CAMERA_WIDTH, 2, this.getVertexBufferObjectManager());
+//		ground.setColor(Color.RED);
+//		scene.attachChild(ground);
+//		PhysicsFactory.createBoxBody(physicsWorld, ground, BodyType.StaticBody, WALL_FIX);
 		
 		scene.registerUpdateHandler(physicsWorld);
 		
@@ -122,7 +126,7 @@ public class ActOneActivity extends SimpleBaseGameActivity implements IOnSceneTo
 		
 		
 		
-	//	loadLevel("one");
+		loadLevel("one");
 		
 		physicsWorld.registerPhysicsConnector(new PhysicsConnector(player, this.playerBody, true, false));
 		return scene;
@@ -165,11 +169,20 @@ public class ActOneActivity extends SimpleBaseGameActivity implements IOnSceneTo
 				final int y = SAXUtils.getIntAttributeOrThrow(pAttributes, TAG_ENTITY_ATTRIBUTE_Y);
 				final int width = SAXUtils.getIntAttributeOrThrow(pAttributes, TAG_ENTITY_ATTRIBUTE_WIDTH);
 				final int height = SAXUtils.getIntAttributeOrThrow(pAttributes, TAG_ENTITY_ATTRIBUTE_HEIGHT);
+				final String type = SAXUtils.getAttributeOrThrow(pAttributes, TAG_ENTITY_ATTRIBUTE_TYPE);
 				
 				final Rectangle levelObject;
 				
-				levelObject = new Rectangle(x, y, width, height, mEngine.getVertexBufferObjectManager());
-				levelObject.setColor(Color.GREEN);
+				if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_OBSTACLE1)) {
+					levelObject = new Rectangle(x, y, width, height, mEngine.getVertexBufferObjectManager());
+					levelObject.setColor(Color.GREEN);
+				} else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_GROUND1)) {
+					levelObject = new Rectangle(x, y, width, height, mEngine.getVertexBufferObjectManager());
+					levelObject.setColor(Color.RED);
+				} else {
+					throw new IllegalArgumentException();
+				}
+				
 				physicsWorld.registerPhysicsConnector(new PhysicsConnector(levelObject, PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyType.StaticBody, WALL_FIX), true, false));
 				
 				return levelObject;
