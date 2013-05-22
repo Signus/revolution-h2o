@@ -21,7 +21,7 @@
         
         <Button
             android:id="@+id/extra_privacy"
-            android:layout_width="wrap_content"
+            android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:onClick="showPolicy"
             android:background="@drawable/blue_btn"
@@ -29,19 +29,21 @@
 
         <Button
             android:id="@+id/extra_credits"
-            android:layout_width="wrap_content"
+            android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:onClick="credits"
             android:background="@drawable/blue_btn"
-            android:text="@string/extra_credits_btn"/>
+            android:text="@string/extra_credits_btn"
+            android:layout_marginTop="20dp"/>
         
         <Button
             android:id="@+id/estra_feedBack"
-            android:layout_width="wrap_content"
+            android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:onClick="feedBack"
             android:background="@drawable/blue_btn"
-            android:text="@string/extra_feedback_btn"/>
+            android:text="@string/extra_feedback_btn"
+            android:layout_marginTop="20dp"/>
     </LinearLayout>
 
 </RelativeLayout>
