@@ -51,6 +51,11 @@
             android:label="@string/title_about"
             android:theme="@android:style/Theme.Dialog">
         </activity>
+        <activity
+            android:name=".PrivacyPolicy"
+            android:label="@string/title_privacy"
+            android:theme="@android:style/Theme.Dialog">
+        </activity>
     </application>
 
 </manifest>
