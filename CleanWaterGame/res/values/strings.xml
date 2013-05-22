@@ -16,7 +16,7 @@
     <string name="menu_donate_btn">Donate</string>
 
     <!-- Extras menu -->
-    <string name="extra_credits_btn">Credits</string>
+    <string name="extra_credits_btn">About</string>
     <string name="extra_feedback_btn">Feed Back</string>
     <string name="extra_privacypolicy_btn">Privacy Policy</string>
     
@@ -42,5 +42,7 @@
     <string name="title_activity_mini_game_selection">MiniGame_selection</string>
     <string name="title_activity_extras_menu">Extras_menu</string>
     <string name="title_activity_error_dialog">ErrorDialog</string>
+    <string name="title_about">About</string>
+    <string name="title_privacy">Privacy Policy</string>
 
 </resources>

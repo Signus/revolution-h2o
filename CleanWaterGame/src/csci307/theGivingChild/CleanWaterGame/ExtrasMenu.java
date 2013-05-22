@@ -31,7 +31,8 @@ public class ExtrasMenu extends Activity {
 	 */
 	public void showPolicy(View v)
 	{
-		
+		Intent privacy = new Intent(this,PrivacyPolicy.class);
+		startActivity(privacy);
 	}
 	
 	/**
@@ -40,7 +41,8 @@ public class ExtrasMenu extends Activity {
 	 */
 	public void credits(View v)
 	{
-		
+		Intent about = new Intent(this,AboutDialog.class);
+		startActivity(about);
 	}
 	
 	/**
