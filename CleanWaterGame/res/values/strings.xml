@@ -16,7 +16,7 @@
     <string name="menu_donate_btn">Donate</string>
 
     <!-- Extras menu -->
-    <string name="extra_credits_btn">Credits</string>
+    <string name="extra_credits_btn">About</string>
     <string name="extra_feedback_btn">Feed Back</string>
     <string name="extra_privacypolicy_btn">Privacy Policy</string>
     
