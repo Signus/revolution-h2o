@@ -27,4 +27,15 @@
         android:onClick="openLevelTwo"
         android:text="Level 2" />
 
+    <Button
+        android:id="@+id/level_two"
+        android:layout_width="206dp"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/level_one"
+        android:layout_below="@+id/level_one"
+        android:layout_marginTop="103dp"
+        android:background="@drawable/blue_btn"
+        android:onClick="openTestLevel"
+        android:text="Test" />
+    
 </RelativeLayout>
