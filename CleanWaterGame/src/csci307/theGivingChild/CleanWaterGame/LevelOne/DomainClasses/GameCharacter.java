@@ -14,10 +14,24 @@ import android.graphics.Rect;
 public class GameCharacter {
 
     public static final int JUMP_HEIGHT = 100;
-    private static Bitmap INITIAL_IMAGE;
-    private static Bitmap SLIDING_IMAGE;
-    private static Bitmap JUMPING_IMAGE;
-    private static Bitmap SPRINTING_IMAGE;
+    public static final int SLIDE_TIME = 100;
+    public static final int SPRINT_TIME = 100;
+    public int action_time = 0;
+
+    private enum Image {
+        INITIAL_IMAGE, SLIDING_IMAGE, JUMPING_IMAGE, SPRINTING_IMAGE;
+
+        private Bitmap image;
+
+        public void setImage(Bitmap im) {
+            image = im;
+        }
+
+        public Bitmap getImage() {
+            return image;
+        }
+
+    }
 
     private Point initialPosition;
     private Paint paint;
@@ -36,15 +50,15 @@ public class GameCharacter {
 
         readInImages(resources);
 
-        image = INITIAL_IMAGE;
+        image = Image.INITIAL_IMAGE.getImage();
         bounds = new Rect(0, 0, image.getWidth(), image.getHeight());
     }
 
     private void readInImages(Resources resources) {
-        INITIAL_IMAGE = BitmapFactory.decodeResource(resources, R.drawable.character);
-        SLIDING_IMAGE = BitmapFactory.decodeResource(resources, R.drawable.character_slide);
-        JUMPING_IMAGE = BitmapFactory.decodeResource(resources, R.drawable.character_jump);
-        SPRINTING_IMAGE = BitmapFactory.decodeResource(resources, R.drawable.character_sprint);
+        Image.INITIAL_IMAGE.setImage(BitmapFactory.decodeResource(resources, R.drawable.character));
+        Image.SLIDING_IMAGE.setImage(BitmapFactory.decodeResource(resources, R.drawable.character_slide));
+        Image.JUMPING_IMAGE.setImage(BitmapFactory.decodeResource(resources, R.drawable.character_jump));
+        Image.SPRINTING_IMAGE.setImage(BitmapFactory.decodeResource(resources, R.drawable.character_sprint));
     }
 
     synchronized public void doDraw(Canvas canvas) {
@@ -55,7 +69,6 @@ public class GameCharacter {
     }
 
     public synchronized void performAction() {
-
         if (isJumping)
             performJump();
         else if (isSliding)
@@ -67,7 +80,7 @@ public class GameCharacter {
     private void performJump() {
         if (position.y >= initialPosition.y) {
             isJumping = false;
-            image = INITIAL_IMAGE;
+            image = Image.INITIAL_IMAGE.getImage();
             jumpDirection = -1;
         }
         if (position.y <= initialPosition.y - JUMP_HEIGHT) {
@@ -78,17 +91,30 @@ public class GameCharacter {
     }
 
     private void performSlide() {
-        image = SLIDING_IMAGE;
+        if (action_time >= SLIDE_TIME) {
+            isSliding = false;
+            image = Image.INITIAL_IMAGE.getImage();
+            action_time = 0;
+        } else {
+            action_time++;
+            image = Image.SLIDING_IMAGE.getImage();
+        }
     }
 
     private void performSprint() {
-        image = SPRINTING_IMAGE;
-
+        if (action_time >= SPRINT_TIME) {
+            isSprinting = false;
+            image = Image.INITIAL_IMAGE.getImage();
+            action_time = 0;
+        } else {
+            action_time++;
+            image = Image.SPRINTING_IMAGE.getImage();
+        }
     }
 
     public void setIsJumping(boolean b) {
         if (noActions()) {
-            image = JUMPING_IMAGE;
+            image = Image.JUMPING_IMAGE.getImage();
             isJumping = b;
         }
     }
