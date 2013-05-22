@@ -9,3 +9,4 @@ org.eclipse.jdt.core.prefs
 lint.xml
 */bin/*
 .settings/*
+project.properties
