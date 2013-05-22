@@ -43,5 +43,6 @@
     <string name="title_activity_extras_menu">Extras_menu</string>
     <string name="title_activity_error_dialog">ErrorDialog</string>
     <string name="title_about">About</string>
+    <string name="title_privavcy">Privacy Policy</string>
 
 </resources>
