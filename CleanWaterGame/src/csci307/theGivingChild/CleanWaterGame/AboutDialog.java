@@ -3,6 +3,9 @@
  * Date: 5/22/13
  * Version:1.0
  * Description: This is a dialog containing info about the app and the giving child
+ * 
+ * History:
+ *   original 5/22/13
  */
 package csci307.theGivingChild.CleanWaterGame;
 
