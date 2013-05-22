@@ -40,7 +40,8 @@ public class ExtrasMenu extends Activity {
 	 */
 	public void credits(View v)
 	{
-		
+		Intent about = new Intent(this,AboutDialog.class);
+		startActivity(about);
 	}
 	
 	/**
