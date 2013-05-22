@@ -55,11 +55,14 @@ public class ActOneActivity extends SimpleBaseGameActivity implements IOnSceneTo
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_OBSTACLE1 = "obstacle1";
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_GROUND1 = "ground1";
 	
-	private BitmapTextureAtlas playerTextureAtlas;
-	private TiledTextureRegion playerTextureRegion;
+	private BitmapTextureAtlas spriteAtlas;
+	private TiledTextureRegion nyanRegion;
 	
-	private BitmapTextureAtlas backgroundTextureAtlas;
-	private ITextureRegion backgroundTextureRegion;
+	private BitmapTextureAtlas bgAtlas;
+	private ITextureRegion backGroundRegion;
+	private ITextureRegion midGroundRegion;
+	private ITextureRegion frontGroundRegion;
+	
 	
 	private AnimatedSprite player, background;
 	
@@ -77,19 +80,25 @@ public class ActOneActivity extends SimpleBaseGameActivity implements IOnSceneTo
 	@Override
 	public EngineOptions onCreateEngineOptions() {
 		camera = new BoundCamera(0, 0, CAMERA_WIDTH, CAMERA_HEIGHT);
-		return new EngineOptions(true, ScreenOrientation.LANDSCAPE_FIXED, new FillResolutionPolicy(), camera);
+		EngineOptions engineOptions;
+		engineOptions = new EngineOptions(true, ScreenOrientation.LANDSCAPE_FIXED, new FillResolutionPolicy(), camera);
+		engineOptions.getRenderOptions().setDithering(true);
+		return engineOptions;
 	}
 
 	@Override
 	protected void onCreateResources() {
 		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/");
-		playerTextureAtlas = new BitmapTextureAtlas(this.getTextureManager(), 1024, 128, TextureOptions.BILINEAR);
-		playerTextureRegion = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(playerTextureAtlas, this, "nyan_cat_sprite.png", 0, 0, 6, 1);
-		playerTextureAtlas.load();
+		spriteAtlas = new BitmapTextureAtlas(this.getTextureManager(), 1024, 128, TextureOptions.BILINEAR);
+		nyanRegion = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(spriteAtlas, this, "nyan_cat_sprite.png", 0, 0, 6, 1);
+		spriteAtlas.load();
 		
-		backgroundTextureAtlas = new BitmapTextureAtlas(this.getTextureManager(), 2048, 1024, TextureOptions.BILINEAR);
-		backgroundTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(backgroundTextureAtlas, this, "background.png", 0, 0);
-		backgroundTextureAtlas.load();		
+		bgAtlas = new BitmapTextureAtlas(this.getTextureManager(), 2048, 2048, TextureOptions.BILINEAR);
+		backGroundRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(bgAtlas, this, "background.png", 0, 0);
+		midGroundRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(bgAtlas, this, "clouds.png", 0, 800);
+		frontGroundRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(bgAtlas, this, "ground.png", 0, 1179);
+		
+		bgAtlas.load();	
 	}
 
 	@Override
@@ -110,14 +119,16 @@ public class ActOneActivity extends SimpleBaseGameActivity implements IOnSceneTo
 		scene.registerUpdateHandler(physicsWorld);
 		
 		AutoParallaxBackground autoParallaxBackground = new AutoParallaxBackground(0, 0, 0, 5);
-		autoParallaxBackground.attachParallaxEntity(new ParallaxEntity(-50.0f, new Sprite(0, 400, backgroundTextureRegion, this.getVertexBufferObjectManager())));
+		autoParallaxBackground.attachParallaxEntity(new ParallaxEntity(0.0f, new Sprite(.5f*CAMERA_WIDTH , .5f*CAMERA_HEIGHT, this.backGroundRegion, this.getVertexBufferObjectManager())));
+		autoParallaxBackground.attachParallaxEntity(new ParallaxEntity(-20.0f, new Sprite(.5f*CAMERA_WIDTH, .5f*CAMERA_HEIGHT+80, this.midGroundRegion, this.getVertexBufferObjectManager())));
+		autoParallaxBackground.attachParallaxEntity(new ParallaxEntity(-100.0f, new Sprite(.5f*CAMERA_WIDTH, .5f*this.frontGroundRegion.getHeight(), this.frontGroundRegion, this.getVertexBufferObjectManager())));
 		scene.setBackground(autoParallaxBackground);
 //		scene.setBackground(new Background(Color.BLUE));
 		
 		final float playerX = 20;
 		final float playerY = 20;
 		
-		this.player = new AnimatedSprite(playerX, playerY, playerTextureRegion, this.getVertexBufferObjectManager());
+		this.player = new AnimatedSprite(playerX, playerY, nyanRegion, this.getVertexBufferObjectManager());
 		this.player.animate(100);
 		camera.setChaseEntity(player);
 		this.playerBody = PhysicsFactory.createBoxBody(physicsWorld, player, BodyType.DynamicBody, PLAYER_FIX);
