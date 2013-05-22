@@ -122,7 +122,7 @@ public class ActOneActivity extends SimpleBaseGameActivity implements IOnSceneTo
 		
 		
 		
-		loadLevel("one");
+	//	loadLevel("one");
 		
 		physicsWorld.registerPhysicsConnector(new PhysicsConnector(player, this.playerBody, true, false));
 		return scene;
