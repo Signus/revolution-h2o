@@ -62,6 +62,7 @@ public class GameCharacter {
     }
 
     synchronized public void doDraw(Canvas canvas) {
+        if (canvas == null) return;
         if (position.x > 0) {
             performAction();
             canvas.drawBitmap(image, position.x, position.y, null);

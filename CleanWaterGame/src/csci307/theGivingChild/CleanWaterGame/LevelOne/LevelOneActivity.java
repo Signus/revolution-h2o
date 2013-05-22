@@ -13,4 +13,10 @@ public class LevelOneActivity extends Activity {
         drawingPanel = new DrawingPanel(this);
         setContentView(drawingPanel);
     }
+
+    @Override
+    public void onDestroy() {
+        drawingPanel.endThreads();
+        super.onDestroy();
+    }
 }

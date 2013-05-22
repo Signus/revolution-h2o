@@ -91,15 +91,20 @@ public class DrawingPanel extends SurfaceView implements SurfaceHolder.Callback,
             Log.d("MYTAG", "Slide");
             characterThread.slide();
             return true;
+        } else if (velocityY < 0 && Math.abs(velocityY) > Math.abs(velocityX)){
+            Log.d("MYTAG", "Jump");
+            characterThread.jump();
+            return true;
         }
         Log.d("MYTAG", "Nothing");
         return false;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
-    synchronized private void endThreads() {
+    synchronized public void endThreads() {
         try {
             characterThread.setRunning(false);
             characterThread.join();
+            characterThread.interrupt();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
