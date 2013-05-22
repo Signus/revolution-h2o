@@ -26,8 +26,14 @@ public class MiniGameSelection extends Activity {
         Intent levelOne = new Intent(this, LevelOneActivity.class);
         startActivity(levelOne);
     }
+    
     public void openLevelTwo(View v) {
         Intent levelTwo = new Intent(this, ActOneActivity.class);
         startActivity(levelTwo);
+    }
+    
+    public void openTestLevel(View v) {
+        Intent testLevel = new Intent(this, LevelTesterActivity.class);
+        startActivity(testLevel);
     }
 }
