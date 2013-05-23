@@ -1,3 +1,14 @@
+/*
+ * Authors: Chris Card, Tony Nguyen, Gurpreet Nanda, Dylan Chau, Dustin Liang, Maria Deslis
+ * Date: 05/22/13
+ * Description: Running Game Scene
+ * 
+ * TODO --------
+ * -HUD
+ * -collision (contact listener)
+ * -game over stuff
+ */
+
 package csci307.theGivingChild.CleanWaterGame.scene;
 
 import java.io.IOException;
