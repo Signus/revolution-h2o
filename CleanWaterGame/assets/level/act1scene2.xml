@@ -14,4 +14,33 @@
 	<entity x="835" y="25" width="40" height="50" type="hill"/>
 	<entity x="870" y="15" width="30" height="30" type="ground"/>
 	<entity x="935" y="65" width="100" height="10" type="floatingPlatform"/>
+	<entity x="970" y="15" width="200" height="30" type="ground"/>
+	<entity x="" y="" width="" height="" type=""/>
+	<entity x="" y="" width="" height="" type=""/>
+	<entity x="" y="" width="" height="" type=""/>
+	<entity x="" y="" width="" height="" type=""/>
+	<entity x="" y="" width="" height="" type=""/>
+	<entity x="" y="" width="" height="" type=""/>
+	<entity x="" y="" width="" height="" type=""/>
+	<entity x="" y="" width="" height="" type=""/>
+	<entity x="" y="" width="" height="" type=""/>
+	<entity x="" y="" width="" height="" type=""/>
+	<entity x="" y="" width="" height="" type=""/>
+	<entity x="" y="" width="" height="" type=""/>
+	<entity x="" y="" width="" height="" type=""/>
+	<entity x="" y="" width="" height="" type=""/>
+	<entity x="" y="" width="" height="" type=""/>
+	<entity x="" y="" width="" height="" type=""/>
+	<entity x="" y="" width="" height="" type=""/>
+	<entity x="" y="" width="" height="" type=""/>
+	<entity x="" y="" width="" height="" type=""/>
+	<entity x="" y="" width="" height="" type=""/>
+	<entity x="" y="" width="" height="" type=""/>
+	<entity x="" y="" width="" height="" type=""/>
+	<entity x="" y="" width="" height="" type=""/>
+	<entity x="" y="" width="" height="" type=""/>
+	<entity x="" y="" width="" height="" type=""/>
+	<entity x="" y="" width="" height="" type=""/>
+	<entity x="" y="" width="" height="" type=""/>
+	<entity x="" y="" width="" height="" type=""/>
 </level>
