@@ -34,7 +34,7 @@ public class LevelSelectScene extends BaseScene implements IOnMenuItemClickListe
 				SceneManager.getInstance().loadGameScene(engine, "act1scene1");
 				return true;
 			case SCENE_TWO:
-				SceneManager.getInstance().loadGameScene(engine, "act2scene2");
+				SceneManager.getInstance().loadGameScene(engine, "act1scene2");
 				return true;
 			default:
 				return false;
