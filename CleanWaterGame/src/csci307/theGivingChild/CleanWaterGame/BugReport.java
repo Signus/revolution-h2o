@@ -62,6 +62,7 @@ public class BugReport extends Activity {
 						gmail.putExtra(Intent.EXTRA_SUBJECT, subject);
 						gmail.setType("plain/text");
 						startActivity(gmail);
+						finish();
 					}
 					
 				});
