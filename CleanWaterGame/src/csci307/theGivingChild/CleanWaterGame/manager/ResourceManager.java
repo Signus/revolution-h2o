@@ -108,18 +108,12 @@ public class ResourceManager {
 	}
 	
 	private void loadGameGraphics() {
-//<<<<<<< HEAD
 		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/");
 //        this.spriteAtlas = new BitmapTextureAtlas(activity.getTextureManager(), 1024, 128, TextureOptions.BILINEAR);
 //        this.player_TR = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(spriteAtlas, activity, "nyan_cat_sprite.png", 0, 0, 6, 1);
-//=======
+
         spriteAtlas = new BitmapTextureAtlas(activity.getTextureManager(), 1024, 128, TextureOptions.BILINEAR);
         player_TR = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(spriteAtlas, activity, "player_run_sprite.png", 0, 0, 6, 1);
-<<<<<<< HEAD
-=======
-//>>>>>>> player_run_sprite.png, Player.java, act1scene1.xml
->>>>>>> a370871af90cc4c3384fcdb3d5e8e18c1b6bc4a9
-
     }
 	
 	public void unloadGameTextures() {
