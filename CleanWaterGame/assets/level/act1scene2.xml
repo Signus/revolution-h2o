@@ -1,19 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<level width="2000" height="800">
-	<entity x="0" y="30" width="100" height="30" type="ground"/>
-	<entity x="100" y="50" width="45" height="50" type="hill"/>
-	<entity x="145" y="30" width="70" height="30" type="ground"/>
-	<entity x="215" y="0" width="45" height="0" type="bottomlesspit"/>
-	<entity x="260" y="30" width="60" height="30" type="ground"/>
-	<entity x="320" y="50" width="50" height="50" type="hill"/>
-	<entity x="370" y="30" width="20" height="30" type="ground"/>
-	<entity x="390" y="70" width="100" height="10" type="floatingBox"/>
-	<entity x="490" y="30" width="150" height="30" type="ground"/>
-	<entity x="640" y="10" width="45" height="10" type="pit"/>
-	<entity x="685" y="30" width="50" height="30" type="ground"/>
-	<entity x="735" y="0" width="45" height="0" type="bottomlesspit"/>
-	<entity x="780" y="30" width="50" height="30" type="ground"/>
-	<entity x="830" y="50" width="45" height="50" type="hill"/>
-	<entity x="880" y="30" width="30" height="30" type="ground"/>
-	<entity x="910" y="70" width="100" height="10" type="floatingBox"/>
+<level width="10000" height="800">
+	<entity x="50" y="15" width="100" height="30" type="ground"/>
+	<entity x="120" y="25" width="40" height="50" type="hill"/>
+	<entity x="175" y="15" width="70" height="30" type="ground"/>
+	<entity x="285" y="15" width="60" height="30" type="ground"/>
+	<entity x="340" y="25" width="50" height="50" type="hill"/>
+	<entity x="375" y="15" width="20" height="30" type="ground"/>
+	<entity x="435" y="60" width="100" height="15" type="floatingPlatform"/>
+	<entity x="560" y="15" width="150" height="30" type="ground"/>
+	<entity x="655" y="5" width="40" height="10" type="ground"/>
+	<entity x="700" y="15" width="50" height="30" type="ground"/>
+	<entity x="790" y="15" width="50" height="30" type="ground"/>
+	<entity x="835" y="25" width="40" height="50" type="hill"/>
+	<entity x="870" y="15" width="30" height="30" type="ground"/>
+	<entity x="935" y="65" width="100" height="10" type="floatingPlatform"/>
 </level>
