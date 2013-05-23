@@ -51,8 +51,9 @@ public class GameScene extends BaseScene {
 	private static final String TAG_ENTITY_ATTRIBUTE_HEIGHT = "height";
 	private static final String TAG_ENTITY_ATTRIBUTE_TYPE = "type";
 	
-	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_OBSTACLE1 = "obstacle1";
-	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_GROUND1 = "ground1";
+	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_HILL = "hill";
+	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_GROUND = "ground";
+	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_FLOATINGPLATFORM = "floatingPlatform";
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_PLAYER = "player";
 	
 	private Player player;	
@@ -139,13 +140,16 @@ public class GameScene extends BaseScene {
 				
 				final Rectangle levelObject;
 				
-				if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_OBSTACLE1)) {
+				if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_HILL)) {
 					levelObject = new Rectangle(x, y, width, height, vbom);
 					levelObject.setColor(Color.GREEN);
-				} else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_GROUND1)) {
+				} else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_GROUND)) {
 					levelObject = new Rectangle(x, y, width, height, vbom);
 					levelObject.setColor(Color.RED);
-				} else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_PLAYER)) {
+				} else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_FLOATINGPLATFORM)){
+					levelObject = new Rectangle(x, y, width, height, vbom);
+					levelObject.setColor(Color.BLACK);
+				}else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_PLAYER)) {
 					player = new Player(x, y, vbom, camera, physicsWorld) {
 						@Override
 						public void onDie() {
