@@ -24,7 +24,7 @@ public class LevelSelectScene extends BaseScene implements IOnMenuItemClickListe
 	public boolean onMenuItemClicked(org.andengine.entity.scene.menu.MenuScene pMenuScene, IMenuItem pMenuItem, float pMenuItemLocalX, float pMenuItemLocalY) {
 		switch (pMenuItem.getID()) {
 			case SCENE_ONE:
-				SceneManager.getInstance().loadGameScene(engine);
+				SceneManager.getInstance().loadGameScene(engine, "act1scene1");
 				return true;
 			case SCENE_TWO:
 				return true;

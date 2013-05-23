@@ -26,6 +26,7 @@ public class ActOneActivity extends BaseGameActivity {
 	public EngineOptions onCreateEngineOptions() {
 		camera = new BoundCamera(0, 0, 800, 480);
 		EngineOptions engineOptions = new EngineOptions(true, ScreenOrientation.LANDSCAPE_FIXED, new FillResolutionPolicy(), this.camera);
+		engineOptions.getRenderOptions().setDithering(true);
 		return engineOptions;
 	}
 

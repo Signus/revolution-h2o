@@ -88,7 +88,7 @@ public class SceneManager {
 //		splashScene = null;
 //	}
 	
-	public void loadGameScene(final Engine mEngine) {
+	public void loadGameScene(final Engine mEngine, String scene) {
 //		setScene(loadingScene);
 		ResourceManager.getInstance().unloadMenuTextures();
 		mEngine.registerUpdateHandler(new TimerHandler(0.1f, new ITimerCallback() {

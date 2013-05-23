@@ -1,6 +1,7 @@
 package csci307.theGivingChild.CleanWaterGame.scene;
 
 import org.andengine.engine.Engine;
+import org.andengine.engine.camera.BoundCamera;
 import org.andengine.engine.camera.Camera;
 import org.andengine.entity.scene.Scene;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
@@ -22,7 +23,7 @@ public abstract class BaseScene extends Scene
     protected Activity activity;
     protected ResourceManager resourcesManager;
     protected VertexBufferObjectManager vbom;
-    protected Camera camera;
+    protected BoundCamera camera;
     
     //---------------------------------------------
     // CONSTRUCTOR

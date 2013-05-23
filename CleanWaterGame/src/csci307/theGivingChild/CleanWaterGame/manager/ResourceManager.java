@@ -7,6 +7,7 @@
 package csci307.theGivingChild.CleanWaterGame.manager;
 
 import org.andengine.engine.Engine;
+import org.andengine.engine.camera.BoundCamera;
 import org.andengine.engine.camera.Camera;
 import org.andengine.opengl.font.Font;
 import org.andengine.opengl.font.FontFactory;
@@ -22,16 +23,15 @@ import org.andengine.opengl.texture.region.ITextureRegion;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
 import org.andengine.util.debug.Debug;
 
-import csci307.theGivingChild.CleanWaterGame.ActOneActivity;
-
 import android.graphics.Color;
+import csci307.theGivingChild.CleanWaterGame.ActOneActivity;
 
 public class ResourceManager {
 	private static final ResourceManager INSTANCE = new ResourceManager();
 	
 	public Engine engine;
 	public ActOneActivity activity;
-	public Camera camera;
+	public BoundCamera camera;
 	public VertexBufferObjectManager vbom;
 	public Font font;
 	
@@ -69,7 +69,7 @@ public class ResourceManager {
 		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/");
 		menuTA = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024, TextureOptions.BILINEAR);
 //		play_button_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(menuTA, activity, "play.png");
-		options_button_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(menuTA, activity, "options.png");
+//		options_button_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(menuTA, activity, "options.png");
 		scene_one_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(menuTA, activity, "level_one_button.png");
 		
 		
@@ -115,7 +115,7 @@ public class ResourceManager {
 	//	splash_icon_TR = null;
 	}
 	
-	public static void prepareManager(Engine engine, ActOneActivity activity, Camera camera, VertexBufferObjectManager vbom) {
+	public static void prepareManager(Engine engine, ActOneActivity activity, BoundCamera camera, VertexBufferObjectManager vbom) {
 		getInstance().engine = engine;
 		getInstance().activity = activity;
 		getInstance().camera = camera;
