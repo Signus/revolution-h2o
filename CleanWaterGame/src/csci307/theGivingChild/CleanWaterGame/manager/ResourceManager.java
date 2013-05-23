@@ -109,7 +109,7 @@ public class ResourceManager {
 	
 	private void loadGameGraphics() {
         spriteAtlas = new BitmapTextureAtlas(activity.getTextureManager(), 1024, 128, TextureOptions.BILINEAR);
-        player_TR = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(spriteAtlas, activity, "nyan_cat_sprite.png", 0, 0, 6, 1);
+        player_TR = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(spriteAtlas, activity, "player_run_sprite.png", 0, 0, 6, 1);
 
     }
 	

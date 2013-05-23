@@ -156,7 +156,7 @@ public class GameScene extends BaseScene {
 							//do something, like show game over
 						}
 					};
-					
+					player.setRunning();
 					return player;
 				} else {
 					throw new IllegalArgumentException();
