@@ -2,6 +2,9 @@ package csci307.theGivingChild.CleanWaterGame;
 
 import java.io.IOException;
 
+import android.graphics.Point;
+import csci307.theGivingChild.CleanWaterGame.manager.ResourceManager;
+import csci307.theGivingChild.CleanWaterGame.objects.Player;
 import org.andengine.engine.camera.BoundCamera;
 import org.andengine.engine.options.EngineOptions;
 import org.andengine.engine.options.ScreenOrientation;
@@ -64,16 +67,19 @@ public class LevelTesterActivity extends SimpleBaseGameActivity implements IOnSc
 	private ITextureRegion frontGroundRegion;
 	
 	
-	private AnimatedSprite player, background;
+	private AnimatedSprite background;
 	
 	private PhysicsWorld physicsWorld;
 	final static FixtureDef PLAYER_FIX = PhysicsFactory.createFixtureDef(0.0f, 0.0f, 0.0f);
-	final static FixtureDef WALL_FIX = PhysicsFactory.createFixtureDef(0.0f, 0.5f, 0.0f);
+	final static FixtureDef WALL_FIX = PhysicsFactory.createFixtureDef(0.0f, 0.0f, 0.0f);
 	
 	
 	private Scene scene;
-	private Body playerBody;
+	//private Body playerBody;
 	private BoundCamera camera;
+    private float lastX;
+    private float lastY;
+    private Player player;
 	
 	private boolean firstTouch = false;
 	
@@ -90,7 +96,7 @@ public class LevelTesterActivity extends SimpleBaseGameActivity implements IOnSc
 	protected void onCreateResources() {
 		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/");
 		spriteAtlas = new BitmapTextureAtlas(this.getTextureManager(), 1024, 128, TextureOptions.BILINEAR);
-		nyanRegion = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(spriteAtlas, this, "nyan_cat_sprite.png", 0, 0, 6, 1);
+		nyanRegion = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(spriteAtlas, this, "player_run_sprite.png", 0, 0, 6, 1);
 		spriteAtlas.load();
 		
 		bgAtlas = new BitmapTextureAtlas(this.getTextureManager(), 2048, 2048, TextureOptions.BILINEAR);
@@ -127,32 +133,65 @@ public class LevelTesterActivity extends SimpleBaseGameActivity implements IOnSc
 		
 		final float playerX = 20;
 		final float playerY = 85;
+
+        ResourceManager.prepareManager(this.getEngine(), this, camera, getVertexBufferObjectManager());
+        ResourceManager.getInstance().loadGameResources();
 		
-		this.player = new AnimatedSprite(playerX, playerY, nyanRegion, this.getVertexBufferObjectManager());
+		this.player = new Player(playerX, playerY, this.getVertexBufferObjectManager(), camera, physicsWorld);
 		this.player.animate(100);
 		camera.setChaseEntity(player);
-		this.playerBody = PhysicsFactory.createBoxBody(physicsWorld, player, BodyType.DynamicBody, PLAYER_FIX);
-		this.playerBody.setLinearVelocity(new Vector2(5, playerBody.getLinearVelocity().y));
+		player.body = PhysicsFactory.createBoxBody(physicsWorld, player, BodyType.DynamicBody, PLAYER_FIX);
+		player.body.setLinearVelocity(new Vector2(5, player.body.getLinearVelocity().y));
 		scene.attachChild(player);
 		
 		
 		
 		loadLevel("one");
 		
-		physicsWorld.registerPhysicsConnector(new PhysicsConnector(player, this.playerBody, true, false));
+		physicsWorld.registerPhysicsConnector(new PhysicsConnector(player, this.player.body, true, false));
 		return scene;
 	}
 
 	@Override
 	public boolean onSceneTouchEvent(Scene pScene, TouchEvent pSceneTouchEvent) {
-		if(this.physicsWorld != null) {
-			if (pSceneTouchEvent.isActionDown())
-		    {
-		        	this.playerBody.setLinearVelocity(playerBody.getLinearVelocity().x, 10.0f); 
-		        	System.out.println();
-		    }
-		}
-		return false;
+		if (this.physicsWorld != null) {
+            switch (pSceneTouchEvent.getAction()) {
+                case TouchEvent.ACTION_DOWN:
+                    lastX = pSceneTouchEvent.getX();
+                    lastY = pSceneTouchEvent.getY();
+                    break;
+                case TouchEvent.ACTION_MOVE:
+                    break;
+                case TouchEvent.ACTION_UP:
+                    float difX = pSceneTouchEvent.getX() - lastX;
+                    float difY = pSceneTouchEvent.getY() - lastY;
+
+                    if (difX > 0 && difX > Math.abs(difY)) {
+                        // do something with image and velocity (sprint)
+
+                    }
+                    if (difY < 0 && Math.abs(difY) > Math.abs(difX)) {
+                        // do something with image (slide)
+                    }
+                    if (difY > 0 && Math.abs(difY) > Math.abs(difX)) {
+                        // do something with image (jump)
+                        player.jump();
+                    }
+
+                    break;
+            }
+            return true;
+
+
+//			if (pSceneTouchEvent.isActionDown() && Math.abs(playerBody.getLinearVelocity().y) == 0)
+//		    {
+//                    this.playerBody.getLocalPoint().x;
+//		        	this.playerBody.setLinearVelocity(playerBody.getLinearVelocity().x, 10.0f);
+//		        	System.out.println();
+//		    }
+
+        }
+        return false;
 	}
 	
 	private void loadLevel(String levelID) {

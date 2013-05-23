@@ -9,9 +9,9 @@ import com.badlogic.gdx.physics.box2d.Body;
 
 import csci307.theGivingChild.CleanWaterGame.manager.ResourceManager;
 
-public abstract class Player extends AnimatedSprite {
+public class Player extends AnimatedSprite {
 	
-	private Body body;
+	public Body body;
 	
 	public Player(float pX, float pY, VertexBufferObjectManager vbom, Camera camera, PhysicsWorld physicsWorld) {
 		super(pX, pY, ResourceManager.getInstance().player_TR, vbom);
@@ -28,6 +28,7 @@ public abstract class Player extends AnimatedSprite {
 	}
 	
 	public void jump() {
+        body.setLinearVelocity(body.getLinearVelocity().x, 10.0f);
 		
 	}
 	
@@ -39,6 +40,8 @@ public abstract class Player extends AnimatedSprite {
 		
 	}
 	
-	public abstract void onDie();
+	public void onDie() {
+
+    }
 
 }
