@@ -10,15 +10,19 @@
 */
 package csci307.theGivingChild.CleanWaterGame;
 
+import android.net.Uri;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.app.Activity;
+import android.content.Intent;
 
 public class BugReport extends Activity {
 
@@ -26,6 +30,9 @@ public class BugReport extends Activity {
 	public static final String ERROR_CODE_NUM = "csci370.theGivingChild.Error.code";
 	public static final String ERROR_CODE_DESC = "csci370.theGivingChild.Error.desc";
 
+	private Spinner related;
+	private Button send;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -36,23 +43,28 @@ public class BugReport extends Activity {
 			if (b.getBoolean(ERROR_CODE_KEY,false)) 
 			{
 				setContentView(R.layout.userbugreport);
-				Spinner related = (Spinner)findViewById(R.id.userbug_related_list);
+				related = (Spinner)findViewById(R.id.userbug_related_list);
 				ArrayAdapter<CharSequence> adapt = ArrayAdapter.createFromResource(this,
 									R.array.userbug_relatedto_spinner,android.R.layout.simple_spinner_item);
 				adapt.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 				related.setAdapter(adapt);
-			}
-			else
-			{
-				setContentView(R.layout.systembugreport);
-				TextView code = (TextView)findViewById(R.id.systemBug_errorCode);
-				TextView descrpt = (TextView)findViewById(R.id.systemBug_errorDescription);
-				Button ok = (Button)findViewById(R.id.systemBug_ok);
+				send = (Button)findViewById(R.id.userbug_send);
+				send.setOnClickListener(new OnClickListener(){
 
-				code.setText(b.getString(ERROR_CODE_NUM));
-				descrpt.setText(b.getString(ERROR_CODE_DESC));
-
-				ok.setOnClickListener(createSysOk());
+					@Override
+					public void onClick(View v) {
+						EditText sub = (EditText)findViewById(R.id.userbug_sub);
+						String subject = sub.getText().toString()+":"+related.getSelectedItem().toString();
+						Intent gmail = new Intent(Intent.ACTION_VIEW);
+						gmail.setClassName("com.google.android.gm","com.google.android.gm.ComposeActivityGmail");
+						gmail.putExtra(Intent.EXTRA_EMAIL, new String[] {"thegivingchild@gmail.com"});//set this to the feed back email site
+						gmail.setData(Uri.parse("thegivingchild@gmail.com"));
+						gmail.putExtra(Intent.EXTRA_SUBJECT, subject);
+						gmail.setType("plain/text");
+						startActivity(gmail);
+					}
+					
+				});
 			}
 			
 		}
