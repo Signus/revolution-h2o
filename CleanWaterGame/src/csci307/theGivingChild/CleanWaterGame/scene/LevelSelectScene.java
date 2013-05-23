@@ -66,7 +66,7 @@ public class LevelSelectScene extends BaseScene implements IOnMenuItemClickListe
 	
 	private void createBackground() {
 		setBackground(new Background(Color.BLACK));
-		attachChild(new Text(400, camera.getHeight() - 40, resourcesManager.font, "Act I", vbom));
+		attachChild(new Text(400, camera.getHeight() - 40, resourcesManager.font, "Act I", vbom));		
 	}
 	
 	//create buttons here
@@ -83,8 +83,9 @@ public class LevelSelectScene extends BaseScene implements IOnMenuItemClickListe
 		
 		levelOneMenuItem.setPosition(100, 100);
 		
-		menuChildScene.setOnMenuItemClickListener(this);
 		
+		menuChildScene.setOnMenuItemClickListener(this);
+				
 		setChildScene(menuChildScene);
 	}	
 }
