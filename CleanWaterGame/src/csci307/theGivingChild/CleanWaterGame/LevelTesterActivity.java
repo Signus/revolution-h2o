@@ -96,7 +96,7 @@ public class LevelTesterActivity extends SimpleBaseGameActivity implements IOnSc
 	protected void onCreateResources() {
 		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/");
 		spriteAtlas = new BitmapTextureAtlas(this.getTextureManager(), 1024, 128, TextureOptions.BILINEAR);
-		nyanRegion = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(spriteAtlas, this, "nyan_cat_sprite.png", 0, 0, 6, 1);
+		nyanRegion = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(spriteAtlas, this, "player_run_sprite.png", 0, 0, 6, 1);
 		spriteAtlas.load();
 		
 		bgAtlas = new BitmapTextureAtlas(this.getTextureManager(), 2048, 2048, TextureOptions.BILINEAR);
