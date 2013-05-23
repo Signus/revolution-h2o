@@ -2,9 +2,10 @@ package csci307.theGivingChild.CleanWaterGame;
 
 import java.io.IOException;
 
-import android.graphics.Point;
-import csci307.theGivingChild.CleanWaterGame.manager.ResourceManager;
-import csci307.theGivingChild.CleanWaterGame.objects.Player;
+import org.andengine.audio.music.Music;
+import org.andengine.audio.music.MusicFactory;
+import org.andengine.audio.sound.Sound;
+import org.andengine.audio.sound.SoundFactory;
 import org.andengine.engine.camera.BoundCamera;
 import org.andengine.engine.options.EngineOptions;
 import org.andengine.engine.options.ScreenOrientation;
@@ -38,9 +39,11 @@ import org.andengine.util.level.simple.SimpleLevelLoader;
 import org.xml.sax.Attributes;
 
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
+
+import csci307.theGivingChild.CleanWaterGame.manager.ResourceManager;
+import csci307.theGivingChild.CleanWaterGame.objects.Player;
 
 
 public class LevelTesterActivity extends SimpleBaseGameActivity implements IOnSceneTouchListener {
@@ -66,6 +69,8 @@ public class LevelTesterActivity extends SimpleBaseGameActivity implements IOnSc
 	private ITextureRegion midGroundRegion;
 	private ITextureRegion frontGroundRegion;
 	
+	private static Sound jumpSound;
+	private static Music backgroundMusic;
 	
 	private AnimatedSprite background;
 	
@@ -89,6 +94,8 @@ public class LevelTesterActivity extends SimpleBaseGameActivity implements IOnSc
 		EngineOptions engineOptions;
 		engineOptions = new EngineOptions(true, ScreenOrientation.LANDSCAPE_FIXED, new FillResolutionPolicy(), camera);
 		engineOptions.getRenderOptions().setDithering(true);
+		engineOptions.getAudioOptions().setNeedsMusic(true);
+	    engineOptions.getAudioOptions().setNeedsSound(true);
 		return engineOptions;
 	}
 
@@ -104,7 +111,27 @@ public class LevelTesterActivity extends SimpleBaseGameActivity implements IOnSc
 		midGroundRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(bgAtlas, this, "clouds.png", 0, 800);
 		frontGroundRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(bgAtlas, this, "ground.png", 0, 1179);
 		
-		bgAtlas.load();	
+		bgAtlas.load();
+		
+		//SOUND
+		SoundFactory.setAssetBasePath("sfx/");
+		try {
+			this.jumpSound = SoundFactory.createSoundFromAsset(getSoundManager(),this, "jump.mp3");
+			this.jumpSound.setVolume(.5f);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		//MUSIC
+		MusicFactory.setAssetBasePath("sfx/");
+		try {
+			this.backgroundMusic = MusicFactory.createMusicFromAsset(getMusicManager(),this, "nyanmusic.mp3");
+			this.backgroundMusic.setLooping(true);
+			this.backgroundMusic.setVolume(.7f);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 	@Override
@@ -149,6 +176,7 @@ public class LevelTesterActivity extends SimpleBaseGameActivity implements IOnSc
 		loadLevel("one");
 		
 		physicsWorld.registerPhysicsConnector(new PhysicsConnector(player, this.player.body, true, false));
+		this.backgroundMusic.play();
 		return scene;
 	}
 
@@ -175,6 +203,7 @@ public class LevelTesterActivity extends SimpleBaseGameActivity implements IOnSc
                     }
                     if (difY > 0 && Math.abs(difY) > Math.abs(difX)) {
                         // do something with image (jump)
+                    	this.jumpSound.play();
                         player.jump();
                     }
 
