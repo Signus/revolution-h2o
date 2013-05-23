@@ -22,6 +22,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 
+import csci307.theGivingChild.CleanWaterGame.manager.ResourceManager;
 import csci307.theGivingChild.CleanWaterGame.manager.SceneManager;
 import csci307.theGivingChild.CleanWaterGame.manager.SceneManager.SceneType;
 
@@ -40,7 +41,18 @@ public class GameScene extends BaseScene {
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_OBSTACLE1 = "obstacle1";
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_GROUND1 = "ground1";
 	
-    @Override
+	
+    public GameScene(String level) {
+    	this.resourcesManager = ResourceManager.getInstance();
+    	this.engine = resourcesManager.engine;
+        this.activity = resourcesManager.activity;
+        this.vbom = resourcesManager.vbom;
+        this.camera = resourcesManager.camera;
+        createScene();
+		loadLevel(level);
+	}
+
+	@Override
     public void createScene()
     {
         createBackground();
@@ -68,7 +80,7 @@ public class GameScene extends BaseScene {
     }
     
     private void createBackground() {
-    	setBackground(new Background(Color.GREEN));
+    	setBackground(new Background(Color.BLUE));
     }
     
     private void createHUD() {
@@ -131,4 +143,8 @@ public class GameScene extends BaseScene {
 		
 		levelLoader.loadLevelFromAsset(activity.getAssets(), "level/" + levelID + ".xml");
 	}
+    
+//    public void setLevel(String level) {
+//    	this.level = level + ".xml";
+//    }
 }
