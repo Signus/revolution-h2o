@@ -1,14 +1,14 @@
-
 /*
- * Resource Manager Class
- * responsible for loading and unloading resources a current scene needs. 
+ * Authors: Chris Card, Tony Nguyen, Gurpreet Nanda, Dylan Chau, Dustin Liang, Maria Deslis
+ * Date: 05/22/13
+ * Description: Resource Manager Class
+ * 				responsible for loading and unloading resources a current scene needs. 
  */
 
 package csci307.theGivingChild.CleanWaterGame.manager;
 
 import org.andengine.engine.Engine;
 import org.andengine.engine.camera.BoundCamera;
-import org.andengine.engine.camera.Camera;
 import org.andengine.opengl.font.Font;
 import org.andengine.opengl.font.FontFactory;
 import org.andengine.opengl.texture.ITexture;
@@ -20,6 +20,7 @@ import org.andengine.opengl.texture.atlas.bitmap.source.IBitmapTextureAtlasSourc
 import org.andengine.opengl.texture.atlas.buildable.builder.BlackPawnTextureAtlasBuilder;
 import org.andengine.opengl.texture.atlas.buildable.builder.ITextureAtlasBuilder.TextureAtlasBuilderException;
 import org.andengine.opengl.texture.region.ITextureRegion;
+import org.andengine.opengl.texture.region.ITiledTextureRegion;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
 import org.andengine.util.debug.Debug;
 
@@ -44,13 +45,15 @@ public class ResourceManager {
 	
 	//menu textures
 	public ITextureRegion menu_background_TR;
-	public ITextureRegion play_button_TR, options_button_TR, scene_one_TR;
+	public ITextureRegion scene_one_TR;
 	
 	//game textures
+	public ITiledTextureRegion player_TR;
 	
 	//texture atlas
 	private BitmapTextureAtlas splashTA;
 	private BuildableBitmapTextureAtlas menuTA;
+	private BitmapTextureAtlas gameTA;
 	
 	
 	
@@ -62,7 +65,9 @@ public class ResourceManager {
 	
 
 	public void loadGameResources() {
-		
+		//loadGameGraphics();
+		//loadGameFonts();
+		//loadGameAudio();
 	}
 	
 	public void loadMenuGraphics() {

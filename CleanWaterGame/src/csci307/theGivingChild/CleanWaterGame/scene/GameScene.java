@@ -6,6 +6,7 @@ import org.andengine.engine.camera.hud.HUD;
 import org.andengine.entity.IEntity;
 import org.andengine.entity.primitive.Rectangle;
 import org.andengine.entity.scene.background.Background;
+import org.andengine.entity.sprite.Sprite;
 import org.andengine.extension.physics.box2d.FixedStepPhysicsWorld;
 import org.andengine.extension.physics.box2d.PhysicsConnector;
 import org.andengine.extension.physics.box2d.PhysicsFactory;
@@ -25,6 +26,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import csci307.theGivingChild.CleanWaterGame.manager.ResourceManager;
 import csci307.theGivingChild.CleanWaterGame.manager.SceneManager;
 import csci307.theGivingChild.CleanWaterGame.manager.SceneManager.SceneType;
+import csci307.theGivingChild.CleanWaterGame.objects.Player;
 
 public class GameScene extends BaseScene {
 	
@@ -40,7 +42,9 @@ public class GameScene extends BaseScene {
 	
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_OBSTACLE1 = "obstacle1";
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_GROUND1 = "ground1";
+	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_PLAYER = "player";
 	
+	private Player player;	
 	
     public GameScene(String level) {
     	this.resourcesManager = ResourceManager.getInstance();
@@ -130,6 +134,15 @@ public class GameScene extends BaseScene {
 				} else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_GROUND1)) {
 					levelObject = new Rectangle(x, y, width, height, vbom);
 					levelObject.setColor(Color.RED);
+				} else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_PLAYER)) {
+					player = new Player(x, y, vbom, camera, physicsWorld) {
+						@Override
+						public void onDie() {
+							//do something, like show game over
+						}
+					};
+					
+					return player;
 				} else {
 					throw new IllegalArgumentException();
 				}
@@ -144,7 +157,5 @@ public class GameScene extends BaseScene {
 		levelLoader.loadLevelFromAsset(activity.getAssets(), "level/" + levelID + ".xml");
 	}
     
-//    public void setLevel(String level) {
-//    	this.level = level + ".xml";
-//    }
+    
 }

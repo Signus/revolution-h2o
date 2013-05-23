@@ -1,3 +1,10 @@
+/*
+ * Authors: Chris Card, Tony Nguyen, Gurpreet Nanda, Dylan Chau, Dustin Liang, Maria Deslis
+ * Date: 05/22/13
+ * Description: Level selection for act 1. This scene will display the levels that the user can choose to play. 
+ */
+
+
 package csci307.theGivingChild.CleanWaterGame.scene;
 
 import org.andengine.entity.scene.background.Background;
@@ -27,6 +34,7 @@ public class LevelSelectScene extends BaseScene implements IOnMenuItemClickListe
 				SceneManager.getInstance().loadGameScene(engine, "act1scene1");
 				return true;
 			case SCENE_TWO:
+				SceneManager.getInstance().loadGameScene(engine, "act2scene2");
 				return true;
 			default:
 				return false;
@@ -61,25 +69,17 @@ public class LevelSelectScene extends BaseScene implements IOnMenuItemClickListe
 		attachChild(new Text(400, camera.getHeight() - 40, resourcesManager.font, "Act I", vbom));
 	}
 	
+	//create buttons here
 	private void createMenuChildScene() {
 		menuChildScene = new MenuScene(camera);
 		menuChildScene.setPosition(0, 0);
 		
-//		final IMenuItem playMenuItem = new ScaleMenuItemDecorator(new SpriteMenuItem(MENU_PLAY, resourcesManager.play_button_TR, vbom), 1.2f, 1);
-//		final IMenuItem optionsMenuItem = new ScaleMenuItemDecorator(new SpriteMenuItem(MENU_OPTIONS, resourcesManager.options_button_TR, vbom), 1.2f, 1);
-		
 		final IMenuItem levelOneMenuItem = new ScaleMenuItemDecorator(new SpriteMenuItem(SCENE_ONE, resourcesManager.scene_one_TR, vbom), 1.2f, 1);
-		
-//		menuChildScene.addMenuItem(playMenuItem);
-//		menuChildScene.addMenuItem(optionsMenuItem);
-		
+				
 		menuChildScene.addMenuItem(levelOneMenuItem);
 		
 		menuChildScene.buildAnimations();
 		menuChildScene.setBackgroundEnabled(false);
-		
-//		playMenuItem.setPosition(playMenuItem.getX(), playMenuItem.getY() + 10);
-//		optionsMenuItem.setPosition(optionsMenuItem.getX(), optionsMenuItem.getY() + 50);
 		
 		levelOneMenuItem.setPosition(100, 100);
 		
