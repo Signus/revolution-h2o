@@ -7,6 +7,9 @@
 
 package csci307.theGivingChild.CleanWaterGame.manager;
 
+import android.app.Activity;
+import android.graphics.Color;
+import csci307.theGivingChild.CleanWaterGame.ActOneActivity;
 import org.andengine.engine.Engine;
 import org.andengine.engine.camera.BoundCamera;
 import org.andengine.opengl.font.Font;
@@ -22,19 +25,19 @@ import org.andengine.opengl.texture.atlas.buildable.builder.ITextureAtlasBuilder
 import org.andengine.opengl.texture.region.ITextureRegion;
 import org.andengine.opengl.texture.region.ITiledTextureRegion;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
+import org.andengine.ui.activity.BaseGameActivity;
+import org.andengine.ui.activity.SimpleBaseGameActivity;
 import org.andengine.util.debug.Debug;
-
-import android.graphics.Color;
-import csci307.theGivingChild.CleanWaterGame.ActOneActivity;
 
 public class ResourceManager {
 	private static final ResourceManager INSTANCE = new ResourceManager();
 	
 	public Engine engine;
-	public ActOneActivity activity;
+	public BaseGameActivity activity;
 	public BoundCamera camera;
 	public VertexBufferObjectManager vbom;
 	public Font font;
+    private BitmapTextureAtlas spriteAtlas;
 	
 	//------------------------------------------------
 	//TEXTURE & TEXTURE REGIONS
@@ -65,7 +68,7 @@ public class ResourceManager {
 	
 
 	public void loadGameResources() {
-		//loadGameGraphics();
+		loadGameGraphics();
 		//loadGameFonts();
 		//loadGameAudio();
 	}
@@ -104,8 +107,10 @@ public class ResourceManager {
 	}
 	
 	private void loadGameGraphics() {
-		
-	}
+        spriteAtlas = new BitmapTextureAtlas(activity.getTextureManager(), 1024, 128, TextureOptions.BILINEAR);
+        player_TR = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(spriteAtlas, activity, "nyan_cat_sprite.png", 0, 0, 6, 1);
+
+    }
 	
 	public void unloadGameTextures() {
 		
@@ -120,7 +125,7 @@ public class ResourceManager {
 	//	splash_icon_TR = null;
 	}
 	
-	public static void prepareManager(Engine engine, ActOneActivity activity, BoundCamera camera, VertexBufferObjectManager vbom) {
+	public static void prepareManager(Engine engine, BaseGameActivity activity, BoundCamera camera, VertexBufferObjectManager vbom) {
 		getInstance().engine = engine;
 		getInstance().activity = activity;
 		getInstance().camera = camera;
