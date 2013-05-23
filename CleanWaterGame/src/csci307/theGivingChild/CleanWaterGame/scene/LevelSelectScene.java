@@ -7,12 +7,15 @@
 
 package csci307.theGivingChild.CleanWaterGame.scene;
 
+import org.andengine.entity.scene.background.AutoParallaxBackground;
 import org.andengine.entity.scene.background.Background;
+import org.andengine.entity.scene.background.ParallaxBackground.ParallaxEntity;
 import org.andengine.entity.scene.menu.MenuScene;
 import org.andengine.entity.scene.menu.MenuScene.IOnMenuItemClickListener;
 import org.andengine.entity.scene.menu.item.IMenuItem;
 import org.andengine.entity.scene.menu.item.SpriteMenuItem;
 import org.andengine.entity.scene.menu.item.decorator.ScaleMenuItemDecorator;
+import org.andengine.entity.sprite.Sprite;
 import org.andengine.entity.text.Text;
 import org.andengine.util.adt.color.Color;
 
@@ -65,7 +68,10 @@ public class LevelSelectScene extends BaseScene implements IOnMenuItemClickListe
 	}
 	
 	private void createBackground() {
-		setBackground(new Background(Color.BLACK));
+//		setBackground(new Background(Color.BLACK));
+		AutoParallaxBackground autoParallaxBackground = new AutoParallaxBackground(0, 0, 0, 5);
+		autoParallaxBackground.attachParallaxEntity(new ParallaxEntity(10.0f, new Sprite(.5f*camera.getWidth() , .5f*camera.getHeight(), resourcesManager.menu_background_TR, vbom)));
+		setBackground(autoParallaxBackground);
 		attachChild(new Text(400, camera.getHeight() - 40, resourcesManager.font, "Act I", vbom));		
 	}
 	
