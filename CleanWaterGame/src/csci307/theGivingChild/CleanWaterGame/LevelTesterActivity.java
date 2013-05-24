@@ -61,6 +61,7 @@ public class LevelTesterActivity extends SimpleBaseGameActivity implements IOnSc
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_OBSTACLE1 = "obstacle1";
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_GROUND1 = "ground1";
     private static final double TAP_THRESHOLD = 30;
+    private static final double SWIPE_THRESHOLD = 80;
 
     private BitmapTextureAtlas spriteAtlas;
 	private TiledTextureRegion nyanRegion;
@@ -87,7 +88,7 @@ public class LevelTesterActivity extends SimpleBaseGameActivity implements IOnSc
     private float lastY;
     private Player player;
 	
-	private boolean firstTouch = false;
+	private boolean actionPerformed = false;
 	
 	@Override
 	public EngineOptions onCreateEngineOptions() {
@@ -186,27 +187,28 @@ public class LevelTesterActivity extends SimpleBaseGameActivity implements IOnSc
 	public boolean onSceneTouchEvent(Scene pScene, TouchEvent pSceneTouchEvent) {
 		if (this.physicsWorld != null) {
             if (player.isNotPerformingAction()) {
+                float difX = pSceneTouchEvent.getX() - lastX;
+                float difY = pSceneTouchEvent.getY() - lastY;
+                double moveDistance =  Math.sqrt(difX * difX + difY * difY);
+
                 switch (pSceneTouchEvent.getAction()) {
                     case TouchEvent.ACTION_DOWN:
                         lastX = pSceneTouchEvent.getX();
                         lastY = pSceneTouchEvent.getY();
+                        actionPerformed = false;
                         break;
                     case TouchEvent.ACTION_MOVE:
+                        if (!actionPerformed && moveDistance > SWIPE_THRESHOLD) {
+                            performAction(difX, difY, moveDistance);
+                            actionPerformed = true;
+//                            lastX = pSceneTouchEvent.getX();
+//                            lastY = pSceneTouchEvent.getY();
+                        }
                         break;
                     case TouchEvent.ACTION_UP:
-                        float difX = pSceneTouchEvent.getX() - lastX;
-                        float difY = pSceneTouchEvent.getY() - lastY;
-
-                        if (difX > 0 && difX > Math.abs(difY)) {
-                            player.dash();
-
-                        }
-                        if (difY < 0 && Math.abs(difY) > Math.abs(difX)) {
-                            player.duck();
-                        }
-                        if (difY > 0 && Math.abs(difY) > Math.abs(difX)|| Math.sqrt(difX * difX + difY * difY) <= TAP_THRESHOLD) {
-                            this.jumpSound.play();
-                            player.jump();
+                        if (!actionPerformed) {
+                            performAction(difX, difY, moveDistance);
+                            actionPerformed = true;
                         }
                         break;
                 }
@@ -224,7 +226,20 @@ public class LevelTesterActivity extends SimpleBaseGameActivity implements IOnSc
         }
         return false;
 	}
-	
+
+    private void performAction(float difX, float difY, double moveDistance) {
+        if (difX > 0 && difX > Math.abs(difY)) {
+            player.dash();
+        }
+        if (difY < 0 && Math.abs(difY) > Math.abs(difX)) {
+            player.duck();
+        }
+        if (difY > 0 && Math.abs(difY) > Math.abs(difX)|| moveDistance <= TAP_THRESHOLD) {
+            this.jumpSound.play();
+            player.jump();
+        }
+    }
+
 	private void loadLevel(String levelID) {
 		final SimpleLevelLoader levelLoader = new SimpleLevelLoader(this.getVertexBufferObjectManager());
 		
