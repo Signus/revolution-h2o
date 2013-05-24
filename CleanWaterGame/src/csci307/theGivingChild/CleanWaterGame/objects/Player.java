@@ -20,7 +20,7 @@ public class Player extends AnimatedSprite {
     private float runSpeed = 5;
 
     private static final int MAX_SPRINT = 100;
-    private static final float SPRINT_AUGMENT = 3;
+    private static final float SPRINT_AUGMENT = 4;
     private int sprintTime = MAX_SPRINT;
     private boolean isSprinting = false;
 
@@ -103,7 +103,7 @@ public class Player extends AnimatedSprite {
     // Not fully correct
     public boolean isNotPerformingAction() {
         // If jumping...
-        if (body.getLinearVelocity().y != 0) return false;
+        if (Math.abs(body.getLinearVelocity().y) != 0) return false;
 
         return true;
     }

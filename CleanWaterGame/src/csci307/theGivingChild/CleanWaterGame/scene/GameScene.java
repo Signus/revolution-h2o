@@ -43,7 +43,7 @@ import csci307.theGivingChild.CleanWaterGame.objects.Player;
 
 public class GameScene extends BaseScene implements IOnSceneTouchListener {
 
-    private static final double TAP_THRESHOLD = 30;
+    private static final double TAP_THRESHOLD = 35;
     private static final double SWIPE_THRESHOLD = 80;
     private HUD gameHUD;
 	private PhysicsWorld physicsWorld;
