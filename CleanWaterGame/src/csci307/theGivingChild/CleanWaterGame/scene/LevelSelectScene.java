@@ -58,7 +58,7 @@ public class LevelSelectScene extends BaseScene implements IOnMenuItemClickListe
 
 	@Override
 	public SceneType getSceneType() {
-		return SceneType.SCENE_MENU;
+		return SceneType.SCENE_LEVEL_SELECT;
 	}
 
 	@Override

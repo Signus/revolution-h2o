@@ -56,7 +56,7 @@ public class GameLauncher extends Activity {
     */
     public void openMiniGames(View v)
     {
-        Intent play = new Intent(this, MiniGameSelection.class);
+        Intent play = new Intent(this, ActOneActivity.class);
         startActivity(play);
     }
 
