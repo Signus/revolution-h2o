@@ -16,7 +16,11 @@
 	<entity x="3615" y="70" width="150" height="140" type="hill"/>
 	<entity x="4040" y="180" width="400" height="20" type="floatingPlatform"/>
 	<entity x="4540" y="180" width="300" height="20" type="floatingPlatform"/>
-	<entity x="5040" y="50" width="300" height="100" type="ground"/>
+	<entity x="5040" y="50" width="300" height="100" type="hill"/>
 	<entity x="5390" y="10" width="400" height="20" type="ground"/>
 	<entity x="5890" y="25" width="600" height="50" type="ground"/>
+	<entity x="6515" y="25" width="1050" height="50" type="ground"/>
+	<entity x="5990" y="45" width="200" height="90" type="hill"/>
+	<entity x="6500" y="170" width="600" height="20" type="floatingPlatform"/>
+	<entity x="7100" y="45" width="200" height="90" type="hill"/>
 </level>
