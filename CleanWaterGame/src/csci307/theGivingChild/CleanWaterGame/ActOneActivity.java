@@ -2,6 +2,10 @@ package csci307.theGivingChild.CleanWaterGame;
 
 import java.io.IOException;
 
+import org.andengine.audio.music.Music;
+import org.andengine.audio.music.MusicFactory;
+import org.andengine.audio.sound.Sound;
+import org.andengine.audio.sound.SoundFactory;
 import org.andengine.engine.camera.BoundCamera;
 import org.andengine.engine.handler.timer.ITimerCallback;
 import org.andengine.engine.handler.timer.TimerHandler;
@@ -21,12 +25,16 @@ public class ActOneActivity extends BaseGameActivity {
 	
 	private BoundCamera camera;
 	private ResourceManager resourceManager;
+	private static Sound jumpSound;
+	private static Music backgroundMusic;
 	
 	@Override
 	public EngineOptions onCreateEngineOptions() {
 		camera = new BoundCamera(0, 0, 800, 480);
 		EngineOptions engineOptions = new EngineOptions(true, ScreenOrientation.LANDSCAPE_FIXED, new FillResolutionPolicy(), this.camera);
 		engineOptions.getRenderOptions().setDithering(true);
+		engineOptions.getAudioOptions().setNeedsMusic(true);
+		engineOptions.getAudioOptions().setNeedsSound(true);
 		return engineOptions;
 	}
 
@@ -35,12 +43,14 @@ public class ActOneActivity extends BaseGameActivity {
 		ResourceManager.prepareManager(mEngine, this, camera, getVertexBufferObjectManager());
 		resourceManager = ResourceManager.getInstance();
 		pOnCreateResourcesCallback.onCreateResourcesFinished();
+
 	}
 
 	@Override
 	public void onCreateScene(OnCreateSceneCallback pOnCreateSceneCallback)	throws IOException {
 //		SceneManager.getInstance().createSplashScene(pOnCreateSceneCallback);
-		SceneManager.getInstance().createMenuScene(pOnCreateSceneCallback);
+//		SceneManager.getInstance().createLevelSelectScene(pOnCreateSceneCallback);
+		SceneManager.getInstance().createActSelectScene(pOnCreateSceneCallback);
 		
 	}
 

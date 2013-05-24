@@ -104,11 +104,11 @@ public class LevelTesterActivity extends SimpleBaseGameActivity implements IOnSc
 	@Override
 	protected void onCreateResources() {
 		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/");
-		spriteAtlas = new BitmapTextureAtlas(this.getTextureManager(), 1024, 128, TextureOptions.BILINEAR);
+		spriteAtlas = new BitmapTextureAtlas(this.getTextureManager(), 1024, 128, TextureOptions.DEFAULT);
 		nyanRegion = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(spriteAtlas, this, "player_run_sprite.png", 0, 0, 6, 1);
 		spriteAtlas.load();
 		
-		bgAtlas = new BitmapTextureAtlas(this.getTextureManager(), 2048, 2048, TextureOptions.BILINEAR);
+		bgAtlas = new BitmapTextureAtlas(this.getTextureManager(), 2048, 2048, TextureOptions.DEFAULT);
 		backGroundRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(bgAtlas, this, "background.png", 0, 0);
 		midGroundRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(bgAtlas, this, "clouds.png", 0, 800);
 		frontGroundRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(bgAtlas, this, "ground.png", 0, 1179);
@@ -154,7 +154,7 @@ public class LevelTesterActivity extends SimpleBaseGameActivity implements IOnSc
 		scene.registerUpdateHandler(physicsWorld);
 		
 		AutoParallaxBackground autoParallaxBackground = new AutoParallaxBackground(0, 0, 0, 5);
-		autoParallaxBackground.attachParallaxEntity(new ParallaxEntity(0.0f, new Sprite(.5f*CAMERA_WIDTH , .5f*CAMERA_HEIGHT, this.backGroundRegion, this.getVertexBufferObjectManager())));
+		autoParallaxBackground.attachParallaxEntity(new ParallaxEntity(-20.0f, new Sprite(.5f*CAMERA_WIDTH , .5f*CAMERA_HEIGHT, this.backGroundRegion, this.getVertexBufferObjectManager())));
 		autoParallaxBackground.attachParallaxEntity(new ParallaxEntity(-20.0f, new Sprite(.5f*CAMERA_WIDTH, .5f*CAMERA_HEIGHT+80, this.midGroundRegion, this.getVertexBufferObjectManager())));
 		autoParallaxBackground.attachParallaxEntity(new ParallaxEntity(-100.0f, new Sprite(.5f*CAMERA_WIDTH, .5f*this.frontGroundRegion.getHeight(), this.frontGroundRegion, this.getVertexBufferObjectManager())));
 		scene.setBackground(autoParallaxBackground);

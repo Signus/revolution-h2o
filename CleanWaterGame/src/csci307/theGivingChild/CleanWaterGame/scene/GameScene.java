@@ -84,7 +84,8 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener {
         createHUD();
         createPhysics();
         
-        setOnSceneTouchListener(this); 
+        setOnSceneTouchListener(this);
+        this.resourcesManager.backgroundMusic.play();
     }
 
     @Override
@@ -104,6 +105,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener {
     {
         camera.setHUD(null);
         camera.setCenter(400, 240);
+        this.resourcesManager.backgroundMusic.stop();
     }
     
     private void createBackground() {
@@ -217,7 +219,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener {
 
     private void performAction(float difX, float difY, double moveDistance) {
         if (difY > 0 && Math.abs(difY) > Math.abs(difX) || moveDistance <= TAP_THRESHOLD) {
-//            this.jumpSound.play();
+            this.resourcesManager.jumpSound.play();
             player.jump();
         } else if (difX > 0 && difX > Math.abs(difY)) {
             player.dash();
