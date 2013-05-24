@@ -83,7 +83,6 @@ public class Player extends AnimatedSprite {
 				selectedAnimatedSprite.getVertexBufferObjectManager());
 		
 	}
-
     // Not fully correct
     public boolean isNotPerformingAction() {
         // If jumping...
