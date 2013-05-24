@@ -19,7 +19,6 @@ import org.andengine.entity.primitive.Rectangle;
 import org.andengine.entity.scene.IOnSceneTouchListener;
 import org.andengine.entity.scene.Scene;
 import org.andengine.entity.scene.background.Background;
-import org.andengine.entity.sprite.Sprite;
 import org.andengine.extension.physics.box2d.FixedStepPhysicsWorld;
 import org.andengine.extension.physics.box2d.PhysicsConnector;
 import org.andengine.extension.physics.box2d.PhysicsFactory;
@@ -201,17 +200,13 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener {
                         break;
                     case TouchEvent.ACTION_MOVE:
                         if (!actionPerformed && moveDistance > SWIPE_THRESHOLD) {
-                            performAction(difX, difY, moveDistance);
+                            performPlayerAction(difX, difY, moveDistance);
                             actionPerformed = true;
-                            // For relative movements rather than absolute movements
-//                            lastX = pSceneTouchEvent.getX();
-//                            lastY = pSceneTouchEvent.getY();
                         }
                         break;
                     case TouchEvent.ACTION_UP:
                         if (!actionPerformed) {
-                            performAction(difX, difY, moveDistance);
-                            actionPerformed = true;
+                            performPlayerAction(difX, difY, moveDistance);
                         }
                         break;
                 }
@@ -221,18 +216,15 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener {
 		return false;
 	}
 
-    private void performAction(float difX, float difY, double moveDistance) {
-        if (difX > 0 && difX > Math.abs(difY)) {
-            player.dash();
-        }
-        if (difY < 0 && Math.abs(difY) > Math.abs(difX)) {
-            player.duck();
-        }
-        if (difY > 0 && Math.abs(difY) > Math.abs(difX)|| moveDistance <= TAP_THRESHOLD) {
+    private void performPlayerAction(float difX, float difY, double moveDistance) {
+        if (difY > 0 && Math.abs(difY) > Math.abs(difX) || moveDistance <= TAP_THRESHOLD) {
             this.resourcesManager.jumpSound.play();
             player.jump();
+        } else if (difX > 0 && difX > Math.abs(difY)) {
+            player.dash();
+        } else if (difY < 0 && Math.abs(difY) > Math.abs(difX)) {
+            player.duck();
         }
     }
-
 
 }

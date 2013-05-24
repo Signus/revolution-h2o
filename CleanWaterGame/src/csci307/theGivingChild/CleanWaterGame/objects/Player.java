@@ -19,6 +19,11 @@ public class Player extends AnimatedSprite {
 	private boolean canRun = false;
     private float runSpeed = 5;
 
+    private static final int MAX_SPRINT = 100;
+    private static final float SPRINT_AUGMENT = 3;
+    private int sprintTime = MAX_SPRINT;
+    private boolean isSprinting = false;
+
     public Player(float pX, float pY, VertexBufferObjectManager vbom, Camera camera, PhysicsWorld physicsWorld) {
 		super(pX, pY, ResourceManager.getInstance().player_TR, vbom);
 		createPhysics(camera, physicsWorld);
@@ -26,7 +31,8 @@ public class Player extends AnimatedSprite {
 	}
 	
 	private void createPhysics(final Camera camera, PhysicsWorld physicsWorld) {
-		body = PhysicsFactory.createBoxBody(physicsWorld, this, BodyType.DynamicBody, PhysicsFactory.createFixtureDef(0, 0, 0));
+		body = PhysicsFactory.createBoxBody(physicsWorld, 36, 50, 65, 100, BodyType.DynamicBody, PhysicsFactory.createFixtureDef(0, 0, 0));
+		//body = PhysicsFactory.createBoxBody(physicsWorld, this, BodyType.DynamicBody, PhysicsFactory.createFixtureDef(0, 0, 0));
 		body.setUserData("player");
 		body.setFixedRotation(true);
 		
@@ -46,6 +52,14 @@ public class Player extends AnimatedSprite {
 				if (canRun)
 				{
 					body.setLinearVelocity(new Vector2(runSpeed, body.getLinearVelocity().y));
+                    if (isSprinting) {
+                        sprintTime--;
+                        if (sprintTime <= 0) {
+                            sprintTime = MAX_SPRINT;
+                            isSprinting = false;
+                            runSpeed -= SPRINT_AUGMENT;
+                        }
+                    }
 				}
 			}
 
@@ -66,7 +80,9 @@ public class Player extends AnimatedSprite {
 	}
 
 	public void dash() {
-
+        if (isSprinting) return;
+        isSprinting = true;
+        runSpeed += SPRINT_AUGMENT;
 	}
 
 	public void duck() {
@@ -83,10 +99,11 @@ public class Player extends AnimatedSprite {
 				selectedAnimatedSprite.getVertexBufferObjectManager());
 		
 	}
+
     // Not fully correct
     public boolean isNotPerformingAction() {
         // If jumping...
-        if (!(body.getLinearVelocity().y == 0)) return false;
+        if (body.getLinearVelocity().y != 0) return false;
 
         return true;
     }
