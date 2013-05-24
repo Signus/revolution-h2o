@@ -43,8 +43,9 @@ import csci307.theGivingChild.CleanWaterGame.manager.SceneManager.SceneType;
 import csci307.theGivingChild.CleanWaterGame.objects.Player;
 
 public class GameScene extends BaseScene implements IOnSceneTouchListener {
-	
-	private HUD gameHUD;
+
+    private static final double TAP_THRESHOLD = 30;
+    private HUD gameHUD;
 	private PhysicsWorld physicsWorld;
 	
 	private float lastX;
@@ -183,31 +184,34 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener {
 	@Override
 	public boolean onSceneTouchEvent(Scene pScene, TouchEvent pSceneTouchEvent) {
 		if (this.physicsWorld != null) {
-            switch (pSceneTouchEvent.getAction()) {
-                case TouchEvent.ACTION_DOWN:
-                    lastX = pSceneTouchEvent.getX();
-                    lastY = pSceneTouchEvent.getY();
-                    break;
-                case TouchEvent.ACTION_MOVE:
-                    break;
-                case TouchEvent.ACTION_UP:
-                    float difX = pSceneTouchEvent.getX() - lastX;
-                    float difY = pSceneTouchEvent.getY() - lastY;
+            if (player.isNotPerformingAction()) {
+                switch (pSceneTouchEvent.getAction()) {
+                    case TouchEvent.ACTION_DOWN:
+                        lastX = pSceneTouchEvent.getX();
+                        lastY = pSceneTouchEvent.getY();
+                        break;
+                    case TouchEvent.ACTION_MOVE:
+                        break;
+                    case TouchEvent.ACTION_UP:
+                        float difX = pSceneTouchEvent.getX() - lastX;
+                        float difY = pSceneTouchEvent.getY() - lastY;
 
-                    if (difX > 0 && difX > Math.abs(difY)) {
-                        // do something with image and velocity (sprint)
+                        if (difX > 0 && difX > Math.abs(difY)) {
+                            // do something with image and velocity (sprint)
+                            player.dash();
+                        }
+                        if (difY < 0 && Math.abs(difY) > Math.abs(difX)) {
+                            // do something with image (slide)
+                            player.duck();
+                        }
+                        if (difY > 0 && Math.abs(difY) > Math.abs(difX) || Math.sqrt(difX * difX + difY * difY) <= TAP_THRESHOLD) {
+                            // do something with image (jump)
+                        //	this.jumpSound.play();
+                            player.jump();
+                        }
 
-                    }
-                    if (difY < 0 && Math.abs(difY) > Math.abs(difX)) {
-                        // do something with image (slide)
-                    }
-                    if (difY > 0 && Math.abs(difY) > Math.abs(difX)) {
-                        // do something with image (jump)
-                    //	this.jumpSound.play();
-                        player.jump();
-                    }
-
-                    break;
+                        break;
+                }
             }
             return true;
         }
