@@ -81,13 +81,16 @@ public class LevelSelectScene extends BaseScene implements IOnMenuItemClickListe
 		menuChildScene.setPosition(0, 0);
 		
 		final IMenuItem levelOneMenuItem = new ScaleMenuItemDecorator(new SpriteMenuItem(SCENE_ONE, resourcesManager.scene_one_TR, vbom), 1.2f, 1);
+		final IMenuItem levelTwoMenuItem = new ScaleMenuItemDecorator(new SpriteMenuItem(SCENE_ONE, resourcesManager.scene_one_TR, vbom), 1.2f, 1);
 				
 		menuChildScene.addMenuItem(levelOneMenuItem);
+		menuChildScene.addMenuItem(levelTwoMenuItem);
 		
 		menuChildScene.buildAnimations();
 		menuChildScene.setBackgroundEnabled(false);
 		
 		levelOneMenuItem.setPosition(100, 100);
+		levelTwoMenuItem.setPosition(300, 100);
 		
 		
 		menuChildScene.setOnMenuItemClickListener(this);
