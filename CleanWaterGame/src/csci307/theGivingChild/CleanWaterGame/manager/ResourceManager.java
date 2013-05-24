@@ -7,9 +7,12 @@
 
 package csci307.theGivingChild.CleanWaterGame.manager;
 
-import android.app.Activity;
-import android.graphics.Color;
-import csci307.theGivingChild.CleanWaterGame.ActOneActivity;
+import java.io.IOException;
+
+import org.andengine.audio.music.Music;
+import org.andengine.audio.music.MusicFactory;
+import org.andengine.audio.sound.Sound;
+import org.andengine.audio.sound.SoundFactory;
 import org.andengine.engine.Engine;
 import org.andengine.engine.camera.BoundCamera;
 import org.andengine.opengl.font.Font;
@@ -26,8 +29,9 @@ import org.andengine.opengl.texture.region.ITextureRegion;
 import org.andengine.opengl.texture.region.ITiledTextureRegion;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
 import org.andengine.ui.activity.BaseGameActivity;
-import org.andengine.ui.activity.SimpleBaseGameActivity;
 import org.andengine.util.debug.Debug;
+
+import android.graphics.Color;
 
 public class ResourceManager {
 	private static final ResourceManager INSTANCE = new ResourceManager();
@@ -49,6 +53,7 @@ public class ResourceManager {
 	//menu textures
 	public ITextureRegion menu_background_TR;
 	public ITextureRegion scene_one_TR;
+	public ITextureRegion act_one_TR;
 	
 	//game textures
 	public ITiledTextureRegion player_TR;
@@ -58,7 +63,11 @@ public class ResourceManager {
 	private BuildableBitmapTextureAtlas menuTA;
 	private BuildableBitmapTextureAtlas gameTA;
 	
+	//sounds
+	public static Sound jumpSound;
 	
+	//music
+	public static Music backgroundMusic;
 	
 	public void loadMenuResources() {
 		loadMenuGraphics();
@@ -70,7 +79,7 @@ public class ResourceManager {
 	public void loadGameResources() {
 		loadGameGraphics();
 		//loadGameFonts();
-		//loadGameAudio();
+		loadGameAudio();
 	}
 	
 	public void loadMenuGraphics() {
@@ -80,7 +89,7 @@ public class ResourceManager {
 //		options_button_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(menuTA, activity, "options.png");
 		scene_one_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(menuTA, activity, "button.png");
 		menu_background_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(menuTA, activity, "parallax_background_layer_back.png");
-		
+		act_one_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(menuTA, activity, "temp_button.png");
 		
 		try {
 			this.menuTA.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
@@ -122,6 +131,27 @@ public class ResourceManager {
         }
         this.gameTA.load();
     }
+	
+	private void loadGameAudio() {
+		//SOUND
+		SoundFactory.setAssetBasePath("sfx/");
+		try {
+			this.jumpSound = SoundFactory.createSoundFromAsset(activity.getSoundManager(),activity, "jump.mp3");
+			this.jumpSound.setVolume(.5f);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	
+		//MUSIC
+		MusicFactory.setAssetBasePath("sfx/");
+		try {
+			this.backgroundMusic = MusicFactory.createMusicFromAsset(activity.getMusicManager(),activity, "nyanmusic.mp3");
+			this.backgroundMusic.setLooping(true);
+			this.backgroundMusic.setVolume(.7f);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	public void unloadGameTextures() {
 		
