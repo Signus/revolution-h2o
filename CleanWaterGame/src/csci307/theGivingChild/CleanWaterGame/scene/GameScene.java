@@ -43,8 +43,9 @@ import csci307.theGivingChild.CleanWaterGame.manager.SceneManager.SceneType;
 import csci307.theGivingChild.CleanWaterGame.objects.Player;
 
 public class GameScene extends BaseScene implements IOnSceneTouchListener {
-	
-	private HUD gameHUD;
+
+    private static final double TAP_THRESHOLD = 30;
+    private HUD gameHUD;
 	private PhysicsWorld physicsWorld;
 	
 	private float lastX;
@@ -201,7 +202,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener {
                     if (difY < 0 && Math.abs(difY) > Math.abs(difX)) {
                         // do something with image (slide)
                     }
-                    if (difY > 0 && Math.abs(difY) > Math.abs(difX)) {
+                    if (difY > 0 && Math.abs(difY) > Math.abs(difX) || Math.sqrt(difX * difX + difY * difY) <= TAP_THRESHOLD) {
                         // do something with image (jump)
                     //	this.jumpSound.play();
                         player.jump();

@@ -60,8 +60,9 @@ public class LevelTesterActivity extends SimpleBaseGameActivity implements IOnSc
 	
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_OBSTACLE1 = "obstacle1";
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_GROUND1 = "ground1";
-	
-	private BitmapTextureAtlas spriteAtlas;
+    private static final double TAP_THRESHOLD = 30;
+
+    private BitmapTextureAtlas spriteAtlas;
 	private TiledTextureRegion nyanRegion;
 	
 	private BitmapTextureAtlas bgAtlas;
@@ -202,7 +203,7 @@ public class LevelTesterActivity extends SimpleBaseGameActivity implements IOnSc
                     if (difY < 0 && Math.abs(difY) > Math.abs(difX)) {
                         // do something with image (slide)
                     }
-                    if (difY > 0 && Math.abs(difY) > Math.abs(difX)) {
+                    if (difY > 0 && Math.abs(difY) > Math.abs(difX)|| Math.sqrt(difX * difX + difY * difY) <= TAP_THRESHOLD) {
                         // do something with image (jump)
                     	this.jumpSound.play();
                         player.jump();
