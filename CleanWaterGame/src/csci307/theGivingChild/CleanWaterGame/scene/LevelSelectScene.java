@@ -53,7 +53,7 @@ public class LevelSelectScene extends BaseScene implements IOnMenuItemClickListe
 
 	@Override
 	public void onBackKeyPressed() {
-		System.exit(0);		
+		SceneManager.getInstance().loadActSelectScene(engine);	
 	}
 
 	@Override

@@ -104,6 +104,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener {
     {
         camera.setHUD(null);
         camera.setCenter(400, 240);
+        camera.setBounds(0, 0, 800, 480);
         this.resourcesManager.backgroundMusic.stop();
     }
     

@@ -134,14 +134,12 @@ public class SceneManager {
 	}
 	
 	public void loadMenuScene(final Engine mEngine) {
-//		setScene(loadingScene);
 		if (gameScene != null) {
 			gameScene.disposeScene();
+			ResourceManager.getInstance().unloadGameTextures();
 		}
-//		gameScene.disposeScene();
-		ResourceManager.getInstance().unloadGameTextures();
-		mEngine.registerUpdateHandler(new TimerHandler(0.1f, new ITimerCallback() {
-			
+		
+		mEngine.registerUpdateHandler(new TimerHandler(0.1f, new ITimerCallback() {			
 			@Override
 			public void onTimePassed(TimerHandler pTimerHandler) {
 				mEngine.unregisterUpdateHandler(pTimerHandler);
