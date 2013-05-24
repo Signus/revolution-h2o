@@ -158,7 +158,7 @@ public class LevelTesterActivity extends SimpleBaseGameActivity implements IOnSc
 		scene.setBackground(autoParallaxBackground);
 //		scene.setBackground(new Background(Color.BLUE));
 		
-		final float playerX = 20;
+		final float playerX = 100;
 		final float playerY = 85;
 
         ResourceManager.prepareManager(this.getEngine(), this, camera, getVertexBufferObjectManager());
@@ -166,9 +166,10 @@ public class LevelTesterActivity extends SimpleBaseGameActivity implements IOnSc
 		
 		this.player = new Player(playerX, playerY, this.getVertexBufferObjectManager(), camera, physicsWorld);
 		this.player.animate(100);
+		this.player.setRunning();
 		camera.setChaseEntity(player);
-		player.body = PhysicsFactory.createBoxBody(physicsWorld, player, BodyType.DynamicBody, PLAYER_FIX);
-		player.body.setLinearVelocity(new Vector2(5, player.body.getLinearVelocity().y));
+//		player.body = PhysicsFactory.createBoxBody(physicsWorld, player, BodyType.DynamicBody, PLAYER_FIX);
+//		player.body.setLinearVelocity(new Vector2(5, player.body.getLinearVelocity().y));
 		scene.attachChild(player);
 		
 		
