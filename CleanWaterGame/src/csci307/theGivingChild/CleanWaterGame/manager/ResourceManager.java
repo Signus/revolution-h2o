@@ -7,9 +7,12 @@
 
 package csci307.theGivingChild.CleanWaterGame.manager;
 
-import android.app.Activity;
-import android.graphics.Color;
-import csci307.theGivingChild.CleanWaterGame.ActOneActivity;
+import java.io.IOException;
+
+import org.andengine.audio.music.Music;
+import org.andengine.audio.music.MusicFactory;
+import org.andengine.audio.sound.Sound;
+import org.andengine.audio.sound.SoundFactory;
 import org.andengine.engine.Engine;
 import org.andengine.engine.camera.BoundCamera;
 import org.andengine.opengl.font.Font;
@@ -26,8 +29,9 @@ import org.andengine.opengl.texture.region.ITextureRegion;
 import org.andengine.opengl.texture.region.ITiledTextureRegion;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
 import org.andengine.ui.activity.BaseGameActivity;
-import org.andengine.ui.activity.SimpleBaseGameActivity;
 import org.andengine.util.debug.Debug;
+
+import android.graphics.Color;
 
 public class ResourceManager {
 	private static final ResourceManager INSTANCE = new ResourceManager();
@@ -58,7 +62,11 @@ public class ResourceManager {
 	private BuildableBitmapTextureAtlas menuTA;
 	private BuildableBitmapTextureAtlas gameTA;
 	
+	//sounds
+	public static Sound jumpSound;
 	
+	//music
+	public static Music backgroundMusic;
 	
 	public void loadMenuResources() {
 		loadMenuGraphics();
@@ -70,7 +78,7 @@ public class ResourceManager {
 	public void loadGameResources() {
 		loadGameGraphics();
 		//loadGameFonts();
-		//loadGameAudio();
+		loadGameAudio();
 	}
 	
 	public void loadMenuGraphics() {
@@ -122,6 +130,27 @@ public class ResourceManager {
         }
         this.gameTA.load();
     }
+	
+	private void loadGameAudio() {
+		//SOUND
+		SoundFactory.setAssetBasePath("sfx/");
+		try {
+			this.jumpSound = SoundFactory.createSoundFromAsset(activity.getSoundManager(),activity, "jump.mp3");
+			this.jumpSound.setVolume(.5f);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	
+		//MUSIC
+		MusicFactory.setAssetBasePath("sfx/");
+		try {
+			this.backgroundMusic = MusicFactory.createMusicFromAsset(activity.getMusicManager(),activity, "nyanmusic.mp3");
+			this.backgroundMusic.setLooping(true);
+			this.backgroundMusic.setVolume(.7f);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	public void unloadGameTextures() {
 		

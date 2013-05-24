@@ -43,23 +43,13 @@ public class ActOneActivity extends BaseGameActivity {
 		ResourceManager.prepareManager(mEngine, this, camera, getVertexBufferObjectManager());
 		resourceManager = ResourceManager.getInstance();
 		pOnCreateResourcesCallback.onCreateResourcesFinished();
-		
-		//MUSIC
-		MusicFactory.setAssetBasePath("sfx/");
-		try {
-			this.backgroundMusic = MusicFactory.createMusicFromAsset(getMusicManager(),this, "nyanmusic.mp3");
-			this.backgroundMusic.setLooping(true);
-			this.backgroundMusic.setVolume(.7f);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+
 	}
 
 	@Override
 	public void onCreateScene(OnCreateSceneCallback pOnCreateSceneCallback)	throws IOException {
 //		SceneManager.getInstance().createSplashScene(pOnCreateSceneCallback);
 		SceneManager.getInstance().createMenuScene(pOnCreateSceneCallback);
-		
 	}
 
 	@Override
@@ -73,7 +63,6 @@ public class ActOneActivity extends BaseGameActivity {
 //			}
 //		}));
 		pOnPopulateSceneCallback.onPopulateSceneFinished();
-		this.backgroundMusic.play();
 	}    
 	
 	@Override
