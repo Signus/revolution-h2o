@@ -122,7 +122,7 @@ public class ResourceManager {
 //        this.player_TR = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(spriteAtlas, activity, "nyan_cat_sprite.png", 0, 0, 6, 1);
 
         this.gameTA = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 128, TextureOptions.BILINEAR);
-        this.player_TR = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(gameTA, activity, "player_run_sprite.png", 6, 1);
+        this.player_TR = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(gameTA, activity, "player_run_sprite_2.png", 6, 1);
         
         try {
         	this.gameTA.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 1));
