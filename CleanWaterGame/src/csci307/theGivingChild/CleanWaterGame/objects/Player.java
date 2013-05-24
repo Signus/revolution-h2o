@@ -75,5 +75,12 @@ public class Player extends AnimatedSprite {
 	public void onDie() {
 
     }
+	
+	public void setAnimation(AnimatedSprite selectedAnimatedSprite) {
+		AnimatedSprite sprite = new AnimatedSprite(selectedAnimatedSprite.getX(), selectedAnimatedSprite.getY(),
+				selectedAnimatedSprite.getTiledTextureRegion().deepCopy(),
+				selectedAnimatedSprite.getVertexBufferObjectManager());
+		
+	}
 
 }

@@ -49,6 +49,7 @@ public class ResourceManager {
 	//menu textures
 	public ITextureRegion menu_background_TR;
 	public ITextureRegion scene_one_TR;
+	public ITextureRegion act_one_TR;
 	
 	//game textures
 	public ITiledTextureRegion player_TR;
@@ -80,7 +81,7 @@ public class ResourceManager {
 //		options_button_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(menuTA, activity, "options.png");
 		scene_one_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(menuTA, activity, "button.png");
 		menu_background_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(menuTA, activity, "parallax_background_layer_back.png");
-		
+		act_one_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(menuTA, activity, "temp_button.png");
 		
 		try {
 			this.menuTA.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));

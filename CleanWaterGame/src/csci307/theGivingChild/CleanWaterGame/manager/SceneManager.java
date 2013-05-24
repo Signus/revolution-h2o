@@ -11,6 +11,7 @@ import org.andengine.engine.handler.timer.ITimerCallback;
 import org.andengine.engine.handler.timer.TimerHandler;
 import org.andengine.ui.IGameInterface.OnCreateSceneCallback;
 
+import csci307.theGivingChild.CleanWaterGame.scene.ActSelectScene;
 import csci307.theGivingChild.CleanWaterGame.scene.BaseScene;
 import csci307.theGivingChild.CleanWaterGame.scene.GameScene;
 import csci307.theGivingChild.CleanWaterGame.scene.LevelSelectScene;
@@ -21,9 +22,9 @@ public class SceneManager {
 	//SCENES
 	//-------------------------------------
 //	private BaseScene splashScene;
-	private BaseScene menuScene;
+	private BaseScene levelSelectScene;
 	private BaseScene gameScene;
-	private BaseScene loadingScene;
+	private BaseScene actSelectScene;
 	
 	//-------------------------------------
 	//VARIABLES
@@ -37,7 +38,9 @@ public class SceneManager {
 		SCENE_SPLASH, 
 		SCENE_MENU,
 		SCENE_GAME,
-		SCENE_LOADING
+		SCENE_LOADING,
+		SCENE_LEVEL_SELECT,
+		SCENE_ACT_SELECT
 	}
 	
 	
@@ -49,15 +52,15 @@ public class SceneManager {
 	
 	public void setScene(SceneType sceneType) {
 		switch (sceneType) {
-			case SCENE_MENU:
-				setScene(menuScene);
+			case SCENE_ACT_SELECT:
+				setScene(actSelectScene);
 				break;
 			case SCENE_GAME:
 				setScene(gameScene);
 				break;
-//			case SCENE_SPLASH:
-//				setScene(splashScene);
-//				break;
+			case SCENE_LEVEL_SELECT:
+				setScene(levelSelectScene);
+				break;
 //			case SCENE_LOADING:
 //				setScene(loadingScene);
 //				break;
@@ -73,11 +76,18 @@ public class SceneManager {
 //		pOnCreateSceneCallback.onCreateSceneFinished(splashScene);
 //	}
 	
-	public void createMenuScene(OnCreateSceneCallback pOnCreateSceneCallback) {
+	public void createLevelSelectScene() {
 		ResourceManager.getInstance().loadMenuResources();
-		menuScene = new LevelSelectScene();
-		currentScene = menuScene;
-		pOnCreateSceneCallback.onCreateSceneFinished(menuScene);
+		levelSelectScene = new LevelSelectScene();
+		currentScene = levelSelectScene;
+//		pOnCreateSceneCallback.onCreateSceneFinished(levelSelectScene);
+	}
+	
+	public void createActSelectScene(OnCreateSceneCallback pOnCreateSceneCallback) {
+		ResourceManager.getInstance().loadMenuResources();
+		actSelectScene = new ActSelectScene();
+		currentScene = actSelectScene;
+		pOnCreateSceneCallback.onCreateSceneFinished(actSelectScene);
 	}
 //	public void createMenuScene() {
 //		ResourceManager.getInstance().loadMenuResources();
@@ -110,9 +120,25 @@ public class SceneManager {
 		}));
 	}
 	
+	public void loadActSelectScene(final Engine mEngine) {
+		ResourceManager.getInstance().unloadMenuTextures();
+		mEngine.registerUpdateHandler(new TimerHandler(0.1f, new ITimerCallback() {
+			
+			@Override
+			public void onTimePassed(TimerHandler pTimerHandler) {
+				mEngine.unregisterUpdateHandler(pTimerHandler);
+				ResourceManager.getInstance().loadMenuResources();
+				setScene(actSelectScene);
+			}
+		}));
+	}
+	
 	public void loadMenuScene(final Engine mEngine) {
 //		setScene(loadingScene);
-		gameScene.disposeScene();
+		if (gameScene != null) {
+			gameScene.disposeScene();
+		}
+//		gameScene.disposeScene();
 		ResourceManager.getInstance().unloadGameTextures();
 		mEngine.registerUpdateHandler(new TimerHandler(0.1f, new ITimerCallback() {
 			
@@ -120,7 +146,7 @@ public class SceneManager {
 			public void onTimePassed(TimerHandler pTimerHandler) {
 				mEngine.unregisterUpdateHandler(pTimerHandler);
 				ResourceManager.getInstance().loadMenuTextures();
-				setScene(menuScene);
+				setScene(levelSelectScene);
 				
 			}
 		}));

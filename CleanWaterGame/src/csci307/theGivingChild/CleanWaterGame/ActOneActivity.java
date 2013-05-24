@@ -40,7 +40,8 @@ public class ActOneActivity extends BaseGameActivity {
 	@Override
 	public void onCreateScene(OnCreateSceneCallback pOnCreateSceneCallback)	throws IOException {
 //		SceneManager.getInstance().createSplashScene(pOnCreateSceneCallback);
-		SceneManager.getInstance().createMenuScene(pOnCreateSceneCallback);
+//		SceneManager.getInstance().createLevelSelectScene(pOnCreateSceneCallback);
+		SceneManager.getInstance().createActSelectScene(pOnCreateSceneCallback);
 		
 	}
 
