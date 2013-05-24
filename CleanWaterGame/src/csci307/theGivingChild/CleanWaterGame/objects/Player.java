@@ -60,8 +60,7 @@ public class Player extends AnimatedSprite {
 	}
 	
 	public void jump() {
-        body.setLinearVelocity(body.getLinearVelocity().x, 10.0f);
-		
+        body.setLinearVelocity(body.getLinearVelocity().x, 10.0f);		
 	}
 	
 	public void dash() {

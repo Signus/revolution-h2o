@@ -16,12 +16,15 @@ import java.io.IOException;
 import org.andengine.engine.camera.hud.HUD;
 import org.andengine.entity.IEntity;
 import org.andengine.entity.primitive.Rectangle;
+import org.andengine.entity.scene.IOnSceneTouchListener;
+import org.andengine.entity.scene.Scene;
 import org.andengine.entity.scene.background.Background;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.extension.physics.box2d.FixedStepPhysicsWorld;
 import org.andengine.extension.physics.box2d.PhysicsConnector;
 import org.andengine.extension.physics.box2d.PhysicsFactory;
 import org.andengine.extension.physics.box2d.PhysicsWorld;
+import org.andengine.input.touch.TouchEvent;
 import org.andengine.util.SAXUtils;
 import org.andengine.util.adt.color.Color;
 import org.andengine.util.level.EntityLoader;
@@ -39,10 +42,13 @@ import csci307.theGivingChild.CleanWaterGame.manager.SceneManager;
 import csci307.theGivingChild.CleanWaterGame.manager.SceneManager.SceneType;
 import csci307.theGivingChild.CleanWaterGame.objects.Player;
 
-public class GameScene extends BaseScene {
+public class GameScene extends BaseScene implements IOnSceneTouchListener {
 	
 	private HUD gameHUD;
 	private PhysicsWorld physicsWorld;
+	
+	private float lastX;
+    private float lastY;
 	
 	private static final String TAG_ENTITY = "entity";
 	private static final String TAG_ENTITY_ATTRIBUTE_X = "x";
@@ -74,6 +80,8 @@ public class GameScene extends BaseScene {
         createBackground();
         createHUD();
         createPhysics();
+        
+        setOnSceneTouchListener(this); 
     }
 
     @Override
@@ -170,6 +178,40 @@ public class GameScene extends BaseScene {
 		});
 		
 		levelLoader.loadLevelFromAsset(activity.getAssets(), "level/" + levelID + ".xml");
+	}
+
+	@Override
+	public boolean onSceneTouchEvent(Scene pScene, TouchEvent pSceneTouchEvent) {
+		if (this.physicsWorld != null) {
+            switch (pSceneTouchEvent.getAction()) {
+                case TouchEvent.ACTION_DOWN:
+                    lastX = pSceneTouchEvent.getX();
+                    lastY = pSceneTouchEvent.getY();
+                    break;
+                case TouchEvent.ACTION_MOVE:
+                    break;
+                case TouchEvent.ACTION_UP:
+                    float difX = pSceneTouchEvent.getX() - lastX;
+                    float difY = pSceneTouchEvent.getY() - lastY;
+
+                    if (difX > 0 && difX > Math.abs(difY)) {
+                        // do something with image and velocity (sprint)
+
+                    }
+                    if (difY < 0 && Math.abs(difY) > Math.abs(difX)) {
+                        // do something with image (slide)
+                    }
+                    if (difY > 0 && Math.abs(difY) > Math.abs(difX)) {
+                        // do something with image (jump)
+                    //	this.jumpSound.play();
+                        player.jump();
+                    }
+
+                    break;
+            }
+            return true;
+        }
+		return false;
 	}
     
     
