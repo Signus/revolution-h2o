@@ -66,7 +66,7 @@ public class Player extends AnimatedSprite {
 	}
 
 	public void dash() {
-
+        runSpeed += 5;
 	}
 
 	public void duck() {
