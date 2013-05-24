@@ -17,8 +17,9 @@ public class Player extends AnimatedSprite {
 	// VARIABLES
 	public Body body;
 	private boolean canRun = false;
-	
-	public Player(float pX, float pY, VertexBufferObjectManager vbom, Camera camera, PhysicsWorld physicsWorld) {
+    private float runSpeed = 5;
+
+    public Player(float pX, float pY, VertexBufferObjectManager vbom, Camera camera, PhysicsWorld physicsWorld) {
 		super(pX, pY, ResourceManager.getInstance().player_TR, vbom);
 		createPhysics(camera, physicsWorld);
 		camera.setChaseEntity(this);
@@ -36,18 +37,18 @@ public class Player extends AnimatedSprite {
 			{
 				super.onUpdate(pSecondsElapsed);
 				camera.onUpdate(0.1f);
-				
-				if (getY() <= 0) 
+
+				if (getY() <= 0)
 				{
 					onDie();
 				}
-				
+
 				if (canRun)
 				{
-					body.setLinearVelocity(new Vector2(5, body.getLinearVelocity().y));
+					body.setLinearVelocity(new Vector2(runSpeed, body.getLinearVelocity().y));
 				}
 			}
-			
+
 		});
 	}
 	
@@ -63,22 +64,25 @@ public class Player extends AnimatedSprite {
 	public void jump() {
         body.setLinearVelocity(body.getLinearVelocity().x, 10.0f);
 	}
-	
+
 	public void dash() {
-		
+
 	}
-	
+
 	public void duck() {
-		
+
 	}
-	
+
 	public void onDie() {
 
     }
 
     // Not fully correct
     public boolean isNotPerformingAction() {
-        return body.getLinearVelocity().y == 0;
+        // If jumping...
+        if (!(body.getLinearVelocity().y == 0)) return false;
+
+        return true;
     }
 
 }

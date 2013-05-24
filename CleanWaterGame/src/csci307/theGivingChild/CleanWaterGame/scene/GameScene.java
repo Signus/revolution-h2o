@@ -45,6 +45,7 @@ import csci307.theGivingChild.CleanWaterGame.objects.Player;
 public class GameScene extends BaseScene implements IOnSceneTouchListener {
 
     private static final double TAP_THRESHOLD = 30;
+    private static final double SWIPE_THRESHOLD = 80;
     private HUD gameHUD;
 	private PhysicsWorld physicsWorld;
 	
@@ -63,8 +64,9 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener {
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_FLOATINGPLATFORM = "floatingPlatform";
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_PLAYER = "player";
 	
-	private Player player;	
-	
+	private Player player;
+    private boolean actionPerformed = false;
+
     public GameScene(String level) {
     	this.resourcesManager = ResourceManager.getInstance();
     	this.engine = resourcesManager.engine;
@@ -185,31 +187,30 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener {
 	public boolean onSceneTouchEvent(Scene pScene, TouchEvent pSceneTouchEvent) {
 		if (this.physicsWorld != null) {
             if (player.isNotPerformingAction()) {
+                float difX = pSceneTouchEvent.getX() - lastX;
+                float difY = pSceneTouchEvent.getY() - lastY;
+                double moveDistance =  Math.sqrt(difX * difX + difY * difY);
+
                 switch (pSceneTouchEvent.getAction()) {
                     case TouchEvent.ACTION_DOWN:
                         lastX = pSceneTouchEvent.getX();
                         lastY = pSceneTouchEvent.getY();
+                        actionPerformed = false;
                         break;
                     case TouchEvent.ACTION_MOVE:
+                        if (!actionPerformed && moveDistance > SWIPE_THRESHOLD) {
+                            performAction(difX, difY, moveDistance);
+                            actionPerformed = true;
+                            // For relative movements rather than absolute movements
+//                            lastX = pSceneTouchEvent.getX();
+//                            lastY = pSceneTouchEvent.getY();
+                        }
                         break;
                     case TouchEvent.ACTION_UP:
-                        float difX = pSceneTouchEvent.getX() - lastX;
-                        float difY = pSceneTouchEvent.getY() - lastY;
-
-                        if (difX > 0 && difX > Math.abs(difY)) {
-                            // do something with image and velocity (sprint)
-                            player.dash();
+                        if (!actionPerformed) {
+                            performAction(difX, difY, moveDistance);
+                            actionPerformed = true;
                         }
-                        if (difY < 0 && Math.abs(difY) > Math.abs(difX)) {
-                            // do something with image (slide)
-                            player.duck();
-                        }
-                        if (difY > 0 && Math.abs(difY) > Math.abs(difX) || Math.sqrt(difX * difX + difY * difY) <= TAP_THRESHOLD) {
-                            // do something with image (jump)
-                        //	this.jumpSound.play();
-                            player.jump();
-                        }
-
                         break;
                 }
             }
@@ -217,6 +218,19 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener {
         }
 		return false;
 	}
-    
-    
+
+    private void performAction(float difX, float difY, double moveDistance) {
+        if (difX > 0 && difX > Math.abs(difY)) {
+            player.dash();
+        }
+        if (difY < 0 && Math.abs(difY) > Math.abs(difX)) {
+            player.duck();
+        }
+        if (difY > 0 && Math.abs(difY) > Math.abs(difX)|| moveDistance <= TAP_THRESHOLD) {
+//            this.jumpSound.play();
+            player.jump();
+        }
+    }
+
+
 }
