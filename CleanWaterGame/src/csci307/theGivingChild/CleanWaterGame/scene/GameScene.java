@@ -15,10 +15,13 @@ import java.io.IOException;
 
 import org.andengine.engine.camera.hud.HUD;
 import org.andengine.entity.IEntity;
+import org.andengine.entity.modifier.LoopEntityModifier;
+import org.andengine.entity.modifier.ScaleModifier;
 import org.andengine.entity.primitive.Rectangle;
 import org.andengine.entity.scene.IOnSceneTouchListener;
 import org.andengine.entity.scene.Scene;
 import org.andengine.entity.scene.background.Background;
+import org.andengine.entity.sprite.Sprite;
 import org.andengine.extension.physics.box2d.FixedStepPhysicsWorld;
 import org.andengine.extension.physics.box2d.PhysicsConnector;
 import org.andengine.extension.physics.box2d.PhysicsFactory;
@@ -62,6 +65,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener {
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_GROUND = "ground";
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_FLOATINGPLATFORM = "floatingPlatform";
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_PLAYER = "player";
+	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE = "collectable";
 	
 	private Player player;
     private boolean actionPerformed = false;
@@ -162,7 +166,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener {
 				} else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_FLOATINGPLATFORM)){
 					levelObject = new Rectangle(x, y, width, height, vbom);
 					levelObject.setColor(Color.BLACK);
-				}else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_PLAYER)) {
+				} else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_PLAYER)) {
 					player = new Player(x, y, vbom, camera, physicsWorld) {
 						@Override
 						public void onDie() {
@@ -171,6 +175,21 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener {
 					};
 					player.setRunning();
 					return player;
+				} else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE)) {
+					Sprite sprite = new Sprite(x, y, resourcesManager.collectable_TR, vbom) {
+						@Override
+						protected void onManagedUpdate(float pSecondsElapsed) {
+							super.onManagedUpdate(pSecondsElapsed);
+							
+							if (player.collidesWith(this)) {
+								this.setVisible(false);
+								this.setIgnoreUpdate(true);
+							}
+						}
+					};
+					sprite.registerEntityModifier(new LoopEntityModifier(new ScaleModifier(1, 1, 1.3f)));
+					
+					return sprite;
 				} else {
 					throw new IllegalArgumentException();
 				}
