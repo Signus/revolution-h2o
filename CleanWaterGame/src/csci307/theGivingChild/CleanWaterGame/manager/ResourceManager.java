@@ -66,10 +66,10 @@ public class ResourceManager {
 	private BuildableBitmapTextureAtlas gameTA;
 	
 	//sounds
-	public static Sound jumpSound;
+	public Sound jumpSound;
 	
 	//music
-	public static Music backgroundMusic;
+	public Music backgroundMusic;
 	
 	public void loadMenuResources() {
 		loadMenuGraphics();

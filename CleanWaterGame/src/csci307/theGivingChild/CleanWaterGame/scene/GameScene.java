@@ -118,6 +118,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener {
     
     private void createHUD() {
     	gameHUD = new HUD();
+    	
     	camera.setHUD(gameHUD);
     }    
     
@@ -155,7 +156,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener {
 				final int height = SAXUtils.getIntAttributeOrThrow(pAttributes, TAG_ENTITY_ATTRIBUTE_HEIGHT);
 				final String type = SAXUtils.getAttributeOrThrow(pAttributes, TAG_ENTITY_ATTRIBUTE_TYPE);
 				
-				final Rectangle levelObject;
+				final IEntity levelObject;
 				
 				if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_HILL)) {
 					levelObject = new Rectangle(x, y, width, height, vbom);
@@ -176,7 +177,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener {
 					player.setRunning();
 					return player;
 				} else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE)) {
-					Sprite sprite = new Sprite(x, y, resourcesManager.collectable_TR, vbom) {
+					levelObject = new Sprite(x, y, resourcesManager.collectable_TR, vbom) {
 						@Override
 						protected void onManagedUpdate(float pSecondsElapsed) {
 							super.onManagedUpdate(pSecondsElapsed);
@@ -187,14 +188,17 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener {
 							}
 						}
 					};
-					sprite.registerEntityModifier(new LoopEntityModifier(new ScaleModifier(1, 1, 1.3f)));
+					levelObject.registerEntityModifier(new LoopEntityModifier(new ScaleModifier(1, 1, 1.3f)));
 					
-					return sprite;
 				} else {
 					throw new IllegalArgumentException();
 				}
 				
+				//temporary physics set for every level object. Will need to be put into each entity if physics need to be different. 
 				physicsWorld.registerPhysicsConnector(new PhysicsConnector(levelObject, PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyType.StaticBody, WALL_FIX), true, false));
+				
+				//disable rendering when not visible. 
+				levelObject.setCullingEnabled(true);
 				
 				return levelObject;
 			}
