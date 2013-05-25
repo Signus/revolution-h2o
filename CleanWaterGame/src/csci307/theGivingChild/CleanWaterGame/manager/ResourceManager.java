@@ -93,7 +93,7 @@ public class ResourceManager {
 		act_one_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(menuTA, activity, "act_one_button.png");
 		
 		try {
-			this.menuTA.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
+			this.menuTA.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 1));
 			this.menuTA.load();
 		}
 		catch (final TextureAtlasBuilderException e) {
@@ -121,7 +121,7 @@ public class ResourceManager {
 		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/game/");
 
         gameTA = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 128, TextureOptions.BILINEAR);
-        player_TR = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(gameTA, activity, "player_run_sprite_2.png", 6, 1);
+        player_TR = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(gameTA, activity, "player_run_sprite_2", 6, 1);
         collectable_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTA, activity, "coin.png");
         
         try {

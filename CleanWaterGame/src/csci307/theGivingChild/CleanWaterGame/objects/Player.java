@@ -18,17 +18,17 @@ public class Player extends AnimatedSprite {
 	public Body body;
 	private boolean canRun = false;
     private float runSpeed = 5;
-
     private static final int MAX_SPRINT = 100;
     private static final float SPRINT_AUGMENT = 4;
     private int sprintTime = MAX_SPRINT;
-    private boolean isSprinting = false;
+    private boolean isSprinting = false;    
 
     public Player(float pX, float pY, VertexBufferObjectManager vbom, Camera camera, PhysicsWorld physicsWorld) {
 		super(pX, pY, ResourceManager.getInstance().player_TR, vbom);
 		createPhysics(camera, physicsWorld);
 		camera.setChaseEntity(this);
 	}
+    
 	
 	private void createPhysics(final Camera camera, PhysicsWorld physicsWorld) {
 		body = PhysicsFactory.createBoxBody(physicsWorld, 36, 50, 65, 100, BodyType.DynamicBody, PhysicsFactory.createFixtureDef(0, 0, 0));
@@ -69,10 +69,9 @@ public class Player extends AnimatedSprite {
 	public void setRunning() {
 		canRun = true;
 		
-//		final long[] PLAYER_ANIMATE = new long[] { 100, 100, 100 };
-//		
-//		animate(PLAYER_ANIMATE, 0, 2, true);
-		animate(100);
+		final long[] PLAYER_ANIMATE = new long[] { 100, 100, 100, 100, 100, 100 };		
+		animate(PLAYER_ANIMATE, 0, 5, true);
+//		animate(100);
 	}
 	
 	public void jump() {
@@ -100,5 +99,4 @@ public class Player extends AnimatedSprite {
 
         return true;
     }
-
 }

@@ -3,30 +3,30 @@ package csci307.theGivingChild.CleanWaterGame;
 import java.io.IOException;
 
 import org.andengine.audio.music.Music;
-import org.andengine.audio.music.MusicFactory;
 import org.andengine.audio.sound.Sound;
-import org.andengine.audio.sound.SoundFactory;
+import org.andengine.engine.Engine;
+import org.andengine.engine.FixedStepEngine;
 import org.andengine.engine.camera.BoundCamera;
-import org.andengine.engine.handler.timer.ITimerCallback;
-import org.andengine.engine.handler.timer.TimerHandler;
 import org.andengine.engine.options.EngineOptions;
 import org.andengine.engine.options.ScreenOrientation;
 import org.andengine.engine.options.resolutionpolicy.FillResolutionPolicy;
 import org.andengine.entity.scene.Scene;
 import org.andengine.ui.activity.BaseGameActivity;
 
+import android.view.KeyEvent;
 import csci307.theGivingChild.CleanWaterGame.manager.ResourceManager;
 import csci307.theGivingChild.CleanWaterGame.manager.SceneManager;
-
-import android.view.KeyEvent;
 
 
 public class ActOneActivity extends BaseGameActivity {
 	
 	private BoundCamera camera;
 	private ResourceManager resourceManager;
-	private static Sound jumpSound;
-	private static Music backgroundMusic;
+	
+	@Override
+	public Engine onCreateEngine(EngineOptions pEngineOptions) {
+		return new FixedStepEngine(pEngineOptions, 60);
+	}
 	
 	@Override
 	public EngineOptions onCreateEngineOptions() {
