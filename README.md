@@ -44,3 +44,9 @@ Code Files:
 	
 	Name space: csci307.theGivingChild.CleanWaterGame
 
+	csci307.theGivingChild.CleanWaterGame:
+
+			-AboutDialog.java: This file contains code for reading in form a text file and creating a dialog that shows
+							   information about the app, The Giving child, and developers
+
+			-BugReport.java
