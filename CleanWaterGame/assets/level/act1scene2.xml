@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Chris Card | This is act1 scene 2 level xml for the and engine it defines
+		what objects will be displayed for the level | 5/24/13 -->
 <level width="10000" height="800">
     <entity x="50" y="50" width="100" height="100" type="player"/> 
 	<entity x="200" y="25" width="400" height="50" type="ground"/>
@@ -27,4 +29,5 @@
 	<entity x="7900" y="45" width="100" height="90" type="hill"/>
 	<entity x="8050" y="60" width="200" height="120" type="hill"/>
 	<entity x="8750" y="140" width="1000" height="20" type="floatingPlatform"/>
+	<entity x="9700" y="25" width="600" height="50" type="ground"/>
 </level>
