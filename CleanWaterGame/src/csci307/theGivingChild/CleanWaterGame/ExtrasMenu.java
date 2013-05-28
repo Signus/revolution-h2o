@@ -51,8 +51,8 @@ public class ExtrasMenu extends Activity {
 	 */
 	public void feedBack(View v)
 	{
-		Intent userbug = new Intent(this, BugReport.class);
-		userbug.putExtra(BugReport.ERROR_CODE_KEY,true);
+		Intent userbug = new Intent(this, FeedBack.class);
+		userbug.putExtra(FeedBack.ERROR_CODE_KEY,true);
 		startActivity(userbug);
 	}
 

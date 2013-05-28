@@ -48,7 +48,7 @@
         </activity>
         <activity
                 android:theme="@android:style/Theme.Dialog"
-                android:name="csci307.theGivingChild.CleanWaterGame.BugReport"
+                android:name="csci307.theGivingChild.CleanWaterGame.FeedBack"
                 android:label="@string/title_activity_error_dialog" >
         </activity>
         <activity

@@ -24,7 +24,7 @@ import android.widget.TextView;
 import android.app.Activity;
 import android.content.Intent;
 
-public class BugReport extends Activity {
+public class FeedBack extends Activity {
 
 	public static final String ERROR_CODE_KEY = "csci370.theGivingChild.Error.boolerror";
 	public static final String ERROR_CODE_NUM = "csci370.theGivingChild.Error.code";
