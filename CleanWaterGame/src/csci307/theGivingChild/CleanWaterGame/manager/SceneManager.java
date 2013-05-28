@@ -106,7 +106,7 @@ public class SceneManager {
 	
 	public void loadGameScene(final Engine mEngine, final String level) {
 //		setScene(loadingScene);
-		ResourceManager.getInstance().unloadMenuTextures();
+		ResourceManager.getInstance().unloadMenuGraphics();
 		mEngine.registerUpdateHandler(new TimerHandler(0.1f, new ITimerCallback() {
 			
 			@Override
@@ -121,7 +121,7 @@ public class SceneManager {
 	}
 	
 	public void loadActSelectScene(final Engine mEngine) {
-		ResourceManager.getInstance().unloadMenuTextures();
+		ResourceManager.getInstance().unloadMenuGraphics();
 		mEngine.registerUpdateHandler(new TimerHandler(0.1f, new ITimerCallback() {
 			
 			@Override
@@ -136,14 +136,14 @@ public class SceneManager {
 	public void loadMenuScene(final Engine mEngine) {
 		if (gameScene != null) {
 			gameScene.disposeScene();
-			ResourceManager.getInstance().unloadGameTextures();
+			ResourceManager.getInstance().unloadGameGraphics();
 		}
 		
 		mEngine.registerUpdateHandler(new TimerHandler(0.1f, new ITimerCallback() {			
 			@Override
 			public void onTimePassed(TimerHandler pTimerHandler) {
 				mEngine.unregisterUpdateHandler(pTimerHandler);
-				ResourceManager.getInstance().loadMenuTextures();
+				ResourceManager.getInstance().loadMenuGraphics();
 				setScene(levelSelectScene);
 				
 			}

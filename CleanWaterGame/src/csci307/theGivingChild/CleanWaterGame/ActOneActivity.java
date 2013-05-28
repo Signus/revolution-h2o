@@ -23,6 +23,7 @@ public class ActOneActivity extends BaseGameActivity {
 	private BoundCamera camera;
 	private ResourceManager resourceManager;
 	
+	
 	@Override
 	public Engine onCreateEngine(EngineOptions pEngineOptions) {
 		return new FixedStepEngine(pEngineOptions, 60);
