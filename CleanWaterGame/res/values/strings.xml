@@ -6,7 +6,6 @@
 <resources>
 
     <!-- Global strings -->
-    <string name="send">Send</string>
     <string name="dontsend">Cancel</string>
     <string name="okBtn">Ok</string>
 
@@ -23,17 +22,18 @@
     <!-- Bug reporting activity -->
     <string name="userbug_subject_title">Subject</string>
     <string name="userbug_subject_hint">I have a problem with ....</string>
-    <string name="userbug_relatedto_title">Bug options</string>
+    <string name="userbug_relatedto_title">What is your feedback related to?</string>
     <string name="userbug_body_title">Body</string>
     <string name="userbug_body_hint">Describe the problem you are having</string>
     <string name="sysbug_error_code">Error Code:</string>
     <string name="sysbug_error_descript">Description:</string>
     <string-array name="userbug_relatedto_spinner">
-             <item>Feedback</item>
-            <item>Animation</item>
+            <item>General feedback</item>
+            <item>Animations</item>
             <item>Menus</item>
-            <item>Sound</item>
+            <item>Sounds</item>
     </string-array>
+    <string name="send">Compose</string>
 
     <!-- app name strings and activity name strings -->
     <string name="app_name">CleanWaterGame</string>
@@ -41,7 +41,7 @@
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_mini_game_selection">MiniGame_selection</string>
     <string name="title_activity_extras_menu">Extras_menu</string>
-    <string name="title_activity_error_dialog">FeedBack</string>
+    <string name="title_activity_error_dialog"></string>
     <string name="title_about">About</string>
     <string name="title_privacy">Privacy Policy</string>
 
