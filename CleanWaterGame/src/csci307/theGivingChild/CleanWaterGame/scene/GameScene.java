@@ -298,9 +298,10 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 		final MenuScene pauseGame = new MenuScene(camera);
 		
 		final SpriteMenuItem resumeButton = new SpriteMenuItem(MENU_RESUME, resourcesManager.pause_TR, vbom);
-		
+		final Rectangle background = new Rectangle(400, 240, 300, 200, vbom);
 		resumeButton.setPosition(400, 240);
 		
+		pauseGame.attachChild(background);
 		pauseGame.addMenuItem(resumeButton);
 		pauseGame.setBackgroundEnabled(false);
 		pauseGame.setOnMenuItemClickListener(this);

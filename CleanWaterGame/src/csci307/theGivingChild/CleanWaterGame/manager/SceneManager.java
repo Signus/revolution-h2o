@@ -15,6 +15,7 @@ import csci307.theGivingChild.CleanWaterGame.scene.ActSelectScene;
 import csci307.theGivingChild.CleanWaterGame.scene.BaseScene;
 import csci307.theGivingChild.CleanWaterGame.scene.GameScene;
 import csci307.theGivingChild.CleanWaterGame.scene.LevelSelectScene;
+import csci307.theGivingChild.CleanWaterGame.scene.LoadingScene;
 
 public class SceneManager {
 	
@@ -25,6 +26,7 @@ public class SceneManager {
 	private BaseScene levelSelectScene;
 	private BaseScene gameScene;
 	private BaseScene actSelectScene;
+	private BaseScene loadingScene;
 	
 	//-------------------------------------
 	//VARIABLES
@@ -61,9 +63,9 @@ public class SceneManager {
 			case SCENE_LEVEL_SELECT:
 				setScene(levelSelectScene);
 				break;
-//			case SCENE_LOADING:
-//				setScene(loadingScene);
-//				break;
+			case SCENE_LOADING:
+				setScene(loadingScene);
+				break;
 			default:
 				break;
 		}
@@ -79,6 +81,7 @@ public class SceneManager {
 	public void createLevelSelectScene() {
 		ResourceManager.getInstance().loadMenuResources();
 		levelSelectScene = new LevelSelectScene();
+		loadingScene = new LoadingScene();
 		currentScene = levelSelectScene;
 //		pOnCreateSceneCallback.onCreateSceneFinished(levelSelectScene);
 	}
@@ -105,9 +108,9 @@ public class SceneManager {
 //	}
 	
 	public void loadGameScene(final Engine mEngine, final String level) {
-//		setScene(loadingScene);
+		setScene(loadingScene);
 		ResourceManager.getInstance().unloadMenuGraphics();
-		mEngine.registerUpdateHandler(new TimerHandler(0.1f, new ITimerCallback() {
+		mEngine.registerUpdateHandler(new TimerHandler(1.0f, new ITimerCallback() {
 			
 			@Override
 			public void onTimePassed(TimerHandler pTimerHandler) {
@@ -135,11 +138,12 @@ public class SceneManager {
 	
 	public void loadMenuScene(final Engine mEngine) {
 		if (gameScene != null) {
+			setScene(loadingScene);
 			gameScene.disposeScene();
 			ResourceManager.getInstance().unloadGameGraphics();
 		}
 		
-		mEngine.registerUpdateHandler(new TimerHandler(0.1f, new ITimerCallback() {			
+		mEngine.registerUpdateHandler(new TimerHandler(0.2f, new ITimerCallback() {			
 			@Override
 			public void onTimePassed(TimerHandler pTimerHandler) {
 				mEngine.unregisterUpdateHandler(pTimerHandler);
