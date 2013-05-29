@@ -70,6 +70,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_FLOATINGPLATFORM = "floatingPlatform";
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_PLAYER = "player";
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE = "collectable";
+	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE_GOAL = "goalcollect";
 	
 	private final int MENU_RESUME = 0;
 	private final int MENU_QUIT = 1;

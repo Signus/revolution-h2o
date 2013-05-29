@@ -55,10 +55,10 @@ public class GameCharacter {
     }
 
     private void readInImages(Resources resources) {
-        Image.INITIAL_IMAGE.setImage(BitmapFactory.decodeResource(resources, R.drawable.character));
-        Image.SLIDING_IMAGE.setImage(BitmapFactory.decodeResource(resources, R.drawable.character_slide));
-        Image.JUMPING_IMAGE.setImage(BitmapFactory.decodeResource(resources, R.drawable.character_jump));
-        Image.SPRINTING_IMAGE.setImage(BitmapFactory.decodeResource(resources, R.drawable.character_sprint));
+//        Image.INITIAL_IMAGE.setImage(BitmapFactory.decodeResource(resources, R.drawable.character));
+//        Image.SLIDING_IMAGE.setImage(BitmapFactory.decodeResource(resources, R.drawable.character_slide));
+//        Image.JUMPING_IMAGE.setImage(BitmapFactory.decodeResource(resources, R.drawable.character_jump));
+//        Image.SPRINTING_IMAGE.setImage(BitmapFactory.decodeResource(resources, R.drawable.character_sprint));
     }
 
     synchronized public void doDraw(Canvas canvas) {
