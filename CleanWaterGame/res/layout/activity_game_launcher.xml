@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:text="@string/menu_play_game"
             android:onClick="openMiniGames"
-            android:background="@drawable/blue_btn"/>
+            android:background="@drawable/button"/>
 
         <Button
             android:id="@+id/extraBtn"
@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:text="@string/menu_extra_btn"
             android:onClick="openExtras"
-            android:background="@drawable/blue_btn"
+            android:background="@drawable/button"
             android:layout_marginTop="20dp"/>
 
         <Button
@@ -40,7 +40,7 @@
             android:layout_height="wrap_content"
             android:text="@string/menu_donate_btn"
             android:onClick="openDonate"
-            android:background="@drawable/blue_btn"
+            android:background="@drawable/button"
             android:layout_marginTop="20dp"/>
 
     </LinearLayout>
