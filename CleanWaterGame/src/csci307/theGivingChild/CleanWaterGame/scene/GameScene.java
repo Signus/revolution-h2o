@@ -24,6 +24,7 @@ import org.andengine.entity.scene.background.Background;
 import org.andengine.entity.scene.menu.MenuScene;
 import org.andengine.entity.scene.menu.MenuScene.IOnMenuItemClickListener;
 import org.andengine.entity.scene.menu.item.IMenuItem;
+import org.andengine.entity.scene.menu.item.SpriteMenuItem;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.extension.physics.box2d.FixedStepPhysicsWorld;
 import org.andengine.extension.physics.box2d.PhysicsConnector;
@@ -70,8 +71,12 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_PLAYER = "player";
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE = "collectable";
 	
+	private final int MENU_RESUME = 0;
+	private final int MENU_QUIT = 1;
+	
 	private Player player;
     private boolean actionPerformed = false;
+    private boolean paused = false;
 
     public GameScene(String level) {
     	this.resourcesManager = ResourceManager.getInstance();
@@ -117,25 +122,25 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
     
     private void createBackground() {
     	setBackground(new Background(Color.BLUE));
-    	Sprite pause = new Sprite(400, 240, ResourceManager.getInstance().pause_TR, vbom) {
-    		@Override
-    		public boolean onAreaTouched(final TouchEvent pAreaTouchEvent, final float pX, final float pY) {
-    			if (pAreaTouchEvent.getAction() == TouchEvent.ACTION_DOWN) {
-    				engine.stop();
-    				PauseScene pauseScene = new PauseScene();
-    				setChildScene(pauseScene);
-    				System.out.println("IT WORKS");
-    				
-    			}
-    			return true;
-    		}
-    	};
-    	attachChild(pause);
     }
     
     private void createHUD() {
     	gameHUD = new HUD();
     	
+    	final Sprite pauseButton = new Sprite(700, 440, resourcesManager.pause_TR, vbom) {
+    		@Override
+    		public boolean onAreaTouched(TouchEvent touchEvent, float pX, float pY) {
+    			if (touchEvent.isActionUp()) {
+//    				engine.stop();
+    				paused = true;
+    				setChildScene(pauseScene(), false, true, true);
+    			}
+    			return true;
+    		};
+    	};
+    	
+    	gameHUD.registerTouchArea(pauseButton);
+    	gameHUD.attachChild(pauseButton);
     	camera.setHUD(gameHUD);
     }    
     
@@ -269,12 +274,39 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
     }
 
 	@Override
-	public boolean onMenuItemClicked(MenuScene pMenuScene, IMenuItem pMenuItem,
-			float pMenuItemLocalX, float pMenuItemLocalY) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean onMenuItemClicked(MenuScene pMenuScene, IMenuItem pMenuItem,	float pMenuItemLocalX, float pMenuItemLocalY) {
+		switch (pMenuItem.getID()) {
+		case MENU_RESUME:
+			clearChildScene();
+			paused = false;
+//			engine.start();
+			return true;
+		case MENU_QUIT:			
+			return true;
+		default:
+			return false;
+	}
 	}
 	
+	private MenuScene pauseScene() {
+		final MenuScene pauseGame = new MenuScene(camera);
+		
+		final SpriteMenuItem resumeButton = new SpriteMenuItem(MENU_RESUME, resourcesManager.pause_TR, vbom);
+		
+		resumeButton.setPosition(400, 240);
+		
+		pauseGame.addMenuItem(resumeButton);
+		pauseGame.setBackgroundEnabled(false);
+		pauseGame.setOnMenuItemClickListener(this);
+		return pauseGame;
+	}	
 	
+	@Override
+	protected void onManagedUpdate(float pSecondsElapsed) {
+		super.onManagedUpdate(pSecondsElapsed);
+		if(paused) {
+			return;
+		}
+	}
 
 }
