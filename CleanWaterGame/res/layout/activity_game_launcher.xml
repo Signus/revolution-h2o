@@ -47,6 +47,7 @@
 
     <ImageButton
         android:id="@+id/muting"
+        android:background="@null"
         android:src="@drawable/unmuted"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
