@@ -60,6 +60,7 @@ public class ResourceManager {
 	//game textures
 	public ITiledTextureRegion player_TR;
 	public ITextureRegion collectable_TR;
+	public ITextureRegion pause_TR;
 	
 	//texture atlas
 	private BitmapTextureAtlas splashTA;
@@ -135,6 +136,8 @@ public class ResourceManager {
         gameTA = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 2048, 128, TextureOptions.BILINEAR);
         player_TR = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(gameTA, activity, "player_run_sprite.png", 6, 1);
         collectable_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTA, activity, "coin.png");
+        pause_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTA, activity, "button.png");
+        
         
         try {
         	this.gameTA.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 1));
