@@ -21,7 +21,11 @@ public class Player extends AnimatedSprite {
     private static final int MAX_SPRINT = 100;
     private static final float SPRINT_AUGMENT = 4;
     private int sprintTime = MAX_SPRINT;
-    private boolean isSprinting = false;    
+    private boolean isSprinting = false;
+    private boolean isJumping = false;
+    private static int TIME = 100;
+
+    final long[] PLAYER_ANIMATE = new long[] {TIME, TIME, TIME, TIME, TIME, TIME};
 
     public Player(float pX, float pY, VertexBufferObjectManager vbom, Camera camera, PhysicsWorld physicsWorld) {
 		super(pX, pY, ResourceManager.getInstance().player_TR, vbom);
@@ -32,7 +36,7 @@ public class Player extends AnimatedSprite {
 	
 	private void createPhysics(final Camera camera, PhysicsWorld physicsWorld) {
 		body = PhysicsFactory.createBoxBody(physicsWorld, 36, 50, 65, 100, BodyType.DynamicBody, PhysicsFactory.createFixtureDef(0, 0, 0));
-		//body = PhysicsFactory.createBoxBody(physicsWorld, this, BodyType.DynamicBody, PhysicsFactory.createFixtureDef(0, 0, 0));
+        //body = PhysicsFactory.createBoxBody(physicsWorld, this, BodyType.DynamicBody, PhysicsFactory.createFixtureDef(0, 0, 0));
 		body.setUserData("player");
 		body.setFixedRotation(true);
 		
@@ -60,42 +64,73 @@ public class Player extends AnimatedSprite {
                             runSpeed -= SPRINT_AUGMENT;
                         }
                     }
-				}
+                    if (isJumping) {
+                        if (!verticalMotion()) {
+                            isJumping = false;
+                            setToInitialSprite();
+                        }
+                    }
+                }
 			}
 
 		});
 	}
-	
-	public void setRunning() {
+
+    private void setToInitialSprite() {
+        final long[] PLAYER_ANIMATE = new long[] { 100, 100, 100, 100, 100, 100 };
+        animate(PLAYER_ANIMATE, 0, 5, true);
+    }
+
+    // Need to change for new sprites
+    private void setToJumpSprite() {
+        final long[] PLAYER_ANIMATE = new long[] { 100, 100 };
+        animate(PLAYER_ANIMATE, 0, 1, true);
+    }
+
+    private void setToDashSprite() {
+    }
+
+    public void setRunning() {
 		canRun = true;
-		
-		final long[] PLAYER_ANIMATE = new long[] { 100, 100, 100, 100, 100, 100 };		
-		animate(PLAYER_ANIMATE, 0, 5, true);
+        setToInitialSprite();
+
 //		animate(100);
 	}
 	
 	public void jump() {
+        if (isJumping) return;
+        isJumping = true;
+        setToJumpSprite();
+
         body.setLinearVelocity(body.getLinearVelocity().x, 10.0f);
 	}
 
 	public void dash() {
         if (isSprinting) return;
         isSprinting = true;
+        setToDashSprite();
+
+        //dash sprite
+
         runSpeed += SPRINT_AUGMENT;
 	}
 
-	public void duck() {
+    public void duck() {
 
 	}
 
 	public void onDie() {
 		
     }
-	
+
+    private boolean verticalMotion() {
+        return Math.abs(body.getLinearVelocity().y) != 0;
+    }
+
     // Not fully correct
     public boolean isNotPerformingAction() {
         // If jumping...
-        if (Math.abs(body.getLinearVelocity().y) != 0) return false;
+        if (verticalMotion()) return false;
 
         return true;
     }
