@@ -51,6 +51,7 @@ public class ResourceManager {
 	public ITextureRegion splash_icon_TR;
 	
 	//menu textures
+	public ITextureRegion act_menu_background_TR;
 	public ITextureRegion menu_background_TR;
 	public ITextureRegion scene_one_TR;
 	public ITextureRegion scene_two_TR;
@@ -86,10 +87,11 @@ public class ResourceManager {
 	
 	public void loadMenuGraphics() {
 		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/menu/");
-		menuTA = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024, TextureOptions.BILINEAR);
+		menuTA = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 2048, 1024, TextureOptions.BILINEAR);
 		scene_one_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(menuTA, activity, "scene_one_button.png");
 		scene_two_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(menuTA, activity, "scene_two_button.png");
 		menu_background_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(menuTA, activity, "parallax_background_layer_back.png");
+		act_menu_background_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(menuTA, activity, "act_menu_background.png");
 		act_one_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(menuTA, activity, "act_one_button.png");
 		
 		try {
@@ -120,7 +122,7 @@ public class ResourceManager {
 	private void loadGameGraphics() {
 		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/game/");
 
-        gameTA = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 128, TextureOptions.BILINEAR);
+        gameTA = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 2048, 128, TextureOptions.BILINEAR);
         player_TR = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(gameTA, activity, "player_run_sprite.png", 6, 1);
         collectable_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTA, activity, "coin.png");
         
