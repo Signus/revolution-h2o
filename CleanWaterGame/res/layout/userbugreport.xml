@@ -12,44 +12,28 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal" >
+            android:orientation="vertical" >
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/userbug_subject_title" />
-
-            <EditText
-                android:id="@+id/userbug_sub"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/userbug_subject_hint"
-                android:nextFocusForward="@+id/userbug_related_list"
-                android:scrollHorizontally="true" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal" >
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/userbug_relatedto_title" />
+                android:text="@string/userbug_relatedto_title"
+                android:textSize="26sp"/>
 
             <Spinner
                 android:id="@+id/userbug_related_list"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:nextFocusForward="@+id/userbug_body"/>
+                android:nextFocusForward="@+id/userbug_body"
+                android:layout_marginTop="20dp"/>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:orientation="horizontal" >
+            android:orientation="horizontal" 
+            android:layout_marginTop="20dp">
 
             <Button
                 android:id="@+id/userbug_send"

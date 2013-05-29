@@ -24,7 +24,7 @@ import android.widget.TextView;
 import android.app.Activity;
 import android.content.Intent;
 
-public class BugReport extends Activity {
+public class FeedBack extends Activity {
 
 	public static final String ERROR_CODE_KEY = "csci370.theGivingChild.Error.boolerror";
 	public static final String ERROR_CODE_NUM = "csci370.theGivingChild.Error.code";
@@ -53,8 +53,7 @@ public class BugReport extends Activity {
 
 					@Override
 					public void onClick(View v) {
-						EditText sub = (EditText)findViewById(R.id.userbug_sub);
-						String subject = sub.getText().toString()+":"+related.getSelectedItem().toString();
+						String subject = related.getSelectedItem().toString()+":";
 						Intent gmail = new Intent(Intent.ACTION_VIEW);
 						gmail.setClassName("com.google.android.gm","com.google.android.gm.ComposeActivityGmail");
 						gmail.putExtra(Intent.EXTRA_EMAIL, new String[] {"thegivingchild@gmail.com"});//set this to the feed back email site

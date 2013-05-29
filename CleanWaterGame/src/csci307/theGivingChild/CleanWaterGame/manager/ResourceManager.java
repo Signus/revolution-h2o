@@ -72,18 +72,32 @@ public class ResourceManager {
 	//music
 	public Music backgroundMusic;
 	
+	//------------------------------------------------
+	//CALLS TO LOAD ALL RESOURCES
+	//------------------------------------------------
+	
 	public void loadMenuResources() {
 		loadMenuGraphics();
 		loadMenuFonts();
 	}
 	
-	
-
 	public void loadGameResources() {
 		loadGameGraphics();
 		//loadGameFonts();
 		loadGameAudio();
 	}
+	
+	//------------------------------------------------
+	//SPLASH RESOURCES
+	//------------------------------------------------
+	
+	public void loadSplashScreen() {
+		
+	}
+	
+	//------------------------------------------------
+	//MENU RESOURCES
+	//------------------------------------------------
 	
 	public void loadMenuGraphics() {
 		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/menu/");
@@ -103,7 +117,7 @@ public class ResourceManager {
 		}
 	}
 	
-	private void loadMenuFonts() {
+	public void loadMenuFonts() {
 		FontFactory.setAssetBasePath("fonts/");		
 		final ITexture mainFontTexture = new BitmapTextureAtlas(activity.getTextureManager(), 256, 256, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
 		
@@ -111,13 +125,9 @@ public class ResourceManager {
 		font.load();
 	}
 	
-	public void unloadMenuTextures() {
-		menuTA.unload();
-	}
-	
-	public void loadMenuTextures() {
-		menuTA.load();
-	}
+	//------------------------------------------------
+	//GAME RESOURCES
+	//------------------------------------------------
 	
 	private void loadGameGraphics() {
 		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/game/");
@@ -154,20 +164,32 @@ public class ResourceManager {
 			e.printStackTrace();
 		}
 	}
-	
-	public void unloadGameTextures() {
-		
-	}
-	
-	public void loadSplashScreen() {
-		
-	}
+
+	//------------------------------------------------
+	//UNLOADING RESOURCES
+	//------------------------------------------------
 	
 	public void unloadSplashScreen() {
 	//	splashTA.unload();
 	//	splash_icon_TR = null;
 	}
 	
+	public void unloadMenuGraphics() {
+		menuTA.unload();
+	}
+	
+	private void unloadMenuFonts() {
+		font.unload();
+	}
+	
+	public void unloadGameGraphics() {
+		gameTA.unload();
+	}
+	
+	//------------------------------------------------
+	//MANAGER FUNCTIONS
+	//------------------------------------------------
+
 	public static void prepareManager(Engine engine, BaseGameActivity activity, BoundCamera camera, VertexBufferObjectManager vbom) {
 		getInstance().engine = engine;
 		getInstance().activity = activity;
