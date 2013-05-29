@@ -134,6 +134,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 //    				engine.stop();
     				paused = true;
     				setChildScene(pauseScene(), false, true, true);
+    				resourcesManager.backgroundMusic.pause();
     			}
     			return true;
     		};
@@ -212,6 +213,9 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 					};
 					levelObject.registerEntityModifier(new LoopEntityModifier(new ScaleModifier(1, 1, 1.3f)));
 					
+					//level object returned here because it does not need to be registered with the physicsWorld. 
+					return levelObject;
+					
 				} else {
 					throw new IllegalArgumentException();
 				}
@@ -264,7 +268,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 
     private void performPlayerAction(float difX, float difY, double moveDistance) {
         if (difY > 0 && Math.abs(difY) > Math.abs(difX) || moveDistance <= TAP_THRESHOLD) {
-            this.resourcesManager.jumpSound.play();
+            resourcesManager.jumpSound.play();
             player.jump();
         } else if (difX > 0 && difX > Math.abs(difY)) {
             player.dash();
@@ -278,6 +282,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 		switch (pMenuItem.getID()) {
 		case MENU_RESUME:
 			clearChildScene();
+			resourcesManager.backgroundMusic.resume();
 			paused = false;
 //			engine.start();
 			return true;
