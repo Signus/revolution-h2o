@@ -21,6 +21,10 @@ import org.andengine.entity.primitive.Rectangle;
 import org.andengine.entity.scene.IOnSceneTouchListener;
 import org.andengine.entity.scene.Scene;
 import org.andengine.entity.scene.background.Background;
+import org.andengine.entity.scene.menu.MenuScene;
+import org.andengine.entity.scene.menu.MenuScene.IOnMenuItemClickListener;
+import org.andengine.entity.scene.menu.item.IMenuItem;
+import org.andengine.entity.scene.menu.item.SpriteMenuItem;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.extension.physics.box2d.FixedStepPhysicsWorld;
 import org.andengine.extension.physics.box2d.PhysicsConnector;
@@ -44,7 +48,7 @@ import csci307.theGivingChild.CleanWaterGame.manager.SceneManager;
 import csci307.theGivingChild.CleanWaterGame.manager.SceneManager.SceneType;
 import csci307.theGivingChild.CleanWaterGame.objects.Player;
 
-public class GameScene extends BaseScene implements IOnSceneTouchListener {
+public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMenuItemClickListener {
 
     private static final double TAP_THRESHOLD = 35;
     private static final double SWIPE_THRESHOLD = 80;
@@ -67,8 +71,12 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener {
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_PLAYER = "player";
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE = "collectable";
 	
+	private final int MENU_RESUME = 0;
+	private final int MENU_QUIT = 1;
+	
 	private Player player;
     private boolean actionPerformed = false;
+    private boolean paused = false;
 
     public GameScene(String level) {
     	this.resourcesManager = ResourceManager.getInstance();
@@ -119,6 +127,21 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener {
     private void createHUD() {
     	gameHUD = new HUD();
     	
+    	final Sprite pauseButton = new Sprite(700, 440, resourcesManager.pause_TR, vbom) {
+    		@Override
+    		public boolean onAreaTouched(TouchEvent touchEvent, float pX, float pY) {
+    			if (touchEvent.isActionUp()) {
+//    				engine.stop();
+    				paused = true;
+    				setChildScene(pauseScene(), false, true, true);
+    				resourcesManager.backgroundMusic.pause();
+    			}
+    			return true;
+    		};
+    	};
+    	
+    	gameHUD.registerTouchArea(pauseButton);
+    	gameHUD.attachChild(pauseButton);
     	camera.setHUD(gameHUD);
     }    
     
@@ -190,6 +213,9 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener {
 					};
 					levelObject.registerEntityModifier(new LoopEntityModifier(new ScaleModifier(1, 1, 1.3f)));
 					
+					//level object returned here because it does not need to be registered with the physicsWorld. 
+					return levelObject;
+					
 				} else {
 					throw new IllegalArgumentException();
 				}
@@ -242,7 +268,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener {
 
     private void performPlayerAction(float difX, float difY, double moveDistance) {
         if (difY > 0 && Math.abs(difY) > Math.abs(difX) || moveDistance <= TAP_THRESHOLD) {
-            this.resourcesManager.jumpSound.play();
+            resourcesManager.jumpSound.play();
             player.jump();
         } else if (difX > 0 && difX > Math.abs(difY)) {
             player.dash();
@@ -250,5 +276,42 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener {
             player.duck();
         }
     }
+
+	@Override
+	public boolean onMenuItemClicked(MenuScene pMenuScene, IMenuItem pMenuItem,	float pMenuItemLocalX, float pMenuItemLocalY) {
+		switch (pMenuItem.getID()) {
+		case MENU_RESUME:
+			clearChildScene();
+			resourcesManager.backgroundMusic.resume();
+			paused = false;
+//			engine.start();
+			return true;
+		case MENU_QUIT:			
+			return true;
+		default:
+			return false;
+	}
+	}
+	
+	private MenuScene pauseScene() {
+		final MenuScene pauseGame = new MenuScene(camera);
+		
+		final SpriteMenuItem resumeButton = new SpriteMenuItem(MENU_RESUME, resourcesManager.pause_TR, vbom);
+		
+		resumeButton.setPosition(400, 240);
+		
+		pauseGame.addMenuItem(resumeButton);
+		pauseGame.setBackgroundEnabled(false);
+		pauseGame.setOnMenuItemClickListener(this);
+		return pauseGame;
+	}	
+	
+	@Override
+	protected void onManagedUpdate(float pSecondsElapsed) {
+		super.onManagedUpdate(pSecondsElapsed);
+		if(paused) {
+			return;
+		}
+	}
 
 }

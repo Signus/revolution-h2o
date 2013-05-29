@@ -70,7 +70,7 @@ public class LevelSelectScene extends BaseScene implements IOnMenuItemClickListe
 	private void createBackground() {
 //		setBackground(new Background(Color.BLACK));
 		AutoParallaxBackground autoParallaxBackground = new AutoParallaxBackground(0, 0, 0, 5);
-		autoParallaxBackground.attachParallaxEntity(new ParallaxEntity(20.0f, new Sprite(.5f*camera.getWidth() , .5f*camera.getHeight(), resourcesManager.menu_background_TR, vbom)));
+		autoParallaxBackground.attachParallaxEntity(new ParallaxEntity(0.0f, new Sprite(.5f*camera.getWidth() , .5f*camera.getHeight(), resourcesManager.menu_background_TR, vbom)));
 		setBackground(autoParallaxBackground);
 		attachChild(new Text(400, camera.getHeight() - 40, resourcesManager.font, "Act I", vbom));		
 	}
