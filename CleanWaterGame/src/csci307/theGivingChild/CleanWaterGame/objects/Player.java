@@ -21,11 +21,15 @@ public class Player extends AnimatedSprite {
     private static final int MAX_SPRINT = 100;
     private static final float SPRINT_AUGMENT = 4;
     private int sprintTime = MAX_SPRINT;
+    private static final int MAX_DUCK = 100;
+    private int duckTime = MAX_DUCK;
     private boolean isSprinting = false;
     private boolean isJumping = false;
+    private boolean isDucking = false;
     private static int TIME = 100;
 
     final long[] PLAYER_ANIMATE = new long[] {TIME, TIME, TIME, TIME, TIME, TIME};
+    private static PhysicsWorld physicsWorld;
 
     public Player(float pX, float pY, VertexBufferObjectManager vbom, Camera camera, PhysicsWorld physicsWorld) {
 		super(pX, pY, ResourceManager.getInstance().player_TR, vbom);
@@ -35,10 +39,12 @@ public class Player extends AnimatedSprite {
     
 	
 	private void createPhysics(final Camera camera, PhysicsWorld physicsWorld) {
-		body = PhysicsFactory.createBoxBody(physicsWorld, 36, 50, 65, 100, BodyType.DynamicBody, PhysicsFactory.createFixtureDef(0, 0, 0));
-        //body = PhysicsFactory.createBoxBody(physicsWorld, this, BodyType.DynamicBody, PhysicsFactory.createFixtureDef(0, 0, 0));
-		body.setUserData("player");
-		body.setFixedRotation(true);
+        Player.physicsWorld = physicsWorld;
+//		body = PhysicsFactory.createBoxBody(physicsWorld, 36, 50, 65, 100, BodyType.DynamicBody, PhysicsFactory.createFixtureDef(0, 0, 0));
+//        //body = PhysicsFactory.createBoxBody(physicsWorld, this, BodyType.DynamicBody, PhysicsFactory.createFixtureDef(0, 0, 0));
+//		body.setUserData("player");
+//		body.setFixedRotation(true);
+        newBody(100);
 		
 		physicsWorld.registerPhysicsConnector(new PhysicsConnector(this, body, true, false)
 		{
@@ -62,6 +68,7 @@ public class Player extends AnimatedSprite {
                             sprintTime = MAX_SPRINT;
                             isSprinting = false;
                             runSpeed -= SPRINT_AUGMENT;
+                            setToInitialSprite();
                         }
                     }
                     if (isJumping) {
@@ -69,6 +76,16 @@ public class Player extends AnimatedSprite {
                             isJumping = false;
                             setToInitialSprite();
                         }
+                    }
+                    if (isDucking) {
+                        duckTime--;
+                        if (duckTime <= 0) {
+                            duckTime = MAX_DUCK;
+                            isDucking = false;
+                            newBody(100);
+                            setToInitialSprite();
+                        }
+
                     }
                 }
 			}
@@ -88,6 +105,11 @@ public class Player extends AnimatedSprite {
     }
 
     private void setToDashSprite() {
+    }
+
+    private void setToDuckSprite() {
+        final long[] PLAYER_ANIMATE = new long[] { 100, 100 };
+        animate(PLAYER_ANIMATE, 2, 3, true);
     }
 
     public void setRunning() {
@@ -116,8 +138,11 @@ public class Player extends AnimatedSprite {
 	}
 
     public void duck() {
-
-	}
+        if (isDucking) return;
+        isDucking = true;
+        setToDuckSprite();
+        newBody(50);
+    }
 
 	public void onDie() {
 		
@@ -131,7 +156,15 @@ public class Player extends AnimatedSprite {
     public boolean isNotPerformingAction() {
         // If jumping...
         if (verticalMotion()) return false;
+        if (isDucking) return false;
 
         return true;
+    }
+
+    private void newBody(float height) {
+        body = PhysicsFactory.createBoxBody(physicsWorld, 36, 50, 65, height, BodyType.DynamicBody, PhysicsFactory.createFixtureDef(0, 0, 0));
+        body.setUserData("player");
+        body.setFixedRotation(true);
+
     }
 }
