@@ -21,6 +21,9 @@ import org.andengine.entity.primitive.Rectangle;
 import org.andengine.entity.scene.IOnSceneTouchListener;
 import org.andengine.entity.scene.Scene;
 import org.andengine.entity.scene.background.Background;
+import org.andengine.entity.scene.menu.MenuScene;
+import org.andengine.entity.scene.menu.MenuScene.IOnMenuItemClickListener;
+import org.andengine.entity.scene.menu.item.IMenuItem;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.extension.physics.box2d.FixedStepPhysicsWorld;
 import org.andengine.extension.physics.box2d.PhysicsConnector;
@@ -44,7 +47,7 @@ import csci307.theGivingChild.CleanWaterGame.manager.SceneManager;
 import csci307.theGivingChild.CleanWaterGame.manager.SceneManager.SceneType;
 import csci307.theGivingChild.CleanWaterGame.objects.Player;
 
-public class GameScene extends BaseScene implements IOnSceneTouchListener {
+public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMenuItemClickListener {
 
     private static final double TAP_THRESHOLD = 35;
     private static final double SWIPE_THRESHOLD = 80;
@@ -114,6 +117,20 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener {
     
     private void createBackground() {
     	setBackground(new Background(Color.BLUE));
+    	Sprite pause = new Sprite(400, 240, ResourceManager.getInstance().pause_TR, vbom) {
+    		@Override
+    		public boolean onAreaTouched(final TouchEvent pAreaTouchEvent, final float pX, final float pY) {
+    			if (pAreaTouchEvent.getAction() == TouchEvent.ACTION_DOWN) {
+    				engine.stop();
+    				PauseScene pauseScene = new PauseScene();
+    				setChildScene(pauseScene);
+    				System.out.println("IT WORKS");
+    				
+    			}
+    			return true;
+    		}
+    	};
+    	attachChild(pause);
     }
     
     private void createHUD() {
@@ -250,5 +267,14 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener {
             player.duck();
         }
     }
+
+	@Override
+	public boolean onMenuItemClicked(MenuScene pMenuScene, IMenuItem pMenuItem,
+			float pMenuItemLocalX, float pMenuItemLocalY) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	
+	
 
 }
