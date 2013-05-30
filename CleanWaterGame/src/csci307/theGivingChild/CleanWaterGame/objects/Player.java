@@ -29,6 +29,7 @@ public class Player extends AnimatedSprite {
     private boolean isJumping = false;
     private boolean isDucking = false;
     private static int TIME = 100;
+    private int footContacts = 0;
 
     final long[] PLAYER_ANIMATE = new long[] {TIME, TIME, TIME, TIME, TIME, TIME};
     private static PhysicsWorld physicsWorld;
@@ -123,6 +124,9 @@ public class Player extends AnimatedSprite {
 	
 	public void jump() {
         //if (isJumping) return;
+		if (footContacts < 1) {
+			return;
+		}
         isJumping = true;
         setToJumpSprite();
 
@@ -169,4 +173,14 @@ public class Player extends AnimatedSprite {
 //        body.setUserData("player");
 //        body.setFixedRotation(true);
     }
+    
+    public void increaseFootContacts()
+	{
+		footContacts++;
+	}
+	
+	public void decreaseFootContacts()
+	{
+		footContacts--;
+	}
 }
