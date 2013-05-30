@@ -394,7 +394,16 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 
 			@Override
 			public void endContact(Contact contact) {
-				// TODO Auto-generated method stub
+				final Fixture x1 = contact.getFixtureA();
+				final Fixture x2 = contact.getFixtureB();
+
+				if (x1.getBody().getUserData() != null && x2.getBody().getUserData() != null)
+				{
+					if (x2.getBody().getUserData().equals("player"))
+					{
+						player.decreaseFootContacts();
+					}
+				}
 				
 			}
 
