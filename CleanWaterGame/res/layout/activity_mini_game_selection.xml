@@ -14,7 +14,7 @@
             android:text="Level 1"
             android:id="@+id/level_one"
             android:layout_centerHorizontal="true" android:layout_alignParentTop="true"
-            android:layout_marginTop="80dp" android:background="@drawable/blue_btn" android:onClick="openLevelOne"/>
+            android:layout_marginTop="80dp" android:background="@drawable/button" android:onClick="openLevelOne"/>
 
     <Button
         android:id="@+id/level_two"
@@ -23,7 +23,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="147dp"
-        android:background="@drawable/blue_btn"
+        android:background="@drawable/button"
         android:onClick="openLevelTwo"
         android:text="Act I" />
 
@@ -34,7 +34,7 @@
         android:layout_alignLeft="@+id/level_one"
         android:layout_below="@+id/level_one"
         android:layout_marginTop="103dp"
-        android:background="@drawable/blue_btn"
+        android:background="@drawable/button"
         android:onClick="openTestLevel"
         android:text="Test" />
     
