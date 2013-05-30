@@ -14,7 +14,9 @@ import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import csci307.theGivingChild.CleanWaterGame.manager.ResourceManager;
 
 public class Player extends AnimatedSprite {
-	// VARIABLES
+    private static final float JUMP_VELOCITY = 10.0f;
+    private static final float JUMP_TOLERANCE = 1.0f;
+    // VARIABLES
 	public Body body;
 	private boolean canRun = false;
     private float runSpeed = 5;
@@ -40,13 +42,13 @@ public class Player extends AnimatedSprite {
 	
 	private void createPhysics(final Camera camera, PhysicsWorld physicsWorld) {
         Player.physicsWorld = physicsWorld;
-//		body = PhysicsFactory.createBoxBody(physicsWorld, 36, 50, 65, 100, BodyType.DynamicBody, PhysicsFactory.createFixtureDef(0, 0, 0));
-//        //body = PhysicsFactory.createBoxBody(physicsWorld, this, BodyType.DynamicBody, PhysicsFactory.createFixtureDef(0, 0, 0));
-//		body.setUserData("player");
-//		body.setFixedRotation(true);
-        newBody(100);
-		
-		physicsWorld.registerPhysicsConnector(new PhysicsConnector(this, body, true, false)
+		body = PhysicsFactory.createBoxBody(physicsWorld, 36, 50, 65, 100, BodyType.DynamicBody, PhysicsFactory.createFixtureDef(0, 0, 0));
+        //body = PhysicsFactory.createBoxBody(physicsWorld, this, BodyType.DynamicBody, PhysicsFactory.createFixtureDef(0, 0, 0));
+		body.setUserData("player");
+		body.setFixedRotation(true);
+        //newBody(50);
+
+        physicsWorld.registerPhysicsConnector(new PhysicsConnector(this, body, true, false)
 		{
 			@Override
 			public void onUpdate(float pSecondsElapsed)
@@ -82,7 +84,7 @@ public class Player extends AnimatedSprite {
                         if (duckTime <= 0) {
                             duckTime = MAX_DUCK;
                             isDucking = false;
-                            newBody(100);
+                            newBody(5);
                             setToInitialSprite();
                         }
 
@@ -120,11 +122,11 @@ public class Player extends AnimatedSprite {
 	}
 	
 	public void jump() {
-        if (isJumping) return;
+        //if (isJumping) return;
         isJumping = true;
         setToJumpSprite();
 
-        body.setLinearVelocity(body.getLinearVelocity().x, 10.0f);
+        body.setLinearVelocity(body.getLinearVelocity().x, JUMP_VELOCITY);
 	}
 
 	public void dash() {
@@ -141,7 +143,7 @@ public class Player extends AnimatedSprite {
         if (isDucking) return;
         isDucking = true;
         setToDuckSprite();
-        newBody(50);
+        newBody(-5);
     }
 
 	public void onDie() {
@@ -149,7 +151,7 @@ public class Player extends AnimatedSprite {
     }
 
     private boolean verticalMotion() {
-        return Math.abs(body.getLinearVelocity().y) != 0;
+        return Math.abs(body.getLinearVelocity().y) != 0 && body.getLinearVelocity().y > -JUMP_VELOCITY + JUMP_TOLERANCE;
     }
 
     // Not fully correct
@@ -162,9 +164,9 @@ public class Player extends AnimatedSprite {
     }
 
     private void newBody(float height) {
-        body = PhysicsFactory.createBoxBody(physicsWorld, 36, 50, 65, height, BodyType.DynamicBody, PhysicsFactory.createFixtureDef(0, 0, 0));
-        body.setUserData("player");
-        body.setFixedRotation(true);
-
+        //body.setTransform(body.getPosition().x, body.getPosition().y + height, 0);
+//        body = PhysicsFactory.createBoxBody(physicsWorld, 36, 50, 65, height, BodyType.DynamicBody, PhysicsFactory.createFixtureDef(0, 0, 0));
+//        body.setUserData("player");
+//        body.setFixedRotation(true);
     }
 }
