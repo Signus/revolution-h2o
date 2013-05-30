@@ -53,8 +53,7 @@ public class ResourceManager {
 	//menu textures
 	public ITextureRegion act_menu_background_TR;
 	public ITextureRegion menu_background_TR;
-	public ITextureRegion scene_one_TR;
-	public ITextureRegion scene_two_TR;
+	public ITextureRegion scene_one_TR, scene_two_TR, scene_three_TR, scene_four_TR, scene_five_TR;
 	public ITextureRegion act_one_TR;
 	
 	//game textures
