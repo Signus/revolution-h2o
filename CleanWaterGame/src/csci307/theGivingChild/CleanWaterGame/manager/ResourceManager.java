@@ -53,19 +53,20 @@ public class ResourceManager {
 	//menu textures
 	public ITextureRegion act_menu_background_TR;
 	public ITextureRegion menu_background_TR;
-	public ITextureRegion scene_one_TR;
-	public ITextureRegion scene_two_TR;
+	public ITextureRegion scene_one_TR, scene_two_TR, scene_three_TR, scene_four_TR, scene_five_TR;
 	public ITextureRegion act_one_TR;
 	
 	//game textures
 	public ITiledTextureRegion player_TR;
 	public ITextureRegion collectable_TR;
 	public ITextureRegion pause_TR;
+	public ITextureRegion ground_TR;
 	
 	//texture atlas
 	private BitmapTextureAtlas splashTA;
 	private BuildableBitmapTextureAtlas menuTA;
 	private BuildableBitmapTextureAtlas gameTA;
+	private BuildableBitmapTextureAtlas groundTA;
 	
 	//sounds
 	public Sound jumpSound;
@@ -134,17 +135,21 @@ public class ResourceManager {
 		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/game/");
 
         gameTA = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 2048, 128, TextureOptions.BILINEAR);
-        player_TR = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(gameTA, activity, "player_run_sprite.png", 6, 1);
+        player_TR = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(gameTA, activity, "roll_run.png", 6, 1);
         collectable_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTA, activity, "coin.png");
         pause_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTA, activity, "button.png");
         
+        groundTA = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 128, TextureOptions.DEFAULT);
+        ground_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(groundTA, activity, "ground.png");        
         
         try {
         	this.gameTA.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 1));
+        	this.groundTA.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 1));
         } catch (final TextureAtlasBuilderException e) {
         	Debug.e(e);
         }
         this.gameTA.load();
+        this.groundTA.load();
     }
 	
 	private void loadGameAudio() {
