@@ -200,6 +200,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 						@Override
 						public void onDie() {
 							paused = true;
+							
 							setChildScene(gameOverScene());
 						}
 					};
@@ -294,6 +295,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 			case MENU_QUIT:			
 				return true;
 			case MENU_RESTART:
+				resourcesManager.backgroundMusic.stop();
 				clearChildScene();
 				SceneManager.getInstance().loadGameScene(engine, currentLevel);
 				paused = false;
