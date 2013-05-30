@@ -79,6 +79,10 @@ public class Player extends AnimatedSprite {
                             isJumping = false;
                             setToInitialSprite();
                         }
+//                    	if (footContacts < 1) {
+//                    		isJumping = false;
+//                    		setToInitialSprite();
+//                    	}
                     }
                     if (isDucking) {
                         duckTime--;
@@ -123,10 +127,11 @@ public class Player extends AnimatedSprite {
 	}
 	
 	public void jump() {
+		System.out.println(footContacts);
         //if (isJumping) return;
-		if (footContacts < 1) {
-			return;
-		}
+//		if (footContacts < 1) {
+//			return;
+//		}
         isJumping = true;
         setToJumpSprite();
 
@@ -181,6 +186,6 @@ public class Player extends AnimatedSprite {
 	
 	public void decreaseFootContacts()
 	{
-		footContacts--;
+		footContacts = 0;
 	}
 }
