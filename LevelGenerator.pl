@@ -29,7 +29,9 @@ my $levelb = "<level width=\"";
 my $levelh = "\" height=\"";
 my $levelbe = "\">\n";
 my $levele = "</level>";
-
+my $player = "	<entity x=\"100\" y=\"50\" width=\"70\" height=\"100\" tyep=\"player\"/>\n";
+my $obstacles = "\n<!-- obstacles -->\n";
+my $collectables = "\n<!-- collectables -->\n\n\n";
 
 
 #------------------------------------------------------------------------------
@@ -84,13 +86,16 @@ sub writeXml
 	print XML $xmlVer;
 	print XML $leveltemp;
 
+	print XML $player;
+	print XML $obstacles;
+
 	my $entityl = "";
 
 	for (my $i = 50; $i < $width; $i = $i + 100) {
 		$entityl = $entitySt."$i".$endentity;
 		print XML $entityl;
 	}
-
+	print XML $collectables;
 	print XML $levele;
 	close(XML);
 }
