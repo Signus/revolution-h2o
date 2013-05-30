@@ -13,6 +13,8 @@ package csci307.theGivingChild.CleanWaterGame.scene;
 
 import java.io.IOException;
 
+import javax.microedition.khronos.opengles.GL10;
+
 import org.andengine.engine.camera.hud.HUD;
 import org.andengine.entity.IEntity;
 import org.andengine.entity.modifier.LoopEntityModifier;
@@ -136,7 +138,6 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
     		@Override
     		public boolean onAreaTouched(TouchEvent touchEvent, float pX, float pY) {
     			if (touchEvent.isActionUp()) {
-//    				engine.stop();
     				paused = true;
     				setChildScene(pauseScene(), false, true, true);
     				resourcesManager.backgroundMusic.pause();
@@ -200,7 +201,6 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 						@Override
 						public void onDie() {
 							paused = true;
-							
 							setChildScene(gameOverScene());
 						}
 					};
@@ -297,6 +297,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 			case MENU_RESTART:
 				resourcesManager.backgroundMusic.stop();
 				clearChildScene();
+				disposeScene();
 				SceneManager.getInstance().loadGameScene(engine, currentLevel);
 				paused = false;
 				return true;
@@ -311,6 +312,10 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 		final SpriteMenuItem resumeButton = new SpriteMenuItem(MENU_RESUME, resourcesManager.pause_TR, vbom);
 		final Rectangle background = new Rectangle(400, 240, 300, 200, vbom);
 		resumeButton.setPosition(400, 240);
+		
+		//setting background transparent
+		background.setBlendFunction(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
+		background.setAlpha(0.5f);
 		
 		pauseGame.attachChild(background);
 		pauseGame.addMenuItem(resumeButton);
