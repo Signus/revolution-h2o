@@ -339,6 +339,11 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 		
 		pauseGame.attachChild(background);
 		pauseGame.addMenuItem(resumeButton);
+		
+//		pauseGame.setHeight(250);
+//		pauseGame.setWidth(360);
+		pauseGame.setBackground(new Background(Color.BLACK));
+
 		pauseGame.setBackgroundEnabled(false);
 		pauseGame.setOnMenuItemClickListener(this);
 		return pauseGame;
