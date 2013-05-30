@@ -34,4 +34,46 @@
 
 	<!-- level collectables -->
 	<entity x="455" y="120" width="50" height="50" type="collectable"/>
+	<entity x="660" y="140" width="50" height="50" type="collectable"/>
+	<entity x="960" y="210" width="50" height="50" type="collectable"/>
+	<entity x="1190" y="140" width="50" height="50" type="collectable"/>
+	<entity x="1590" y="105" width="50" height="50" type="collectable"/>
+	<entity x="2075" y="140" width="50" height="50" type="collectable"/>
+	<entity x="2250" y="100" width="50" height="50" type="collectable"/>
+	<entity x="2175" y="205" width="50" height="50" type="collectable"/>
+	<entity x="2325" y="205" width="50" height="50" type="collectable"/>
+	<entity x="2575" y="100" width="50" height="50" type="collectable"/>
+	<entity x="2875" y="115" width="50" height="50" type="collectable"/>
+	<entity x="2950" y="165" width="50" height="50" type="collectable"/>
+	<entity x="3025" y="175" width="50" height="50" type="collectable"/>
+	<entity x="3095" y="165" width="50" height="50" type="collectable"/>
+	<entity x="3390" y="105" width="50" height="50" type="collectable"/>
+	<entity x="3465" y="150" width="50" height="50" type="collectable"/>
+	<entity x="3545" y="185" width="50" height="50" type="collectable"/>
+	<entity x="3665" y="225" width="50" height="50" type="collectable"/>
+	<entity x="3735" y="250" width="50" height="50" type="collectable"/>
+	<entity x="3825" y="275" width="50" height="50" type="collectable"/>
+	<entity x="4265" y="225" width="50" height="50" type="collectable"/>
+	<entity x="4335" y="250" width="50" height="50" type="collectable"/>
+	<entity x="4395" y="225" width="50" height="50" type="collectable"/>
+	<entity x="4725" y="275" width="50" height="50" type="collectable"/>
+	<entity x="4795" y="250" width="50" height="50" type="collectable"/>
+	<entity x="4875" y="225" width="50" height="50" type="collectable"/>
+	<entity x="5250" y="75" width="50" height="50" type="collectable"/>
+	<entity x="5525" y="75" width="50" height="50" type="collectable"/>
+	<entity x="5775" y="95" width="50" height="50" type="collectable"/>
+	<entity x="5875" y="105" width="50" height="50" type="collectable"/>
+	<entity x="5990" y="175" width="50" height="50" type="collectable"/>
+	<entity x="6125" y="215" width="50" height="50" type="collectable"/>
+	<entity x="6275" y="225" width="50" height="50" type="collectable"/>
+	<entity x="6375" y="225" width="50" height="50" type="collectable"/>
+	<entity x="6475" y="225" width="50" height="50" type="collectable"/>
+	<entity x="6675" y="225" width="50" height="50" type="collectable"/>
+	<entity x="6775" y="225" width="50" height="50" type="collectable"/>
+	<entity x="6250" y="95" width="50" height="50" type="collectable"/>
+	<entity x="6400" y="95" width="50" height="50" type="collectable"/>
+	<entity x="6650" y="95" width="50" height="50" type="collectable"/>
+	<entity x="7050" y="145" width="50" height="50" type="collectable"/>
+	<entity x="7300" y="95" width="50" height="50" type="collectable"/>
+	<entity x="7400" y="95" width="50" height="50" type="collectable"/>
 </level>

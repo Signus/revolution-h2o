@@ -50,13 +50,15 @@ import csci307.theGivingChild.CleanWaterGame.objects.Player;
 
 public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMenuItemClickListener {
 
-    private static final double TAP_THRESHOLD = 35;
-    private static final double SWIPE_THRESHOLD = 80;
+    private static final double TAP_THRESHOLD = 75;
+    private static final double SWIPE_THRESHOLD = 100;
     private HUD gameHUD;
 	private PhysicsWorld physicsWorld;
 	
 	private float lastX;
     private float lastY;
+    
+    private String currentLevel;
 	
 	private static final String TAG_ENTITY = "entity";
 	private static final String TAG_ENTITY_ATTRIBUTE_X = "x";
@@ -70,9 +72,11 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_FLOATINGPLATFORM = "floatingPlatform";
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_PLAYER = "player";
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE = "collectable";
+	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE_GOAL = "goalcollect";
 	
 	private final int MENU_RESUME = 0;
 	private final int MENU_QUIT = 1;
+	private final int MENU_RESTART = 2;
 	
 	private Player player;
     private boolean actionPerformed = false;
@@ -84,6 +88,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
         this.activity = resourcesManager.activity;
         this.vbom = resourcesManager.vbom;
         this.camera = resourcesManager.camera;
+        currentLevel = level;
         createScene();
 		loadLevel(level);
 	}
@@ -194,7 +199,9 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 					player = new Player(x, y, vbom, camera, physicsWorld) {
 						@Override
 						public void onDie() {
-							//do something, like show game over
+							paused = true;
+							
+							setChildScene(gameOverScene());
 						}
 					};
 					player.setRunning();
@@ -280,31 +287,53 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 	@Override
 	public boolean onMenuItemClicked(MenuScene pMenuScene, IMenuItem pMenuItem,	float pMenuItemLocalX, float pMenuItemLocalY) {
 		switch (pMenuItem.getID()) {
-		case MENU_RESUME:
-			clearChildScene();
-			resourcesManager.backgroundMusic.resume();
-			paused = false;
-//			engine.start();
-			return true;
-		case MENU_QUIT:			
-			return true;
-		default:
-			return false;
-	}
+			case MENU_RESUME:
+				clearChildScene();
+				resourcesManager.backgroundMusic.resume();
+				paused = false;
+				return true;
+			case MENU_QUIT:			
+				return true;
+			case MENU_RESTART:
+				resourcesManager.backgroundMusic.stop();
+				clearChildScene();
+				SceneManager.getInstance().loadGameScene(engine, currentLevel);
+				paused = false;
+				return true;
+			default:
+				return false;
+		}
 	}
 	
 	private MenuScene pauseScene() {
 		final MenuScene pauseGame = new MenuScene(camera);
 		
 		final SpriteMenuItem resumeButton = new SpriteMenuItem(MENU_RESUME, resourcesManager.pause_TR, vbom);
-		
+		final Rectangle background = new Rectangle(400, 240, 300, 200, vbom);
 		resumeButton.setPosition(400, 240);
 		
+		pauseGame.attachChild(background);
 		pauseGame.addMenuItem(resumeButton);
 		pauseGame.setBackgroundEnabled(false);
 		pauseGame.setOnMenuItemClickListener(this);
 		return pauseGame;
 	}	
+	
+	private MenuScene gameOverScene() {
+		paused = true;
+		final MenuScene gameOver = new MenuScene(camera);
+		
+		final SpriteMenuItem restartButton = new SpriteMenuItem(MENU_RESTART, resourcesManager.pause_TR, vbom);
+		final Rectangle background = new Rectangle(400, 240, 300, 200, vbom);
+		
+		restartButton.setPosition(400,  240);
+		
+		gameOver.attachChild(background);
+		gameOver.addMenuItem(restartButton);
+		gameOver.setBackgroundEnabled(false);
+		gameOver.setOnMenuItemClickListener(this);
+		return gameOver;
+	}
 	
 	@Override
 	protected void onManagedUpdate(float pSecondsElapsed) {

@@ -127,7 +127,7 @@ public class LevelTesterActivity extends SimpleBaseGameActivity implements IOnSc
 		//MUSIC
 		MusicFactory.setAssetBasePath("sfx/");
 		try {
-			this.backgroundMusic = MusicFactory.createMusicFromAsset(getMusicManager(),this, "nyanmusic.mp3");
+			this.backgroundMusic = MusicFactory.createMusicFromAsset(getMusicManager(),this, "jungle.mp3");
 			this.backgroundMusic.setLooping(true);
 			this.backgroundMusic.setVolume(.7f);
 		} catch (IOException e) {
