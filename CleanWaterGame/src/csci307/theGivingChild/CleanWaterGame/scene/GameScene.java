@@ -198,18 +198,31 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 				
 				final IEntity levelObject;
 				final Body body;
-				
+				/*
+				 * Major refactoring has to be done here once the level has images.
+				 * this method will return a level object at the end, rather than what is presented now, where some returns in the if block.
+				 * 
+				 * As for now, the rectangles printed in the level will be made as such so that the jumping which involves contactlistener will work. 
+				 */
 				if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_HILL)) {
 					levelObject = new Rectangle(x, y, width, height, vbom);
 					levelObject.setColor(Color.GREEN);
+					PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyType.StaticBody, WALL_FIX).setUserData("test");
+					return levelObject;
 				} else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_GROUND)) {
 					levelObject = new Rectangle(x, y, width, height, vbom);
 					levelObject.setColor(Color.RED);
+					PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyType.StaticBody, WALL_FIX).setUserData("test");
+					return levelObject;
 				} else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_GROUNDTEST)) {
 					levelObject = new Sprite(x, y, resourcesManager.ground_TR, vbom);
+					PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyType.StaticBody, WALL_FIX).setUserData("test");
+					return levelObject;
 				} else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_FLOATINGPLATFORM)) {
 					levelObject = new Rectangle(x, y, width, height, vbom);
 					levelObject.setColor(Color.BLACK);
+					PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyType.StaticBody, WALL_FIX).setUserData("test");
+					return levelObject;
 				} else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_FALLINGPLATFORM)) {
 					levelObject = new Sprite(x, y, resourcesManager.ground_TR, vbom);
 					body = PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyType.StaticBody, WALL_FIX);
@@ -248,12 +261,12 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 				}
 				
 				//temporary physics set for every level object. Will need to be put into each entity if physics need to be different. 
-				physicsWorld.registerPhysicsConnector(new PhysicsConnector(levelObject, PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyType.StaticBody, WALL_FIX), true, false));
+//				physicsWorld.registerPhysicsConnector(new PhysicsConnector(levelObject, PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyType.StaticBody, WALL_FIX), true, false));
 				
 				//disable rendering when not visible. 
-				levelObject.setCullingEnabled(true);
+//				levelObject.setCullingEnabled(true);
 				
-				return levelObject;
+//				return levelObject;
 			}
 			
 		});
@@ -339,6 +352,11 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 		
 		pauseGame.attachChild(background);
 		pauseGame.addMenuItem(resumeButton);
+		
+//		pauseGame.setHeight(250);
+//		pauseGame.setWidth(360);
+		pauseGame.setBackground(new Background(Color.BLACK));
+
 		pauseGame.setBackgroundEnabled(false);
 		pauseGame.setOnMenuItemClickListener(this);
 		return pauseGame;
@@ -376,7 +394,13 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 				final Fixture x1 = contact.getFixtureA();
 				final Fixture x2 = contact.getFixtureB();
 				
+				
+				
 				if (x1.getBody().getUserData() != null && x2.getBody().getUserData() != null) {
+					if (x2.getBody().getUserData().equals("player") || x1.getBody().getUserData().equals("player"))
+					{
+						player.increaseFootContacts();
+					}
 					if (x1.getBody().getUserData().equals("fallingPlatform") && x2.getBody().getUserData().equals("player")) {
 						engine.registerUpdateHandler(new TimerHandler(0.2f, new ITimerCallback() {
 							
@@ -402,6 +426,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 					if (x2.getBody().getUserData().equals("player"))
 					{
 						player.decreaseFootContacts();
+						System.out.println("000");
 					}
 				}
 				
