@@ -60,11 +60,13 @@ public class ResourceManager {
 	public ITiledTextureRegion player_TR;
 	public ITextureRegion collectable_TR;
 	public ITextureRegion pause_TR;
+	public ITextureRegion ground_TR;
 	
 	//texture atlas
 	private BitmapTextureAtlas splashTA;
 	private BuildableBitmapTextureAtlas menuTA;
 	private BuildableBitmapTextureAtlas gameTA;
+	private BuildableBitmapTextureAtlas groundTA;
 	
 	//sounds
 	public Sound jumpSound;
@@ -137,13 +139,17 @@ public class ResourceManager {
         collectable_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTA, activity, "coin.png");
         pause_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTA, activity, "button.png");
         
+        groundTA = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 128, TextureOptions.DEFAULT);
+        ground_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(groundTA, activity, "ground.png");        
         
         try {
         	this.gameTA.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 1));
+        	this.groundTA.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 1));
         } catch (final TextureAtlasBuilderException e) {
         	Debug.e(e);
         }
         this.gameTA.load();
+        this.groundTA.load();
     }
 	
 	private void loadGameAudio() {
