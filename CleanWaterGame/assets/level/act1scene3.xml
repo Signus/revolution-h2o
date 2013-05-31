@@ -22,7 +22,6 @@
 	
 	<entity x="2250" y="25" width="100" height="50" type="ground"/>
 	
-	<entity x="2650" y="25" width="100" height="50" type="ground"/>
 	<entity x="2750" y="25" width="100" height="50" type="ground"/>
 	<entity x="2850" y="25" width="100" height="50" type="ground"/>
 	<entity x="2950" y="25" width="100" height="50" type="ground"/>
@@ -140,7 +139,6 @@
 	<entity x="2800" y="75" width="100" height="50" type="ground"/>
 	<entity x="2900" y="75" width="100" height="50" type="ground"/>
 	
-	<entity x="2900" y="75" width="100" height="50" type="fallingPlatform2"/>
 	
 	
 	
