@@ -235,8 +235,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 					PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyType.StaticBody, GROUND_FIX).setUserData("hill");
 				} 
 				else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_GROUND)) {
-					levelObject = new Rectangle(x, y, width, height, vbom);
-					levelObject.setColor(Color.RED);
+					levelObject = new Sprite(x, y, resourcesManager.ground_TR, vbom);
 					PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyType.StaticBody, GROUND_FIX).setUserData("ground");
 				} 
 				else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_GROUNDTEST)) {
