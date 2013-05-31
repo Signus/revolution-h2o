@@ -75,5 +75,20 @@
 	<entity x="6650" y="95" width="50" height="50" type="collectable"/>
 	<entity x="7050" y="145" width="50" height="50" type="collectable"/>
 	<entity x="7300" y="95" width="50" height="50" type="collectable"/>
-	<entity x="7400" y="95" width="50" height="50" type="collectable"/>
+	<entity x="7500" y="95" width="50" height="50" type="collectable"/>
+	<entity x="7700" y="95" width="50" height="50" type="collectable"/>
+	<entity x="7900" y="145" width="50" height="50" type="collectable"/>
+	<entity x="8050" y="205" width="50" height="50" type="collectable"/>
+	<entity x="8175" y="245" width="50" height="50" type="collectable"/>
+	<entity x="8235" y="275" width="50" height="50" type="collectable"/>
+	<entity x="8550" y="185" width="50" height="50" type="collectable"/>
+	<entity x="8650" y="285" width="50" height="50" type="collectable"/>
+	<entity x="8850" y="185" width="50" height="50" type="collectable"/>
+	<entity x="8950" y="185" width="50" height="50" type="collectable"/>
+	<entity x="9050" y="185" width="50" height="50" type="collectable"/>
+	<entity x="9150" y="185" width="50" height="50" type="collectable"/>
+	<entity x="9325" y="225" width="50" height="50" type="collectable"/>
+	<entity x="9395" y="185" width="50" height="50" type="collectable"/>
+	<entity x="9475" y="125" width="50" height="50" type="collectable"/>
+	<entity x="9875" y="125" width="50" height="50" type="collectable"/>
 </level>

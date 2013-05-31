@@ -13,7 +13,11 @@ package csci307.theGivingChild.CleanWaterGame.scene;
 
 import java.io.IOException;
 
+import javax.microedition.khronos.opengles.GL10;
+
 import org.andengine.engine.camera.hud.HUD;
+import org.andengine.engine.handler.timer.ITimerCallback;
+import org.andengine.engine.handler.timer.TimerHandler;
 import org.andengine.entity.IEntity;
 import org.andengine.entity.modifier.LoopEntityModifier;
 import org.andengine.entity.modifier.ScaleModifier;
@@ -40,8 +44,14 @@ import org.andengine.util.level.simple.SimpleLevelLoader;
 import org.xml.sax.Attributes;
 
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
+import com.badlogic.gdx.physics.box2d.Contact;
+import com.badlogic.gdx.physics.box2d.ContactImpulse;
+import com.badlogic.gdx.physics.box2d.ContactListener;
+import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.Manifold;
 
 import csci307.theGivingChild.CleanWaterGame.manager.ResourceManager;
 import csci307.theGivingChild.CleanWaterGame.manager.SceneManager;
@@ -70,9 +80,11 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_HILL = "hill";
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_GROUND = "ground";
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_FLOATINGPLATFORM = "floatingPlatform";
+	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_FALLINGPLATFORM = "fallingPlatform";
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_PLAYER = "player";
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE = "collectable";
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE_GOAL = "goalcollect";
+	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_GROUNDTEST = "ground2";
 	
 	private final int MENU_RESUME = 0;
 	private final int MENU_QUIT = 1;
@@ -136,7 +148,6 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
     		@Override
     		public boolean onAreaTouched(TouchEvent touchEvent, float pX, float pY) {
     			if (touchEvent.isActionUp()) {
-//    				engine.stop();
     				paused = true;
     				setChildScene(pauseScene(), false, true, true);
     				resourcesManager.backgroundMusic.pause();
@@ -152,6 +163,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
     
     private void createPhysics() {
     	physicsWorld = new FixedStepPhysicsWorld(60, new Vector2(0, -17), false);
+    	physicsWorld.setContactListener(contactListener());
     	registerUpdateHandler(physicsWorld);
     }
     
@@ -185,16 +197,38 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 				final String type = SAXUtils.getAttributeOrThrow(pAttributes, TAG_ENTITY_ATTRIBUTE_TYPE);
 				
 				final IEntity levelObject;
-				
+				final Body body;
+				/*
+				 * Major refactoring has to be done here once the level has images.
+				 * this method will return a level object at the end, rather than what is presented now, where some returns in the if block.
+				 * 
+				 * As for now, the rectangles printed in the level will be made as such so that the jumping which involves contactlistener will work. 
+				 */
 				if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_HILL)) {
 					levelObject = new Rectangle(x, y, width, height, vbom);
 					levelObject.setColor(Color.GREEN);
+					PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyType.StaticBody, WALL_FIX).setUserData("test");
+					return levelObject;
 				} else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_GROUND)) {
 					levelObject = new Rectangle(x, y, width, height, vbom);
 					levelObject.setColor(Color.RED);
-				} else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_FLOATINGPLATFORM)){
+					PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyType.StaticBody, WALL_FIX).setUserData("test");
+					return levelObject;
+				} else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_GROUNDTEST)) {
+					levelObject = new Sprite(x, y, resourcesManager.ground_TR, vbom);
+					PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyType.StaticBody, WALL_FIX).setUserData("test");
+					return levelObject;
+				} else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_FLOATINGPLATFORM)) {
 					levelObject = new Rectangle(x, y, width, height, vbom);
 					levelObject.setColor(Color.BLACK);
+					PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyType.StaticBody, WALL_FIX).setUserData("test");
+					return levelObject;
+				} else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_FALLINGPLATFORM)) {
+					levelObject = new Sprite(x, y, resourcesManager.ground_TR, vbom);
+					body = PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyType.StaticBody, WALL_FIX);
+					body.setUserData("fallingPlatform");
+					physicsWorld.registerPhysicsConnector(new PhysicsConnector(levelObject, body, true, false));
+					return levelObject;
 				} else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_PLAYER)) {
 					player = new Player(x, y, vbom, camera, physicsWorld) {
 						@Override
@@ -227,12 +261,12 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 				}
 				
 				//temporary physics set for every level object. Will need to be put into each entity if physics need to be different. 
-				physicsWorld.registerPhysicsConnector(new PhysicsConnector(levelObject, PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyType.StaticBody, WALL_FIX), true, false));
+//				physicsWorld.registerPhysicsConnector(new PhysicsConnector(levelObject, PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyType.StaticBody, WALL_FIX), true, false));
 				
 				//disable rendering when not visible. 
-				levelObject.setCullingEnabled(true);
+//				levelObject.setCullingEnabled(true);
 				
-				return levelObject;
+//				return levelObject;
 			}
 			
 		});
@@ -294,7 +328,9 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 			case MENU_QUIT:			
 				return true;
 			case MENU_RESTART:
+				resourcesManager.backgroundMusic.stop();
 				clearChildScene();
+				disposeScene();
 				SceneManager.getInstance().loadGameScene(engine, currentLevel);
 				paused = false;
 				return true;
@@ -310,8 +346,17 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 		final Rectangle background = new Rectangle(400, 240, 300, 200, vbom);
 		resumeButton.setPosition(400, 240);
 		
+		//setting background transparent
+		background.setBlendFunction(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
+		background.setAlpha(0.5f);
+		
 		pauseGame.attachChild(background);
 		pauseGame.addMenuItem(resumeButton);
+		
+//		pauseGame.setHeight(250);
+//		pauseGame.setWidth(360);
+		pauseGame.setBackground(new Background(Color.BLACK));
+
 		pauseGame.setBackgroundEnabled(false);
 		pauseGame.setOnMenuItemClickListener(this);
 		return pauseGame;
@@ -340,5 +385,66 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 			return;
 		}
 	}
+	
+	private ContactListener contactListener() {
+		ContactListener contactListener = new ContactListener() {
 
+			@Override
+			public void beginContact(Contact contact) {
+				final Fixture x1 = contact.getFixtureA();
+				final Fixture x2 = contact.getFixtureB();
+				
+				
+				
+				if (x1.getBody().getUserData() != null && x2.getBody().getUserData() != null) {
+					if (x2.getBody().getUserData().equals("player") || x1.getBody().getUserData().equals("player"))
+					{
+						player.increaseFootContacts();
+					}
+					if (x1.getBody().getUserData().equals("fallingPlatform") && x2.getBody().getUserData().equals("player")) {
+						engine.registerUpdateHandler(new TimerHandler(0.2f, new ITimerCallback() {
+							
+							@Override
+							public void onTimePassed(TimerHandler pTimerHandler) {
+								pTimerHandler.reset();
+								engine.unregisterUpdateHandler(pTimerHandler);
+								x1.getBody().setType(BodyType.DynamicBody);
+								
+							}
+						}));
+					}
+				}				
+			}
+
+			@Override
+			public void endContact(Contact contact) {
+				final Fixture x1 = contact.getFixtureA();
+				final Fixture x2 = contact.getFixtureB();
+
+				if (x1.getBody().getUserData() != null && x2.getBody().getUserData() != null)
+				{
+					if (x2.getBody().getUserData().equals("player"))
+					{
+						player.decreaseFootContacts();
+						System.out.println("000");
+					}
+				}
+				
+			}
+
+			@Override
+			public void preSolve(Contact contact, Manifold oldManifold) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void postSolve(Contact contact, ContactImpulse impulse) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		};
+		return contactListener;
+	}
 }

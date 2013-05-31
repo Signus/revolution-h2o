@@ -151,7 +151,7 @@ public class Player extends AnimatedSprite {
     }
 
     private boolean verticalMotion() {
-        return Math.abs(body.getLinearVelocity().y) != 0 && (body.getLinearVelocity().y > -JUMP_VELOCITY + JUMP_TOLERANCE || body.getLinearVelocity().y < -JUMP_VELOCITY - JUMP_TOLERANCE);
+        return Math.abs(body.getLinearVelocity().y) != 0 && body.getLinearVelocity().y > -JUMP_VELOCITY + JUMP_TOLERANCE;
     }
 
     // Not fully correct
