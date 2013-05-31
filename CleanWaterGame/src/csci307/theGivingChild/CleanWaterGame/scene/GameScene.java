@@ -32,6 +32,7 @@ import org.andengine.entity.scene.menu.item.SpriteMenuItem;
 import org.andengine.entity.scene.menu.item.TextMenuItem;
 import org.andengine.entity.scene.menu.item.decorator.ColorMenuItemDecorator;
 import org.andengine.entity.sprite.Sprite;
+import org.andengine.entity.text.Text;
 import org.andengine.extension.physics.box2d.FixedStepPhysicsWorld;
 import org.andengine.extension.physics.box2d.PhysicsConnector;
 import org.andengine.extension.physics.box2d.PhysicsFactory;
@@ -137,7 +138,12 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
     @Override
     public void onBackKeyPressed()
     {
-        SceneManager.getInstance().loadMenuScene(engine);
+    	if (hasChildScene()) {
+    		clearChildScene();
+    		paused = false;
+    	} else {
+    		SceneManager.getInstance().loadMenuScene(engine);
+    	}
     }
 
     @Override
@@ -243,7 +249,16 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 					PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyType.StaticBody, GROUND_FIX).setUserData("floatingPlatform");
 				} 
 				else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_FALLINGPLATFORM_2)) {
-					levelObject = new Sprite(x, y, resourcesManager.falling_platform_2_TR, vbom);
+					levelObject = new Sprite(x, y, resourcesManager.falling_platform_2_TR, vbom) {
+						@Override
+						protected void onManagedUpdate(float pSecondsElapsed) {
+							super.onManagedUpdate(pSecondsElapsed);
+							
+							if (this.getY() < 0) {
+								detachChild(this);
+							}
+						}
+					};
 					final Body body = PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyType.StaticBody, FALLING_FIX);
 					body.setUserData("fallingPlatform");
 					physicsWorld.registerPhysicsConnector(new PhysicsConnector(levelObject, body, true, false));
@@ -259,6 +274,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 						@Override
 						public void onDie() {
 							paused = true;
+							camera.setChaseEntity(null);
 							setChildScene(gameOverScene());
 						}
 					};
@@ -277,6 +293,8 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 							}
 						}
 					};
+					
+					//the coin will animate. 
 					levelObject.registerEntityModifier(new LoopEntityModifier(new ScaleModifier(1, 1, 1.3f)));
 					
 					//level object returned here because it does not need to be registered with the physicsWorld. 
@@ -394,24 +412,33 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 		pauseGame.addMenuItem(quitMenuItem);
 		pauseGame.addMenuItem(restartMenuItem);
 		pauseGame.addMenuItem(optionsMenuItem);
-		pauseGame.setBackground(new Background(Color.BLACK));
 
 		pauseGame.setBackgroundEnabled(false);
 		pauseGame.setOnMenuItemClickListener(this);
+		
 		return pauseGame;
 	}	
 	
 	private MenuScene gameOverScene() {
-		paused = true;
 		final MenuScene gameOver = new MenuScene(camera);
-		
-		final SpriteMenuItem restartButton = new SpriteMenuItem(MENU_RESTART, resourcesManager.pause_TR, vbom);
+	
+		final IMenuItem quitMenuItem = new ColorMenuItemDecorator(new TextMenuItem(MENU_QUIT, resourcesManager.font, "QUIT", vbom), Color.RED, Color.WHITE);
+		final IMenuItem restartMenuItem = new ColorMenuItemDecorator(new TextMenuItem(MENU_RESTART, resourcesManager.font, "RESTART", vbom), Color.RED, Color.WHITE);
 		final Rectangle background = new Rectangle(400, 240, 300, 200, vbom);
 		
-		restartButton.setPosition(400,  240);
+		int menuPositionDifference = (int) (background.getHeight() / 3);
+		restartMenuItem.setPosition(400, menuPositionDifference * 2 + 140);
+		quitMenuItem.setPosition(400, menuPositionDifference + 140);
+		
+//		gameOver.attachChild(new Text(400, 400, resourcesManager.game_font, "GAME OVER", vbom));
+		
+		//setting background transparent
+		background.setBlendFunction(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
+		background.setAlpha(0.5f);
 		
 		gameOver.attachChild(background);
-		gameOver.addMenuItem(restartButton);
+		gameOver.addMenuItem(restartMenuItem);
+		gameOver.addMenuItem(quitMenuItem);
 		gameOver.setBackgroundEnabled(false);
 		gameOver.setOnMenuItemClickListener(this);
 		return gameOver;
@@ -434,34 +461,58 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 				final Fixture x2 = contact.getFixtureB();
 				
 				
-				
 				if (x1.getBody().getUserData() != null && x2.getBody().getUserData() != null) {
 					if (x2.getBody().getUserData().equals("player") || x1.getBody().getUserData().equals("player"))
 					{
 						player.increaseFootContacts();
 					}
-					if (x1.getBody().getUserData().equals("fallingPlatform") && x2.getBody().getUserData().equals("player")) {						
-						engine.registerUpdateHandler(new TimerHandler(0.2f, new ITimerCallback() {
-							
-							@Override
-							public void onTimePassed(TimerHandler pTimerHandler) {
-								pTimerHandler.reset();
-								engine.unregisterUpdateHandler(pTimerHandler);
-								x1.getBody().setType(BodyType.DynamicBody);
+					if (x1.getBody().getUserData().equals("fallingPlatform") && x2.getBody().getUserData().equals("player")) {
+						if (x1.getBody().getPosition().x > x2.getBody().getPosition().x) {
+							engine.registerUpdateHandler(new TimerHandler(0.2f, new ITimerCallback() {
 								
-							}
-						}));
+								@Override
+								public void onTimePassed(TimerHandler pTimerHandler) {
+									pTimerHandler.reset();
+									engine.unregisterUpdateHandler(pTimerHandler);
+									x1.getBody().setType(BodyType.DynamicBody);
+									
+								}
+							}));
+						}
+//						engine.registerUpdateHandler(new TimerHandler(0.2f, new ITimerCallback() {
+//							
+//							@Override
+//							public void onTimePassed(TimerHandler pTimerHandler) {
+//								pTimerHandler.reset();
+//								engine.unregisterUpdateHandler(pTimerHandler);
+//								x1.getBody().setType(BodyType.DynamicBody);
+//								
+//							}
+//						}));
 					} else if (x1.getBody().getUserData().equals("player") && x2.getBody().getUserData().equals("fallingPlatform")) {
-						engine.registerUpdateHandler(new TimerHandler(0.2f, new ITimerCallback() {
-							
-							@Override
-							public void onTimePassed(TimerHandler pTimerHandler) {
-								pTimerHandler.reset();
-								engine.unregisterUpdateHandler(pTimerHandler);
-								x2.getBody().setType(BodyType.DynamicBody);
+						if (x2.getBody().getPosition().x > x1.getBody().getPosition().x) {
+							engine.registerUpdateHandler(new TimerHandler(0.2f, new ITimerCallback() {
 								
-							}
-						}));
+								@Override
+								public void onTimePassed(TimerHandler pTimerHandler) {
+									pTimerHandler.reset();
+									engine.unregisterUpdateHandler(pTimerHandler);
+									x2.getBody().setType(BodyType.DynamicBody);
+									
+								}
+							}));
+						}
+						
+//						engine.registerUpdateHandler(new TimerHandler(0.2f, new ITimerCallback() {
+//							
+//							@Override
+//							public void onTimePassed(TimerHandler pTimerHandler) {
+//								pTimerHandler.reset();
+//								engine.unregisterUpdateHandler(pTimerHandler);
+//								x2.getBody().setType(BodyType.DynamicBody);
+//								
+//							}
+//						}));
 					}
 				}				
 			}

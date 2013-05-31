@@ -40,7 +40,7 @@ public class ResourceManager {
 	public BaseGameActivity activity;
 	public BoundCamera camera;
 	public VertexBufferObjectManager vbom;
-	public Font font;
+	public Font font, game_font;
     private BitmapTextureAtlas spriteAtlas;
 	
 	//------------------------------------------------
@@ -157,10 +157,12 @@ public class ResourceManager {
 	
 	private void loadGameFonts() {
 		FontFactory.setAssetBasePath("fonts/");
-		final ITexture mainFontTexture = new BitmapTextureAtlas(activity.getTextureManager(), 256, 256, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
+		final ITexture mainFontTexture = new BitmapTextureAtlas(activity.getTextureManager(), 512, 512, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
 		
 		font = FontFactory.createStrokeFromAsset(activity.getFontManager(), mainFontTexture, activity.getAssets(), "font.ttf", 40, true, Color.WHITE, 2, Color.BLACK);
+		game_font = FontFactory.createStrokeFromAsset(activity.getFontManager(), mainFontTexture, activity.getAssets(), "NeverwinterNights.ttf", 50, true, Color.WHITE, 2, Color.BLACK);
 		font.load();
+		game_font.load();
 	}
 	
 	private void loadGameAudio() {
