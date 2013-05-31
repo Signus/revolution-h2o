@@ -20,7 +20,6 @@
 	<entity x="1290" y="25" width="100" height="50" type="ground"/>
 	<entity x="1390" y="25" width="100" height="50" type="ground"/>
 	<entity x="1490" y="25" width="100" height="50" type="ground"/>
-	<entity x="1490" y="10" width="100" height="20" type="ground"/>
 	<entity x="1590" y="10" width="100" height="20" type="ground"/>
 	<entity x="1690" y="10" width="300" height="20" type="ground"/>
 	<entity x="1790" y="25" width="100" height="50" type="ground"/>
