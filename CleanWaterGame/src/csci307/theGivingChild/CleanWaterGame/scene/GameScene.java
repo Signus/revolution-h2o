@@ -134,7 +134,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
         createPhysics();
         
         setOnSceneTouchListener(this);
-        this.resourcesManager.backgroundMusic.play();
+        //this.resourcesManager.backgroundMusic.play();
     }
 
     @Override
@@ -359,6 +359,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
             resourcesManager.jumpSound.play();
             player.jump();
         } else if (difX > 0 && difX > Math.abs(difY)) {
+        	resourcesManager.dashSound.play();
             player.dash();
         } else if (difY < 0 && Math.abs(difY) > Math.abs(difX)) {
             player.duck();
