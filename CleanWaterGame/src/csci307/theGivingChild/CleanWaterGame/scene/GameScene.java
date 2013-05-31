@@ -29,6 +29,8 @@ import org.andengine.entity.scene.menu.MenuScene;
 import org.andengine.entity.scene.menu.MenuScene.IOnMenuItemClickListener;
 import org.andengine.entity.scene.menu.item.IMenuItem;
 import org.andengine.entity.scene.menu.item.SpriteMenuItem;
+import org.andengine.entity.scene.menu.item.TextMenuItem;
+import org.andengine.entity.scene.menu.item.decorator.ColorMenuItemDecorator;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.extension.physics.box2d.FixedStepPhysicsWorld;
 import org.andengine.extension.physics.box2d.PhysicsConnector;
@@ -104,6 +106,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 	private final int MENU_RESUME = 0;
 	private final int MENU_QUIT = 1;
 	private final int MENU_RESTART = 2;
+	private final int MENU_OPTIONS = 3;
 	
 	private Player player;
     private boolean actionPerformed = false;
@@ -348,7 +351,9 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 				resourcesManager.backgroundMusic.resume();
 				paused = false;
 				return true;
-			case MENU_QUIT:			
+			case MENU_QUIT:	
+				clearChildScene();
+				SceneManager.getInstance().loadMenuScene(engine);
 				return true;
 			case MENU_RESTART:
 				resourcesManager.backgroundMusic.stop();
@@ -356,6 +361,8 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 				disposeScene();
 				SceneManager.getInstance().loadGameScene(engine, currentLevel);
 				paused = false;
+				return true;
+			case MENU_OPTIONS:
 				return true;
 			default:
 				return false;
@@ -365,16 +372,28 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 	private MenuScene pauseScene() {
 		final MenuScene pauseGame = new MenuScene(camera);
 		
-		final SpriteMenuItem resumeButton = new SpriteMenuItem(MENU_RESUME, resourcesManager.pause_TR, vbom);
+		final IMenuItem resumeMenuItem = new ColorMenuItemDecorator(new TextMenuItem(MENU_RESUME, resourcesManager.font, "RESUME", vbom), Color.RED, Color.WHITE);
+		final IMenuItem quitMenuItem = new ColorMenuItemDecorator(new TextMenuItem(MENU_QUIT, resourcesManager.font, "QUIT", vbom), Color.RED, Color.WHITE);
+		final IMenuItem restartMenuItem = new ColorMenuItemDecorator(new TextMenuItem(MENU_RESTART, resourcesManager.font, "RESTART", vbom), Color.RED, Color.WHITE);
+		final IMenuItem optionsMenuItem = new ColorMenuItemDecorator(new TextMenuItem(MENU_OPTIONS, resourcesManager.font, "OPTIONS", vbom), Color.RED, Color.WHITE);
 		final Rectangle background = new Rectangle(400, 240, 300, 200, vbom);
-		resumeButton.setPosition(400, 240);
+		
+		int menuPositionDifference = (int) (background.getHeight() / 5);
+		resumeMenuItem.setPosition(400, menuPositionDifference * 4 + 140);
+		restartMenuItem.setPosition(400, menuPositionDifference * 3 + 140);
+		optionsMenuItem.setPosition(400, menuPositionDifference * 2 + 140);
+		quitMenuItem.setPosition(400, menuPositionDifference + 140);
+		
 		
 		//setting background transparent
 		background.setBlendFunction(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
 		background.setAlpha(0.5f);
 		
 		pauseGame.attachChild(background);
-		pauseGame.addMenuItem(resumeButton);
+		pauseGame.addMenuItem(resumeMenuItem);
+		pauseGame.addMenuItem(quitMenuItem);
+		pauseGame.addMenuItem(restartMenuItem);
+		pauseGame.addMenuItem(optionsMenuItem);
 		pauseGame.setBackground(new Background(Color.BLACK));
 
 		pauseGame.setBackgroundEnabled(false);

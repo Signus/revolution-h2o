@@ -85,7 +85,7 @@ public class ResourceManager {
 	
 	public void loadGameResources() {
 		loadGameGraphics();
-		//loadGameFonts();
+		loadGameFonts();
 		loadGameAudio();
 	}
 	
@@ -154,6 +154,14 @@ public class ResourceManager {
         this.gameTA.load();
         this.groundTA.load();
     }
+	
+	private void loadGameFonts() {
+		FontFactory.setAssetBasePath("fonts/");
+		final ITexture mainFontTexture = new BitmapTextureAtlas(activity.getTextureManager(), 256, 256, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
+		
+		font = FontFactory.createStrokeFromAsset(activity.getFontManager(), mainFontTexture, activity.getAssets(), "font.ttf", 40, true, Color.WHITE, 2, Color.BLACK);
+		font.load();
+	}
 	
 	private void loadGameAudio() {
 		//SOUND
