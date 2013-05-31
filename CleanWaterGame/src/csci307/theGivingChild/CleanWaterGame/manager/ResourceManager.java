@@ -143,7 +143,7 @@ public class ResourceManager {
         player_TR = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(gameTA, activity, "player_run_sprite.png", 6, 1);
         collectable_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTA, activity, "water.png");
 
-        pause_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTA, activity, "button.png");
+        pause_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTA, activity, "pause_button.png");
         scene_background_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTA, activity, "scene_background.png");
         
         groundTA = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 2048, 1024, TextureOptions.DEFAULT);
