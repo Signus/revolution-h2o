@@ -11,17 +11,12 @@
 	<entity x="550" y="25" width="100" height="50" type="ground"/>
 	<entity x="650" y="25" width="100" height="50" type="ground"/>
 	<entity x="750" y="25" width="100" height="50" type="ground"/>
-	<entity x="850" y="25" width="100" height="50" type="ground"/>
-	<entity x="950" y="25" width="100" height="50" type="ground"/>
-	<entity x="1050" y="25" width="100" height="50" type="ground"/>
-	<entity x="1150" y="25" width="100" height="50" type="ground"/>
-	<entity x="1250" y="25" width="100" height="50" type="ground"/>
-	<entity x="1350" y="25" width="100" height="50" type="ground"/>
+	
 	<entity x="1450" y="25" width="100" height="50" type="ground"/>
 	<entity x="1550" y="25" width="100" height="50" type="ground"/>
 	<entity x="1650" y="25" width="100" height="50" type="ground"/>
 	<entity x="1750" y="25" width="100" height="50" type="ground"/>
-	<entity x="1850" y="25" width="100" height="50" type="ground"/>
+	
 	<entity x="1950" y="25" width="100" height="50" type="ground"/>
 	<entity x="2050" y="25" width="100" height="50" type="ground"/>
 	<entity x="2150" y="25" width="100" height="50" type="ground"/>
@@ -107,13 +102,33 @@
 	<entity x="400" y="75" width="100" height="50" type="ground"/>
 	<entity x="550" y="125" width="100" height="50" type="floatingPlatform"/>
 	<entity x="750" y="175" width="100" height="50" type="floatingPlatform"/>
-	<entity x="800" y="175" width="50" height="50" type="fallingPlatform2"/>
-	<entity x="850" y="175" width="50" height="50" type="fallingPlatform2"/>
+	<entity x="850" y="175" width="100" height="50" type="floatingPlatform"/>
 	<entity x="900" y="175" width="50" height="50" type="fallingPlatform2"/>
 	<entity x="950" y="175" width="50" height="50" type="fallingPlatform2"/>
 	<entity x="1000" y="175" width="50" height="50" type="fallingPlatform2"/>
-	<entity x="1050" y="175" width="50" height="50" type="fallingPlatform2"/>
-	<entity x="1250" y="175" width="100" height="50" type="fallingPlatform"/>
+	<entity x="1050" y="175" width="50" height="50" type="fallingPlatform2"/>	
+	<entity x="1100" y="175" width="50" height="50" type="fallingPlatform2"/>
+	<entity x="1150" y="175" width="50" height="50" type="fallingPlatform2"/>
+	<entity x="1225" y="175" width="100" height="50" type="floatingPlatform"/>
+	<entity x="1325" y="175" width="100" height="50" type="floatingPlatform"/>
+	<entity x="1550" y="225" width="100" height="50" type="fallingPlatform"/>
+	<entity x="1750" y="275" width="100" height="50" type="fallingPlatform"/>
+	
+	<entity x="1850" y="275" width="100" height="50" type="floatingPlatform"/>
+	<entity x="1950" y="275" width="100" height="50" type="floatingPlatform"/>
+	<entity x="2025" y="275" width="100" height="50" type="fallingPlatform2"/>
+	<entity x="2075" y="275" width="100" height="50" type="fallingPlatform2"/>
+	<entity x="2125" y="275" width="100" height="50" type="fallingPlatform2"/>
+	<entity x="2175" y="275" width="100" height="50" type="fallingPlatform2"/>
+	<entity x="2225" y="275" width="100" height="50" type="fallingPlatform2"/>
+	<entity x="2275" y="275" width="100" height="50" type="fallingPlatform2"/>
+	<entity x="2350" y="275" width="100" height="50" type="floatingPlatform"/>
+	
+	<entity x="1650" y="75" width="100" height="50" type="ground"/>
+	<entity x="1750" y="75" width="100" height="50" type="ground"/>
+	
+	
+	
 
 	<!-- collectables -->
 

@@ -71,7 +71,7 @@ public class ResourceManager {
 	
 	//sounds
 	public Sound jumpSound;
-	
+	public Sound dashSound;
 	//music
 	public Music backgroundMusic;
 	
@@ -139,8 +139,11 @@ public class ResourceManager {
 		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/game/");
 
         gameTA = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 2048, 1024, TextureOptions.BILINEAR);
-        player_TR = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(gameTA, activity, "player_run_sprite.png", 6, 1);
+
+        player_TR = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(gameTA, activity, "roll_run.png", 6, 1);
         collectable_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTA, activity, "water.png");
+
+       
         pause_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTA, activity, "button.png");
         scene_background_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTA, activity, "scene_background.png");
         
@@ -175,7 +178,9 @@ public class ResourceManager {
 		SoundFactory.setAssetBasePath("sfx/");
 		try {
 			this.jumpSound = SoundFactory.createSoundFromAsset(activity.getSoundManager(),activity, "jump.mp3");
-			this.jumpSound.setVolume(.1f);
+			this.jumpSound.setVolume(.5f);
+			this.dashSound = SoundFactory.createSoundFromAsset(activity.getSoundManager(),activity, "dash.mp3");
+			this.dashSound.setVolume(.7f);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
