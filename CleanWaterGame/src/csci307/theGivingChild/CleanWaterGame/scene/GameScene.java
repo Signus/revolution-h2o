@@ -173,7 +173,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
     private void createHUD() {
     	gameHUD = new HUD();
     	
-    	final Sprite pauseButton = new Sprite(700, 440, resourcesManager.pause_TR, vbom) {
+    	final Sprite pauseButton = new Sprite(50, 430, resourcesManager.pause_TR, vbom) {
     		@Override
     		public boolean onAreaTouched(TouchEvent touchEvent, float pX, float pY) {
     			if (touchEvent.isActionUp()) {
@@ -248,9 +248,8 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 					PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyType.StaticBody, GROUND_FIX).setUserData("test");
 				} 
 				else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_FLOATINGPLATFORM)) {
-					levelObject = new Rectangle(x, y, width, height, vbom);
-					levelObject.setColor(Color.BLACK);
-					PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyType.StaticBody, GROUND_FIX).setUserData("floatingPlatform");
+					levelObject = new Sprite(x, y, resourcesManager.floating_platform_ground_TR, vbom);
+					PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyType.StaticBody, GROUND_FIX).setUserData("test");
 				} 
 				else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_FALLINGPLATFORM_2)) {
 					levelObject = new Sprite(x, y, resourcesManager.falling_platform_2_TR, vbom) {
