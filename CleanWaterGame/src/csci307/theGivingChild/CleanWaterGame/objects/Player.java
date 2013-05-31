@@ -29,6 +29,7 @@ public class Player extends AnimatedSprite {
     private boolean isJumping = false;
     private boolean isDucking = false;
     private static int TIME = 100;
+    private int footContacts = 0;
 
     final long[] PLAYER_ANIMATE = new long[] {TIME, TIME, TIME, TIME, TIME, TIME};
     private static PhysicsWorld physicsWorld;
@@ -42,8 +43,8 @@ public class Player extends AnimatedSprite {
 	
 	private void createPhysics(final Camera camera, PhysicsWorld physicsWorld) {
         Player.physicsWorld = physicsWorld;
-		body = PhysicsFactory.createBoxBody(physicsWorld, 36, 50, 65, 100, BodyType.DynamicBody, PhysicsFactory.createFixtureDef(0, 0, 0));
-        //body = PhysicsFactory.createBoxBody(physicsWorld, this, BodyType.DynamicBody, PhysicsFactory.createFixtureDef(0, 0, 0));
+		//body = PhysicsFactory.createBoxBody(physicsWorld, 40.25f, 50, 80.5f, 100, BodyType.DynamicBody, PhysicsFactory.createFixtureDef(0, 0, 0));
+        body = PhysicsFactory.createBoxBody(physicsWorld, this, BodyType.DynamicBody, PhysicsFactory.createFixtureDef(0, 0, 0));
 		body.setUserData("player");
 		body.setFixedRotation(true);
         //newBody(50);
@@ -78,6 +79,10 @@ public class Player extends AnimatedSprite {
                             isJumping = false;
                             setToInitialSprite();
                         }
+//                    	if (footContacts < 1) {
+//                    		isJumping = false;
+//                    		setToInitialSprite();
+//                    	}
                     }
                     if (isDucking) {
                         duckTime--;
@@ -122,7 +127,11 @@ public class Player extends AnimatedSprite {
 	}
 	
 	public void jump() {
+		System.out.println(footContacts);
         if (isJumping) return;
+//		if (footContacts < 1) {
+//			return;
+//		}
         isJumping = true;
         setToJumpSprite();
 
@@ -150,8 +159,9 @@ public class Player extends AnimatedSprite {
 		
     }
 
+    // TODO: Refactor for clarity
     private boolean verticalMotion() {
-        return Math.abs(body.getLinearVelocity().y) != 0 && body.getLinearVelocity().y > -JUMP_VELOCITY + JUMP_TOLERANCE;
+        return Math.abs(body.getLinearVelocity().y) != 0 && (body.getLinearVelocity().y > -JUMP_VELOCITY + JUMP_TOLERANCE || body.getLinearVelocity().y < -JUMP_VELOCITY - JUMP_TOLERANCE);
     }
 
     // Not fully correct
@@ -169,4 +179,14 @@ public class Player extends AnimatedSprite {
 //        body.setUserData("player");
 //        body.setFixedRotation(true);
     }
+    
+    public void increaseFootContacts()
+	{
+		footContacts++;
+	}
+	
+	public void decreaseFootContacts()
+	{
+		footContacts = 0;
+	}
 }
