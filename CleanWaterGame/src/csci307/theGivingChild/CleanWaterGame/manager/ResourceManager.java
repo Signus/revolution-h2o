@@ -170,7 +170,7 @@ public class ResourceManager {
 		SoundFactory.setAssetBasePath("sfx/");
 		try {
 			this.jumpSound = SoundFactory.createSoundFromAsset(activity.getSoundManager(),activity, "jump.mp3");
-			this.jumpSound.setVolume(.5f);
+			this.jumpSound.setVolume(.1f);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
