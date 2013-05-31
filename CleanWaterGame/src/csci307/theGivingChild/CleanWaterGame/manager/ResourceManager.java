@@ -71,7 +71,7 @@ public class ResourceManager {
 	
 	//sounds
 	public Sound jumpSound;
-	
+	public Sound dashSound;
 	//music
 	public Music backgroundMusic;
 	
@@ -175,7 +175,9 @@ public class ResourceManager {
 		SoundFactory.setAssetBasePath("sfx/");
 		try {
 			this.jumpSound = SoundFactory.createSoundFromAsset(activity.getSoundManager(),activity, "jump.mp3");
-			this.jumpSound.setVolume(.1f);
+			this.jumpSound.setVolume(.5f);
+			this.dashSound = SoundFactory.createSoundFromAsset(activity.getSoundManager(),activity, "dash.mp3");
+			this.dashSound.setVolume(.7f);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
