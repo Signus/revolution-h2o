@@ -467,7 +467,8 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 						player.increaseFootContacts();
 					}
 					if (x1.getBody().getUserData().equals("fallingPlatform") && x2.getBody().getUserData().equals("player")) {
-						if (x1.getBody().getPosition().x > x2.getBody().getPosition().x) {
+						if (x1.getBody().getPosition().y < x2.getBody().getPosition().y &&
+								x1.getBody().getPosition().x > x2.getBody().getPosition().x) {
 							engine.registerUpdateHandler(new TimerHandler(0.2f, new ITimerCallback() {
 								
 								@Override
@@ -479,18 +480,9 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 								}
 							}));
 						}
-//						engine.registerUpdateHandler(new TimerHandler(0.2f, new ITimerCallback() {
-//							
-//							@Override
-//							public void onTimePassed(TimerHandler pTimerHandler) {
-//								pTimerHandler.reset();
-//								engine.unregisterUpdateHandler(pTimerHandler);
-//								x1.getBody().setType(BodyType.DynamicBody);
-//								
-//							}
-//						}));
 					} else if (x1.getBody().getUserData().equals("player") && x2.getBody().getUserData().equals("fallingPlatform")) {
-						if (x2.getBody().getPosition().x > x1.getBody().getPosition().x) {
+						if (x2.getBody().getPosition().y < x1.getBody().getPosition().y && 
+								x2.getBody().getPosition().x > x1.getBody().getPosition().x) {
 							engine.registerUpdateHandler(new TimerHandler(0.2f, new ITimerCallback() {
 								
 								@Override
@@ -502,17 +494,6 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 								}
 							}));
 						}
-						
-//						engine.registerUpdateHandler(new TimerHandler(0.2f, new ITimerCallback() {
-//							
-//							@Override
-//							public void onTimePassed(TimerHandler pTimerHandler) {
-//								pTimerHandler.reset();
-//								engine.unregisterUpdateHandler(pTimerHandler);
-//								x2.getBody().setType(BodyType.DynamicBody);
-//								
-//							}
-//						}));
 					}
 				}				
 			}
