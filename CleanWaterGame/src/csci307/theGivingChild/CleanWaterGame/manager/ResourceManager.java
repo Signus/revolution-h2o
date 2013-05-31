@@ -107,6 +107,9 @@ public class ResourceManager {
 		menuTA = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 2048, 1024, TextureOptions.BILINEAR);
 		scene_one_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(menuTA, activity, "scene_one_button.png");
 		scene_two_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(menuTA, activity, "scene_two_button.png");
+		scene_three_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(menuTA, activity, "scene_three_button.png");
+		scene_four_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(menuTA, activity, "scene_four_button.png");
+		scene_five_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(menuTA, activity, "scene_five_button.png");
 		menu_background_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(menuTA, activity, "act_one_background.png");
 		act_menu_background_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(menuTA, activity, "act_menu_background.png");
 		act_one_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(menuTA, activity, "act_one_button.png");
