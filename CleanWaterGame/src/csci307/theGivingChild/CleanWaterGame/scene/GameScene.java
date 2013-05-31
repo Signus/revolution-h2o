@@ -440,9 +440,18 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 					{
 						player.increaseFootContacts();
 					}
-					if ((x1.getBody().getUserData().equals("fallingPlatform") && x2.getBody().getUserData().equals("player")) || 
-							(x2.getBody().getUserData().equals("fallingPlatform") && x1.getBody().getUserData().equals("player"))) {
-						System.out.println("CONTACT");
+					if (x1.getBody().getUserData().equals("fallingPlatform") && x2.getBody().getUserData().equals("player")) {						
+						engine.registerUpdateHandler(new TimerHandler(0.2f, new ITimerCallback() {
+							
+							@Override
+							public void onTimePassed(TimerHandler pTimerHandler) {
+								pTimerHandler.reset();
+								engine.unregisterUpdateHandler(pTimerHandler);
+								x1.getBody().setType(BodyType.DynamicBody);
+								
+							}
+						}));
+					} else if (x1.getBody().getUserData().equals("player") && x2.getBody().getUserData().equals("fallingPlatform")) {
 						engine.registerUpdateHandler(new TimerHandler(0.2f, new ITimerCallback() {
 							
 							@Override
