@@ -76,12 +76,12 @@
 	<entity x="6865" y="25" width="100" height="50" type="ground"/>
 	<entity x="6965" y="25" width="100" height="50" type="ground"/>
 	<entity x="5990" y="45" width="200" height="90" type="hill"/>
-	<entity x="6250" y="170" width="100" height="20" type="floatingPlatform"/>
-	<entity x="6350" y="170" width="100" height="20" type="floatingPlatform"/>
-	<entity x="6450" y="170" width="100" height="20" type="floatingPlatform"/>
-	<entity x="6550" y="170" width="100" height="20" type="floatingPlatform"/>
-	<entity x="6650" y="170" width="100" height="20" type="floatingPlatform"/>
-	<entity x="6750" y="170" width="600" height="20" type="floatingPlatform"/>
+	<entity x="6250" y="150" width="100" height="20" type="floatingPlatform"/>
+	<entity x="6350" y="150" width="100" height="20" type="floatingPlatform"/>
+	<entity x="6450" y="150" width="100" height="20" type="floatingPlatform"/>
+	<entity x="6550" y="150" width="100" height="20" type="floatingPlatform"/>
+	<entity x="6650" y="150" width="100" height="20" type="floatingPlatform"/>
+	<entity x="6750" y="150" width="600" height="20" type="floatingPlatform"/>
 	<entity x="7100" y="45" width="200" height="90" type="hill"/>
 	<entity x="7250" y="25" width="100" height="50" type="ground"/>
 	<entity x="7350" y="25" width="100" height="50" type="ground"/>
