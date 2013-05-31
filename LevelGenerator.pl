@@ -29,7 +29,7 @@ my $levelb = "<level width=\"";
 my $levelh = "\" height=\"";
 my $levelbe = "\">\n";
 my $levele = "</level>";
-my $player = "	<entity x=\"100\" y=\"50\" width=\"70\" height=\"100\" tyep=\"player\"/>\n";
+my $player = "	<entity x=\"100\" y=\"50\" width=\"70\" height=\"100\" type=\"player\"/>\n";
 my $obstacles = "\n<!-- obstacles -->\n";
 my $collectables = "\n<!-- collectables -->\n\n\n";
 
