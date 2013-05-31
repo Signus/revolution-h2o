@@ -173,7 +173,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
     private void createHUD() {
     	gameHUD = new HUD();
     	
-    	final Sprite pauseButton = new Sprite(700, 440, resourcesManager.pause_TR, vbom) {
+    	final Sprite pauseButton = new Sprite(50, 430, resourcesManager.pause_TR, vbom) {
     		@Override
     		public boolean onAreaTouched(TouchEvent touchEvent, float pX, float pY) {
     			if (touchEvent.isActionUp()) {
