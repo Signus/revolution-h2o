@@ -59,6 +59,7 @@ public class ResourceManager {
 	//game textures
 	public ITiledTextureRegion player_TR;
 	public ITextureRegion collectable_TR;
+	public ITextureRegion scene_background_TR;
 	public ITextureRegion pause_TR;
 	public ITextureRegion ground_TR, floating_platform_ground_TR, hill_TR, falling_platform_2_TR;
 	
@@ -106,6 +107,9 @@ public class ResourceManager {
 		menuTA = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 2048, 1024, TextureOptions.BILINEAR);
 		scene_one_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(menuTA, activity, "scene_one_button.png");
 		scene_two_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(menuTA, activity, "scene_two_button.png");
+		scene_three_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(menuTA, activity, "scene_three_button.png");
+		scene_four_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(menuTA, activity, "scene_four_button.png");
+		scene_five_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(menuTA, activity, "scene_five_button.png");
 		menu_background_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(menuTA, activity, "act_one_background.png");
 		act_menu_background_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(menuTA, activity, "act_menu_background.png");
 		act_one_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(menuTA, activity, "act_one_button.png");
@@ -134,10 +138,11 @@ public class ResourceManager {
 	private void loadGameGraphics() {
 		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/game/");
 
-        gameTA = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 2048, 128, TextureOptions.BILINEAR);
-        player_TR = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(gameTA, activity, "roll_run.png", 6, 1);
+        gameTA = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 2048, 1024, TextureOptions.BILINEAR);
+        player_TR = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(gameTA, activity, "player_run_sprite.png", 6, 1);
         collectable_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTA, activity, "coin.png");
         pause_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTA, activity, "button.png");
+        scene_background_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTA, activity, "scene_background.png");
         
         groundTA = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 2048, 1024, TextureOptions.DEFAULT);
         ground_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(groundTA, activity, "ground.png");
@@ -170,7 +175,7 @@ public class ResourceManager {
 		SoundFactory.setAssetBasePath("sfx/");
 		try {
 			this.jumpSound = SoundFactory.createSoundFromAsset(activity.getSoundManager(),activity, "jump.mp3");
-			this.jumpSound.setVolume(.5f);
+			this.jumpSound.setVolume(.1f);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

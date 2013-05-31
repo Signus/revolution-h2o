@@ -94,18 +94,24 @@ public class LevelSelectScene extends BaseScene implements IOnMenuItemClickListe
 		
 		final IMenuItem levelOneMenuItem = new ScaleMenuItemDecorator(new SpriteMenuItem(SCENE_ONE, resourcesManager.scene_one_TR, vbom), 1.2f, 1);
 		final IMenuItem levelTwoMenuItem = new ScaleMenuItemDecorator(new SpriteMenuItem(SCENE_TWO, resourcesManager.scene_two_TR, vbom), 1.2f, 1);
-		final IMenuItem levelThreeMenuItem = new ScaleMenuItemDecorator(new SpriteMenuItem(SCENE_THREE, resourcesManager.scene_two_TR, vbom), 1.2f, 1);
+		final IMenuItem levelThreeMenuItem = new ScaleMenuItemDecorator(new SpriteMenuItem(SCENE_THREE, resourcesManager.scene_three_TR, vbom), 1.2f, 1);
+		final IMenuItem levelFourMenuItem = new ScaleMenuItemDecorator(new SpriteMenuItem(SCENE_FOUR, resourcesManager.scene_four_TR, vbom), 1.2f, 1);
+		final IMenuItem levelFiveMenuItem = new ScaleMenuItemDecorator(new SpriteMenuItem(SCENE_FIVE, resourcesManager.scene_five_TR, vbom), 1.2f, 1);
 		
 		menuChildScene.addMenuItem(levelOneMenuItem);
 		menuChildScene.addMenuItem(levelTwoMenuItem);
 		menuChildScene.addMenuItem(levelThreeMenuItem);
+		menuChildScene.addMenuItem(levelFourMenuItem);
+		menuChildScene.addMenuItem(levelFiveMenuItem);
 		
 		menuChildScene.buildAnimations();
 		menuChildScene.setBackgroundEnabled(false);
 		
 		levelOneMenuItem.setPosition(100, 100);
-		levelTwoMenuItem.setPosition(300, 100);
-		levelThreeMenuItem.setPosition(500, 100);
+		levelTwoMenuItem.setPosition(250, 100);
+		levelThreeMenuItem.setPosition(350, 100);
+		levelFourMenuItem.setPosition(450,100);
+		levelFiveMenuItem.setPosition(550,100);
 		
 		
 		menuChildScene.setOnMenuItemClickListener(this);
