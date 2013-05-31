@@ -28,6 +28,8 @@ public class SceneManager {
 	private BaseScene actSelectScene;
 	private BaseScene loadingScene;
 	
+	
+	//
 	//-------------------------------------
 	//VARIABLES
 	//-------------------------------------

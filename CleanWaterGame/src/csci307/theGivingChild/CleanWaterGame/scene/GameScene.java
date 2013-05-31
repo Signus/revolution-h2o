@@ -24,7 +24,9 @@ import org.andengine.entity.modifier.ScaleModifier;
 import org.andengine.entity.primitive.Rectangle;
 import org.andengine.entity.scene.IOnSceneTouchListener;
 import org.andengine.entity.scene.Scene;
+import org.andengine.entity.scene.background.AutoParallaxBackground;
 import org.andengine.entity.scene.background.Background;
+import org.andengine.entity.scene.background.ParallaxBackground.ParallaxEntity;
 import org.andengine.entity.scene.menu.MenuScene;
 import org.andengine.entity.scene.menu.MenuScene.IOnMenuItemClickListener;
 import org.andengine.entity.scene.menu.item.IMenuItem;
@@ -132,7 +134,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
         createPhysics();
         
         setOnSceneTouchListener(this);
-        this.resourcesManager.backgroundMusic.play();
+        //this.resourcesManager.backgroundMusic.play();
     }
 
     @Override
@@ -162,7 +164,10 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
     }
     
     private void createBackground() {
-    	setBackground(new Background(Color.BLUE));
+//    	setBackground(new Background(Color.BLUE));
+    	AutoParallaxBackground autoParallaxBackground = new AutoParallaxBackground(0, 0, 0, 5);
+		autoParallaxBackground.attachParallaxEntity(new ParallaxEntity(0.0f, new Sprite(.5f*camera.getWidth() , .5f*camera.getHeight(), resourcesManager.scene_background_TR, vbom)));
+		setBackground(autoParallaxBackground);
     }
     
     private void createHUD() {
@@ -235,8 +240,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 					PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyType.StaticBody, GROUND_FIX).setUserData("hill");
 				} 
 				else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_GROUND)) {
-					levelObject = new Rectangle(x, y, width, height, vbom);
-					levelObject.setColor(Color.RED);
+					levelObject = new Sprite(x, y, resourcesManager.ground_TR, vbom);
 					PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyType.StaticBody, GROUND_FIX).setUserData("ground");
 				} 
 				else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_GROUNDTEST)) {
@@ -355,6 +359,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
             resourcesManager.jumpSound.play();
             player.jump();
         } else if (difX > 0 && difX > Math.abs(difY)) {
+        	resourcesManager.dashSound.play();
             player.dash();
         } else if (difY < 0 && Math.abs(difY) > Math.abs(difX)) {
             player.duck();
