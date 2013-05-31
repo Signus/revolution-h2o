@@ -15,7 +15,7 @@ import csci307.theGivingChild.CleanWaterGame.manager.ResourceManager;
 
 public class Player extends AnimatedSprite {
     private static final float JUMP_VELOCITY = 10.0f;
-    private static final float JUMP_TOLERANCE = 1.0f;
+    private static final float JUMP_TOLERANCE = 0.5f;
     // VARIABLES
 	public Body body;
 	private boolean canRun = false;
@@ -112,6 +112,8 @@ public class Player extends AnimatedSprite {
     }
 
     private void setToDashSprite() {
+        final long[] PLAYER_ANIMATE = new long[] { 100, 100 };
+        animate(PLAYER_ANIMATE, 4, 5, true);
     }
 
     private void setToDuckSprite() {
@@ -161,13 +163,13 @@ public class Player extends AnimatedSprite {
 
     // TODO: Refactor for clarity
     private boolean verticalMotion() {
-        return Math.abs(body.getLinearVelocity().y) != 0 && (body.getLinearVelocity().y > -JUMP_VELOCITY + JUMP_TOLERANCE || body.getLinearVelocity().y < -JUMP_VELOCITY - JUMP_TOLERANCE);
+        return Math.abs(body.getLinearVelocity().y) != 0 && (body.getLinearVelocity().y > -JUMP_VELOCITY + JUMP_TOLERANCE || body.getLinearVelocity().y < -JUMP_VELOCITY );
     }
 
     // Not fully correct
     public boolean isNotPerformingAction() {
         // If jumping...
-        if (verticalMotion()) return false;
+        if (isJumping) return false;
         if (isDucking) return false;
 
         return true;

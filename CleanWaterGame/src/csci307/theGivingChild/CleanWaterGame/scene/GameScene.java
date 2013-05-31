@@ -60,8 +60,8 @@ import csci307.theGivingChild.CleanWaterGame.objects.Player;
 
 public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMenuItemClickListener {
 
-    private static final double TAP_THRESHOLD = 75;
-    private static final double SWIPE_THRESHOLD = 100;
+    private static final double TAP_THRESHOLD = 80;
+    private static final double SWIPE_THRESHOLD = 120;
     private HUD gameHUD;
 	private PhysicsWorld physicsWorld;
 	
@@ -297,6 +297,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
                     case TouchEvent.ACTION_UP:
                         if (!actionPerformed) {
                             performPlayerAction(difX, difY, moveDistance);
+                            actionPerformed = true;
                         }
                         break;
                 }
