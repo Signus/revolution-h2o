@@ -14,7 +14,9 @@
 	<entity x="760" y="25" width="100" height="50" type="ground"/>
 	<entity x="860" y="25" width="100" height="50" type="ground"/>
 	<entity x="660" y="55" width="100" height="110" type="hill"/>
-	<entity x="960" y="170" width="300" height="20" type="floatingPlatform"/>
+	<entity x="860" y="170" width="100" height="20" type="floatingPlatform"/>
+	<entity x="960" y="170" width="100" height="20" type="floatingPlatform"/>
+	<entity x="1060" y="170" width="100" height="20" type="floatingPlatform"/>
 	<entity x="1090" y="25" width="100" height="50" type="ground"/>
 	<entity x="1190" y="25" width="100" height="50" type="ground"/>
 	<entity x="1290" y="25" width="100" height="50" type="ground"/>
@@ -33,7 +35,8 @@
 	<entity x="2590" y="25" width="100" height="50" type="ground"/>
 	<entity x="2690" y="25" width="100" height="50" type="ground"/>
 	<entity x="1950" y="50" width="100" height="100" type="hill"/>
-	<entity x="2250" y="170" width="200" height="20" type="floatingPlatform"/>
+	<entity x="2200" y="170" width="100" height="20" type="floatingPlatform"/>
+	<entity x="2300" y="170" width="100" height="20" type="floatingPlatform"/>
 	<entity x="2815" y="40" width="150" height="80" type="hill"/>
 	<entity x="3140" y="25" width="100" height="50" type="ground"/>
 	<entity x="3240" y="25" width="100" height="50" type="ground"/>
@@ -43,8 +46,14 @@
 	<entity x="3640" y="25" width="600" height="50" type="ground"/>
 	<entity x="3465" y="40" width="150" height="80" type="hill"/>
 	<entity x="3615" y="70" width="150" height="140" type="hill"/>
-	<entity x="4040" y="180" width="400" height="20" type="floatingPlatform"/>
-	<entity x="4540" y="180" width="300" height="20" type="floatingPlatform"/>
+
+	<entity x="3890" y="180" width="100" height="20" type="floatingPlatform"/>
+	<entity x="3990" y="180" width="100" height="20" type="floatingPlatform"/>
+	<entity x="4090" y="180" width="100" height="20" type="floatingPlatform"/>
+	<entity x="4190" y="180" width="100" height="20" type="floatingPlatform"/>
+	<entity x="4440" y="180" width="100" height="20" type="floatingPlatform"/>
+	<entity x="4540" y="180" width="100" height="20" type="floatingPlatform"/>
+	<entity x="4640" y="180" width="100" height="20" type="floatingPlatform"/>
 	<entity x="5040" y="50" width="300" height="100" type="hill"/>
 	<entity x="5240" y="10" width="100" height="20" type="ground"/>
 	<entity x="5340" y="10" width="100" height="20" type="ground"/>
@@ -67,7 +76,12 @@
 	<entity x="6865" y="25" width="100" height="50" type="ground"/>
 	<entity x="6965" y="25" width="100" height="50" type="ground"/>
 	<entity x="5990" y="45" width="200" height="90" type="hill"/>
-	<entity x="6500" y="170" width="600" height="20" type="floatingPlatform"/>
+	<entity x="6250" y="170" width="100" height="20" type="floatingPlatform"/>
+	<entity x="6350" y="170" width="100" height="20" type="floatingPlatform"/>
+	<entity x="6450" y="170" width="100" height="20" type="floatingPlatform"/>
+	<entity x="6550" y="170" width="100" height="20" type="floatingPlatform"/>
+	<entity x="6650" y="170" width="100" height="20" type="floatingPlatform"/>
+	<entity x="6750" y="170" width="600" height="20" type="floatingPlatform"/>
 	<entity x="7100" y="45" width="200" height="90" type="hill"/>
 	<entity x="7250" y="25" width="100" height="50" type="ground"/>
 	<entity x="7350" y="25" width="100" height="50" type="ground"/>
@@ -80,7 +94,16 @@
 	<entity x="8050" y="25" width="100" height="50" type="ground"/>
 	<entity x="7900" y="45" width="100" height="90" type="hill"/>
 	<entity x="8050" y="60" width="200" height="120" type="hill"/>
-	<entity x="8750" y="140" width="1000" height="20" type="floatingPlatform"/>
+	<entity x="8300" y="140" width="100" height="20" type="floatingPlatform"/>
+	<entity x="8400" y="140" width="100" height="20" type="floatingPlatform"/>
+	<entity x="8500" y="140" width="100" height="20" type="floatingPlatform"/>
+	<entity x="8600" y="140" width="100" height="20" type="floatingPlatform"/>
+	<entity x="8700" y="140" width="100" height="20" type="floatingPlatform"/>
+	<entity x="8800" y="140" width="100" height="20" type="floatingPlatform"/>
+	<entity x="8900" y="140" width="100" height="20" type="floatingPlatform"/>
+	<entity x="9000" y="140" width="100" height="20" type="floatingPlatform"/>
+	<entity x="9100" y="140" width="100" height="20" type="floatingPlatform"/>
+	<entity x="9200" y="140" width="100" height="20" type="floatingPlatform"/>
 	<entity x="9450" y="25" width="100" height="50" type="ground"/>
 	<entity x="9550" y="25" width="100" height="50" type="ground"/>
 	<entity x="9650" y="25" width="100" height="50" type="ground"/>
