@@ -135,13 +135,8 @@ public class ResourceManager {
 	private void loadGameGraphics() {
 		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/game/");
 
-<<<<<<< HEAD
         gameTA = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 2048, 1024, TextureOptions.BILINEAR);
         player_TR = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(gameTA, activity, "player_run_sprite.png", 6, 1);
-=======
-        gameTA = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 2048, 128, TextureOptions.BILINEAR);
-        player_TR = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(gameTA, activity, "roll_run.png", 6, 1);
->>>>>>> ed7d8ad8ac97d014ea3cb9377ae2708328bce97a
         collectable_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTA, activity, "coin.png");
         pause_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTA, activity, "button.png");
         scene_background_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTA, activity, "scene_background.png");
