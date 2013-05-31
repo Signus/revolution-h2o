@@ -12,6 +12,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 
 import csci307.theGivingChild.CleanWaterGame.manager.ResourceManager;
+import csci307.theGivingChild.CleanWaterGame.scene.GameScene;
 
 public class Player extends AnimatedSprite {
     private static final float JUMP_VELOCITY = 10.0f;
@@ -44,7 +45,7 @@ public class Player extends AnimatedSprite {
 	private void createPhysics(final Camera camera, PhysicsWorld physicsWorld) {
         Player.physicsWorld = physicsWorld;
 		//body = PhysicsFactory.createBoxBody(physicsWorld, 40.25f, 50, 80.5f, 100, BodyType.DynamicBody, PhysicsFactory.createFixtureDef(0, 0, 0));
-        body = PhysicsFactory.createBoxBody(physicsWorld, this, BodyType.DynamicBody, PhysicsFactory.createFixtureDef(0, 0, 0));
+        body = PhysicsFactory.createBoxBody(physicsWorld, this, BodyType.DynamicBody, GameScene.PLAYER_FIX);
 		body.setUserData("player");
 		body.setFixedRotation(true);
         //newBody(50);

@@ -60,7 +60,7 @@ public class ResourceManager {
 	public ITiledTextureRegion player_TR;
 	public ITextureRegion collectable_TR;
 	public ITextureRegion pause_TR;
-	public ITextureRegion ground_TR;
+	public ITextureRegion ground_TR, floating_platform_ground_TR, hill_TR, falling_platform_2_TR;
 	
 	//texture atlas
 	private BitmapTextureAtlas splashTA;
@@ -139,8 +139,11 @@ public class ResourceManager {
         collectable_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTA, activity, "coin.png");
         pause_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTA, activity, "button.png");
         
-        groundTA = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 128, TextureOptions.DEFAULT);
-        ground_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(groundTA, activity, "ground.png");        
+        groundTA = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 2048, 1024, TextureOptions.DEFAULT);
+        ground_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(groundTA, activity, "ground.png");
+        floating_platform_ground_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(groundTA, activity, "floating_platform_ground.png");
+        hill_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(groundTA, activity, "hill.png");
+        falling_platform_2_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(groundTA, activity, "bigbad.png");
         
         try {
         	this.gameTA.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 1));

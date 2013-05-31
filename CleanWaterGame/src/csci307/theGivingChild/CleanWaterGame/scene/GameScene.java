@@ -81,10 +81,25 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_GROUND = "ground";
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_FLOATINGPLATFORM = "floatingPlatform";
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_FALLINGPLATFORM = "fallingPlatform";
+	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_FALLINGPLATFORM_2 = "fallingPlatform2";
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_PLAYER = "player";
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE = "collectable";
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE_GOAL = "goalcollect";
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_GROUNDTEST = "ground2";
+	
+	//Categories of objects
+	private static final short CATEGORYBIT_GROUND = 1;
+	private static final short CATEGORYBIT_FALLING = 2;
+	private static final short CATEGORYBIT_PLAYER = 4;
+	
+	//What shoiuld collide with what objects. 
+	private static final short MASKBITS_GROUND = CATEGORYBIT_GROUND + CATEGORYBIT_PLAYER;
+	private static final short MASKBITS_FALLING = CATEGORYBIT_FALLING + CATEGORYBIT_PLAYER;
+	private static final short MASKBITS_PLAYER = CATEGORYBIT_FALLING + CATEGORYBIT_GROUND + CATEGORYBIT_PLAYER;
+	
+	private static final FixtureDef GROUND_FIX = PhysicsFactory.createFixtureDef(0, 0.01f, 0.1f, false, CATEGORYBIT_GROUND, MASKBITS_GROUND, (short)0);
+	private static final FixtureDef FALLING_FIX = PhysicsFactory.createFixtureDef(1, 0, 0.1f, false, CATEGORYBIT_FALLING, MASKBITS_FALLING, (short)0);
+	public static final FixtureDef PLAYER_FIX = PhysicsFactory.createFixtureDef(0, 0, 0, false, CATEGORYBIT_PLAYER, MASKBITS_PLAYER, (short)0);
 	
 	private final int MENU_RESUME = 0;
 	private final int MENU_QUIT = 1;
@@ -170,7 +185,8 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
     private void loadLevel(String levelID) {
 		final SimpleLevelLoader levelLoader = new SimpleLevelLoader(vbom);
 		
-		final FixtureDef WALL_FIX = PhysicsFactory.createFixtureDef(0, 0.01f, 0.1f);
+		
+		
 		
 		levelLoader.registerEntityLoader(new EntityLoader<SimpleLevelEntityLoaderData>(LevelConstants.TAG_LEVEL) {
 
@@ -197,7 +213,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 				final String type = SAXUtils.getAttributeOrThrow(pAttributes, TAG_ENTITY_ATTRIBUTE_TYPE);
 				
 				final IEntity levelObject;
-				final Body body;
+//				final Body body;
 				/*
 				 * Major refactoring has to be done here once the level has images.
 				 * this method will return a level object at the end, rather than what is presented now, where some returns in the if block.
@@ -207,29 +223,35 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 				if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_HILL)) {
 					levelObject = new Rectangle(x, y, width, height, vbom);
 					levelObject.setColor(Color.GREEN);
-					PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyType.StaticBody, WALL_FIX).setUserData("test");
-					return levelObject;
-				} else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_GROUND)) {
+					PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyType.StaticBody, GROUND_FIX).setUserData("hill");
+				} 
+				else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_GROUND)) {
 					levelObject = new Rectangle(x, y, width, height, vbom);
 					levelObject.setColor(Color.RED);
-					PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyType.StaticBody, WALL_FIX).setUserData("test");
-					return levelObject;
-				} else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_GROUNDTEST)) {
+					PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyType.StaticBody, GROUND_FIX).setUserData("ground");
+				} 
+				else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_GROUNDTEST)) {
 					levelObject = new Sprite(x, y, resourcesManager.ground_TR, vbom);
-					PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyType.StaticBody, WALL_FIX).setUserData("test");
-					return levelObject;
-				} else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_FLOATINGPLATFORM)) {
+					PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyType.StaticBody, GROUND_FIX).setUserData("test");
+				} 
+				else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_FLOATINGPLATFORM)) {
 					levelObject = new Rectangle(x, y, width, height, vbom);
 					levelObject.setColor(Color.BLACK);
-					PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyType.StaticBody, WALL_FIX).setUserData("test");
-					return levelObject;
-				} else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_FALLINGPLATFORM)) {
-					levelObject = new Sprite(x, y, resourcesManager.ground_TR, vbom);
-					body = PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyType.StaticBody, WALL_FIX);
+					PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyType.StaticBody, GROUND_FIX).setUserData("floatingPlatform");
+				} 
+				else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_FALLINGPLATFORM_2)) {
+					levelObject = new Sprite(x, y, resourcesManager.falling_platform_2_TR, vbom);
+					final Body body = PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyType.StaticBody, FALLING_FIX);
 					body.setUserData("fallingPlatform");
 					physicsWorld.registerPhysicsConnector(new PhysicsConnector(levelObject, body, true, false));
-					return levelObject;
-				} else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_PLAYER)) {
+				} 
+				else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_FALLINGPLATFORM)) {
+					levelObject = new Sprite(x, y, resourcesManager.ground_TR, vbom);
+					final Body body = PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyType.StaticBody, FALLING_FIX);
+					body.setUserData("fallingPlatform");
+					physicsWorld.registerPhysicsConnector(new PhysicsConnector(levelObject, body, true, false));
+				} 
+				else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_PLAYER)) {
 					player = new Player(x, y, vbom, camera, physicsWorld) {
 						@Override
 						public void onDie() {
@@ -238,8 +260,9 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 						}
 					};
 					player.setRunning();
-					return player;
-				} else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE)) {
+					levelObject = player;
+				} 
+				else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE)) {
 					levelObject = new Sprite(x, y, resourcesManager.collectable_TR, vbom) {
 						@Override
 						protected void onManagedUpdate(float pSecondsElapsed) {
@@ -264,9 +287,8 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 //				physicsWorld.registerPhysicsConnector(new PhysicsConnector(levelObject, PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyType.StaticBody, WALL_FIX), true, false));
 				
 				//disable rendering when not visible. 
-//				levelObject.setCullingEnabled(true);
-				
-//				return levelObject;
+				levelObject.setCullingEnabled(true);				
+				return levelObject;
 			}
 			
 		});
@@ -353,9 +375,6 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 		
 		pauseGame.attachChild(background);
 		pauseGame.addMenuItem(resumeButton);
-		
-//		pauseGame.setHeight(250);
-//		pauseGame.setWidth(360);
 		pauseGame.setBackground(new Background(Color.BLACK));
 
 		pauseGame.setBackgroundEnabled(false);
@@ -402,14 +421,16 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 					{
 						player.increaseFootContacts();
 					}
-					if (x1.getBody().getUserData().equals("fallingPlatform") && x2.getBody().getUserData().equals("player")) {
+					if ((x1.getBody().getUserData().equals("fallingPlatform") && x2.getBody().getUserData().equals("player")) || 
+							(x2.getBody().getUserData().equals("fallingPlatform") && x1.getBody().getUserData().equals("player"))) {
+						System.out.println("CONTACT");
 						engine.registerUpdateHandler(new TimerHandler(0.2f, new ITimerCallback() {
 							
 							@Override
 							public void onTimePassed(TimerHandler pTimerHandler) {
 								pTimerHandler.reset();
 								engine.unregisterUpdateHandler(pTimerHandler);
-								x1.getBody().setType(BodyType.DynamicBody);
+								x2.getBody().setType(BodyType.DynamicBody);
 								
 							}
 						}));

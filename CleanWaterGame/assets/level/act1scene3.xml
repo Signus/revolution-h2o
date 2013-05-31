@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <level width="10000" height="800">
-	<entity x="100" y="50" width="70" height="100" tyep="player"/>
+	<entity x="100" y="50" width="70" height="100" type="player"/>
 
-<!-- obstacles -->
+	<!-- obstacles -->
 	<entity x="50" y="25" width="100" height="50" type="ground"/>
 	<entity x="150" y="25" width="100" height="50" type="ground"/>
 	<entity x="250" y="25" width="100" height="50" type="ground"/>
-	<entity x="350" y="25" width="100" height="50" type="ground"/>
+	<entity x="350" y="25" width="100" height="50" type="ground"/>	
 	<entity x="450" y="25" width="100" height="50" type="ground"/>
 	<entity x="550" y="25" width="100" height="50" type="ground"/>
 	<entity x="650" y="25" width="100" height="50" type="ground"/>
@@ -103,8 +103,19 @@
 	<entity x="9750" y="25" width="100" height="50" type="ground"/>
 	<entity x="9850" y="25" width="100" height="50" type="ground"/>
 	<entity x="9950" y="25" width="100" height="50" type="ground"/>
+	
+	<entity x="400" y="75" width="100" height="50" type="ground"/>
+	<entity x="550" y="125" width="100" height="50" type="floatingPlatform"/>
+	<entity x="750" y="175" width="100" height="50" type="floatingPlatform"/>
+	<entity x="800" y="175" width="50" height="50" type="fallingPlatform2"/>
+	<entity x="850" y="175" width="50" height="50" type="fallingPlatform2"/>
+	<entity x="900" y="175" width="50" height="50" type="fallingPlatform2"/>
+	<entity x="950" y="175" width="50" height="50" type="fallingPlatform2"/>
+	<entity x="1000" y="175" width="50" height="50" type="fallingPlatform2"/>
+	<entity x="1050" y="175" width="50" height="50" type="fallingPlatform2"/>
+	<entity x="1250" y="175" width="100" height="50" type="fallingPlatform"/>
 
-<!-- collectables -->
+	<!-- collectables -->
 
 
 </level>
