@@ -516,11 +516,12 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 				final Fixture x1 = contact.getFixtureA();
 				final Fixture x2 = contact.getFixtureB();
 
-				if (x1.getBody().getUserData() != null && x2.getBody().getUserData() != null)
+				if (x1.getBody().getUserData() != null || x2.getBody().getUserData() != null)
 				{
+                    player.unsetContactGround();
 					if ((x2.getBody().getUserData().equals("player")) || (x1.getBody().getUserData().equals("player")))
 					{
-						player.unsetContactGround();
+//						player.unsetContactGround();
 //						System.out.println("ENDGROUND");
 					}
 				}
