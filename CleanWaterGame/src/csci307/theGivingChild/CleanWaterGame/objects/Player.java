@@ -16,7 +16,7 @@ import csci307.theGivingChild.CleanWaterGame.scene.GameScene;
 
 public class Player extends AnimatedSprite {
     private static final float JUMP_VELOCITY = 10.0f;
-    private static final float JUMP_TOLERANCE = 0.5f;
+    private static final float JUMP_TOLERANCE = 0.25f;
     // VARIABLES
 	public Body body;
 	private boolean canRun = false;
@@ -30,7 +30,7 @@ public class Player extends AnimatedSprite {
     private boolean isJumping = false;
     private boolean isDucking = false;
     private static int TIME = 100;
-    private int footContacts = 0;
+    private boolean footContacts = true;
 
     final long[] PLAYER_ANIMATE = new long[] {TIME, TIME, TIME, TIME, TIME, TIME};
     private static PhysicsWorld physicsWorld;
@@ -40,8 +40,8 @@ public class Player extends AnimatedSprite {
 		createPhysics(camera, physicsWorld);
 		camera.setChaseEntity(this);
 	}
-    
-	
+
+
 	private void createPhysics(final Camera camera, PhysicsWorld physicsWorld) {
         Player.physicsWorld = physicsWorld;
 		//body = PhysicsFactory.createBoxBody(physicsWorld, 40.25f, 50, 80.5f, 100, BodyType.DynamicBody, PhysicsFactory.createFixtureDef(0, 0, 0));
@@ -76,14 +76,14 @@ public class Player extends AnimatedSprite {
                         }
                     }
                     if (isJumping) {
-                        if (!verticalMotion()) {
-                            isJumping = false;
-                            setToInitialSprite();
-                        }
-//                    	if (footContacts < 1) {
-//                    		isJumping = false;
-//                    		setToInitialSprite();
-//                    	}
+//                        if (!verticalMotion()) {
+//                            isJumping = false;
+//                            setToInitialSprite();
+//                        }
+                    	if (footContacts) {
+                    		isJumping = false;
+                    		setToInitialSprite();
+                    	}
                     }
                     if (isDucking) {
                         duckTime--;
@@ -128,7 +128,7 @@ public class Player extends AnimatedSprite {
 
 //		animate(100);
 	}
-	
+
 	public void jump() {
 		System.out.println(footContacts);
         if (isJumping) return;
@@ -137,6 +137,7 @@ public class Player extends AnimatedSprite {
 //		}
         isJumping = true;
         setToJumpSprite();
+        footContacts = false;
 
         body.setLinearVelocity(body.getLinearVelocity().x, JUMP_VELOCITY);
 	}
@@ -159,7 +160,7 @@ public class Player extends AnimatedSprite {
     }
 
 	public void onDie() {
-		
+
     }
 
     // TODO: Refactor for clarity
@@ -172,6 +173,7 @@ public class Player extends AnimatedSprite {
         // If jumping...
         if (isJumping) return false;
         if (isDucking) return false;
+        if (!footContacts) return false;
 
         return true;
     }
@@ -182,14 +184,14 @@ public class Player extends AnimatedSprite {
 //        body.setUserData("player");
 //        body.setFixedRotation(true);
     }
-    
-    public void increaseFootContacts()
+
+    public void setContactGround()
 	{
-		footContacts++;
+		footContacts = true;
 	}
-	
-	public void decreaseFootContacts()
+
+	public void unsetContactGround()
 	{
-		footContacts = 0;
+		footContacts = false;
 	}
 }
