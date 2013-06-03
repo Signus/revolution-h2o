@@ -18,6 +18,10 @@
     <string name="extra_credits_btn">About</string>
     <string name="extra_feedback_btn">Feed Back</string>
     <string name="extra_privacypolicy_btn">Privacy Policy</string>
+    <string name="privacy_policy_text">We will not keep your personal information.\n
+									  We will not store your personal information.\n
+									  We will not share your personal information.\n
+									  If you email us a bug report, we will keep it confidential and delete your personal information. </string>
     
     <!-- Bug reporting activity -->
     <string name="userbug_subject_title">Subject</string>
@@ -43,6 +47,6 @@
     <string name="title_activity_extras_menu">Extras_menu</string>
     <string name="title_activity_error_dialog"></string>
     <string name="title_about">About</string>
-    <string name="title_privacy">Privacy Policy</string>
+    <string name="title_privacy">The Giving Child Privacy Policy</string>
 
 </resources>
