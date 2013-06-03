@@ -45,6 +45,8 @@ import org.andengine.util.level.simple.SimpleLevelEntityLoaderData;
 import org.andengine.util.level.simple.SimpleLevelLoader;
 import org.xml.sax.Attributes;
 
+import android.content.Context;
+
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
@@ -71,6 +73,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
     private float lastY;
 
     private String currentLevel;
+    private boolean start = false;
 
 	private static final String TAG_ENTITY = "entity";
 	private static final String TAG_ENTITY_ATTRIBUTE_X = "x";
@@ -284,7 +287,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 							setChildScene(gameOverScene());
 						}
 					};
-					player.setRunning();
+	//				player.setRunning();
 					levelObject = player;
 				}
 				else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE)) {
@@ -346,6 +349,13 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 	@Override
 	public boolean onSceneTouchEvent(Scene pScene, TouchEvent pSceneTouchEvent) {
 		if (this.physicsWorld != null) {
+			if (!start) {
+				if (pSceneTouchEvent.isActionDown()) {
+					player.setRunning();
+                	start = true;
+                	return true;
+				}
+			} else {
             if (player.isNotPerformingAction() && !isDone) {
                 float difX = pSceneTouchEvent.getX() - lastX;
                 float difY = pSceneTouchEvent.getY() - lastY;
@@ -353,9 +363,15 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 
                 switch (pSceneTouchEvent.getAction()) {
                     case TouchEvent.ACTION_DOWN:
+//                    	if (!start) {
+//                        	player.setRunning();
+//                        	start = true;
+//                        	break;
+//                        }
                         lastX = pSceneTouchEvent.getX();
                         lastY = pSceneTouchEvent.getY();
                         actionPerformed = false;
+                        
                         break;
                     case TouchEvent.ACTION_MOVE:
                         if (!actionPerformed && moveDistance > SWIPE_THRESHOLD) {
@@ -372,6 +388,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
                 }
             }
             return true;
+			}
         }
 		return false;
 	}
