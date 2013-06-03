@@ -138,12 +138,19 @@ public class ResourceManager {
 	//GAME RESOURCES
 	//------------------------------------------------
 	
+	/**
+	 * This toggles the mute value in the shared preferences object should allow for global mute setting
+	 */
 	public void toggleMute()
 	{
 		boolean efx = activity.getSharedPreferences(GameLauncher.PREFERENCE_KEY, Activity.MODE_MULTI_PROCESS).getBoolean(GameLauncher.PREFERENCE_KEY_MUTE, false);
 		activity.getSharedPreferences(GameLauncher.PREFERENCE_KEY, Activity.MODE_MULTI_PROCESS).edit().putBoolean(GameLauncher.PREFERENCE_KEY_MUTE, (efx ? false : true)).commit();
 	}
 	
+	/**
+	 * This returns the value currently saved in the shared preferences listener regarding mute
+	 * @return true if it is muted, false other wise
+	 */
 	public boolean getMute()
 	{
 		return activity.getSharedPreferences(GameLauncher.PREFERENCE_KEY, Activity.MODE_MULTI_PROCESS).getBoolean(GameLauncher.PREFERENCE_KEY_MUTE, false);
