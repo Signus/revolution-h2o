@@ -307,6 +307,26 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 					//level object returned here because it does not need to be registered with the physicsWorld.
 					return levelObject;
 
+				}
+				else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE_ACT1_SCENE1_GOALS)) {
+					levelObject = new Sprite(x, y, resourcesManager.collectable_TR, vbom) {
+						@Override
+						protected void onManagedUpdate(float pSecondsElapsed) {
+							super.onManagedUpdate(pSecondsElapsed);
+
+							if (player.collidesWith(this)) {
+								this.setVisible(false);
+								this.setIgnoreUpdate(true);
+							}
+						}
+					};
+
+					//the coin will animate.
+					levelObject.registerEntityModifier(new LoopEntityModifier(new ScaleModifier(1, 1, 1.3f)));
+
+					//level object returned here because it does not need to be registered with the physicsWorld.
+					return levelObject;
+
 				} else {
 					throw new IllegalArgumentException();
 				}
