@@ -238,9 +238,8 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 				 * As for now, the rectangles printed in the level will be made as such so that the jumping which involves contactlistener will work.
 				 */
 				if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_HILL)) {
-					levelObject = new Rectangle(x, y, width, height, vbom);
-					levelObject.setColor(Color.GREEN);
-					PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyType.StaticBody, GROUND_FIX).setUserData("hill");
+					levelObject = new Sprite(x, y, resourcesManager.hill_TR, vbom);
+					PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyType.StaticBody, GROUND_FIX).setUserData("ground");
 				}
 				else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_GROUND)) {
 					levelObject = new Sprite(x, y, resourcesManager.ground_TR, vbom);
