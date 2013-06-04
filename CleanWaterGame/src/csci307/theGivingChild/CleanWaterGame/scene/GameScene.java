@@ -426,6 +426,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
                 isDone = false;
 				return true;
 			case MENU_OPTIONS:
+				ResourceManager.getInstance().toggleMute();
 				return true;
 			default:
 				return false;
