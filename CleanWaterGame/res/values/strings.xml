@@ -22,7 +22,6 @@
 									  We will not store your personal information.\n
 									  We will not share your personal information.\n
 									  If you email us a bug report, we will keep it confidential and delete your personal information. </string>
-
     <string name="about_app_text">MANY MOTHER’S AND DAUGHTER’S WILL SPEND 3
 HOURS A DAY TO RETRIEVE WATER
 FOR THEIR FAMILIES. THIS WATER CAN BE DISEASE
@@ -49,12 +48,14 @@ THE GIVING CHILD.</string>
     <string name="userbug_body_hint">Describe the problem you are having</string>
     <string name="sysbug_error_code">Error Code:</string>
     <string name="sysbug_error_descript">Description:</string>
+
     <string-array name="userbug_relatedto_spinner">
-            <item>General feedback</item>
-            <item>Animations</item>
-            <item>Menus</item>
-            <item>Sounds</item>
+        <item>General feedback</item>
+        <item>Animations</item>
+        <item>Menus</item>
+        <item>Sounds</item>
     </string-array>
+
     <string name="send">Compose</string>
 
     <!-- app name strings and activity name strings -->
