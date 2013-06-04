@@ -31,6 +31,9 @@ import org.andengine.opengl.vbo.VertexBufferObjectManager;
 import org.andengine.ui.activity.BaseGameActivity;
 import org.andengine.util.debug.Debug;
 
+import csci307.theGivingChild.CleanWaterGame.GameLauncher;
+
+import android.app.Activity;
 import android.graphics.Color;
 
 public class ResourceManager {
@@ -134,6 +137,24 @@ public class ResourceManager {
 	//------------------------------------------------
 	//GAME RESOURCES
 	//------------------------------------------------
+	
+	/**
+	 * This toggles the mute value in the shared preferences object should allow for global mute setting
+	 */
+	public void toggleMute()
+	{
+		boolean efx = activity.getSharedPreferences(GameLauncher.PREFERENCE_KEY, Activity.MODE_MULTI_PROCESS).getBoolean(GameLauncher.PREFERENCE_KEY_MUTE, false);
+		activity.getSharedPreferences(GameLauncher.PREFERENCE_KEY, Activity.MODE_MULTI_PROCESS).edit().putBoolean(GameLauncher.PREFERENCE_KEY_MUTE, (efx ? false : true)).commit();
+	}
+	
+	/**
+	 * This returns the value currently saved in the shared preferences listener regarding mute
+	 * @return true if it is muted, false other wise
+	 */
+	public boolean getMute()
+	{
+		return activity.getSharedPreferences(GameLauncher.PREFERENCE_KEY, Activity.MODE_MULTI_PROCESS).getBoolean(GameLauncher.PREFERENCE_KEY_MUTE, false);
+	}
 	
 	private void loadGameGraphics() {
 		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/game/");

@@ -45,6 +45,8 @@ import org.andengine.util.level.simple.SimpleLevelEntityLoaderData;
 import org.andengine.util.level.simple.SimpleLevelLoader;
 import org.xml.sax.Attributes;
 
+import android.content.Context;
+
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
@@ -71,6 +73,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
     private float lastY;
 
     private String currentLevel;
+    private boolean start = false;
 
 	private static final String TAG_ENTITY = "entity";
 	private static final String TAG_ENTITY_ATTRIBUTE_X = "x";
@@ -87,6 +90,11 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_PLAYER = "player";
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE = "collectable";
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE_GOAL = "goalcollect";
+	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE_ACT1_SCENE1_GOALS = "scene1Goals";
+	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE_ACT1_SCENE2_GOALS = "scene2Goals";
+	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE_ACT1_SCENE3_GOALS = "scene3Goals";
+	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE_ACT1_SCENE4_GOALS = "scene4Goals";
+	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE_ACT1_SCENE5_GOALS = "scene5Goals";
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_GROUNDTEST = "ground2";
 
 	//Categories of objects
@@ -132,7 +140,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
         createPhysics();
 
         setOnSceneTouchListener(this);
-        //this.resourcesManager.backgroundMusic.play();
+        this.resourcesManager.backgroundMusic.play();
     }
 
     @Override
@@ -233,9 +241,8 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 				 * As for now, the rectangles printed in the level will be made as such so that the jumping which involves contactlistener will work.
 				 */
 				if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_HILL)) {
-					levelObject = new Rectangle(x, y, width, height, vbom);
-					levelObject.setColor(Color.GREEN);
-					PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyType.StaticBody, GROUND_FIX).setUserData("hill");
+					levelObject = new Sprite(x, y, resourcesManager.hill_TR, vbom);
+					PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyType.StaticBody, GROUND_FIX).setUserData("ground");
 				}
 				else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_GROUND)) {
 					levelObject = new Sprite(x, y, resourcesManager.ground_TR, vbom);
@@ -280,10 +287,30 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 							setChildScene(gameOverScene());
 						}
 					};
-					player.setRunning();
+	//				player.setRunning();
 					levelObject = player;
 				}
 				else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE)) {
+					levelObject = new Sprite(x, y, resourcesManager.collectable_TR, vbom) {
+						@Override
+						protected void onManagedUpdate(float pSecondsElapsed) {
+							super.onManagedUpdate(pSecondsElapsed);
+
+							if (player.collidesWith(this)) {
+								this.setVisible(false);
+								this.setIgnoreUpdate(true);
+							}
+						}
+					};
+
+					//the coin will animate.
+					levelObject.registerEntityModifier(new LoopEntityModifier(new ScaleModifier(1, 1, 1.3f)));
+
+					//level object returned here because it does not need to be registered with the physicsWorld.
+					return levelObject;
+
+				}
+				else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE_ACT1_SCENE1_GOALS)) {
 					levelObject = new Sprite(x, y, resourcesManager.collectable_TR, vbom) {
 						@Override
 						protected void onManagedUpdate(float pSecondsElapsed) {
@@ -322,6 +349,13 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 	@Override
 	public boolean onSceneTouchEvent(Scene pScene, TouchEvent pSceneTouchEvent) {
 		if (this.physicsWorld != null) {
+			if (!start) {
+				if (pSceneTouchEvent.isActionDown()) {
+					player.setRunning();
+                	start = true;
+                	return true;
+				}
+			} else {
             if (player.isNotPerformingAction() && !isDone) {
                 float difX = pSceneTouchEvent.getX() - lastX;
                 float difY = pSceneTouchEvent.getY() - lastY;
@@ -329,9 +363,15 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 
                 switch (pSceneTouchEvent.getAction()) {
                     case TouchEvent.ACTION_DOWN:
+//                    	if (!start) {
+//                        	player.setRunning();
+//                        	start = true;
+//                        	break;
+//                        }
                         lastX = pSceneTouchEvent.getX();
                         lastY = pSceneTouchEvent.getY();
                         actionPerformed = false;
+                        
                         break;
                     case TouchEvent.ACTION_MOVE:
                         if (!actionPerformed && moveDistance > SWIPE_THRESHOLD) {
@@ -348,6 +388,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
                 }
             }
             return true;
+			}
         }
 		return false;
 	}
@@ -397,7 +438,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 		final IMenuItem resumeMenuItem = new ColorMenuItemDecorator(new TextMenuItem(MENU_RESUME, resourcesManager.font, "RESUME", vbom), Color.RED, Color.WHITE);
 		final IMenuItem quitMenuItem = new ColorMenuItemDecorator(new TextMenuItem(MENU_QUIT, resourcesManager.font, "QUIT", vbom), Color.RED, Color.WHITE);
 		final IMenuItem restartMenuItem = new ColorMenuItemDecorator(new TextMenuItem(MENU_RESTART, resourcesManager.font, "RESTART", vbom), Color.RED, Color.WHITE);
-		final IMenuItem optionsMenuItem = new ColorMenuItemDecorator(new TextMenuItem(MENU_OPTIONS, resourcesManager.font, "OPTIONS", vbom), Color.RED, Color.WHITE);
+		final IMenuItem optionsMenuItem = new ColorMenuItemDecorator(new TextMenuItem(MENU_OPTIONS, resourcesManager.font, "MUTE", vbom), Color.RED, Color.WHITE);
 		final Rectangle background = new Rectangle(400, 240, 300, 200, vbom);
 
 		int menuPositionDifference = (int) (background.getHeight() / 5);

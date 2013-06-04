@@ -4,11 +4,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
     
-    <TextView 
+    <TextView
         android:id="@+id/aboutDisplay"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="300dp"
         android:scrollbars="vertical"
-        android:text="temptext\ntext\n\n\ntext"/>
+        android:text="@string/about_app_text"
+        android:textAlignment="center"
+        android:layout_gravity="center"/>
 
 </LinearLayout>
