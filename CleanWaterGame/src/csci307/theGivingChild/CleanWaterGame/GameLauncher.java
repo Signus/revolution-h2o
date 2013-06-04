@@ -29,6 +29,7 @@ public class GameLauncher extends Activity {
     
     @Override
     public void onResume(){
+    	super.onResume();
     	if(getSharedPreferences(PREFERENCE_KEY, MODE_MULTI_PROCESS).getBoolean(PREFERENCE_KEY_MUTE, false) != MUTE_SOUND_EFX)
     	{
     		ImageButton im = (ImageButton)findViewById(R.id.muting);

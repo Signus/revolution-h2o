@@ -140,7 +140,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
         createPhysics();
 
         setOnSceneTouchListener(this);
-        //this.resourcesManager.backgroundMusic.play();
+        this.resourcesManager.backgroundMusic.play();
     }
 
     @Override
