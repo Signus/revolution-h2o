@@ -40,7 +40,7 @@
     <string name="send">Compose</string>
 
     <!-- app name strings and activity name strings -->
-    <string name="app_name">CleanWaterGame</string>
+    <string name="app_name">Revolution:H2O</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_mini_game_selection">MiniGame_selection</string>
