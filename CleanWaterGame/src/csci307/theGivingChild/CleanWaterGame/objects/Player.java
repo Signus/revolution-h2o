@@ -39,7 +39,16 @@ public class Player extends AnimatedSprite {
 		super(pX, pY, ResourceManager.getInstance().player_TR, vbom);
 		createPhysics(camera, physicsWorld);
 		camera.setChaseEntity(this);
-	}
+        initializeBooleanConditions();
+    }
+
+    private void initializeBooleanConditions() {
+        canRun = false;
+        isSprinting = false;
+        isJumping = false;
+        isDucking = false;
+        footContacts = true;
+    }
 
 
 	private void createPhysics(final Camera camera, PhysicsWorld physicsWorld) {
@@ -75,16 +84,16 @@ public class Player extends AnimatedSprite {
                             setToInitialSprite();
                         }
                     }
-                    if (isJumping) {
-//                        if (!verticalMotion()) {
-//                            isJumping = false;
-//                            setToInitialSprite();
-//                        }
-                    	if (footContacts) {
-                    		isJumping = false;
-                    		setToInitialSprite();
-                    	}
-                    }
+//                    if (isJumping) {
+////                        if (!verticalMotion()) {
+////                            isJumping = false;
+////                            setToInitialSprite();
+////                        }
+//                    	if (footContacts) {
+//                    		isJumping = false;
+//                    		setToInitialSprite();
+//                    	}
+//                    }
                     if (isDucking) {
                         duckTime--;
                         if (duckTime <= 0) {
@@ -131,10 +140,10 @@ public class Player extends AnimatedSprite {
 
 	public void jump() {
 		System.out.println(footContacts);
-        if (isJumping) return;
-//		if (footContacts < 1) {
-//			return;
-//		}
+//        if (isJumping) return;
+		if (!footContacts) {
+			return;
+		}
         isJumping = true;
         setToJumpSprite();
         footContacts = false;
@@ -160,7 +169,7 @@ public class Player extends AnimatedSprite {
     }
 
 	public void onDie() {
-
+        initializeBooleanConditions();
     }
 
     // TODO: Refactor for clarity
@@ -171,7 +180,7 @@ public class Player extends AnimatedSprite {
     // Not fully correct
     public boolean isNotPerformingAction() {
         // If jumping...
-        if (isJumping) return false;
+        //if (isJumping) return false;
         if (isDucking) return false;
         if (!footContacts) return false;
 
@@ -188,10 +197,13 @@ public class Player extends AnimatedSprite {
     public void setContactGround()
 	{
 		footContacts = true;
+        isJumping = false;
+        setToInitialSprite();
 	}
 
 	public void unsetContactGround()
 	{
 		footContacts = false;
+        isJumping = true;
 	}
 }

@@ -508,7 +508,8 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 			}
 
             private boolean contactObject(Fixture x1, Fixture x2, String object) {
-                return x2.getBody().getUserData().equals("player") && x1.getBody().getUserData().equals(object) || x2.getBody().getUserData().equals(object) && x1.getBody().getUserData().equals("player");
+//                return x2.getBody().getUserData().equals("player") || x1.getBody().getUserData().equals("player");
+                return (x2.getBody().getUserData().equals("player") && x1.getBody().getUserData().equals(object)) || (x2.getBody().getUserData().equals(object) && x1.getBody().getUserData().equals("player"));
             }
 
 			@Override
@@ -516,13 +517,13 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 				final Fixture x1 = contact.getFixtureA();
 				final Fixture x2 = contact.getFixtureB();
 
-				if (x1.getBody().getUserData() != null || x2.getBody().getUserData() != null)
+				if (x1.getBody().getUserData() != null && x2.getBody().getUserData() != null)
 				{
-                    player.unsetContactGround();
-					if ((x2.getBody().getUserData().equals("player")) || (x1.getBody().getUserData().equals("player")))
+//                    player.unsetContactGround();
+					if (contactObject(x1, x2, "ground") || contactObject(x1, x2, "hill") || contactObject(x1, x2, "test") || contactObject(x1, x2, "fallingPlatform"))//((x2.getBody().getUserData().equals("player") ) || (x1.getBody().getUserData().equals("player")))
 					{
-//						player.unsetContactGround();
-//						System.out.println("ENDGROUND");
+						player.unsetContactGround();
+						System.out.println("ENDGROUND");
 					}
 				}
 
