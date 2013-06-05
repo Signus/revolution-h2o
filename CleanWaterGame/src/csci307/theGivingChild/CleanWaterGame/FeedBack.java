@@ -73,46 +73,4 @@ public class FeedBack extends Activity {
 			//error fun
 		}
 	}
-
-	private OnClickListener createUserSend()
-	{
-		OnClickListener userSend = new OnClickListener(){
-	
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				
-			}
-	
-		};
-
-		return userSend;
-	}
-
-	private OnClickListener createUserCancel()
-	{
-		OnClickListener userCancel = new OnClickListener(){
-	
-			@Override
-			public void onClick(View v) {
-				finish();
-			}
-	
-		};
-		return userCancel;
-	}
-
-	private OnClickListener createSysOk()
-	{
-		OnClickListener sysOk = new OnClickListener(){
-	
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				
-			}
-	
-		};
-		return sysOk;
-	}
 }
