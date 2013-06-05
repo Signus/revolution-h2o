@@ -31,6 +31,7 @@ import org.andengine.opengl.vbo.VertexBufferObjectManager;
 import org.andengine.ui.activity.BaseGameActivity;
 import org.andengine.util.debug.Debug;
 
+import csci307.theGivingChild.CleanWaterGame.CleanWaterGame;
 import csci307.theGivingChild.CleanWaterGame.GameLauncher;
 
 import android.app.Activity;
@@ -64,7 +65,7 @@ public class ResourceManager {
 	public ITextureRegion collectable_TR;
 	public ITextureRegion scene_background_TR;
 	public ITextureRegion pause_TR;
-	public ITextureRegion ground_TR, floating_platform_ground_TR, hill_TR, falling_platform_2_TR;
+	public ITextureRegion ground_TR, floating_platform_ground_TR, hill_TR, falling_platform_2_TR, falling_platform_TR;
 	
 	//texture atlas
 	private BitmapTextureAtlas splashTA;
@@ -143,17 +144,17 @@ public class ResourceManager {
 	 */
 	public void toggleMute()
 	{
-		boolean efx = activity.getSharedPreferences(GameLauncher.PREFERENCE_KEY, Activity.MODE_MULTI_PROCESS).getBoolean(GameLauncher.PREFERENCE_KEY_MUTE, false);
-		activity.getSharedPreferences(GameLauncher.PREFERENCE_KEY, Activity.MODE_MULTI_PROCESS).edit().putBoolean(GameLauncher.PREFERENCE_KEY_MUTE, (efx ? false : true)).commit();
+		boolean efx = CleanWaterGame.getInstance().getSharedPreferences(GameLauncher.PREFERENCE_KEY, Activity.MODE_MULTI_PROCESS).getBoolean(GameLauncher.PREFERENCE_KEY_MUTE, false);
+		CleanWaterGame.getInstance().getSharedPreferences(GameLauncher.PREFERENCE_KEY, Activity.MODE_MULTI_PROCESS).edit().putBoolean(GameLauncher.PREFERENCE_KEY_MUTE, (efx ? false : true)).commit();
 	}
 	
 	/**
 	 * This returns the value currently saved in the shared preferences listener regarding mute
-	 * @return true if it is muted, false other wise
+	 * @return true if it is muted, false if unmuted
 	 */
-	public boolean getMute()
+	public boolean isMuted()
 	{
-		return activity.getSharedPreferences(GameLauncher.PREFERENCE_KEY, Activity.MODE_MULTI_PROCESS).getBoolean(GameLauncher.PREFERENCE_KEY_MUTE, false);
+		return CleanWaterGame.getInstance().getSharedPreferences(GameLauncher.PREFERENCE_KEY, Activity.MODE_MULTI_PROCESS).getBoolean(GameLauncher.PREFERENCE_KEY_MUTE, false);
 	}
 	
 	private void loadGameGraphics() {
@@ -171,8 +172,8 @@ public class ResourceManager {
         ground_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(groundTA, activity, "ground.png");
         floating_platform_ground_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(groundTA, activity, "floating_platform_ground.png");
         hill_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(groundTA, activity, "hill.png");
-        falling_platform_2_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(groundTA, activity, "bigbad.png");
-        
+        falling_platform_2_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(groundTA, activity, "falling_platform_small.png");
+        falling_platform_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(groundTA, activity, "falling_platform_large.png");
         try {
         	this.gameTA.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 1));
         	this.groundTA.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 1));
@@ -208,9 +209,9 @@ public class ResourceManager {
 		//MUSIC
 		MusicFactory.setAssetBasePath("sfx/");
 		try {
-			this.backgroundMusic = MusicFactory.createMusicFromAsset(activity.getMusicManager(),activity, "jungle.mp3");
+			this.backgroundMusic = MusicFactory.createMusicFromAsset(activity.getMusicManager(),activity, "gameMusic.mp3");
 			this.backgroundMusic.setLooping(true);
-			this.backgroundMusic.setVolume(.7f);
+			this.backgroundMusic.setVolume(.5f);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

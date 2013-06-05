@@ -12,13 +12,18 @@ import org.acra.annotation.*;
     resToastText=40
 )
 public class CleanWaterGame extends Application {
-	
+	private static CleanWaterGame instance;
 	@Override
 	public void onCreate()
 	{
 		super.onCreate();
-		
+		instance = this;
 		ACRA.init(this);
+	}
+	
+	public static CleanWaterGame getInstance()
+	{
+		return instance;
 	}
 
 }
