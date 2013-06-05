@@ -22,23 +22,23 @@
 									  We will not store your personal information.\n
 									  We will not share your personal information.\n
 									  If you email us a bug report, we will keep it confidential and delete your personal information. </string>
-    <string name="about_app_text">MANY MOTHER’S AND DAUGHTER’S WILL SPEND 3
-HOURS A DAY TO RETRIEVE WATER
-FOR THEIR FAMILIES. THIS WATER CAN BE DISEASE
-RIDDEN CAUSING DEHYDRATION, DIARRHEA,
-AND DEATH. ABOUT EVERY 19 SECONDS A PARENT LOSES
-THEIR CHILD DO TO UNCLEAN WATER RELATED
-DEATHS.\n
-ABOUT $20 CAN PROVIDE ONE PERSON ACCESS TO
-CLEAN WATER. AVAILABLE CLEAN WATER WILL HELP
-WARD OFF DEATH FROM DISEASE, GROW AN
-ECONOMY AND RAISE ATTENDANCE IN SCHOOL.\n
-THE GIVING CHILD IS INVITING YOU TO MAKE A
-POSITIVE IMPACT ON THE UNCLEAN WATER CRISIS BY
-PLAYING REVOLUTION: H2O. 90% OF PROFITS WILL GO
-TOWARDS CLEAN WATER PROJECTS WHILE THE OTHER
-10% GOES TOWARD BUILDING FUTURE PROJECTS FOR
-THE GIVING CHILD.</string>
+    <string name="about_app_text" formatted="false">MANY MOTHER’S AND DAUGHTER’S WILL SPEND 3\n
+								HOURS A DAY TO RETRIEVE WATER\n
+								FOR THEIR FAMILIES. THIS WATER CAN BE DISEASE\n
+								RIDDEN CAUSING DEHYDRATION, DIARRHEA,\n
+								AND DEATH. ABOUT EVERY 19 SECONDS A PARENT LOSES\n
+								THEIR CHILD DO TO UNCLEAN WATER RELATED\n
+								DEATHS.\n\n
+								ABOUT $20 CAN PROVIDE ONE PERSON ACCESS TO\n
+								CLEAN WATER. AVAILABLE CLEAN WATER WILL HELP\n
+								WARD OFF DEATH FROM DISEASE, GROW AN\n
+								ECONOMY AND RAISE ATTENDANCE IN SCHOOL.\n\n
+								THE GIVING CHILD IS INVITING YOU TO MAKE A\n
+								POSITIVE IMPACT ON THE UNCLEAN WATER CRISIS BY\n
+								PLAYING REVOLUTION: H2O. 90% OF PROFITS WILL GO\n
+								TOWARDS CLEAN WATER PROJECTS WHILE THE OTHER\n
+								10% GOES TOWARD BUILDING FUTURE PROJECTS FOR\n
+								THE GIVING CHILD.</string>
 
     <!-- Bug reporting activity -->
     <string name="userbug_subject_title">Subject</string>
@@ -59,7 +59,8 @@ THE GIVING CHILD.</string>
     <string name="send">Compose</string>
 
     <!-- app name strings and activity name strings -->
-    <string name="app_name">Revolution:H2O</string>
+    <string name="app_name">CleanWaterGame</string>
+    <string name="app_label">Revolution:H2O</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_mini_game_selection">MiniGame_selection</string>
