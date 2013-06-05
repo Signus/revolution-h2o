@@ -6,11 +6,13 @@
  
 package csci307.theGivingChild.CleanWaterGame;
 
-import android.net.Uri;
-import android.os.Bundle;
+import java.io.IOException;
+
 import android.app.Activity;
 import android.content.Intent;
-import android.util.Log;
+import android.media.MediaPlayer;
+import android.net.Uri;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 
@@ -20,12 +22,28 @@ public class GameLauncher extends Activity {
     private final String gvingChildUrl = "http://www.thegivingchild.org/home/DONATE.html";
     public static final String PREFERENCE_KEY = "csci370.thegivingchild.cleanwatergame.preference";
     public static final String PREFERENCE_KEY_MUTE = "csci370.thegivingchild.cleanwatergame.preference.mute";
-
+    MediaPlayer menuMusic;
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_launcher);
-        MUTE_SOUND_EFX = false;
+        MUTE_SOUND_EFX = CleanWaterGame.getInstance().getSharedPreferences(PREFERENCE_KEY, MODE_MULTI_PROCESS).getBoolean(PREFERENCE_KEY_MUTE, false);
+        
+        //Set menu music source
+        try {
+			menuMusic = MediaPlayer.create(this, R.raw.menumusic);
+			menuMusic.setLooping(true);
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalStateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}     
     }
     
     @Override
@@ -34,6 +52,10 @@ public class GameLauncher extends Activity {
     	ImageButton im = (ImageButton)findViewById(R.id.muting);
     	MUTE_SOUND_EFX = CleanWaterGame.getInstance().getSharedPreferences(PREFERENCE_KEY, MODE_MULTI_PROCESS).getBoolean(PREFERENCE_KEY_MUTE, false);
     	im.setImageResource((MUTE_SOUND_EFX ? R.drawable.mute : R.drawable.unmuted));
+    	
+    	if (!MUTE_SOUND_EFX) {
+    		menuMusic.start();
+    	}
     }
 
 
@@ -47,6 +69,13 @@ public class GameLauncher extends Activity {
         MUTE_SOUND_EFX = (CleanWaterGame.getInstance().getSharedPreferences(PREFERENCE_KEY, MODE_MULTI_PROCESS).getBoolean(PREFERENCE_KEY_MUTE, false) ? false : true);
         im.setImageResource((MUTE_SOUND_EFX ? R.drawable.mute : R.drawable.unmuted));
         CleanWaterGame.getInstance().getSharedPreferences(PREFERENCE_KEY, MODE_MULTI_PROCESS).edit().putBoolean(PREFERENCE_KEY_MUTE,MUTE_SOUND_EFX).commit();
+        
+        if (!MUTE_SOUND_EFX) {
+        	menuMusic.start();
+        }
+        else {
+        	menuMusic.pause();
+        }
     }
 
     /**
@@ -63,7 +92,7 @@ public class GameLauncher extends Activity {
     /**
     * This method opens the minigames selection activity and is linked
     * to the play game button
-    * @param v the view calling this mehtod
+    * @param v the view calling this method
     */
     public void openMiniGames(View v)
     {
