@@ -30,7 +30,6 @@ public class Player extends AnimatedSprite {
     private boolean isJumping = false;
     private boolean isDucking = false;
     private static int TIME = 100;
-    private boolean footContacts = true;
 
     final long[] PLAYER_ANIMATE = new long[] {TIME, TIME, TIME, TIME, TIME, TIME};
     private static PhysicsWorld physicsWorld;
@@ -47,7 +46,6 @@ public class Player extends AnimatedSprite {
         isSprinting = false;
         isJumping = false;
         isDucking = false;
-        footContacts = true;
     }
 
 
@@ -84,16 +82,12 @@ public class Player extends AnimatedSprite {
                             setToInitialSprite();
                         }
                     }
-//                    if (isJumping) {
-////                        if (!verticalMotion()) {
-////                            isJumping = false;
-////                            setToInitialSprite();
-////                        }
-//                    	if (footContacts) {
-//                    		isJumping = false;
-//                    		setToInitialSprite();
-//                    	}
-//                    }
+                    if (isJumping) {
+                        if (!verticalMotion()) {
+                            isJumping = false;
+                            setToInitialSprite();
+                        }
+                    }
                     if (isDucking) {
                         duckTime--;
                         if (duckTime <= 0) {
@@ -139,14 +133,9 @@ public class Player extends AnimatedSprite {
 	}
 
 	public void jump() {
-		System.out.println(footContacts);
-//        if (isJumping) return;
-		if (!footContacts) {
-			return;
-		}
+        //if (isJumping) return;
         isJumping = true;
         setToJumpSprite();
-        footContacts = false;
 
         body.setLinearVelocity(body.getLinearVelocity().x, JUMP_VELOCITY);
 	}
@@ -169,7 +158,7 @@ public class Player extends AnimatedSprite {
     }
 
 	public void onDie() {
-        initializeBooleanConditions();
+
     }
 
     // TODO: Refactor for clarity
@@ -180,9 +169,8 @@ public class Player extends AnimatedSprite {
     // Not fully correct
     public boolean isNotPerformingAction() {
         // If jumping...
-        //if (isJumping) return false;
+        if (verticalMotion() || isJumping) return false;
         if (isDucking) return false;
-        if (!footContacts) return false;
 
         return true;
     }
@@ -192,18 +180,5 @@ public class Player extends AnimatedSprite {
 //        body = PhysicsFactory.createBoxBody(physicsWorld, 36, 50, 65, height, BodyType.DynamicBody, PhysicsFactory.createFixtureDef(0, 0, 0));
 //        body.setUserData("player");
 //        body.setFixedRotation(true);
-    }
-
-    public void setContactGround()
-	{
-		footContacts = true;
-        isJumping = false;
-        setToInitialSprite();
-	}
-
-	public void unsetContactGround()
-	{
-		footContacts = false;
-        isJumping = true;
 	}
 }
