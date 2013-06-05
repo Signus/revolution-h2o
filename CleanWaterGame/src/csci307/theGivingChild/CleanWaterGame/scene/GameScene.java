@@ -57,6 +57,7 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.Manifold;
 
+import csci307.theGivingChild.CleanWaterGame.GameLauncher;
 import csci307.theGivingChild.CleanWaterGame.manager.ResourceManager;
 import csci307.theGivingChild.CleanWaterGame.manager.SceneManager;
 import csci307.theGivingChild.CleanWaterGame.manager.SceneManager.SceneType;
@@ -174,6 +175,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
         camera.setCenter(400, 240);
         camera.setBounds(0, 0, 800, 480);
         this.resourcesManager.backgroundMusic.stop();
+        GameLauncher.menuMusic.start();
     }
 
     private void createBackground() {
