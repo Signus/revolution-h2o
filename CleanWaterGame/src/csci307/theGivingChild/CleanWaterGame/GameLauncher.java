@@ -22,7 +22,7 @@ public class GameLauncher extends Activity {
     private final String gvingChildUrl = "http://www.thegivingchild.org/home/DONATE.html";
     public static final String PREFERENCE_KEY = "csci370.thegivingchild.cleanwatergame.preference";
     public static final String PREFERENCE_KEY_MUTE = "csci370.thegivingchild.cleanwatergame.preference.mute";
-    MediaPlayer menuMusic;
+    public static MediaPlayer menuMusic;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
