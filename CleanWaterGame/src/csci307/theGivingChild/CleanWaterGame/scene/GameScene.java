@@ -101,14 +101,17 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 	private static final short CATEGORYBIT_GROUND = 1;
 	private static final short CATEGORYBIT_FALLING = 2;
 	private static final short CATEGORYBIT_PLAYER = 4;
+	private static final short CATEGORYBIT_FALLING_2 = 8;
 
 	//What shoiuld collide with what objects.
 	private static final short MASKBITS_GROUND = CATEGORYBIT_GROUND + CATEGORYBIT_PLAYER;
 	private static final short MASKBITS_FALLING = CATEGORYBIT_FALLING + CATEGORYBIT_PLAYER;
 	private static final short MASKBITS_PLAYER = CATEGORYBIT_FALLING + CATEGORYBIT_GROUND + CATEGORYBIT_PLAYER;
+	private static final short MASKBITS_FALLING_2 = CATEGORYBIT_PLAYER;
 
 	private static final FixtureDef GROUND_FIX = PhysicsFactory.createFixtureDef(0, 0.01f, 0.1f, false, CATEGORYBIT_GROUND, MASKBITS_GROUND, (short)0);
 	private static final FixtureDef FALLING_FIX = PhysicsFactory.createFixtureDef(1, 0, 0.1f, false, CATEGORYBIT_FALLING, MASKBITS_FALLING, (short)0);
+	private static final FixtureDef FALLING_FIX_2 = PhysicsFactory.createFixtureDef(1, 0, 0.1f, false, CATEGORYBIT_FALLING, MASKBITS_FALLING_2, (short)0);
 	public static final FixtureDef PLAYER_FIX = PhysicsFactory.createFixtureDef(0, 0, 0, false, CATEGORYBIT_PLAYER, MASKBITS_PLAYER, (short)0);
 
 	private final int MENU_RESUME = 0;
@@ -276,8 +279,8 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 					physicsWorld.registerPhysicsConnector(new PhysicsConnector(levelObject, body, true, false));
 				}
 				else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_FALLINGPLATFORM)) {
-					levelObject = new Sprite(x, y, resourcesManager.ground_TR, vbom);
-					final Body body = PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyType.StaticBody, FALLING_FIX);
+					levelObject = new Sprite(x, y, resourcesManager.falling_platform_TR, vbom);
+					final Body body = PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyType.StaticBody, FALLING_FIX_2);
 					body.setUserData("fallingPlatform");
 					physicsWorld.registerPhysicsConnector(new PhysicsConnector(levelObject, body, true, false));
 				}
