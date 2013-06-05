@@ -406,7 +406,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
         	if(!muted)resourcesManager.dashSound.play();
             player.dash();
         } else if (difY < 0 && Math.abs(difY) > Math.abs(difX)) {
-            //if(muted) put the play duck sound here
+            //if(!muted) put the play duck sound here
         	player.duck();
         }
     }
