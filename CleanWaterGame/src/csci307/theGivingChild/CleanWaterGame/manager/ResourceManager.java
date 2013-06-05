@@ -209,9 +209,9 @@ public class ResourceManager {
 		//MUSIC
 		MusicFactory.setAssetBasePath("sfx/");
 		try {
-			this.backgroundMusic = MusicFactory.createMusicFromAsset(activity.getMusicManager(),activity, "jungle.mp3");
+			this.backgroundMusic = MusicFactory.createMusicFromAsset(activity.getMusicManager(),activity, "gameMusic.mp3");
 			this.backgroundMusic.setLooping(true);
-			this.backgroundMusic.setVolume(.7f);
+			this.backgroundMusic.setVolume(.5f);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
