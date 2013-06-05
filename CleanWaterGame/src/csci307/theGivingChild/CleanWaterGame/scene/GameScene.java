@@ -141,6 +141,10 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 
         setOnSceneTouchListener(this);
         this.resourcesManager.backgroundMusic.play();
+        if (ResourceManager.getInstance().isMuted())
+        {
+        	this.resourcesManager.backgroundMusic.pause();
+        }
     }
 
     @Override
@@ -394,14 +398,16 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 	}
 
     private void performPlayerAction(float difX, float difY, double moveDistance) {
+    	boolean muted = ResourceManager.getInstance().isMuted();
         if (difY > 0 && Math.abs(difY) > Math.abs(difX) || moveDistance <= TAP_THRESHOLD) {
-            resourcesManager.jumpSound.play();
+            if(!muted)resourcesManager.jumpSound.play();
             player.jump();
         } else if (difX > 0 && difX > Math.abs(difY)) {
-        	resourcesManager.dashSound.play();
+        	if(!muted)resourcesManager.dashSound.play();
             player.dash();
         } else if (difY < 0 && Math.abs(difY) > Math.abs(difX)) {
-            player.duck();
+            //if(!muted) put the play duck sound here
+        	player.duck();
         }
     }
 
@@ -410,7 +416,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 		switch (pMenuItem.getID()) {
 			case MENU_RESUME:
 				clearChildScene();
-				resourcesManager.backgroundMusic.resume();
+				if(!ResourceManager.getInstance().isMuted())resourcesManager.backgroundMusic.resume();
 				paused = false;
 				return true;
 			case MENU_QUIT:
@@ -427,6 +433,10 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 				return true;
 			case MENU_OPTIONS:
 				ResourceManager.getInstance().toggleMute();
+				if(ResourceManager.getInstance().isMuted())
+				{
+					resourcesManager.backgroundMusic.pause();
+				}
 				return true;
 			default:
 				return false;
@@ -439,7 +449,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 		final IMenuItem resumeMenuItem = new ColorMenuItemDecorator(new TextMenuItem(MENU_RESUME, resourcesManager.font, "RESUME", vbom), Color.RED, Color.WHITE);
 		final IMenuItem quitMenuItem = new ColorMenuItemDecorator(new TextMenuItem(MENU_QUIT, resourcesManager.font, "QUIT", vbom), Color.RED, Color.WHITE);
 		final IMenuItem restartMenuItem = new ColorMenuItemDecorator(new TextMenuItem(MENU_RESTART, resourcesManager.font, "RESTART", vbom), Color.RED, Color.WHITE);
-		final IMenuItem optionsMenuItem = new ColorMenuItemDecorator(new TextMenuItem(MENU_OPTIONS, resourcesManager.font, "MUTE", vbom), Color.RED, Color.WHITE);
+		final IMenuItem optionsMenuItem = new ColorMenuItemDecorator(new TextMenuItem(MENU_OPTIONS, resourcesManager.font, "MUTE/UNMUTE", vbom), Color.RED, Color.WHITE);
 		final Rectangle background = new Rectangle(400, 240, 300, 200, vbom);
 
 		int menuPositionDifference = (int) (background.getHeight() / 5);

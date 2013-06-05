@@ -150,9 +150,9 @@ public class ResourceManager {
 	
 	/**
 	 * This returns the value currently saved in the shared preferences listener regarding mute
-	 * @return true if it is muted, false other wise
+	 * @return true if it is muted, false if unmuted
 	 */
-	public boolean getMute()
+	public boolean isMuted()
 	{
 		return CleanWaterGame.getInstance().getSharedPreferences(GameLauncher.PREFERENCE_KEY, Activity.MODE_MULTI_PROCESS).getBoolean(GameLauncher.PREFERENCE_KEY_MUTE, false);
 	}
