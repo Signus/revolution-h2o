@@ -371,7 +371,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
                         lastX = pSceneTouchEvent.getX();
                         lastY = pSceneTouchEvent.getY();
                         actionPerformed = false;
-                        
+
                         break;
                     case TouchEvent.ACTION_MOVE:
                         if (!actionPerformed && moveDistance > SWIPE_THRESHOLD) {
@@ -507,10 +507,6 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 
 
 				if (x1.getBody().getUserData() != null && x2.getBody().getUserData() != null) {
-					if (contactObject(x1, x2, "ground") || contactObject(x1, x2, "hill") || contactObject(x1, x2, "test") || contactObject(x1, x2, "fallingPlatform"))
-					{
-						player.setContactGround();
-					}
 					if (x1.getBody().getUserData().equals("fallingPlatform") && x2.getBody().getUserData().equals("player")) {
 //						System.out.println("x1 " + x1.getBody().getPosition().x);
 //						System.out.println("x2 " + x2.getBody().getPosition().x);
@@ -560,12 +556,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 
 				if (x1.getBody().getUserData() != null && x2.getBody().getUserData() != null)
 				{
-//                    player.unsetContactGround();
-					if (contactObject(x1, x2, "ground") || contactObject(x1, x2, "hill") || contactObject(x1, x2, "test") || contactObject(x1, x2, "fallingPlatform"))//((x2.getBody().getUserData().equals("player") ) || (x1.getBody().getUserData().equals("player")))
-					{
-						player.unsetContactGround();
-						System.out.println("ENDGROUND");
-					}
+
 				}
 
 			}
