@@ -103,6 +103,9 @@
 	<entity x="9950" y="25" width="100" height="50" type="ground"/>
 
 <!-- collectables -->
-
+	<entity x="" y="" width="" height="" type="collectable"/>
+	<entity x="" y="" width="" height="" type="collectable"/>
+	<entity x="" y="" width="" height="" type="collectable"/>
+	<entity x="" y="" width="" height="" type="collectable"/>
 
 </level>
