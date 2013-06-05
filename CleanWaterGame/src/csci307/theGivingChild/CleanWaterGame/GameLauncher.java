@@ -25,7 +25,7 @@ public class GameLauncher extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_launcher);
-        MUTE_SOUND_EFX = true;
+        MUTE_SOUND_EFX = false;
     }
     
     @Override
@@ -33,7 +33,7 @@ public class GameLauncher extends Activity {
     	super.onResume();
     	ImageButton im = (ImageButton)findViewById(R.id.muting);
     	MUTE_SOUND_EFX = CleanWaterGame.getInstance().getSharedPreferences(PREFERENCE_KEY, MODE_MULTI_PROCESS).getBoolean(PREFERENCE_KEY_MUTE, false);
-    	im.setImageResource((MUTE_SOUND_EFX ? R.drawable.unmuted : R.drawable.mute));
+    	im.setImageResource((MUTE_SOUND_EFX ? R.drawable.mute : R.drawable.unmuted));
     }
 
 
@@ -45,7 +45,7 @@ public class GameLauncher extends Activity {
     {
         ImageButton im = (ImageButton)v;
         MUTE_SOUND_EFX = (CleanWaterGame.getInstance().getSharedPreferences(PREFERENCE_KEY, MODE_MULTI_PROCESS).getBoolean(PREFERENCE_KEY_MUTE, false) ? false : true);
-        im.setImageResource((MUTE_SOUND_EFX ? R.drawable.unmuted : R.drawable.mute));
+        im.setImageResource((MUTE_SOUND_EFX ? R.drawable.mute : R.drawable.unmuted));
         CleanWaterGame.getInstance().getSharedPreferences(PREFERENCE_KEY, MODE_MULTI_PROCESS).edit().putBoolean(PREFERENCE_KEY_MUTE,MUTE_SOUND_EFX).commit();
     }
 

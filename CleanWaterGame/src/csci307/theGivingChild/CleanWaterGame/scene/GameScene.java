@@ -141,7 +141,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 
         setOnSceneTouchListener(this);
         this.resourcesManager.backgroundMusic.play();
-        if (!ResourceManager.getInstance().getMute())
+        if (ResourceManager.getInstance().isMuted())
         {
         	this.resourcesManager.backgroundMusic.pause();
         }
@@ -398,12 +398,12 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 	}
 
     private void performPlayerAction(float difX, float difY, double moveDistance) {
-    	boolean muted = ResourceManager.getInstance().getMute();
+    	boolean muted = ResourceManager.getInstance().isMuted();
         if (difY > 0 && Math.abs(difY) > Math.abs(difX) || moveDistance <= TAP_THRESHOLD) {
-            if(muted)resourcesManager.jumpSound.play();
+            if(!muted)resourcesManager.jumpSound.play();
             player.jump();
         } else if (difX > 0 && difX > Math.abs(difY)) {
-        	if(muted)resourcesManager.dashSound.play();
+        	if(!muted)resourcesManager.dashSound.play();
             player.dash();
         } else if (difY < 0 && Math.abs(difY) > Math.abs(difX)) {
             //if(muted) put the play duck sound here
@@ -416,7 +416,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 		switch (pMenuItem.getID()) {
 			case MENU_RESUME:
 				clearChildScene();
-				if(ResourceManager.getInstance().getMute())resourcesManager.backgroundMusic.resume();
+				if(!ResourceManager.getInstance().isMuted())resourcesManager.backgroundMusic.resume();
 				paused = false;
 				return true;
 			case MENU_QUIT:
@@ -433,13 +433,9 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 				return true;
 			case MENU_OPTIONS:
 				ResourceManager.getInstance().toggleMute();
-				if(!ResourceManager.getInstance().getMute())
+				if(ResourceManager.getInstance().isMuted())
 				{
 					resourcesManager.backgroundMusic.pause();
-				}
-				else
-				{
-					resourcesManager.backgroundMusic.resume();
 				}
 				return true;
 			default:
