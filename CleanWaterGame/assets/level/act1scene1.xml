@@ -103,9 +103,22 @@
 	<entity x="9950" y="25" width="100" height="50" type="ground"/>
 
 <!-- collectables -->
-	<entity x="" y="" width="" height="" type="collectable"/>
-	<entity x="" y="" width="" height="" type="collectable"/>
-	<entity x="" y="" width="" height="" type="collectable"/>
-	<entity x="" y="" width="" height="" type="collectable"/>
-
+	<entity x="450" y="105" width="50" height="50" type="collectable"/>
+	<entity x="550" y="125" width="50" height="50" type="collectable"/>
+	<entity x="600" y="125" width="50" height="50" type="collectable"/>
+	<entity x="650" y="125" width="50" height="50" type="collectable"/>
+	<entity x="700" y="105" width="50" height="50" type="collectable"/>
+	<entity x="800" y="100" width="50" height="50" type="collectable"/>
+	<entity x="900" y="100" width="50" height="50" type="collectable"/>
+	<entity x="1000" y="85" width="50" height="50" type="collectable"/>
+	<entity x="1075" y="85" width="50" height="50" type="collectable"/>
+	<entity x="1150" y="85" width="50" height="50" type="collectable"/>
+	<entity x="1250" y="85" width="50" height="50" type="collectable"/>
+	<entity x="1400" y="100" width="50" height="50" type="collectable"/>
+	<entity x="1450" y="150" width="50" height="50" type="collectable"/>
+	<entity x="1500" y="100" width="50" height="50" type="collectable"/>
+	<entity x="1600" y="85" width="50" height="50" type="collectable"/>
+	<entity x="1700" y="85" width="50" height="50" type="collectable"/>
+	<entity x="1775" y="85" width="50" height="50" type="collectable"/>
+	<entity x="1950" y="150" width="50" height="50" type="collectable"/>	
 </level>
