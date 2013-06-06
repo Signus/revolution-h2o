@@ -23,6 +23,7 @@ public class GameLauncher extends Activity {
     public static final String PREFERENCE_KEY = "csci370.thegivingchild.cleanwatergame.preference";
     public static final String PREFERENCE_KEY_MUTE = "csci370.thegivingchild.cleanwatergame.preference.mute";
     public static MediaPlayer menuMusic;
+    public static MediaPlayer selectSound;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +35,7 @@ public class GameLauncher extends Activity {
         try {
 			menuMusic = MediaPlayer.create(this, R.raw.menumusic);
 			menuMusic.setLooping(true);
+			selectSound = MediaPlayer.create(this, R.raw.select_button);
 		} catch (IllegalArgumentException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -85,6 +87,9 @@ public class GameLauncher extends Activity {
     */
     public void openDonate(View v)
     {
+        if (!MUTE_SOUND_EFX) {
+        	selectSound.start();
+        }
         Intent donation = new Intent(Intent.ACTION_VIEW, Uri.parse(gvingChildUrl));
         startActivity(donation);
     }
@@ -96,6 +101,9 @@ public class GameLauncher extends Activity {
     */
     public void openMiniGames(View v)
     {
+        if (!MUTE_SOUND_EFX) {
+        	selectSound.start();
+        }
         Intent play = new Intent(this, ActOneActivity.class);
         startActivity(play);
     }
@@ -106,6 +114,9 @@ public class GameLauncher extends Activity {
     */
     public void openExtras(View v)
     {
+        if (!MUTE_SOUND_EFX) {
+        	selectSound.start();
+        }
         Intent extra = new Intent(this, ExtrasMenu.class);
         startActivity(extra);
     }
