@@ -265,10 +265,13 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 							super.onManagedUpdate(pSecondsElapsed);
 							//side collision
 							if ((player.getX() + player.getWidth()/2.0) + COLLISION_THRESHOLD > (this.getX() - this.getWidth() / 2.0) &&
-									(player.getX() + player.getWidth()/2.0) < (this.getX() + this.getWidth() / 2.0) &&
-									player.getY() < (this.getY() + this.getHeight()/2.0) && player.getY() > (this.getY() - this.getHeight() / 2.0)) {
+									(player.getX() + player.getWidth() / 2.0) < (this.getX() + this.getWidth() / 2.0) &&
+									(player.getY() + player.getHeight() / 2.0) - COLLISION_THRESHOLD > (this.getY() - this.getHeight() / 2.0) && 
+									(player.getY() - player.getHeight() / 2.0) + COLLISION_THRESHOLD < (this.getY() + this.getHeight() / 2.0)) {
 								System.out.println("SIDE COLLISION");
 								System.out.println((player.getX() + player.getWidth()/2.0) + "     , " + (this.getX() - this.getWidth() / 2.0));
+								System.out.println((player.getY() + player.getHeight() / 2.0) - COLLISION_THRESHOLD + "    > , " + (this.getY() - this.getHeight() / 2.0));
+								System.out.println((player.getY() - player.getHeight() / 2.0) + COLLISION_THRESHOLD + "    < , " + (this.getY() + this.getHeight() / 2.0));
 								player.bounceBack();
 							}
 						}
