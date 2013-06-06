@@ -475,7 +475,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 		switch (pMenuItem.getID()) {
 			case MENU_RESUME:
 				clearChildScene();
-				if(!ResourceManager.getInstance().isMuted())resourcesManager.backgroundMusic.resume();
+				if(!ResourceManager.getInstance().isMuted()) resourcesManager.backgroundMusic.resume();
 				paused = false;
 				return true;
 			case MENU_QUIT:
