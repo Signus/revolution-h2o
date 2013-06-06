@@ -64,6 +64,7 @@ public class ResourceManager {
 	public ITiledTextureRegion player_TR;
 	public ITextureRegion collectable_TR;
 	public ITextureRegion scene_background_TR;
+	public ITextureRegion scene_foreground_TR;
 	public ITextureRegion pause_TR;
 	public ITextureRegion ground_TR, floating_platform_ground_TR, hill_TR, falling_platform_2_TR, falling_platform_TR;
 	
@@ -161,14 +162,15 @@ public class ResourceManager {
 	private void loadGameGraphics() {
 		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/game/");
 
-        gameTA = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 2048, 1024, TextureOptions.BILINEAR);
+        gameTA = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 4096, 1024, TextureOptions.BILINEAR);
 
         player_TR = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(gameTA, activity, "player_run_sprite.png", 6, 1);
         collectable_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTA, activity, "water.png");
 
         pause_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTA, activity, "pause_button.png");
-        scene_background_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTA, activity, "scene_background.png");
-        
+        scene_background_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTA, activity, "gradient_background.png");
+        scene_foreground_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTA, activity, "clouds.png");
+
         groundTA = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 2048, 1024, TextureOptions.DEFAULT);
         ground_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(groundTA, activity, "ground.png");
         floating_platform_ground_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(groundTA, activity, "floating_platform_ground.png");
@@ -214,7 +216,7 @@ public class ResourceManager {
 		try {
 			this.backgroundMusic = MusicFactory.createMusicFromAsset(activity.getMusicManager(),activity, "gameMusic.mp3");
 			this.backgroundMusic.setLooping(true);
-			this.backgroundMusic.setVolume(.5f);
+			this.backgroundMusic.setVolume(.9f);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
