@@ -46,5 +46,15 @@
             android:text="@string/extra_feedback_btn"
             android:layout_marginTop="20dp"/>
     </LinearLayout>
+    
+    <ImageButton
+        android:id="@+id/extr_muting"
+        android:background="@null"
+        android:src="@drawable/unmuted"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:onClick="toggleMute"/>
 
 </RelativeLayout>
