@@ -187,7 +187,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 //    	setBackground(new Background(Color.BLUE));
     	AutoParallaxBackground autoParallaxBackground = new AutoParallaxBackground(0, 0, 0, 5);
 		autoParallaxBackground.attachParallaxEntity(new ParallaxEntity(0.0f, new Sprite(.5f*camera.getWidth() , .5f*camera.getHeight(), resourcesManager.scene_background_TR, vbom)));
-		Sprite cloudSprite = new Sprite(.5f*camera.getWidth(), .5f*camera.getHeight(), resourcesManager.scene_foreground_TR, vbom);
+		Sprite cloudSprite = new Sprite(.5f*camera.getWidth(), .5f*camera.getHeight()+100f, resourcesManager.scene_foreground_TR, vbom);
 		cloudSprite.setScale(.5f);
 		autoParallaxBackground.attachParallaxEntity(new ParallaxEntity(-5f, cloudSprite ));
 		setBackground(autoParallaxBackground);
