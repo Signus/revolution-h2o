@@ -405,10 +405,10 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
     private void performPlayerAction(float difX, float difY, double moveDistance) {
     	boolean muted = ResourceManager.getInstance().isMuted();
         if (difY > 0 && Math.abs(difY) > Math.abs(difX) || moveDistance <= TAP_THRESHOLD) {
-            if(!muted)resourcesManager.jumpSound.play();
+            //if(!muted)resourcesManager.jumpSound.play();
             player.jump();
         } else if (difX > 0 && difX > Math.abs(difY)) {
-        	if(!muted)resourcesManager.dashSound.play();
+        	// if(!muted)resourcesManager.dashSound.play();
             player.dash();
         } else if (difY < 0 && Math.abs(difY) > Math.abs(difX)) {
             //if(!muted) put the play duck sound here
