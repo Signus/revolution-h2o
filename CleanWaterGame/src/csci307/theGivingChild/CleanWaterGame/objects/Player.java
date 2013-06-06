@@ -29,6 +29,7 @@ public class Player extends AnimatedSprite {
     private boolean isSprinting = false;
     private boolean isJumping = false;
     private boolean isDucking = false;
+    private boolean isBouncing = false;
     private static int TIME = 100;
 
     final long[] PLAYER_ANIMATE = new long[] {TIME, TIME, TIME, TIME, TIME, TIME};
@@ -46,6 +47,7 @@ public class Player extends AnimatedSprite {
         isSprinting = false;
         isJumping = false;
         isDucking = false;
+        isBouncing = false;
     }
 
 
@@ -98,6 +100,15 @@ public class Player extends AnimatedSprite {
                         }
 
                     }
+                    
+                }
+				if (isBouncing) {
+                	if (!verticalMotion()) {
+                		isBouncing = false;
+                		setToInitialSprite();
+                		canRun = true;
+                		body.setLinearVelocity(runSpeed, body.getLinearVelocity().y);
+                	}
                 }
 			}
 
@@ -158,6 +169,14 @@ public class Player extends AnimatedSprite {
         if(!ResourceManager.getInstance().isMuted()) ResourceManager.getInstance().duckSound.play();
         setToDuckSprite();
         newBody(-5);
+    }
+    
+    public void bounceBack() {
+    	if (isBouncing) return;
+    	body.setLinearVelocity(-runSpeed, JUMP_VELOCITY / 2.0f);
+    	isBouncing = true;
+    	canRun = false;
+    	
     }
 
 	public void onDie() {
