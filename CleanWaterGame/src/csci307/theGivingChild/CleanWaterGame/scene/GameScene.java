@@ -359,7 +359,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 	public boolean onSceneTouchEvent(Scene pScene, TouchEvent pSceneTouchEvent) {
 		if (this.physicsWorld != null) {
 			if (!start) {
-				if (pSceneTouchEvent.isActionDown()) {
+				if (pSceneTouchEvent.isActionUp()) {
 					player.setRunning();
                 	start = true;
                 	return true;
@@ -528,7 +528,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 //						System.out.println("x2 " + x2.getBody().getPosition().x);
 						if (x1.getBody().getPosition().y < x2.getBody().getPosition().y &&
 								x1.getBody().getPosition().x > x2.getBody().getPosition().x) {
-							engine.registerUpdateHandler(new TimerHandler(0.2f, new ITimerCallback() {
+							engine.registerUpdateHandler(new TimerHandler(0.27f, new ITimerCallback() {
 
 								@Override
 								public void onTimePassed(TimerHandler pTimerHandler) {
@@ -544,7 +544,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 //						System.out.println("x1 " + x1.getBody().getPosition().x);
 //						System.out.println("x2 " + x2.getBody().getPosition().x);
 						if (x2.getBody().getPosition().y < x1.getBody().getPosition().y) {
-							engine.registerUpdateHandler(new TimerHandler(0.2f, new ITimerCallback() {
+							engine.registerUpdateHandler(new TimerHandler(0.27f, new ITimerCallback() {
 
 								@Override
 								public void onTimePassed(TimerHandler pTimerHandler) {
