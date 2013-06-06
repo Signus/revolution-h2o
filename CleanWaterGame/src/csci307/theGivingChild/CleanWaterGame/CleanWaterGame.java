@@ -41,6 +41,8 @@ public class CleanWaterGame extends Application {
 		}     
 	}
 	
+	
+	
 	public static CleanWaterGame getInstance()
 	{
 		return instance;
@@ -48,7 +50,7 @@ public class CleanWaterGame extends Application {
 	
 	public void pauseMenuMusic()
 	{
-		menuMusic.pause();
+		if(menuMusic.isPlaying())menuMusic.pause();
 	}
 	
 	public void playMenuMusic()
