@@ -136,7 +136,7 @@ public class Player extends AnimatedSprite {
         //if (isJumping) return;
         isJumping = true;
         setToJumpSprite();
-        ResourceManager.getInstance().jumpSound.play();
+       if(!ResourceManager.getInstance().isMuted()) ResourceManager.getInstance().jumpSound.play();
 
         body.setLinearVelocity(body.getLinearVelocity().x, JUMP_VELOCITY);
 	}
@@ -145,7 +145,7 @@ public class Player extends AnimatedSprite {
         if (isSprinting) return;
         isSprinting = true;
         setToDashSprite();
-        ResourceManager.getInstance().dashSound.play();
+        if(!ResourceManager.getInstance().isMuted())ResourceManager.getInstance().dashSound.play();
 
         //dash sprite
 
@@ -155,6 +155,7 @@ public class Player extends AnimatedSprite {
     public void duck() {
         if (isDucking) return;
         isDucking = true;
+        //if(!ResourceManager.getInstance().isMuted()) put ducking sound here
         setToDuckSprite();
         newBody(-5);
     }
