@@ -155,11 +155,14 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
     public void onBackKeyPressed()
     {
     	if (hasChildScene()) {
+    		if(!ResourceManager.getInstance().isMuted()) GameLauncher.menuMusic.start();
     		clearChildScene();
     		paused = false;
     	} else {
+    		if(!ResourceManager.getInstance().isMuted()) GameLauncher.menuMusic.start();
     		SceneManager.getInstance().loadMenuScene(engine);
     	}
+    	
     }
 
     @Override
@@ -175,7 +178,6 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
         camera.setCenter(400, 240);
         camera.setBounds(0, 0, 800, 480);
         this.resourcesManager.backgroundMusic.stop();
-        GameLauncher.menuMusic.start();
     }
 
     private void createBackground() {
@@ -403,15 +405,11 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 	}
 
     private void performPlayerAction(float difX, float difY, double moveDistance) {
-    	boolean muted = ResourceManager.getInstance().isMuted();
         if (difY > 0 && Math.abs(difY) > Math.abs(difX) || moveDistance <= TAP_THRESHOLD) {
-            //if(!muted)resourcesManager.jumpSound.play();
             player.jump();
         } else if (difX > 0 && difX > Math.abs(difY)) {
-        	// if(!muted)resourcesManager.dashSound.play();
             player.dash();
         } else if (difY < 0 && Math.abs(difY) > Math.abs(difX)) {
-            //if(!muted) put the play duck sound here
         	player.duck();
         }
     }
@@ -427,6 +425,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 			case MENU_QUIT:
 				clearChildScene();
 				SceneManager.getInstance().loadMenuScene(engine);
+				if(!ResourceManager.getInstance().isMuted()) GameLauncher.menuMusic.start();
 				return true;
 			case MENU_RESTART:
 				resourcesManager.backgroundMusic.stop();
