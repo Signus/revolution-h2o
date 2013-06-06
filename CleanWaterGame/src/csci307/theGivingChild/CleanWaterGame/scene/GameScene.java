@@ -68,6 +68,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 
     private static final double TAP_THRESHOLD = 60;
     private static final double SWIPE_THRESHOLD = 80;
+    private static final double COLLISION_THRESHOLD = 0.5;
     private HUD gameHUD;
 	private PhysicsWorld physicsWorld;
 
@@ -246,7 +247,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 				final String type = SAXUtils.getAttributeOrThrow(pAttributes, TAG_ENTITY_ATTRIBUTE_TYPE);
 
 				final IEntity levelObject;
-//				final Body body;
+				final Body body;
 				/*
 				 * Major refactoring has to be done here once the level has images.
 				 * this method will return a level object at the end, rather than what is presented now, where some returns in the if block.
@@ -258,7 +259,20 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 					PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyType.StaticBody, GROUND_FIX).setUserData("ground");
 				}
 				else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_GROUND)) {
-					levelObject = new Sprite(x, y, resourcesManager.ground_TR, vbom);
+					levelObject = new Sprite(x, y, resourcesManager.ground_TR, vbom) {
+						@Override
+						protected void onManagedUpdate(float pSecondsElapsed) {
+							super.onManagedUpdate(pSecondsElapsed);
+							//side collision
+							if ((player.getX() + player.getWidth()/2.0) + COLLISION_THRESHOLD > (this.getX() - this.getWidth() / 2.0) &&
+									(player.getX() + player.getWidth()/2.0) < (this.getX() + this.getWidth() / 2.0) &&
+									player.getY() < (this.getY() + this.getHeight()/2.0) && player.getY() > (this.getY() - this.getHeight() / 2.0)) {
+								System.out.println("SIDE COLLISION");
+								System.out.println((player.getX() + player.getWidth()/2.0) + "     , " + (this.getX() - this.getWidth() / 2.0));
+								player.bounceBack();
+							}
+						}
+					};
 					PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyType.StaticBody, GROUND_FIX).setUserData("ground");
 				}
 				else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_GROUNDTEST)) {
@@ -277,16 +291,24 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 
 							if (this.getY() < 0) {
 								detachChild(this);
-							}
+							}							
 						}
 					};
-					final Body body = PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyType.StaticBody, FALLING_FIX);
+					body = PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyType.StaticBody, FALLING_FIX);
 					body.setUserData("fallingPlatform");
 					physicsWorld.registerPhysicsConnector(new PhysicsConnector(levelObject, body, true, false));
 				}
 				else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_FALLINGPLATFORM)) {
-					levelObject = new Sprite(x, y, resourcesManager.falling_platform_TR, vbom);
-					final Body body = PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyType.StaticBody, FALLING_FIX_2);
+					levelObject = new Sprite(x, y, resourcesManager.falling_platform_TR, vbom) {
+						@Override
+						protected void onManagedUpdate(float pSecondsElapsed) {
+							super.onManagedUpdate(pSecondsElapsed);
+							if (player.collidesWith(this)) {
+								System.out.println("Player: " + player.getX() + "  , object: " + this.getX());
+							}
+						}
+					};
+					body = PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyType.StaticBody, FALLING_FIX_2);
 					body.setUserData("fallingPlatform");
 					physicsWorld.registerPhysicsConnector(new PhysicsConnector(levelObject, body, true, false));
 				}
