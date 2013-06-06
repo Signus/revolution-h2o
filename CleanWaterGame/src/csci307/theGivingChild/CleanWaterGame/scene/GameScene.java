@@ -90,12 +90,11 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_FALLINGPLATFORM_2 = "fallingPlatform2";
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_PLAYER = "player";
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE = "collectable";
-	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE_GOAL = "goalcollect";
-	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE_ACT1_SCENE1_GOALS = "scene1Goals";
-	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE_ACT1_SCENE2_GOALS = "scene2Goals";
-	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE_ACT1_SCENE3_GOALS = "scene3Goals";
-	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE_ACT1_SCENE4_GOALS = "scene4Goals";
-	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE_ACT1_SCENE5_GOALS = "scene5Goals";
+	
+	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE_ACT1_SCENE2_GOALS = "twine";
+	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE_ACT1_SCENE3_GOALS = "stone";
+	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE_ACT1_SCENE4_GOALS = "mud";
+	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE_ACT1_SCENE5_GOALS = "wood";
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_GROUNDTEST = "ground2";
 
 	//Categories of objects
@@ -321,7 +320,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 					return levelObject;
 
 				}
-				else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE_ACT1_SCENE1_GOALS)) {
+				else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE_ACT1_SCENE2_GOALS)) {
 					levelObject = new Sprite(x, y, resourcesManager.collectable_TR, vbom) {
 						@Override
 						protected void onManagedUpdate(float pSecondsElapsed) {
@@ -340,7 +339,64 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 					//level object returned here because it does not need to be registered with the physicsWorld.
 					return levelObject;
 
-				} else {
+				} else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE_ACT1_SCENE3_GOALS)) {
+					levelObject = new Sprite(x, y, resourcesManager.collectable_TR, vbom) {
+						@Override
+						protected void onManagedUpdate(float pSecondsElapsed) {
+							super.onManagedUpdate(pSecondsElapsed);
+
+							if (player.collidesWith(this)) {
+								this.setVisible(false);
+								this.setIgnoreUpdate(true);
+							}
+						}
+					};
+
+					//the coin will animate.
+					levelObject.registerEntityModifier(new LoopEntityModifier(new ScaleModifier(1, 1, 1.3f)));
+
+					//level object returned here because it does not need to be registered with the physicsWorld.
+					return levelObject;
+
+				}else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE_ACT1_SCENE4_GOALS)) {
+					levelObject = new Sprite(x, y, resourcesManager.collectable_TR, vbom) {
+						@Override
+						protected void onManagedUpdate(float pSecondsElapsed) {
+							super.onManagedUpdate(pSecondsElapsed);
+
+							if (player.collidesWith(this)) {
+								this.setVisible(false);
+								this.setIgnoreUpdate(true);
+							}
+						}
+					};
+
+					//the coin will animate.
+					levelObject.registerEntityModifier(new LoopEntityModifier(new ScaleModifier(1, 1, 1.3f)));
+
+					//level object returned here because it does not need to be registered with the physicsWorld.
+					return levelObject;
+
+				}else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE_ACT1_SCENE5_GOALS)) {
+					levelObject = new Sprite(x, y, resourcesManager.collectable_TR, vbom) {
+						@Override
+						protected void onManagedUpdate(float pSecondsElapsed) {
+							super.onManagedUpdate(pSecondsElapsed);
+
+							if (player.collidesWith(this)) {
+								this.setVisible(false);
+								this.setIgnoreUpdate(true);
+							}
+						}
+					};
+
+					//the coin will animate.
+					levelObject.registerEntityModifier(new LoopEntityModifier(new ScaleModifier(1, 1, 1.3f)));
+
+					//level object returned here because it does not need to be registered with the physicsWorld.
+					return levelObject;
+
+				}else {
 					throw new IllegalArgumentException();
 				}
 
