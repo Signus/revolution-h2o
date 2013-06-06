@@ -22,21 +22,22 @@ public class GameLauncher extends Activity {
     private final String gvingChildUrl = "http://www.thegivingchild.org/home/DONATE.html";
     public static final String PREFERENCE_KEY = "csci370.thegivingchild.cleanwatergame.preference";
     public static final String PREFERENCE_KEY_MUTE = "csci370.thegivingchild.cleanwatergame.preference.mute";
+    public static final String PREFERENCE_KEY_INGAME = "csci370.thegivingchild.cleanwatergame.preference.ingame";
+    public static final String PREFERENCE_KEY_INGAME_MUTE = "csci370.thegivingchild.cleanwatergame.preference.ingamemute";
    
-   
+   private boolean goingOtheract;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_launcher);
         MUTE_SOUND_EFX = CleanWaterGame.getInstance().getSharedPreferences(PREFERENCE_KEY, MODE_MULTI_PROCESS).getBoolean(PREFERENCE_KEY_MUTE, false);
-        
-       
     }
     
     @Override
     public void onResume(){
     	super.onResume();
+    	 goingOtheract = false;
     	ImageButton im = (ImageButton)findViewById(R.id.muting);
     	MUTE_SOUND_EFX = CleanWaterGame.getInstance().getSharedPreferences(PREFERENCE_KEY, MODE_MULTI_PROCESS).getBoolean(PREFERENCE_KEY_MUTE, false);
     	im.setImageResource((MUTE_SOUND_EFX ? R.drawable.mute : R.drawable.unmuted));
@@ -46,6 +47,16 @@ public class GameLauncher extends Activity {
     	}
     }
 
+    @Override
+    public void onPause()
+    {
+    	super.onPause();
+    	
+    	if(!goingOtheract)
+    	{
+    		CleanWaterGame.getInstance().pauseMenuMusic();
+    	}
+    }
 
     /**
     * This function is linked to the mute button in the activity_game_launcher.xml file
@@ -73,6 +84,7 @@ public class GameLauncher extends Activity {
     */
     public void openDonate(View v)
     {
+    	 goingOtheract = true;
         if (!MUTE_SOUND_EFX) {
         	CleanWaterGame.getInstance().playBtnSound();
         }
@@ -87,6 +99,7 @@ public class GameLauncher extends Activity {
     */
     public void openMiniGames(View v)
     {
+    	 goingOtheract = true;
         if (!MUTE_SOUND_EFX) {
         	CleanWaterGame.getInstance().playBtnSound();
         }
@@ -100,6 +113,7 @@ public class GameLauncher extends Activity {
     */
     public void openExtras(View v)
     {
+    	 goingOtheract = true;
         if (!MUTE_SOUND_EFX) {
         	CleanWaterGame.getInstance().playBtnSound();
         }

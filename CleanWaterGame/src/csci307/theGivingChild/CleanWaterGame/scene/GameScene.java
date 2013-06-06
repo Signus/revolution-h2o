@@ -156,10 +156,12 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
     {
     	if (hasChildScene()) {
     		if(!ResourceManager.getInstance().isMuted()) CleanWaterGame.getInstance().playMenuMusic();
+    		CleanWaterGame.getInstance().getSharedPreferences(GameLauncher.PREFERENCE_KEY_INGAME, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).edit().putBoolean(GameLauncher.PREFERENCE_KEY_INGAME_MUTE, false).commit();
     		clearChildScene();
     		paused = false;
     	} else {
     		if(!ResourceManager.getInstance().isMuted()) CleanWaterGame.getInstance().playMenuMusic();
+    		CleanWaterGame.getInstance().getSharedPreferences(GameLauncher.PREFERENCE_KEY_INGAME, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).edit().putBoolean(GameLauncher.PREFERENCE_KEY_INGAME_MUTE, false).commit();
     		SceneManager.getInstance().loadMenuScene(engine);
     	}
     	
@@ -483,6 +485,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 				clearChildScene();
 				SceneManager.getInstance().loadMenuScene(engine);
 				if(!ResourceManager.getInstance().isMuted()) CleanWaterGame.getInstance().playMenuMusic();
+				CleanWaterGame.getInstance().getSharedPreferences(GameLauncher.PREFERENCE_KEY_INGAME, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).edit().putBoolean(GameLauncher.PREFERENCE_KEY_INGAME_MUTE, false).commit();
 				return true;
 			case MENU_RESTART:
 				resourcesManager.backgroundMusic.stop();

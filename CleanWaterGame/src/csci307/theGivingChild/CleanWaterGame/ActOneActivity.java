@@ -22,11 +22,40 @@ public class ActOneActivity extends BaseGameActivity {
 	
 	private BoundCamera camera;
 	private ResourceManager resourceManager;
+	private boolean goingOtheract;
 	
 	
 	@Override
 	public Engine onCreateEngine(EngineOptions pEngineOptions) {
 		return new FixedStepEngine(pEngineOptions, 60);
+	}
+	
+	@Override
+	public void onResume()
+	{
+		super.onResume();
+		goingOtheract = false;
+		boolean MUTE_SOUND_EFX = CleanWaterGame.getInstance()
+				.getSharedPreferences(GameLauncher.PREFERENCE_KEY, MODE_MULTI_PROCESS)
+				.getBoolean(GameLauncher.PREFERENCE_KEY_MUTE, false);
+		MUTE_SOUND_EFX = MUTE_SOUND_EFX || CleanWaterGame.getInstance().getSharedPreferences(GameLauncher.PREFERENCE_KEY_INGAME, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).getBoolean(GameLauncher.PREFERENCE_KEY_INGAME_MUTE, false);
+
+		if (!MUTE_SOUND_EFX) {
+			CleanWaterGame.getInstance().playMenuMusic();
+		}
+	}
+	
+	@Override
+	public void onBackPressed()
+	{
+		goingOtheract = true;
+	}
+	
+	@Override
+	public void onPause()
+	{
+		super.onPause();
+		if(!goingOtheract) CleanWaterGame.getInstance().pauseMenuMusic();
 	}
 	
 	@Override
