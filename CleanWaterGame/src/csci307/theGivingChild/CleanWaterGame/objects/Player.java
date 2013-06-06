@@ -155,7 +155,7 @@ public class Player extends AnimatedSprite {
     public void duck() {
         if (isDucking) return;
         isDucking = true;
-        //if(!ResourceManager.getInstance().isMuted()) put ducking sound here
+        if(!ResourceManager.getInstance().isMuted()) ResourceManager.getInstance().duckSound.play();
         setToDuckSprite();
         newBody(-5);
     }

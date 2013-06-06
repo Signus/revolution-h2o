@@ -76,6 +76,7 @@ public class ResourceManager {
 	//sounds
 	public Sound jumpSound;
 	public Sound dashSound;
+	public Sound duckSound;
 	//music
 	public Music backgroundMusic;
 	
@@ -202,6 +203,8 @@ public class ResourceManager {
 			this.jumpSound.setVolume(.5f);
 			this.dashSound = SoundFactory.createSoundFromAsset(activity.getSoundManager(),activity, "dash.mp3");
 			this.dashSound.setVolume(.7f);
+			this.duckSound = SoundFactory.createSoundFromAsset(activity.getSoundManager(),activity, "duck.mp3");
+			this.duckSound.setVolume(.3f);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
