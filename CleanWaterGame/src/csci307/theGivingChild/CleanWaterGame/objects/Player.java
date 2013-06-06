@@ -136,6 +136,7 @@ public class Player extends AnimatedSprite {
         //if (isJumping) return;
         isJumping = true;
         setToJumpSprite();
+        ResourceManager.getInstance().jumpSound.play();
 
         body.setLinearVelocity(body.getLinearVelocity().x, JUMP_VELOCITY);
 	}
@@ -144,6 +145,7 @@ public class Player extends AnimatedSprite {
         if (isSprinting) return;
         isSprinting = true;
         setToDashSprite();
+        ResourceManager.getInstance().dashSound.play();
 
         //dash sprite
 
