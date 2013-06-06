@@ -22,8 +22,8 @@ public class GameLauncher extends Activity {
     private final String gvingChildUrl = "http://www.thegivingchild.org/home/DONATE.html";
     public static final String PREFERENCE_KEY = "csci370.thegivingchild.cleanwatergame.preference";
     public static final String PREFERENCE_KEY_MUTE = "csci370.thegivingchild.cleanwatergame.preference.mute";
-    public static MediaPlayer menuMusic;
-    public static MediaPlayer selectSound;
+   
+   
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,21 +31,7 @@ public class GameLauncher extends Activity {
         setContentView(R.layout.activity_game_launcher);
         MUTE_SOUND_EFX = CleanWaterGame.getInstance().getSharedPreferences(PREFERENCE_KEY, MODE_MULTI_PROCESS).getBoolean(PREFERENCE_KEY_MUTE, false);
         
-        //Set menu music source
-        try {
-			menuMusic = MediaPlayer.create(this, R.raw.menumusic);
-			menuMusic.setLooping(true);
-			selectSound = MediaPlayer.create(this, R.raw.select_button);
-		} catch (IllegalArgumentException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SecurityException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalStateException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}     
+       
     }
     
     @Override
@@ -56,7 +42,7 @@ public class GameLauncher extends Activity {
     	im.setImageResource((MUTE_SOUND_EFX ? R.drawable.mute : R.drawable.unmuted));
     	
     	if (!MUTE_SOUND_EFX) {
-    		menuMusic.start();
+    		CleanWaterGame.getInstance().playMenuMusic();
     	}
     }
 
@@ -73,10 +59,10 @@ public class GameLauncher extends Activity {
         CleanWaterGame.getInstance().getSharedPreferences(PREFERENCE_KEY, MODE_MULTI_PROCESS).edit().putBoolean(PREFERENCE_KEY_MUTE,MUTE_SOUND_EFX).commit();
         
         if (!MUTE_SOUND_EFX) {
-        	menuMusic.start();
+        	CleanWaterGame.getInstance().playMenuMusic();
         }
         else {
-        	menuMusic.pause();
+        	CleanWaterGame.getInstance().pauseMenuMusic();
         }
     }
 
@@ -88,7 +74,7 @@ public class GameLauncher extends Activity {
     public void openDonate(View v)
     {
         if (!MUTE_SOUND_EFX) {
-        	selectSound.start();
+        	CleanWaterGame.getInstance().playBtnSound();
         }
         Intent donation = new Intent(Intent.ACTION_VIEW, Uri.parse(gvingChildUrl));
         startActivity(donation);
@@ -102,7 +88,7 @@ public class GameLauncher extends Activity {
     public void openMiniGames(View v)
     {
         if (!MUTE_SOUND_EFX) {
-        	selectSound.start();
+        	CleanWaterGame.getInstance().playBtnSound();
         }
         Intent play = new Intent(this, ActOneActivity.class);
         startActivity(play);
@@ -115,7 +101,7 @@ public class GameLauncher extends Activity {
     public void openExtras(View v)
     {
         if (!MUTE_SOUND_EFX) {
-        	selectSound.start();
+        	CleanWaterGame.getInstance().playBtnSound();
         }
         Intent extra = new Intent(this, ExtrasMenu.class);
         startActivity(extra);

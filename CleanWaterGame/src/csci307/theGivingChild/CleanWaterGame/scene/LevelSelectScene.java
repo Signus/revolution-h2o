@@ -19,6 +19,7 @@ import org.andengine.entity.sprite.Sprite;
 import org.andengine.entity.text.Text;
 import org.andengine.util.adt.color.Color;
 
+import csci307.theGivingChild.CleanWaterGame.CleanWaterGame;
 import csci307.theGivingChild.CleanWaterGame.GameLauncher;
 import csci307.theGivingChild.CleanWaterGame.manager.SceneManager;
 import csci307.theGivingChild.CleanWaterGame.manager.SceneManager.SceneType;
@@ -39,23 +40,23 @@ public class LevelSelectScene extends BaseScene implements IOnMenuItemClickListe
 		switch (pMenuItem.getID()) {
 			case SCENE_ONE:
 				SceneManager.getInstance().loadGameScene(engine, "act1scene1");
-				GameLauncher.menuMusic.pause();
+				CleanWaterGame.getInstance().pauseMenuMusic();
 				return true;
 			case SCENE_TWO:
 				SceneManager.getInstance().loadGameScene(engine, "act1scene2");
-				GameLauncher.menuMusic.pause();
+				CleanWaterGame.getInstance().pauseMenuMusic();
 				return true;
 			case SCENE_THREE:
 				SceneManager.getInstance().loadGameScene(engine, "act1scene3");
-				GameLauncher.menuMusic.pause();
+				CleanWaterGame.getInstance().pauseMenuMusic();
 				return true;
 			case SCENE_FOUR:
 				SceneManager.getInstance().loadGameScene(engine, "act1scene4");
-				GameLauncher.menuMusic.pause();
+				CleanWaterGame.getInstance().pauseMenuMusic();
 				return true;
 			case SCENE_FIVE:
 				SceneManager.getInstance().loadGameScene(engine, "act1scene5");
-				GameLauncher.menuMusic.pause();
+				CleanWaterGame.getInstance().pauseMenuMusic();
 				return true;
 			default:
 				return false;

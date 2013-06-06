@@ -1,6 +1,8 @@
 package csci307.theGivingChild.CleanWaterGame;
 
 import android.app.Application;
+import android.media.MediaPlayer;
+
 import org.acra.*;
 import org.acra.annotation.*;
 
@@ -13,17 +15,49 @@ import org.acra.annotation.*;
 )
 public class CleanWaterGame extends Application {
 	private static CleanWaterGame instance;
+	 private MediaPlayer menuMusic;
+	 private MediaPlayer selectSound;
 	@Override
 	public void onCreate()
 	{
 		super.onCreate();
 		instance = this;
 		ACRA.init(this);
+		
+		 //Set menu music source
+        try {
+			menuMusic = MediaPlayer.create(this, R.raw.menumusic);
+			menuMusic.setLooping(true);
+			selectSound = MediaPlayer.create(this, R.raw.select_button);
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalStateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}     
 	}
 	
 	public static CleanWaterGame getInstance()
 	{
 		return instance;
 	}
-
+	
+	public void pauseMenuMusic()
+	{
+		menuMusic.pause();
+	}
+	
+	public void playMenuMusic()
+	{
+		menuMusic.start();
+	}
+	
+	public void playBtnSound()
+	{
+		selectSound.start();
+	}
 }

@@ -57,6 +57,7 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.Manifold;
 
+import csci307.theGivingChild.CleanWaterGame.CleanWaterGame;
 import csci307.theGivingChild.CleanWaterGame.GameLauncher;
 import csci307.theGivingChild.CleanWaterGame.manager.ResourceManager;
 import csci307.theGivingChild.CleanWaterGame.manager.SceneManager;
@@ -129,7 +130,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
     	this.engine = resourcesManager.engine;
         this.activity = resourcesManager.activity;
         this.vbom = resourcesManager.vbom;
-        this.camera = resourcesManager.camera;
+        this.camera = resourcesManager.camera; 
         currentLevel = level;
         createScene();
 		loadLevel(level);
@@ -154,11 +155,11 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
     public void onBackKeyPressed()
     {
     	if (hasChildScene()) {
-    		if(!ResourceManager.getInstance().isMuted()) GameLauncher.menuMusic.start();
+    		if(!ResourceManager.getInstance().isMuted()) CleanWaterGame.getInstance().playMenuMusic();
     		clearChildScene();
     		paused = false;
     	} else {
-    		if(!ResourceManager.getInstance().isMuted()) GameLauncher.menuMusic.start();
+    		if(!ResourceManager.getInstance().isMuted()) CleanWaterGame.getInstance().playMenuMusic();
     		SceneManager.getInstance().loadMenuScene(engine);
     	}
     	
@@ -481,7 +482,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 			case MENU_QUIT:
 				clearChildScene();
 				SceneManager.getInstance().loadMenuScene(engine);
-				if(!ResourceManager.getInstance().isMuted()) GameLauncher.menuMusic.start();
+				if(!ResourceManager.getInstance().isMuted()) CleanWaterGame.getInstance().playMenuMusic();
 				return true;
 			case MENU_RESTART:
 				resourcesManager.backgroundMusic.stop();
