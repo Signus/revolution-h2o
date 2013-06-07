@@ -92,7 +92,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_FALLINGPLATFORM_2 = "fallingPlatform2";
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_PLAYER = "player";
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE = "collectable";
-	
+
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE_ACT1_SCENE2_GOALS = "twine";
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE_ACT1_SCENE3_GOALS = "stone";
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE_ACT1_SCENE4_GOALS = "mud";
@@ -131,7 +131,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
     	this.engine = resourcesManager.engine;
         this.activity = resourcesManager.activity;
         this.vbom = resourcesManager.vbom;
-        this.camera = resourcesManager.camera; 
+        this.camera = resourcesManager.camera;
         currentLevel = level;
         createScene();
 		loadLevel(level);
@@ -165,7 +165,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
     		CleanWaterGame.getInstance().getSharedPreferences(GameLauncher.PREFERENCE_KEY_INGAME, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).edit().putBoolean(GameLauncher.PREFERENCE_KEY_INGAME_MUTE, false).commit();
     		SceneManager.getInstance().loadMenuScene(engine);
     	}
-    	
+
     }
 
     @Override
@@ -293,7 +293,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 
 							if (this.getY() < 0) {
 								detachChild(this);
-							}							
+							}
 						}
 					};
 					body = PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyType.StaticBody, FALLING_FIX);
