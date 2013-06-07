@@ -77,7 +77,7 @@ public class Player extends AnimatedSprite {
 					body.setLinearVelocity(new Vector2(runSpeed, body.getLinearVelocity().y));
                     if (isSprinting) {
                         sprintTime--;
-                        if (sprintTime <= 0) {
+                        if (sprintTime <= 0 && !verticalMotion()) {
                             sprintTime = MAX_SPRINT;
                             isSprinting = false;
                             runSpeed -= SPRINT_AUGMENT;
@@ -100,7 +100,7 @@ public class Player extends AnimatedSprite {
                         }
 
                     }
-                    
+
                 }
 				if (isBouncing) {
                 	if (!verticalMotion()) {
@@ -150,6 +150,7 @@ public class Player extends AnimatedSprite {
        if(!ResourceManager.getInstance().isMuted()) ResourceManager.getInstance().jumpSound.play();
 
         body.setLinearVelocity(body.getLinearVelocity().x, JUMP_VELOCITY);
+
 	}
 
 	public void dash() {
@@ -157,8 +158,6 @@ public class Player extends AnimatedSprite {
         isSprinting = true;
         setToDashSprite();
         if(!ResourceManager.getInstance().isMuted())ResourceManager.getInstance().dashSound.play();
-
-        //dash sprite
 
         runSpeed += SPRINT_AUGMENT;
 	}
@@ -170,13 +169,13 @@ public class Player extends AnimatedSprite {
         setToDuckSprite();
         newBody(-5);
     }
-    
+
     public void bounceBack() {
     	if (isBouncing) return;
     	body.setLinearVelocity(-runSpeed, JUMP_VELOCITY / 2.0f);
     	isBouncing = true;
     	canRun = false;
-    	
+
     }
 
 	public void onDie() {
