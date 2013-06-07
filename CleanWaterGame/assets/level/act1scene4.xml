@@ -56,7 +56,6 @@
     <entity x="2950" y="100" width="100" height="50" type="hill"/>
 
     <!-- floating platform time -->
-    <entity x="3250" y="200" width="100" height="50" type="floatingPlatform"/>
     <entity x="3350" y="200" width="100" height="50" type="floatingPlatform"/>
     <entity x="3450" y="200" width="100" height="50" type="floatingPlatform"/>
     <entity x="3550" y="200" width="100" height="50" type="floatingPlatform"/>
@@ -67,47 +66,56 @@
     <entity x="3650" y="25" width="100" height="50" type="ground"/>
     <entity x="3750" y="25" width="100" height="50" type="ground"/>
     <entity x="3850" y="25" width="100" height="50" type="ground"/>
-
+    <!-- -->
     <entity x="3950" y="25" width="100" height="50" type="ground"/>
     <entity x="4050" y="25" width="100" height="50" type="ground"/>
-    <entity x="4150" y="25" width="100" height="50" type="ground"/>
-    <entity x="4250" y="25" width="100" height="50" type="ground"/>
-    <entity x="4350" y="25" width="100" height="50" type="ground"/>
-    <entity x="4450" y="25" width="100" height="50" type="ground"/>
-    <entity x="4550" y="25" width="100" height="50" type="ground"/>
-    <entity x="4650" y="25" width="100" height="50" type="ground"/>
-    <entity x="4750" y="25" width="100" height="50" type="ground"/>
-    <entity x="4850" y="25" width="100" height="50" type="ground"/>
-    <entity x="4950" y="25" width="100" height="50" type="ground"/>
-    <entity x="5050" y="25" width="100" height="50" type="ground"/>
+    <!-- Falling platform -->
+    <entity x="4150" y="105" width="100" height="50" type="fallingPlatform"/>
+    <entity x="4325" y="175" width="100" height="50" type="fallingPlatform"/>
+    <entity x="4545" y="245" width="100" height="50" type="floatingPlatform"/>
+    <entity x="4750" y="315" width="100" height="50" type="fallingPlatform"/>
+    <entity x="4950" y="385" width="100" height="50" type="floatingPlatform"/>
+    <entity x="5050" y="385" width="100" height="50" type="floatingPlatform"/>
+
     <entity x="5150" y="25" width="100" height="50" type="ground"/>
     <entity x="5250" y="25" width="100" height="50" type="ground"/>
-    <entity x="5350" y="25" width="100" height="50" type="ground"/>
-    <entity x="5450" y="25" width="100" height="50" type="ground"/>
-    <entity x="5550" y="25" width="100" height="50" type="ground"/>
-    <entity x="5650" y="25" width="100" height="50" type="ground"/>
-    <entity x="5750" y="25" width="100" height="50" type="ground"/>
-    <entity x="5850" y="25" width="100" height="50" type="ground"/>
-    <entity x="5950" y="25" width="100" height="50" type="ground"/>
-    <entity x="6050" y="25" width="100" height="50" type="ground"/>
-    <entity x="6150" y="25" width="100" height="50" type="ground"/>
-    <entity x="6250" y="25" width="100" height="50" type="ground"/>
-    <entity x="6350" y="25" width="100" height="50" type="ground"/>
-    <entity x="6450" y="25" width="100" height="50" type="ground"/>
-    <entity x="6550" y="25" width="100" height="50" type="ground"/>
+
+    <!-- Run for the Hills! -->
+    <entity x="5350" y="25" width="100" height="50" type="hill"/>
+    <entity x="5550" y="25" width="100" height="50" type="hill"/>
+    <entity x="5650" y="25" width="100" height="50" type="hill"/>
+
+    <!-- Run for the Hills! -->
+    <entity x="5750" y="100" width="100" height="50" type="hill"/>
+    <entity x="5850" y="100" width="100" height="50" type="hill"/>
+
+    <!-- Run for the Hills Episode 3! -->
+    <entity x="5950" y="100" width="100" height="50" type="hill"/>
+    <entity x="6050" y="100" width="100" height="50" type="hill"/>
+    <entity x="5950" y="145" width="100" height="50" type="hill"/>
+    <entity x="6050" y="145" width="100" height="50" type="hill"/>
+
+    <entity x="6600" y="25" width="100" height="50" type="ground"/>
     <entity x="6650" y="25" width="100" height="50" type="ground"/>
-    <entity x="6750" y="25" width="100" height="50" type="ground"/>
-    <entity x="6850" y="25" width="100" height="50" type="ground"/>
+    <entity x="6650" y="25" width="100" height="50" type="ground"/>
+
+    <entity x="6700" y="35" width="100" height="50" type="fallingPlatform2"/>
+    <entity x="6750" y="35" width="100" height="50" type="fallingPlatform2"/>
+    <entity x="6800" y="35" width="100" height="50" type="fallingPlatform2"/>
+    <entity x="6850" y="35" width="100" height="50" type="fallingPlatform2"/>
+    <entity x="6900" y="35" width="100" height="50" type="fallingPlatform2"/>
+
     <entity x="6950" y="25" width="100" height="50" type="ground"/>
     <entity x="7050" y="25" width="100" height="50" type="ground"/>
-    <entity x="7150" y="25" width="100" height="50" type="ground"/>
-    <entity x="7250" y="25" width="100" height="50" type="ground"/>
-    <entity x="7350" y="25" width="100" height="50" type="ground"/>
-    <entity x="7450" y="25" width="100" height="50" type="ground"/>
-    <entity x="7550" y="25" width="100" height="50" type="ground"/>
-    <entity x="7650" y="25" width="100" height="50" type="ground"/>
-    <entity x="7750" y="25" width="100" height="50" type="ground"/>
-    <entity x="7850" y="25" width="100" height="50" type="ground"/>
+
+    <entity x="7050" y="105" width="100" height="50" type="floatingPlatform"/>
+    <entity x="7150" y="105" width="100" height="50" type="floatingPlatform"/>
+    <entity x="7250" y="175" width="100" height="50" type="floatingPlatform"/>
+    <entity x="7350" y="175" width="100" height="50" type="floatingPlatform"/>
+
+    <entity x="7750" y="175" width="100" height="50" type="floatingPlatform"/>
+    <entity x="7850" y="175" width="100" height="50" type="floatingPlatform"/>
+
     <entity x="7950" y="25" width="100" height="50" type="ground"/>
     <entity x="8050" y="25" width="100" height="50" type="ground"/>
     <entity x="8150" y="25" width="100" height="50" type="ground"/>
