@@ -294,7 +294,18 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 				 * As for now, the rectangles printed in the level will be made as such so that the jumping which involves contactlistener will work.
 				 */
 				if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_HILL)) {
-					levelObject = new Sprite(x, y, resourcesManager.hill_TR, vbom);
+					levelObject = new Sprite(x, y, resourcesManager.hill_TR, vbom) {
+						@Override
+						protected void onManagedUpdate(float pSecondsElapsed) {
+							super.onManagedUpdate(pSecondsElapsed);
+							//side collision
+							if(detectSideCollision(player, this)) {
+								player.bounceBack();
+								player.decrementHP();
+								displayHealth(player.getHP());
+							}
+						}
+					};
 					PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyType.StaticBody, GROUND_FIX).setUserData("ground");
 				}
 				else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_GROUND)) {
@@ -303,12 +314,10 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 						protected void onManagedUpdate(float pSecondsElapsed) {
 							super.onManagedUpdate(pSecondsElapsed);
 							//side collision
-							if ((player.getX() + player.getWidth()/2.0) + COLLISION_THRESHOLD > (this.getX() - this.getWidth() / 2.0) &&
-									(player.getX() + player.getWidth()/2.0) < (this.getX() + this.getWidth() / 2.0) &&
-									player.getY() < (this.getY() + this.getHeight()/2.0) && player.getY() > (this.getY() - this.getHeight() / 2.0)) {
-								System.out.println("SIDE COLLISION");
-								System.out.println((player.getX() + player.getWidth()/2.0) + "     , " + (this.getX() - this.getWidth() / 2.0));
+							if(detectSideCollision(player, this)) {
 								player.bounceBack();
+								player.decrementHP();
+								displayHealth(player.getHP());
 							}
 						}
 					};
@@ -319,7 +328,18 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 					PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyType.StaticBody, GROUND_FIX).setUserData("test");
 				}
 				else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_FLOATINGPLATFORM)) {
-					levelObject = new Sprite(x, y, resourcesManager.floating_platform_ground_TR, vbom);
+					levelObject = new Sprite(x, y, resourcesManager.floating_platform_ground_TR, vbom) {
+						@Override
+						protected void onManagedUpdate(float pSecondsElapsed) {
+							super.onManagedUpdate(pSecondsElapsed);
+							//side collision
+							if(detectSideCollision(player, this)) {
+								player.bounceBack();
+								player.decrementHP();
+								displayHealth(player.getHP());
+							}
+						}
+					};
 					PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyType.StaticBody, GROUND_FIX).setUserData("test");
 				}
 				else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_FALLINGPLATFORM_2)) {
@@ -476,6 +496,17 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 
 		levelLoader.loadLevelFromAsset(activity.getAssets(), "level/" + levelID + ".xml");
 	}
+    
+    private boolean detectSideCollision(Player player, IEntity object) {
+    	if ((player.getX() + player.getWidth()/2.0) + COLLISION_THRESHOLD > (object.getX() - object.getWidth() / 2.0) &&
+				(player.getX() + player.getWidth()/2.0) < (object.getX() + object.getWidth() / 2.0) &&
+				player.getY() < (object.getY() + object.getHeight()/2.0) && player.getY() > (object.getY() - object.getHeight() / 2.0)) {
+			System.out.println("SIDE COLLISION");
+			System.out.println((player.getX() + player.getWidth()/2.0) + "     , " + (object.getX() - object.getWidth() / 2.0));
+			return true;
+		}
+    	return false;
+    }
 
 	@Override
 	public boolean onSceneTouchEvent(Scene pScene, TouchEvent pSceneTouchEvent) {
