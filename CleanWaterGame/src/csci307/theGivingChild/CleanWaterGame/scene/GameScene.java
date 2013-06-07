@@ -67,7 +67,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 
     private static final double TAP_THRESHOLD = 60;
     private static final double SWIPE_THRESHOLD = 80;
-    private static final double COLLISION_THRESHOLD = 0.5;
+    private static final double COLLISION_THRESHOLD = 1.0;
     private HUD gameHUD;
 	private PhysicsWorld physicsWorld;
 
@@ -333,6 +333,11 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 						protected void onManagedUpdate(float pSecondsElapsed) {
 							super.onManagedUpdate(pSecondsElapsed);
 							//side collision
+//							System.out.println("x positions: " + ((player.getX() + player.getWidth()/2.0) + COLLISION_THRESHOLD) + "  > " + (this.getX() - this.getWidth() / 2.0));
+//							System.out.println(((player.getX() + player.getWidth()/2.0)) + "  < " + (this.getX() + this.getWidth() / 2.0));
+//							System.out.println(player.getY() + "   < " + ((this.getY() + this.getHeight()/2.0) + COLLISION_THRESHOLD));
+//							System.out.println(player.getY() + "   > " + ((this.getY() - this.getHeight() / 2.0) - COLLISION_THRESHOLD));
+							
 							if(detectSideCollision(player, this)) {
 								player.bounceBack();
 								player.decrementHP();
@@ -498,11 +503,15 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 	}
     
     private boolean detectSideCollision(Player player, IEntity object) {
-    	if ((player.getX() + player.getWidth()/2.0) + COLLISION_THRESHOLD > (object.getX() - object.getWidth() / 2.0) &&
+    	if ( ((player.getX() + player.getWidth()/2.0) + COLLISION_THRESHOLD) > (object.getX() - object.getWidth() / 2.0) &&
 				(player.getX() + player.getWidth()/2.0) < (object.getX() + object.getWidth() / 2.0) &&
-				player.getY() < (object.getY() + object.getHeight()/2.0) && player.getY() > (object.getY() - object.getHeight() / 2.0)) {
+				((player.getY() - player.getHeight()/2.0) + COLLISION_THRESHOLD) < (object.getY() + object.getHeight()/2.0) && 
+				((player.getY() + player.getHeight()/2.0) - COLLISION_THRESHOLD) > (object.getY() - object.getHeight() / 2.0) ) {
 			System.out.println("SIDE COLLISION");
-			System.out.println((player.getX() + player.getWidth()/2.0) + "     , " + (object.getX() - object.getWidth() / 2.0));
+			System.out.println("x positions: " + ((player.getX() + player.getWidth()/2.0) + COLLISION_THRESHOLD) + "  > " + (object.getX() - object.getWidth() / 2.0));
+			System.out.println(((player.getX() + player.getWidth()/2.0)) + "  < " + (object.getX() + object.getWidth() / 2.0));
+			System.out.println(((player.getY() - player.getHeight()/2.0) - COLLISION_THRESHOLD) + "   < " + (object.getY() + object.getHeight()/2.0));
+			System.out.println(((player.getY() + player.getHeight()/2.0) + COLLISION_THRESHOLD) + "   > " + ((object.getY() - object.getHeight() / 2.0)));
 			return true;
 		}
     	return false;
