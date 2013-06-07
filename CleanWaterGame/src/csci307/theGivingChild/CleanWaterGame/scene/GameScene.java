@@ -32,6 +32,7 @@ import org.andengine.entity.scene.menu.item.IMenuItem;
 import org.andengine.entity.scene.menu.item.TextMenuItem;
 import org.andengine.entity.scene.menu.item.decorator.ColorMenuItemDecorator;
 import org.andengine.entity.sprite.Sprite;
+import org.andengine.entity.sprite.TiledSprite;
 import org.andengine.extension.physics.box2d.FixedStepPhysicsWorld;
 import org.andengine.extension.physics.box2d.PhysicsConnector;
 import org.andengine.extension.physics.box2d.PhysicsFactory;
@@ -44,8 +45,6 @@ import org.andengine.util.level.constants.LevelConstants;
 import org.andengine.util.level.simple.SimpleLevelEntityLoaderData;
 import org.andengine.util.level.simple.SimpleLevelLoader;
 import org.xml.sax.Attributes;
-
-import android.content.Context;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -120,6 +119,10 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 	private final int MENU_QUIT = 1;
 	private final int MENU_RESTART = 2;
 	private final int MENU_OPTIONS = 3;
+	
+	private Sprite heart1;
+	private Sprite heart2;
+	private Sprite heart3;
 
 	private Player player;
     private boolean actionPerformed = false;
@@ -194,6 +197,10 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 
     private void createHUD() {
     	gameHUD = new HUD();
+    	heart1 = new Sprite(120, 420, resourcesManager.hitpoints_TR, vbom);
+    	heart2 = new Sprite(170, 420, resourcesManager.hitpoints_TR, vbom);
+    	heart3 = new Sprite(220, 420, resourcesManager.hitpoints_TR, vbom);
+    	
 
     	final Sprite pauseButton = new Sprite(50, 430, resourcesManager.pause_TR, vbom) {
     		@Override
@@ -209,7 +216,37 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 
     	gameHUD.registerTouchArea(pauseButton);
     	gameHUD.attachChild(pauseButton);
+    	gameHUD.attachChild(heart1);
+    	gameHUD.attachChild(heart2);
+    	gameHUD.attachChild(heart3);
+    	displayHealth(3);
+    	
     	camera.setHUD(gameHUD);
+    }
+    
+    private void displayHealth(int hitpoints) {
+    	switch (hitpoints) {
+	    	case 0:
+				heart1.setVisible(false);
+				heart2.setVisible(false);
+				heart3.setVisible(false);
+				break;
+    		case 1:
+    			heart1.setVisible(true);
+    			heart2.setVisible(false);
+    			heart3.setVisible(false);
+    			break;
+    		case 2:
+    			heart1.setVisible(true);
+    			heart2.setVisible(true);
+    			heart3.setVisible(false);
+    			break;
+    		case 3:
+    			heart1.setVisible(true);
+    			heart2.setVisible(true);
+    			heart3.setVisible(true);
+    			break;	
+    	}
     }
 
     private void createPhysics() {
@@ -315,7 +352,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 					physicsWorld.registerPhysicsConnector(new PhysicsConnector(levelObject, body, true, false));
 				}
 				else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_PLAYER)) {
-					player = new Player(x, y, vbom, camera, physicsWorld) {
+					player = new Player(x, y, vbom, camera, physicsWorld, 3) {
 						@Override
 						public void onDie() {
                             isDone = true;

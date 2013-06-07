@@ -31,15 +31,17 @@ public class Player extends AnimatedSprite {
     private boolean isDucking = false;
     private boolean isBouncing = false;
     private static int TIME = 100;
+    private int hitpoints = 0;
 
     final long[] PLAYER_ANIMATE = new long[] {TIME, TIME, TIME, TIME, TIME, TIME};
     private static PhysicsWorld physicsWorld;
 
-    public Player(float pX, float pY, VertexBufferObjectManager vbom, Camera camera, PhysicsWorld physicsWorld) {
+    public Player(float pX, float pY, VertexBufferObjectManager vbom, Camera camera, PhysicsWorld physicsWorld, int hp) {
 		super(pX, pY, ResourceManager.getInstance().player_TR, vbom);
 		createPhysics(camera, physicsWorld);
 		camera.setChaseEntity(this);
         initializeBooleanConditions();
+        hitpoints = hp;
     }
 
     private void initializeBooleanConditions() {
@@ -203,4 +205,12 @@ public class Player extends AnimatedSprite {
 //        body.setUserData("player");
 //        body.setFixedRotation(true);
 	}
+    
+    public void decrementHP() {
+    	hitpoints--;
+    }
+    
+    public int getHP() {
+    	return hitpoints;
+    }
 }
