@@ -32,6 +32,7 @@ import org.andengine.entity.scene.menu.item.IMenuItem;
 import org.andengine.entity.scene.menu.item.TextMenuItem;
 import org.andengine.entity.scene.menu.item.decorator.ColorMenuItemDecorator;
 import org.andengine.entity.sprite.Sprite;
+import org.andengine.entity.sprite.TiledSprite;
 import org.andengine.extension.physics.box2d.FixedStepPhysicsWorld;
 import org.andengine.extension.physics.box2d.PhysicsConnector;
 import org.andengine.extension.physics.box2d.PhysicsFactory;
@@ -44,8 +45,6 @@ import org.andengine.util.level.constants.LevelConstants;
 import org.andengine.util.level.simple.SimpleLevelEntityLoaderData;
 import org.andengine.util.level.simple.SimpleLevelLoader;
 import org.xml.sax.Attributes;
-
-import android.content.Context;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -68,7 +67,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 
     private static final double TAP_THRESHOLD = 60;
     private static final double SWIPE_THRESHOLD = 80;
-    private static final double COLLISION_THRESHOLD = 0.5;
+    private static final double COLLISION_THRESHOLD = 1.0;
     private HUD gameHUD;
 	private PhysicsWorld physicsWorld;
 
@@ -120,6 +119,10 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 	private final int MENU_QUIT = 1;
 	private final int MENU_RESTART = 2;
 	private final int MENU_OPTIONS = 3;
+	
+	private Sprite heart1;
+	private Sprite heart2;
+	private Sprite heart3;
 
 	private Player player;
     private boolean actionPerformed = false;
@@ -194,6 +197,10 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 
     private void createHUD() {
     	gameHUD = new HUD();
+    	heart1 = new Sprite(120, 420, resourcesManager.hitpoints_TR, vbom);
+    	heart2 = new Sprite(170, 420, resourcesManager.hitpoints_TR, vbom);
+    	heart3 = new Sprite(220, 420, resourcesManager.hitpoints_TR, vbom);
+    	
 
     	final Sprite pauseButton = new Sprite(50, 430, resourcesManager.pause_TR, vbom) {
     		@Override
@@ -209,7 +216,37 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 
     	gameHUD.registerTouchArea(pauseButton);
     	gameHUD.attachChild(pauseButton);
+    	gameHUD.attachChild(heart1);
+    	gameHUD.attachChild(heart2);
+    	gameHUD.attachChild(heart3);
+    	displayHealth(3);
+    	
     	camera.setHUD(gameHUD);
+    }
+    
+    private void displayHealth(int hitpoints) {
+    	switch (hitpoints) {
+	    	case 0:
+				heart1.setVisible(false);
+				heart2.setVisible(false);
+				heart3.setVisible(false);
+				break;
+    		case 1:
+    			heart1.setVisible(true);
+    			heart2.setVisible(false);
+    			heart3.setVisible(false);
+    			break;
+    		case 2:
+    			heart1.setVisible(true);
+    			heart2.setVisible(true);
+    			heart3.setVisible(false);
+    			break;
+    		case 3:
+    			heart1.setVisible(true);
+    			heart2.setVisible(true);
+    			heart3.setVisible(true);
+    			break;	
+    	}
     }
 
     private void createPhysics() {
@@ -257,7 +294,18 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 				 * As for now, the rectangles printed in the level will be made as such so that the jumping which involves contactlistener will work.
 				 */
 				if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_HILL)) {
-					levelObject = new Sprite(x, y, resourcesManager.hill_TR, vbom);
+					levelObject = new Sprite(x, y, resourcesManager.hill_TR, vbom) {
+						@Override
+						protected void onManagedUpdate(float pSecondsElapsed) {
+							super.onManagedUpdate(pSecondsElapsed);
+							//side collision
+							if(detectSideCollision(player, this)) {
+								player.bounceBack();
+								player.decrementHP();
+								displayHealth(player.getHP());
+							}
+						}
+					};
 					PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyType.StaticBody, GROUND_FIX).setUserData("ground");
 				}
 				else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_GROUND)) {
@@ -266,12 +314,10 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 						protected void onManagedUpdate(float pSecondsElapsed) {
 							super.onManagedUpdate(pSecondsElapsed);
 							//side collision
-							if ((player.getX() + player.getWidth()/2.0) + COLLISION_THRESHOLD > (this.getX() - this.getWidth() / 2.0) &&
-									(player.getX() + player.getWidth()/2.0) < (this.getX() + this.getWidth() / 2.0) &&
-									player.getY() < (this.getY() + this.getHeight()/2.0) && player.getY() > (this.getY() - this.getHeight() / 2.0)) {
-								System.out.println("SIDE COLLISION");
-								System.out.println((player.getX() + player.getWidth()/2.0) + "     , " + (this.getX() - this.getWidth() / 2.0));
+							if(detectSideCollision(player, this)) {
 								player.bounceBack();
+								player.decrementHP();
+								displayHealth(player.getHP());
 							}
 						}
 					};
@@ -282,7 +328,23 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 					PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyType.StaticBody, GROUND_FIX).setUserData("test");
 				}
 				else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_FLOATINGPLATFORM)) {
-					levelObject = new Sprite(x, y, resourcesManager.floating_platform_ground_TR, vbom);
+					levelObject = new Sprite(x, y, resourcesManager.floating_platform_ground_TR, vbom) {
+						@Override
+						protected void onManagedUpdate(float pSecondsElapsed) {
+							super.onManagedUpdate(pSecondsElapsed);
+							//side collision
+//							System.out.println("x positions: " + ((player.getX() + player.getWidth()/2.0) + COLLISION_THRESHOLD) + "  > " + (this.getX() - this.getWidth() / 2.0));
+//							System.out.println(((player.getX() + player.getWidth()/2.0)) + "  < " + (this.getX() + this.getWidth() / 2.0));
+//							System.out.println(player.getY() + "   < " + ((this.getY() + this.getHeight()/2.0) + COLLISION_THRESHOLD));
+//							System.out.println(player.getY() + "   > " + ((this.getY() - this.getHeight() / 2.0) - COLLISION_THRESHOLD));
+							
+							if(detectSideCollision(player, this)) {
+								player.bounceBack();
+								player.decrementHP();
+								displayHealth(player.getHP());
+							}
+						}
+					};
 					PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyType.StaticBody, GROUND_FIX).setUserData("test");
 				}
 				else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_FALLINGPLATFORM_2)) {
@@ -315,7 +377,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 					physicsWorld.registerPhysicsConnector(new PhysicsConnector(levelObject, body, true, false));
 				}
 				else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_PLAYER)) {
-					player = new Player(x, y, vbom, camera, physicsWorld) {
+					player = new Player(x, y, vbom, camera, physicsWorld, 3) {
 						@Override
 						public void onDie() {
                             isDone = true;
@@ -439,6 +501,21 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 
 		levelLoader.loadLevelFromAsset(activity.getAssets(), "level/" + levelID + ".xml");
 	}
+    
+    private boolean detectSideCollision(Player player, IEntity object) {
+    	if ( ((player.getX() + player.getWidth()/2.0) + COLLISION_THRESHOLD) > (object.getX() - object.getWidth() / 2.0) &&
+				(player.getX() + player.getWidth()/2.0) < (object.getX() + object.getWidth() / 2.0) &&
+				((player.getY() - player.getHeight()/2.0) + COLLISION_THRESHOLD) < (object.getY() + object.getHeight()/2.0) && 
+				((player.getY() + player.getHeight()/2.0) - COLLISION_THRESHOLD) > (object.getY() - object.getHeight() / 2.0) ) {
+			System.out.println("SIDE COLLISION");
+			System.out.println("x positions: " + ((player.getX() + player.getWidth()/2.0) + COLLISION_THRESHOLD) + "  > " + (object.getX() - object.getWidth() / 2.0));
+			System.out.println(((player.getX() + player.getWidth()/2.0)) + "  < " + (object.getX() + object.getWidth() / 2.0));
+			System.out.println(((player.getY() - player.getHeight()/2.0) - COLLISION_THRESHOLD) + "   < " + (object.getY() + object.getHeight()/2.0));
+			System.out.println(((player.getY() + player.getHeight()/2.0) + COLLISION_THRESHOLD) + "   > " + ((object.getY() - object.getHeight() / 2.0)));
+			return true;
+		}
+    	return false;
+    }
 
 	@Override
 	public boolean onSceneTouchEvent(Scene pScene, TouchEvent pSceneTouchEvent) {

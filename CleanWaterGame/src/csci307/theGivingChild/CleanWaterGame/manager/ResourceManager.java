@@ -65,7 +65,7 @@ public class ResourceManager {
 	public ITextureRegion collectable_TR;
 	public ITextureRegion scene_background_TR;
 	public ITextureRegion scene_foreground_TR;
-	public ITextureRegion pause_TR;
+	public ITextureRegion pause_TR, hitpoints_TR;
 	public ITextureRegion ground_TR, floating_platform_ground_TR, hill_TR, falling_platform_2_TR, falling_platform_TR;
 	
 	//texture atlas
@@ -165,6 +165,7 @@ public class ResourceManager {
         gameTA = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 2048, 1024, TextureOptions.BILINEAR);
 
         player_TR = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(gameTA, activity, "player_run_sprite.png", 6, 1);
+        hitpoints_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTA, activity, "heart.png");
         collectable_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTA, activity, "water.png");
 
         pause_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTA, activity, "pause_button.png");

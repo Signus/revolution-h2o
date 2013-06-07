@@ -166,7 +166,7 @@ public class LevelTesterActivity extends SimpleBaseGameActivity implements IOnSc
         ResourceManager.prepareManager(this.getEngine(), this, camera, getVertexBufferObjectManager());
         ResourceManager.getInstance().loadGameResources();
 		
-		this.player = new Player(playerX, playerY, this.getVertexBufferObjectManager(), camera, physicsWorld);
+		this.player = new Player(playerX, playerY, this.getVertexBufferObjectManager(), camera, physicsWorld, 3);
 		this.player.animate(100);
 		this.player.setRunning();
 		camera.setChaseEntity(player);
