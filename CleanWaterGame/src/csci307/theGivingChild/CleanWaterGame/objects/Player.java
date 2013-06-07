@@ -10,6 +10,7 @@ import org.andengine.entity.sprite.AnimatedSprite;
 import org.andengine.extension.physics.box2d.PhysicsConnector;
 import org.andengine.extension.physics.box2d.PhysicsFactory;
 import org.andengine.extension.physics.box2d.PhysicsWorld;
+import org.andengine.opengl.texture.region.ITiledTextureRegion;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
 
 import com.badlogic.gdx.math.Vector2;
@@ -24,9 +25,6 @@ public class Player extends AnimatedSprite {
     private BodyPosition position;
     private static final float JUMP_VELOCITY = 10.0f;
     private static final float JUMP_TOLERANCE = 0.25f;
-    private static final int MAX_SPRINT = 100;
-    private static final float SPRINT_AUGMENT = 4;
-    private static final int MAX_DUCK = 100;
     private static int TIME = 100;
     private static PhysicsWorld physicsWorld;
     final long[] PLAYER_ANIMATE = new long[]{TIME, TIME, TIME, TIME, TIME, TIME};
@@ -37,20 +35,16 @@ public class Player extends AnimatedSprite {
     private static final int MAX_SPRINT = 100;
     private static final float SPRINT_AUGMENT = 4;
     private int sprintTime = MAX_SPRINT;
-    private static final int MAX_DUCK = 100;
+    private static final int MAX_DUCK = 10;
     private int duckTime = MAX_DUCK;
     private boolean isSprinting = false;
     private boolean isJumping = false;
     private boolean isDucking = false;
     private boolean isBouncing = false;
-    private static int TIME = 100;
     private int hitpoints = 0;
 
-    final long[] PLAYER_ANIMATE = new long[] {TIME, TIME, TIME, TIME, TIME, TIME};
-    private static PhysicsWorld physicsWorld;
-
-    public Player(float pX, float pY, VertexBufferObjectManager vbom, Camera camera, PhysicsWorld physicsWorld, int hp) {
-		super(pX, pY, ResourceManager.getInstance().player_TR, vbom);
+    public Player(float pX, float pY, VertexBufferObjectManager vbom, Camera camera, PhysicsWorld physicsWorld, int hp, ITiledTextureRegion region) {
+		super(pX, pY, region, vbom);
 		createPhysics(camera, physicsWorld);
 		camera.setChaseEntity(this);
         initializeBooleanConditions();
@@ -106,16 +100,18 @@ public class Player extends AnimatedSprite {
                             setToInitialSprite();
                         }
                     }
-                    if (isDucking) {
-                        duckTime--;
-                        if (duckTime <= 0) {
-                            duckTime = MAX_DUCK;
-                            isDucking = false;
-                            newBody(5);
-                            setToInitialSprite();
-                        }
-
-                    }
+//                    if (isDucking) {
+//                        duckTime--;
+//                        System.out.println(duckTime);
+//                        if (duckTime <= 0) {
+//                            duckTime = MAX_DUCK;
+//                            isDucking = false;
+//                            newBody(5);
+//                            setToInitialSprite();
+//                            
+//                        }
+//
+//                    }
 
                 }
 				if (isBouncing) {
@@ -130,26 +126,38 @@ public class Player extends AnimatedSprite {
 
 		});
 	}
+	
+	public boolean isDucking() {
+		return isDucking;
+	}
+	
+	public void setIsDucking(boolean ducking) {
+		isDucking = ducking;
+	}
 
     private void setToInitialSprite() {
-        final long[] PLAYER_ANIMATE = new long[] { 100, 100, 100, 100, 100, 100 };
-        animate(PLAYER_ANIMATE, 0, 5, true);
+//        final long[] PLAYER_ANIMATE = new long[] { 100, 100, 100, 100, 100, 100 };
+//        animate(PLAYER_ANIMATE, 0, 5, true);
+    	animate(100);
     }
 
     // Need to change for new sprites
     private void setToJumpSprite() {
-        final long[] PLAYER_ANIMATE = new long[] { 100, 100 };
-        animate(PLAYER_ANIMATE, 0, 1, true);
+//        final long[] PLAYER_ANIMATE = new long[] { 100, 100 };
+//        animate(PLAYER_ANIMATE, 0, 1, true);
+        animate(100);
     }
 
     private void setToDashSprite() {
-        final long[] PLAYER_ANIMATE = new long[] { 100, 100 };
-        animate(PLAYER_ANIMATE, 4, 5, true);
+//        final long[] PLAYER_ANIMATE = new long[] { 100, 100 };
+//        animate(PLAYER_ANIMATE, 4, 5, true);
+    	animate(100);
     }
 
     private void setToDuckSprite() {
-        final long[] PLAYER_ANIMATE = new long[] { 100, 100 };
-        animate(PLAYER_ANIMATE, 2, 3, true);
+//        final long[] PLAYER_ANIMATE = new long[] { 100, 100 };
+//        animate(PLAYER_ANIMATE, 2, 3, true);
+    	animate(100);
     }
 
     public void setRunning() {
@@ -184,6 +192,7 @@ public class Player extends AnimatedSprite {
         isDucking = true;
         if(!ResourceManager.getInstance().isMuted()) ResourceManager.getInstance().duckSound.play();
         setToDuckSprite();
+        body.setLinearVelocity(runSpeed, body.getLinearVelocity().y);
         newBody(-5);
     }
 

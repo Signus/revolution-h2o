@@ -38,6 +38,7 @@ import org.andengine.extension.physics.box2d.PhysicsConnector;
 import org.andengine.extension.physics.box2d.PhysicsFactory;
 import org.andengine.extension.physics.box2d.PhysicsWorld;
 import org.andengine.input.touch.TouchEvent;
+import org.andengine.opengl.texture.region.ITiledTextureRegion;
 import org.andengine.util.SAXUtils;
 import org.andengine.util.adt.color.Color;
 import org.andengine.util.level.EntityLoader;
@@ -107,7 +108,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 	//What shoiuld collide with what objects.
 	private static final short MASKBITS_GROUND = CATEGORYBIT_GROUND + CATEGORYBIT_PLAYER;
 	private static final short MASKBITS_FALLING = CATEGORYBIT_FALLING + CATEGORYBIT_PLAYER;
-	private static final short MASKBITS_PLAYER = CATEGORYBIT_FALLING + CATEGORYBIT_GROUND + CATEGORYBIT_PLAYER;
+	private static final short MASKBITS_PLAYER = CATEGORYBIT_FALLING + CATEGORYBIT_GROUND;
 	private static final short MASKBITS_FALLING_2 = CATEGORYBIT_PLAYER;
 
 	private static final FixtureDef GROUND_FIX = PhysicsFactory.createFixtureDef(0, 0.01f, 0.1f, false, CATEGORYBIT_GROUND, MASKBITS_GROUND, (short)0);
@@ -128,6 +129,8 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
     private boolean actionPerformed = false;
     private boolean paused = false;
     private boolean isDone = false;
+    
+    private int duckTime = 20;
 
     public GameScene(String level) {
     	this.resourcesManager = ResourceManager.getInstance();
@@ -377,7 +380,8 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 					physicsWorld.registerPhysicsConnector(new PhysicsConnector(levelObject, body, true, false));
 				}
 				else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_PLAYER)) {
-					player = new Player(x, y, vbom, camera, physicsWorld, 3) {
+					player = new Player(x, y, vbom, camera, physicsWorld, 3, resourcesManager.player_TR) {
+												
 						@Override
 						public void onDie() {
                             isDone = true;
@@ -385,7 +389,9 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 							camera.setChaseEntity(null);
 							setChildScene(gameOverScene());
 						}
+						
 					};
+					
 	//				player.setRunning();
 					levelObject = player;
 				}
@@ -566,12 +572,49 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 
     private void performPlayerAction(float difX, float difY, double moveDistance) {
         if (difY > 0 && Math.abs(difY) > Math.abs(difX) || moveDistance <= TAP_THRESHOLD) {
+        	
             player.jump();
+            
         } else if (difX > 0 && difX > Math.abs(difY)) {
             player.dash();
         } else if (difY < 0 && Math.abs(difY) > Math.abs(difX)) {
+        	player = updateDuckingAnimation(player, resourcesManager.player_slide_TR);
         	player.duck();
         }
+    }
+    
+    private Player updateAnimation(Player player, ITiledTextureRegion region) {
+    	Player temp_player = new Player(player.getX(), player.getY(), vbom, camera, physicsWorld, player.getHP(), region);
+    	this.detachChild(player);
+    	player.dispose();
+    	System.gc();
+    	this.attachChild(temp_player);
+    	return temp_player;
+    }
+    
+    private Player updateDuckingAnimation(Player p, ITiledTextureRegion region) {
+    	Player temp_player = new Player(p.getX(), p.getY(), vbom, camera, physicsWorld, player.getHP(), region) {
+    		@Override
+			protected void onManagedUpdate(float pSecondsElapsed) {
+				super.onManagedUpdate(pSecondsElapsed);
+				System.out.println(this.isDucking());
+				if (this.isDucking()) {
+					duckTime--;
+					if (duckTime <= 0) {
+						duckTime = 20;
+						this.setIsDucking(false);
+						player = updateAnimation(this, resourcesManager.player_TR);
+						player.setRunning();
+					}
+
+				}								
+			}
+    	};
+    	this.detachChild(player);
+    	player.dispose();
+    	System.gc();
+    	this.attachChild(temp_player);
+    	return temp_player;
     }
 
 	@Override
