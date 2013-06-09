@@ -578,7 +578,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
         } else if (difX > 0 && difX > Math.abs(difY)) {
             player.dash();
         } else if (difY < 0 && Math.abs(difY) > Math.abs(difX)) {
-        	player = updateDuckingAnimation(player, resourcesManager.player_slide_TR);
+//        	player = updateDuckingAnimation(player, resourcesManager.player_slide_TR);
         	player.duck();
         }
     }
