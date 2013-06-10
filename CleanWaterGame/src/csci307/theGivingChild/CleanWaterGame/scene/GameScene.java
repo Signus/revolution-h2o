@@ -66,8 +66,8 @@ import csci307.theGivingChild.CleanWaterGame.objects.Player;
 
 public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMenuItemClickListener {
 
-    private static final double TAP_THRESHOLD = 100;
-    private static final double SWIPE_THRESHOLD = 120;
+    private static final double TAP_THRESHOLD = 60;
+    private static final double SWIPE_THRESHOLD = 80;
     private static final double COLLISION_THRESHOLD = 1.0;
     private HUD gameHUD;
 	private PhysicsWorld physicsWorld;
@@ -120,18 +120,24 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 	private final int MENU_QUIT = 1;
 	private final int MENU_RESTART = 2;
 	private final int MENU_OPTIONS = 3;
-
+	
 	private Sprite heart1;
 	private Sprite heart2;
 	private Sprite heart3;
 
 	private Player player;
     private boolean actionPerformed = false;
-    private boolean paused = false;
+    public static boolean paused = false;
     private boolean isDone = false;
-
-    private int duckTime = 20;
-
+    
+    public static PausedType pausedType = PausedType.PAUSED_OFF;
+    
+    public enum PausedType {
+    	PAUSED_OFF,
+    	PAUSED_ON,
+    	PAUSED_GAMEOVER
+    }
+    
     public GameScene(String level) {
     	this.resourcesManager = ResourceManager.getInstance();
     	this.engine = resourcesManager.engine;
@@ -162,10 +168,12 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
     public void onBackKeyPressed()
     {
     	if (hasChildScene()) {
-    		if(!ResourceManager.getInstance().isMuted()) CleanWaterGame.getInstance().playMenuMusic();
-    		CleanWaterGame.getInstance().getSharedPreferences(GameLauncher.PREFERENCE_KEY_INGAME, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).edit().putBoolean(GameLauncher.PREFERENCE_KEY_INGAME_MUTE, false).commit();
+    		if(!ResourceManager.getInstance().isMuted()) ResourceManager.getInstance().backgroundMusic.play();
+    		//if(!ResourceManager.getInstance().isMuted()) CleanWaterGame.getInstance().playMenuMusic();
+    		//CleanWaterGame.getInstance().getSharedPreferences(GameLauncher.PREFERENCE_KEY_INGAME, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).edit().putBoolean(GameLauncher.PREFERENCE_KEY_INGAME_MUTE, false).commit();
     		clearChildScene();
     		paused = false;
+    		pausedType = PausedType.PAUSED_OFF;
     	} else {
     		if(!ResourceManager.getInstance().isMuted()) CleanWaterGame.getInstance().playMenuMusic();
     		CleanWaterGame.getInstance().getSharedPreferences(GameLauncher.PREFERENCE_KEY_INGAME, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).edit().putBoolean(GameLauncher.PREFERENCE_KEY_INGAME_MUTE, false).commit();
@@ -203,14 +211,15 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
     	heart1 = new Sprite(120, 420, resourcesManager.hitpoints_TR, vbom);
     	heart2 = new Sprite(170, 420, resourcesManager.hitpoints_TR, vbom);
     	heart3 = new Sprite(220, 420, resourcesManager.hitpoints_TR, vbom);
-
+    	
 
     	final Sprite pauseButton = new Sprite(50, 430, resourcesManager.pause_TR, vbom) {
     		@Override
     		public boolean onAreaTouched(TouchEvent touchEvent, float pX, float pY) {
     			if (touchEvent.isActionUp()) {
     				paused = true;
-    				setChildScene(pauseScene(), false, true, true);
+    				pausedType = PausedType.PAUSED_ON;
+//    				setChildScene(pauseScene(), false, true, true);
     				resourcesManager.backgroundMusic.pause();
     			}
     			return true;
@@ -223,10 +232,10 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
     	gameHUD.attachChild(heart2);
     	gameHUD.attachChild(heart3);
     	displayHealth(3);
-
+    	
     	camera.setHUD(gameHUD);
     }
-
+    
     private void displayHealth(int hitpoints) {
     	switch (hitpoints) {
 	    	case 0:
@@ -248,7 +257,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
     			heart1.setVisible(true);
     			heart2.setVisible(true);
     			heart3.setVisible(true);
-    			break;
+    			break;	
     	}
     }
 
@@ -340,7 +349,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 //							System.out.println(((player.getX() + player.getWidth()/2.0)) + "  < " + (this.getX() + this.getWidth() / 2.0));
 //							System.out.println(player.getY() + "   < " + ((this.getY() + this.getHeight()/2.0) + COLLISION_THRESHOLD));
 //							System.out.println(player.getY() + "   > " + ((this.getY() - this.getHeight() / 2.0) - COLLISION_THRESHOLD));
-
+							
 							if(detectSideCollision(player, this)) {
 								player.bounceBack();
 								player.decrementHP();
@@ -381,17 +390,18 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 				}
 				else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_PLAYER)) {
 					player = new Player(x, y, vbom, camera, physicsWorld, 3, resourcesManager.player_TR) {
-
+												
 						@Override
 						public void onDie() {
                             isDone = true;
 							paused = true;
+							pausedType = PausedType.PAUSED_GAMEOVER;
 							camera.setChaseEntity(null);
-							setChildScene(gameOverScene());
+//							setChildScene(gameOverScene());
 						}
-
+						
 					};
-
+					
 	//				player.setRunning();
 					levelObject = player;
 				}
@@ -507,11 +517,11 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 
 		levelLoader.loadLevelFromAsset(activity.getAssets(), "level/" + levelID + ".xml");
 	}
-
+    
     private boolean detectSideCollision(Player player, IEntity object) {
     	if ( ((player.getX() + player.getWidth()/2.0) + COLLISION_THRESHOLD) > (object.getX() - object.getWidth() / 2.0) &&
 				(player.getX() + player.getWidth()/2.0) < (object.getX() + object.getWidth() / 2.0) &&
-				((player.getY() - player.getHeight()/2.0) + COLLISION_THRESHOLD) < (object.getY() + object.getHeight()/2.0) &&
+				((player.getY() - player.getHeight()/2.0) + COLLISION_THRESHOLD) < (object.getY() + object.getHeight()/2.0) && 
 				((player.getY() + player.getHeight()/2.0) - COLLISION_THRESHOLD) > (object.getY() - object.getHeight() / 2.0) ) {
 			System.out.println("SIDE COLLISION");
 			System.out.println("x positions: " + ((player.getX() + player.getWidth()/2.0) + COLLISION_THRESHOLD) + "  > " + (object.getX() - object.getWidth() / 2.0));
@@ -572,9 +582,9 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 
     private void performPlayerAction(float difX, float difY, double moveDistance) {
         if (difY > 0 && Math.abs(difY) > Math.abs(difX) || moveDistance <= TAP_THRESHOLD) {
-
+        	
             player.jump();
-
+            
         } else if (difX > 0 && difX > Math.abs(difY)) {
             player.dash();
         } else if (difY < 0 && Math.abs(difY) > Math.abs(difX)) {
@@ -588,7 +598,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 			case MENU_RESUME:
 				clearChildScene();
 				if(!ResourceManager.getInstance().isMuted()) resourcesManager.backgroundMusic.resume();
-				paused = false;
+				pausedType = PausedType.PAUSED_OFF;
 				return true;
 			case MENU_QUIT:
 				clearChildScene();
@@ -601,7 +611,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 				clearChildScene();
 				disposeScene();
 				SceneManager.getInstance().loadGameScene(engine, currentLevel);
-				paused = false;
+				pausedType = PausedType.PAUSED_OFF;
                 isDone = false;
 				return true;
 			case MENU_OPTIONS:
@@ -675,10 +685,22 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 
 	@Override
 	protected void onManagedUpdate(float pSecondsElapsed) {
-		super.onManagedUpdate(pSecondsElapsed);
-		if(paused) {
-			return;
+		switch (pausedType) {
+			case PAUSED_OFF:
+				super.onManagedUpdate(pSecondsElapsed);
+				break;
+			case PAUSED_GAMEOVER:
+				setChildScene(gameOverScene(), false, true, true);
+				return;
+			case PAUSED_ON:
+				setChildScene(pauseScene(), false, true, true);
+				return;
+			default:
+				super.onManagedUpdate(pSecondsElapsed);
 		}
+		
+//		super.onManagedUpdate(pSecondsElapsed);
+		
 	}
 
 	private ContactListener contactListener() {

@@ -16,6 +16,8 @@ import org.andengine.ui.activity.BaseGameActivity;
 import android.view.KeyEvent;
 import csci307.theGivingChild.CleanWaterGame.manager.ResourceManager;
 import csci307.theGivingChild.CleanWaterGame.manager.SceneManager;
+import csci307.theGivingChild.CleanWaterGame.scene.GameScene;
+import csci307.theGivingChild.CleanWaterGame.scene.GameScene.PausedType;
 
 
 public class ActOneActivity extends BaseGameActivity {
@@ -23,7 +25,7 @@ public class ActOneActivity extends BaseGameActivity {
 	private BoundCamera camera;
 	private ResourceManager resourceManager;
 	private boolean goingOtheract;
-	
+	private boolean MUTE_SOUND_EFX;
 	
 	@Override
 	public Engine onCreateEngine(EngineOptions pEngineOptions) {
@@ -35,7 +37,7 @@ public class ActOneActivity extends BaseGameActivity {
 	{
 		super.onResume();
 		goingOtheract = false;
-		boolean MUTE_SOUND_EFX = CleanWaterGame.getInstance()
+		MUTE_SOUND_EFX = CleanWaterGame.getInstance()
 				.getSharedPreferences(GameLauncher.PREFERENCE_KEY, MODE_MULTI_PROCESS)
 				.getBoolean(GameLauncher.PREFERENCE_KEY_MUTE, false);
 		boolean inLevel = MUTE_SOUND_EFX || CleanWaterGame.getInstance().getSharedPreferences(GameLauncher.PREFERENCE_KEY_INGAME, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).getBoolean(GameLauncher.PREFERENCE_KEY_INGAME_MUTE, false);
@@ -47,6 +49,7 @@ public class ActOneActivity extends BaseGameActivity {
         {
         	ResourceManager.getInstance().backgroundMusic.play();
         }
+//        GameScene.paused = false;
 	}
 	
 	@Override
@@ -61,6 +64,7 @@ public class ActOneActivity extends BaseGameActivity {
 		super.onPause();
 		if(!goingOtheract) CleanWaterGame.getInstance().pauseMenuMusic();
 		ResourceManager.getInstance().backgroundMusic.pause();
+		GameScene.pausedType = PausedType.PAUSED_ON;
 	}
 	
 	@Override

@@ -81,6 +81,10 @@ public class Player extends AnimatedSprite {
 				{
 					onDie();
 				}
+				
+				if (hitpoints <= 0){
+					onDie();
+				}
 
 				if (canRun)
 				{
@@ -190,7 +194,8 @@ public class Player extends AnimatedSprite {
     public void duck() {
         if (isDucking) return;
         isDucking = true;
-        if(!ResourceManager.getInstance().isMuted()) ResourceManager.getInstance().duckSound.play();
+        //enable ducking sound
+        //if(!ResourceManager.getInstance().isMuted()) ResourceManager.getInstance().duckSound.play();
         setToDuckSprite();
         body.setLinearVelocity(runSpeed, body.getLinearVelocity().y);
         newBody(-5);
