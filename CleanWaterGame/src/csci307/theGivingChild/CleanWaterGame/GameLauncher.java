@@ -8,6 +8,8 @@ package csci307.theGivingChild.CleanWaterGame;
 
 import java.io.IOException;
 
+import csci307.theGivingChild.CleanWaterGame.manager.ResourceManager;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.media.MediaPlayer;
@@ -41,7 +43,7 @@ public class GameLauncher extends Activity {
     	ImageButton im = (ImageButton)findViewById(R.id.muting);
     	MUTE_SOUND_EFX = CleanWaterGame.getInstance().getSharedPreferences(PREFERENCE_KEY, MODE_MULTI_PROCESS).getBoolean(PREFERENCE_KEY_MUTE, false);
     	im.setImageResource((MUTE_SOUND_EFX ? R.drawable.mute : R.drawable.unmuted));
-    	
+    	CleanWaterGame.getInstance().getSharedPreferences(GameLauncher.PREFERENCE_KEY_INGAME, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).edit().putBoolean(GameLauncher.PREFERENCE_KEY_INGAME_MUTE, false).commit();
     	if (!MUTE_SOUND_EFX) {
     		CleanWaterGame.getInstance().playMenuMusic();
     	}
