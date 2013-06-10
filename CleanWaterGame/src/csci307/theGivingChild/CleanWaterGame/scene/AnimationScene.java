@@ -49,7 +49,7 @@ public class AnimationScene extends BaseScene implements IOnMenuItemClickListene
 
 	@Override
 	public void createScene() {
-		
+		createMenuChildScene();
 		loadAnimation(currentAnimation);		
 	}
 
