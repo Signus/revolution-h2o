@@ -127,11 +127,17 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 
 	private Player player;
     private boolean actionPerformed = false;
-    private boolean paused = false;
+    public static boolean paused = false;
     private boolean isDone = false;
     
-    private int duckTime = 20;
-
+    public static PausedType pausedType = PausedType.PAUSED_OFF;
+    
+    public enum PausedType {
+    	PAUSED_OFF,
+    	PAUSED_ON,
+    	PAUSED_GAMEOVER
+    }
+    
     public GameScene(String level) {
     	this.resourcesManager = ResourceManager.getInstance();
     	this.engine = resourcesManager.engine;
@@ -166,6 +172,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
     		CleanWaterGame.getInstance().getSharedPreferences(GameLauncher.PREFERENCE_KEY_INGAME, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).edit().putBoolean(GameLauncher.PREFERENCE_KEY_INGAME_MUTE, false).commit();
     		clearChildScene();
     		paused = false;
+    		pausedType = PausedType.PAUSED_OFF;
     	} else {
     		if(!ResourceManager.getInstance().isMuted()) CleanWaterGame.getInstance().playMenuMusic();
     		CleanWaterGame.getInstance().getSharedPreferences(GameLauncher.PREFERENCE_KEY_INGAME, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).edit().putBoolean(GameLauncher.PREFERENCE_KEY_INGAME_MUTE, false).commit();
@@ -210,7 +217,8 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
     		public boolean onAreaTouched(TouchEvent touchEvent, float pX, float pY) {
     			if (touchEvent.isActionUp()) {
     				paused = true;
-    				setChildScene(pauseScene(), false, true, true);
+    				pausedType = PausedType.PAUSED_ON;
+//    				setChildScene(pauseScene(), false, true, true);
     				resourcesManager.backgroundMusic.pause();
     			}
     			return true;
@@ -386,8 +394,9 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 						public void onDie() {
                             isDone = true;
 							paused = true;
+							pausedType = PausedType.PAUSED_GAMEOVER;
 							camera.setChaseEntity(null);
-							setChildScene(gameOverScene());
+//							setChildScene(gameOverScene());
 						}
 						
 					};
@@ -588,7 +597,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 			case MENU_RESUME:
 				clearChildScene();
 				if(!ResourceManager.getInstance().isMuted()) resourcesManager.backgroundMusic.resume();
-				paused = false;
+				pausedType = PausedType.PAUSED_OFF;
 				return true;
 			case MENU_QUIT:
 				clearChildScene();
@@ -601,7 +610,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 				clearChildScene();
 				disposeScene();
 				SceneManager.getInstance().loadGameScene(engine, currentLevel);
-				paused = false;
+				pausedType = PausedType.PAUSED_OFF;
                 isDone = false;
 				return true;
 			case MENU_OPTIONS:
@@ -675,10 +684,22 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 
 	@Override
 	protected void onManagedUpdate(float pSecondsElapsed) {
-		super.onManagedUpdate(pSecondsElapsed);
-		if(paused) {
-			return;
+		switch (pausedType) {
+			case PAUSED_OFF:
+				super.onManagedUpdate(pSecondsElapsed);
+				break;
+			case PAUSED_GAMEOVER:
+				setChildScene(gameOverScene(), false, true, true);
+				return;
+			case PAUSED_ON:
+				setChildScene(pauseScene(), false, true, true);
+				return;
+			default:
+				super.onManagedUpdate(pSecondsElapsed);
 		}
+		
+//		super.onManagedUpdate(pSecondsElapsed);
+		
 	}
 
 	private ContactListener contactListener() {

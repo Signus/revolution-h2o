@@ -81,6 +81,10 @@ public class Player extends AnimatedSprite {
 				{
 					onDie();
 				}
+				
+				if (hitpoints <= 0){
+					onDie();
+				}
 
 				if (canRun)
 				{
