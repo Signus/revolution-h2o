@@ -1,8 +1,12 @@
-/*
- * Authors: Chris Card, Tony Nguyen, Gurpreet Nanda, Dylan Chau, Dustin Liang, Maria Deslis
- * Date: 05/13/13
- * Description: This is the starting activity that the user will see whne starting the app
- */
+/**
+* Authors: Chris Card, Dylan Chau, Maria Deslis, Dustin Liang, Gurpreet Nanda, Tony Nguyen
+* Date: 5/31/13
+* Version: 1.0
+* Description: This is the main menu for the game play donate and extras
+*
+* History:
+*    5/31/13 original
+*/
  
 package csci307.theGivingChild.CleanWaterGame;
 

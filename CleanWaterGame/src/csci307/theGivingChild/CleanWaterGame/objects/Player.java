@@ -1,3 +1,12 @@
+/**
+* Authors: Chris Card, Dylan Chau, Maria Deslis, Dustin Liang, Gurpreet Nanda, Tony Nguyen
+* Date: 5/31/13
+* Version: 1.0
+* Description: This contains the character actions sounds and images
+*
+* History:
+*    5/31/13 original
+*/
 package csci307.theGivingChild.CleanWaterGame.objects;
 
 import com.badlogic.gdx.math.Vector2;
