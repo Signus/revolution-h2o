@@ -1,3 +1,4 @@
+<!-- Chris Card | this is the main menu for the app contains play and other things | 5/14/13 -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"

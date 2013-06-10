@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Chris, Maria, Tony, Gurpreet, Dylan, Dustin | This is the form for a user bug report| 5/16/13 -->
+<!-- Chris, Maria, Tony, Gurpreet, Dylan, Dustin | This is the feed back dialog| 5/16/13 -->
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="300dp"
     android:layout_height="match_parent" >
