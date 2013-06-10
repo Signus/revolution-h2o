@@ -68,11 +68,15 @@ public class ResourceManager {
 	public ITextureRegion pause_TR, hitpoints_TR;
 	public ITextureRegion ground_TR, floating_platform_ground_TR, hill_TR, falling_platform_2_TR, falling_platform_TR;
 	
+	//animation textures
+	public ITextureRegion animation_one_one, animation_one_two;
+	public ITextureRegion animation_two_one;
+	
 	//texture atlas
-	private BitmapTextureAtlas splashTA;
 	private BuildableBitmapTextureAtlas menuTA;
 	private BuildableBitmapTextureAtlas gameTA;
 	private BuildableBitmapTextureAtlas groundTA;
+	private BuildableBitmapTextureAtlas animationOneTA;
 	
 	//sounds
 	public Sound jumpSound;
@@ -96,6 +100,9 @@ public class ResourceManager {
 		loadGameAudio();
 	}
 	
+	public void loadAnimationResources() {
+		loadAnimationGraphics();
+	}
 	//------------------------------------------------
 	//SPLASH RESOURCES
 	//------------------------------------------------
@@ -189,9 +196,25 @@ public class ResourceManager {
         } catch (final TextureAtlasBuilderException e) {
         	Debug.e(e);
         }
-        this.gameTA.load();
-        this.groundTA.load();
+        gameTA.load();
+        groundTA.load();
     }
+	
+	private void loadAnimationGraphics() {
+		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/animation");
+		
+		animationOneTA = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 2048, 2048, TextureOptions.BILINEAR);
+		animation_one_one = BitmapTextureAtlasTextureRegionFactory.createFromAsset(animationOneTA, activity, "1.png");
+		animation_one_two = BitmapTextureAtlasTextureRegionFactory.createFromAsset(animationOneTA, activity, "2.png");
+		
+		try {
+			this.animationOneTA.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 1));
+		} catch (final TextureAtlasBuilderException e) {
+			Debug.e(e);
+		}
+		
+		animationOneTA.load();
+	}
 	
 	private void loadGameFonts() {
 		FontFactory.setAssetBasePath("fonts/");

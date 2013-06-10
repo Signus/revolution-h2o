@@ -27,6 +27,7 @@ public class SceneManager {
 	private BaseScene gameScene;
 	private BaseScene actSelectScene;
 	private BaseScene loadingScene;
+	private BaseScene animationScene;
 	
 	
 	//
@@ -44,7 +45,8 @@ public class SceneManager {
 		SCENE_GAME,
 		SCENE_LOADING,
 		SCENE_LEVEL_SELECT,
-		SCENE_ACT_SELECT
+		SCENE_ACT_SELECT, 
+		SCENE_ANIMATION
 	}
 	
 	
@@ -67,6 +69,9 @@ public class SceneManager {
 				break;
 			case SCENE_LOADING:
 				setScene(loadingScene);
+				break;
+			case SCENE_ANIMATION:
+				setScene(animationScene);
 				break;
 			default:
 				break;
