@@ -416,7 +416,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 
 				}
 				else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE_ACT1_SCENE2_GOALS)) {
-					levelObject = new Sprite(x, y, resourcesManager.collectable_TR, vbom) {
+					levelObject = new Sprite(x, y, resourcesManager.twine_TR, vbom) {
 						@Override
 						protected void onManagedUpdate(float pSecondsElapsed) {
 							super.onManagedUpdate(pSecondsElapsed);
@@ -435,7 +435,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 					return levelObject;
 
 				} else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE_ACT1_SCENE3_GOALS)) {
-					levelObject = new Sprite(x, y, resourcesManager.collectable_TR, vbom) {
+					levelObject = new Sprite(x, y, resourcesManager.wood_TR, vbom) {
 						@Override
 						protected void onManagedUpdate(float pSecondsElapsed) {
 							super.onManagedUpdate(pSecondsElapsed);
@@ -454,7 +454,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 					return levelObject;
 
 				}else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE_ACT1_SCENE4_GOALS)) {
-					levelObject = new Sprite(x, y, resourcesManager.collectable_TR, vbom) {
+					levelObject = new Sprite(x, y, resourcesManager.stone_TR, vbom) {
 						@Override
 						protected void onManagedUpdate(float pSecondsElapsed) {
 							super.onManagedUpdate(pSecondsElapsed);
