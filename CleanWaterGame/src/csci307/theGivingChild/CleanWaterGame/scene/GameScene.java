@@ -605,6 +605,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 				SceneManager.getInstance().loadMenuScene(engine);
 				if(!ResourceManager.getInstance().isMuted()) CleanWaterGame.getInstance().playMenuMusic();
 				CleanWaterGame.getInstance().getSharedPreferences(GameLauncher.PREFERENCE_KEY_INGAME, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).edit().putBoolean(GameLauncher.PREFERENCE_KEY_INGAME_MUTE, false).commit();
+				pausedType = PausedType.PAUSED_OFF;
 				return true;
 			case MENU_RESTART:
 				resourcesManager.backgroundMusic.stop();
