@@ -100,18 +100,18 @@ public class Player extends AnimatedSprite {
                             setToInitialSprite();
                         }
                     }
-//                    if (isDucking) {
-//                        duckTime--;
-//                        System.out.println(duckTime);
-//                        if (duckTime <= 0) {
-//                            duckTime = MAX_DUCK;
-//                            isDucking = false;
-//                            newBody(5);
-//                            setToInitialSprite();
-//
-//                        }
-//
-//                    }
+                    if (isDucking) {
+                        duckTime--;
+                        System.out.println(duckTime);
+                        if (duckTime <= 0) {
+                            duckTime = MAX_DUCK;
+                            isDucking = false;
+                            newBody(5);
+                            setToInitialSprite();
+
+                        }
+
+                    }
 
                 }
 				if (isBouncing) {

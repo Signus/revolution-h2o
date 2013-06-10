@@ -578,43 +578,8 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
         } else if (difX > 0 && difX > Math.abs(difY)) {
             player.dash();
         } else if (difY < 0 && Math.abs(difY) > Math.abs(difX)) {
-//        	player = updateDuckingAnimation(player, resourcesManager.player_slide_TR);
         	player.duck();
         }
-    }
-    
-    private Player updateAnimation(Player player, ITiledTextureRegion region) {
-    	Player temp_player = new Player(player.getX(), player.getY(), vbom, camera, physicsWorld, player.getHP(), region);
-    	this.detachChild(player);
-    	player.dispose();
-    	System.gc();
-    	this.attachChild(temp_player);
-    	return temp_player;
-    }
-    
-    private Player updateDuckingAnimation(Player p, ITiledTextureRegion region) {
-    	Player temp_player = new Player(p.getX(), p.getY(), vbom, camera, physicsWorld, player.getHP(), region) {
-    		@Override
-			protected void onManagedUpdate(float pSecondsElapsed) {
-				super.onManagedUpdate(pSecondsElapsed);
-				System.out.println(this.isDucking());
-				if (this.isDucking()) {
-					duckTime--;
-					if (duckTime <= 0) {
-						duckTime = 20;
-						this.setIsDucking(false);
-						player = updateAnimation(this, resourcesManager.player_TR);
-						player.setRunning();
-					}
-
-				}								
-			}
-    	};
-    	this.detachChild(player);
-    	player.dispose();
-    	System.gc();
-    	this.attachChild(temp_player);
-    	return temp_player;
     }
 
 	@Override
