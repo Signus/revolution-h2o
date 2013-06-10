@@ -23,7 +23,7 @@ public class ActOneActivity extends BaseGameActivity {
 	private BoundCamera camera;
 	private ResourceManager resourceManager;
 	private boolean goingOtheract;
-	
+	private boolean MUTE_SOUND_EFX;
 	
 	@Override
 	public Engine onCreateEngine(EngineOptions pEngineOptions) {
@@ -35,7 +35,7 @@ public class ActOneActivity extends BaseGameActivity {
 	{
 		super.onResume();
 		goingOtheract = false;
-		boolean MUTE_SOUND_EFX = CleanWaterGame.getInstance()
+		MUTE_SOUND_EFX = CleanWaterGame.getInstance()
 				.getSharedPreferences(GameLauncher.PREFERENCE_KEY, MODE_MULTI_PROCESS)
 				.getBoolean(GameLauncher.PREFERENCE_KEY_MUTE, false);
 		boolean inLevel = MUTE_SOUND_EFX || CleanWaterGame.getInstance().getSharedPreferences(GameLauncher.PREFERENCE_KEY_INGAME, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).getBoolean(GameLauncher.PREFERENCE_KEY_INGAME_MUTE, false);
