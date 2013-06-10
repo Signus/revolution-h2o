@@ -13,10 +13,10 @@
 	<entity x="660" y="25" width="100" height="50" type="ground"/>
 	<entity x="760" y="25" width="100" height="50" type="ground"/>
 	<entity x="860" y="25" width="100" height="50" type="ground"/>
-	<entity x="660" y="10" width="100" height="110" type="hill"/>
-	<entity x="860" y="170" width="100" height="20" type="floatingPlatform"/>
+	<entity x="760" y="10" width="100" height="110" type="hill"/>
 	<entity x="960" y="170" width="100" height="20" type="floatingPlatform"/>
 	<entity x="1060" y="170" width="100" height="20" type="floatingPlatform"/>
+	<entity x="1160" y="170" width="100" height="20" type="floatingPlatform"/>
 	<entity x="1090" y="25" width="100" height="50" type="ground"/>
 	<entity x="1190" y="25" width="100" height="50" type="ground"/>
 	<entity x="1290" y="25" width="100" height="50" type="ground"/>
@@ -121,8 +121,8 @@
 	<!-- level collectables -->
 	<entity x="455" y="120" width="50" height="50" type="collectable"/>
 	<entity x="660" y="140" width="50" height="50" type="collectable"/>
-	<entity x="960" y="210" width="50" height="50" type="twine"/>
-	<entity x="1190" y="140" width="50" height="50" type="collectable"/>
+	<entity x="1060" y="210" width="50" height="50" type="twine"/>
+	<entity x="1290" y="140" width="50" height="50" type="collectable"/>
 	<entity x="1590" y="105" width="50" height="50" type="collectable"/>
 	<entity x="2075" y="140" width="50" height="50" type="collectable"/>
 	<entity x="2250" y="100" width="50" height="50" type="twine"/>
