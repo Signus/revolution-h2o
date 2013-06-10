@@ -100,18 +100,18 @@ public class Player extends AnimatedSprite {
                             setToInitialSprite();
                         }
                     }
-//                    if (isDucking) {
-//                        duckTime--;
-//                        System.out.println(duckTime);
-//                        if (duckTime <= 0) {
-//                            duckTime = MAX_DUCK;
-//                            isDucking = false;
-//                            newBody(5);
-//                            setToInitialSprite();
-//
-//                        }
-//
-//                    }
+                    if (isDucking) {
+                        duckTime--;
+                        System.out.println(duckTime);
+                        if (duckTime <= 0) {
+                            duckTime = MAX_DUCK;
+                            isDucking = false;
+                            newBody(5);
+                            setToInitialSprite();
+
+                        }
+
+                    }
 
                 }
 				if (isBouncing) {
@@ -190,7 +190,8 @@ public class Player extends AnimatedSprite {
     public void duck() {
         if (isDucking) return;
         isDucking = true;
-        if(!ResourceManager.getInstance().isMuted()) ResourceManager.getInstance().duckSound.play();
+        //enable ducking sound
+        //if(!ResourceManager.getInstance().isMuted()) ResourceManager.getInstance().duckSound.play();
         setToDuckSprite();
         body.setLinearVelocity(runSpeed, body.getLinearVelocity().y);
         newBody(-5);
