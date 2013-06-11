@@ -169,6 +169,10 @@ public class SceneManager {
 			gameScene.disposeScene();
 			ResourceManager.getInstance().unloadGameGraphics();
 		}
+		if (animationScene != null) {
+			setScene(loadingScene);
+			ResourceManager.getInstance().unloadAnimationGraphics();
+		}
 		
 		mEngine.registerUpdateHandler(new TimerHandler(0.1f, new ITimerCallback() {			
 			@Override

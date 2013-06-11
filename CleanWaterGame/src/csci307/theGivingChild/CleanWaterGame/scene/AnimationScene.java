@@ -57,7 +57,7 @@ public class AnimationScene extends BaseScene implements IOnMenuItemClickListene
 
 	@Override
 	public void onBackKeyPressed() {
-		// TODO Auto-generated method stub
+		SceneManager.getInstance().loadMenuScene(engine);
 		
 	}
 

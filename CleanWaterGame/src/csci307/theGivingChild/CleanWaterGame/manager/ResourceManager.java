@@ -279,6 +279,10 @@ public class ResourceManager {
 		gameTA.unload();
 	}
 	
+	public void unloadAnimationGraphics() {
+		animationOneTA.unload();
+	}
+	
 	//------------------------------------------------
 	//MANAGER FUNCTIONS
 	//------------------------------------------------

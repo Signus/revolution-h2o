@@ -12,6 +12,8 @@
 package csci307.theGivingChild.CleanWaterGame.scene;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 import javax.microedition.khronos.opengles.GL10;
 
@@ -32,15 +34,14 @@ import org.andengine.entity.scene.menu.item.IMenuItem;
 import org.andengine.entity.scene.menu.item.TextMenuItem;
 import org.andengine.entity.scene.menu.item.decorator.ColorMenuItemDecorator;
 import org.andengine.entity.sprite.Sprite;
-import org.andengine.entity.sprite.TiledSprite;
 import org.andengine.extension.physics.box2d.FixedStepPhysicsWorld;
 import org.andengine.extension.physics.box2d.PhysicsConnector;
 import org.andengine.extension.physics.box2d.PhysicsFactory;
 import org.andengine.extension.physics.box2d.PhysicsWorld;
 import org.andengine.input.touch.TouchEvent;
-import org.andengine.opengl.texture.region.ITiledTextureRegion;
 import org.andengine.util.SAXUtils;
 import org.andengine.util.adt.color.Color;
+import org.andengine.util.debug.Debug;
 import org.andengine.util.level.EntityLoader;
 import org.andengine.util.level.constants.LevelConstants;
 import org.andengine.util.level.simple.SimpleLevelEntityLoaderData;
@@ -129,6 +130,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
     private boolean actionPerformed = false;
     public static boolean paused = false;
     private boolean isDone = false;
+    private ArrayList<IEntity> levelObjects = new ArrayList<IEntity>();
     
     public static PausedType pausedType = PausedType.PAUSED_OFF;
     
@@ -195,6 +197,39 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
         camera.setCenter(400, 240);
         camera.setBounds(0, 0, 800, 480);
         this.resourcesManager.backgroundMusic.stop();
+        
+        Iterator<Body> allBodies = this.physicsWorld.getBodies();
+        while (allBodies.hasNext()) {
+        	try {
+        		final Body currentBody = allBodies.next();
+        		physicsWorld.destroyBody(currentBody);
+        	} catch (Exception e) {
+        		Debug.e(e);
+        	}
+        }
+        System.out.println("SIIIIIIIIIIIIIIIIIIIIIIIIIIZZZZZZZZZZZZZZEEEEEEEEEE: " + levelObjects.size());
+        if (levelObjects.size() > 0) {
+        	engine.runOnUpdateThread(new Runnable() {
+        		@Override
+        		public void run() {
+        			for (IEntity object : levelObjects) {
+        				try {
+        					detachChild(object);
+        				} catch (Exception e) {
+        					Debug.e(e);
+        				}
+                	}
+        		}
+        	});
+        	
+        }
+        levelObjects.clear();
+        this.clearChildScene();
+//        this.detachChildren();
+        this.reset();
+        this.detachSelf();
+        physicsWorld.clearForces();
+        physicsWorld.reset();
     }
 
     private void createBackground() {
@@ -422,7 +457,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 					levelObject.registerEntityModifier(new LoopEntityModifier(new ScaleModifier(1, 1, 1.3f)));
 
 					//level object returned here because it does not need to be registered with the physicsWorld.
-					return levelObject;
+//					return levelObject;
 
 				}
 				else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE_ACT1_SCENE2_GOALS)) {
@@ -442,7 +477,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 					levelObject.registerEntityModifier(new LoopEntityModifier(new ScaleModifier(1, 1, 1.3f)));
 
 					//level object returned here because it does not need to be registered with the physicsWorld.
-					return levelObject;
+//					return levelObject;
 
 				} else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE_ACT1_SCENE3_GOALS)) {
 					levelObject = new Sprite(x, y, resourcesManager.wood_TR, vbom) {
@@ -461,7 +496,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 					levelObject.registerEntityModifier(new LoopEntityModifier(new ScaleModifier(1, 1, 1.3f)));
 
 					//level object returned here because it does not need to be registered with the physicsWorld.
-					return levelObject;
+//					return levelObject;
 
 				}else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE_ACT1_SCENE4_GOALS)) {
 					levelObject = new Sprite(x, y, resourcesManager.stone_TR, vbom) {
@@ -480,7 +515,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 					levelObject.registerEntityModifier(new LoopEntityModifier(new ScaleModifier(1, 1, 1.3f)));
 
 					//level object returned here because it does not need to be registered with the physicsWorld.
-					return levelObject;
+//					return levelObject;
 
 				}else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE_ACT1_SCENE5_GOALS)) {
 					levelObject = new Sprite(x, y, resourcesManager.collectable_TR, vbom) {
@@ -499,7 +534,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 					levelObject.registerEntityModifier(new LoopEntityModifier(new ScaleModifier(1, 1, 1.3f)));
 
 					//level object returned here because it does not need to be registered with the physicsWorld.
-					return levelObject;
+//					return levelObject;
 
 				}else {
 					throw new IllegalArgumentException();
@@ -510,6 +545,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 
 				//disable rendering when not visible.
 				levelObject.setCullingEnabled(true);
+				levelObjects.add(levelObject);
 				return levelObject;
 			}
 
