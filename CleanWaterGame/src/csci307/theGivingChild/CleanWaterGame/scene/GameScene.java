@@ -39,6 +39,7 @@ import org.andengine.extension.physics.box2d.PhysicsConnector;
 import org.andengine.extension.physics.box2d.PhysicsFactory;
 import org.andengine.extension.physics.box2d.PhysicsWorld;
 import org.andengine.input.touch.TouchEvent;
+import org.andengine.opengl.texture.region.ITextureRegion;
 import org.andengine.util.SAXUtils;
 import org.andengine.util.adt.color.Color;
 import org.andengine.util.debug.Debug;
@@ -429,119 +430,30 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 						@Override
 						public void onDie() {
                             isDone = true;
-							paused = true;
 							pausedType = PausedType.PAUSED_GAMEOVER;
 							camera.setChaseEntity(null);
-//							setChildScene(gameOverScene());
 						}
 						
-					};
-					
-	//				player.setRunning();
+					};					
 					levelObject = player;
 				}
-				else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE)) {
-					levelObject = new Sprite(x, y, resourcesManager.collectable_TR, vbom) {
-						@Override
-						protected void onManagedUpdate(float pSecondsElapsed) {
-							super.onManagedUpdate(pSecondsElapsed);
-
-							if (player.collidesWith(this)) {
-								this.setVisible(false);
-								this.setIgnoreUpdate(true);
-							}
-						}
-					};
-
-					//the coin will animate.
-					levelObject.registerEntityModifier(new LoopEntityModifier(new ScaleModifier(1, 1, 1.3f)));
-
-					//level object returned here because it does not need to be registered with the physicsWorld.
-//					return levelObject;
-
+				else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE)) {					
+					levelObject = loadCollectable(x, y, resourcesManager.collectable_TR, 20);
 				}
 				else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE_ACT1_SCENE2_GOALS)) {
-					levelObject = new Sprite(x, y, resourcesManager.twine_TR, vbom) {
-						@Override
-						protected void onManagedUpdate(float pSecondsElapsed) {
-							super.onManagedUpdate(pSecondsElapsed);
-
-							if (player.collidesWith(this)) {
-								this.setVisible(false);
-								this.setIgnoreUpdate(true);
-							}
-						}
-					};
-
-					//the coin will animate.
-					levelObject.registerEntityModifier(new LoopEntityModifier(new ScaleModifier(1, 1, 1.3f)));
-
-					//level object returned here because it does not need to be registered with the physicsWorld.
-//					return levelObject;
-
-				} else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE_ACT1_SCENE3_GOALS)) {
-					levelObject = new Sprite(x, y, resourcesManager.wood_TR, vbom) {
-						@Override
-						protected void onManagedUpdate(float pSecondsElapsed) {
-							super.onManagedUpdate(pSecondsElapsed);
-
-							if (player.collidesWith(this)) {
-								this.setVisible(false);
-								this.setIgnoreUpdate(true);
-							}
-						}
-					};
-
-					//the coin will animate.
-					levelObject.registerEntityModifier(new LoopEntityModifier(new ScaleModifier(1, 1, 1.3f)));
-
-					//level object returned here because it does not need to be registered with the physicsWorld.
-//					return levelObject;
-
-				}else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE_ACT1_SCENE4_GOALS)) {
-					levelObject = new Sprite(x, y, resourcesManager.stone_TR, vbom) {
-						@Override
-						protected void onManagedUpdate(float pSecondsElapsed) {
-							super.onManagedUpdate(pSecondsElapsed);
-
-							if (player.collidesWith(this)) {
-								this.setVisible(false);
-								this.setIgnoreUpdate(true);
-							}
-						}
-					};
-
-					//the coin will animate.
-					levelObject.registerEntityModifier(new LoopEntityModifier(new ScaleModifier(1, 1, 1.3f)));
-
-					//level object returned here because it does not need to be registered with the physicsWorld.
-//					return levelObject;
-
-				}else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE_ACT1_SCENE5_GOALS)) {
-					levelObject = new Sprite(x, y, resourcesManager.collectable_TR, vbom) {
-						@Override
-						protected void onManagedUpdate(float pSecondsElapsed) {
-							super.onManagedUpdate(pSecondsElapsed);
-
-							if (player.collidesWith(this)) {
-								this.setVisible(false);
-								this.setIgnoreUpdate(true);
-							}
-						}
-					};
-
-					//the coin will animate.
-					levelObject.registerEntityModifier(new LoopEntityModifier(new ScaleModifier(1, 1, 1.3f)));
-
-					//level object returned here because it does not need to be registered with the physicsWorld.
-//					return levelObject;
-
-				}else {
+					levelObject = loadCollectable(x, y, resourcesManager.twine_TR, 20);
+				} 
+				else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE_ACT1_SCENE3_GOALS)) {
+					levelObject = loadCollectable(x, y, resourcesManager.wood_TR, 20);
+				}
+				else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE_ACT1_SCENE4_GOALS)) {
+					levelObject = loadCollectable(x, y, resourcesManager.stone_TR, 20);
+				}
+				else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE_ACT1_SCENE5_GOALS)) {
+					levelObject = loadCollectable(x, y, resourcesManager.collectable_TR, 20);
+				} else {
 					throw new IllegalArgumentException();
 				}
-
-				//temporary physics set for every level object. Will need to be put into each entity if physics need to be different.
-//				physicsWorld.registerPhysicsConnector(new PhysicsConnector(levelObject, PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyType.StaticBody, WALL_FIX), true, false));
 
 				//disable rendering when not visible.
 				levelObject.setCullingEnabled(true);
@@ -553,6 +465,23 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 
 		levelLoader.loadLevelFromAsset(activity.getAssets(), "level/" + levelID + ".xml");
 	}
+    
+    private Sprite loadCollectable(float x, float y, ITextureRegion region, int score) {
+    	Sprite sprite = new Sprite(x, y, region, vbom) {
+    		@Override
+    		protected void onManagedUpdate(float pSecondsElapsed) {
+				super.onManagedUpdate(pSecondsElapsed);
+
+				if (player.collidesWith(this)) {
+					this.setVisible(false);
+					this.setIgnoreUpdate(true);
+				}
+			}
+    	};   
+    	    	
+    	sprite.registerEntityModifier(new LoopEntityModifier(new ScaleModifier(1, 1, 1.3f)));
+    	return sprite;
+    }
     
     private boolean detectSideCollision(Player player, IEntity object) {
     	if ( ((player.getX() + player.getWidth()/2.0) + COLLISION_THRESHOLD) > (object.getX() - object.getWidth() / 2.0) &&
@@ -727,10 +656,10 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 				super.onManagedUpdate(pSecondsElapsed);
 				break;
 			case PAUSED_GAMEOVER:
-				setChildScene(gameOverScene(), false, true, true);
+				setChildScene(gameOverScene());
 				return;
 			case PAUSED_ON:
-				setChildScene(pauseScene(), false, true, true);
+				setChildScene(pauseScene());
 				return;
 			default:
 				super.onManagedUpdate(pSecondsElapsed);
