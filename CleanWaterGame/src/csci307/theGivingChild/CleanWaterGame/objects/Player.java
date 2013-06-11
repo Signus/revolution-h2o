@@ -9,12 +9,10 @@
 */
 package csci307.theGivingChild.CleanWaterGame.objects;
 
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
-import csci307.theGivingChild.CleanWaterGame.manager.ResourceManager;
-import csci307.theGivingChild.CleanWaterGame.scene.GameScene;
+import org.andengine.engine.Engine;
 import org.andengine.engine.camera.Camera;
+import org.andengine.engine.handler.timer.ITimerCallback;
+import org.andengine.engine.handler.timer.TimerHandler;
 import org.andengine.entity.sprite.AnimatedSprite;
 import org.andengine.extension.physics.box2d.PhysicsConnector;
 import org.andengine.extension.physics.box2d.PhysicsFactory;
@@ -51,14 +49,16 @@ public class Player extends AnimatedSprite {
     private boolean isDucking = false;
     private boolean isBouncing = false;
     private int hitpoints = 0;
+    private Engine mEngine;
 
-    public Player(float pX, float pY, VertexBufferObjectManager vbom, Camera camera, PhysicsWorld physicsWorld, int hp, ITiledTextureRegion region) {
+    public Player(float pX, float pY, VertexBufferObjectManager vbom, Camera camera, PhysicsWorld physicsWorld, int hp, ITiledTextureRegion region, Engine engine) {
 		super(pX, pY, region, vbom);
 		createPhysics(camera, physicsWorld);
 		camera.setChaseEntity(this);
         initializeBooleanConditions();
         hitpoints = hp;
         position = BodyPosition.NORMAL;
+        mEngine = engine;
     }
 
     private void initializeBooleanConditions() {
@@ -132,7 +132,8 @@ public class Player extends AnimatedSprite {
                 		isBouncing = false;
                 		setToInitialSprite();
                 		canRun = true;
-                		body.setLinearVelocity(runSpeed, body.getLinearVelocity().y);
+                		sprintTime = 0;
+                		body.setLinearVelocity(runSpeed, body.getLinearVelocity().y);                		
                 	}
                 }
 			}

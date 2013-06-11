@@ -415,7 +415,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 					};
 				}
 				else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_PLAYER)) {
-					player = new Player(x, y, vbom, camera, physicsWorld, 3, resourcesManager.player_TR) {
+					player = new Player(x, y, vbom, camera, physicsWorld, 3, resourcesManager.player_TR, engine) {
 												
 						@Override
 						public void onDie() {
