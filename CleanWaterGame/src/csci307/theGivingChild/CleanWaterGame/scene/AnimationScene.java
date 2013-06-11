@@ -95,17 +95,19 @@ public class AnimationScene extends BaseScene implements IOnMenuItemClickListene
 	private void createMenuChildScene() {
 		final MenuScene navigation = new MenuScene(camera);
 
-		final IMenuItem quitMenuItem = new ColorMenuItemDecorator(new TextMenuItem(MENU_QUIT, resourcesManager.font, "QUIT", vbom), Color.RED, Color.WHITE);
+//		final IMenuItem quitMenuItem = new ColorMenuItemDecorator(new TextMenuItem(MENU_QUIT, resourcesManager.font, "QUIT", vbom), Color.RED, Color.WHITE);
 		final IMenuItem skipMenuItem = new ColorMenuItemDecorator(new TextMenuItem(MENU_SKIP, resourcesManager.font, "SKIP", vbom), Color.RED, Color.WHITE);
 		final IMenuItem nextMenuItem = new ColorMenuItemDecorator(new TextMenuItem(MENU_NEXT, resourcesManager.font, "NEXT", vbom), Color.RED, Color.WHITE);
 		final IMenuItem previousMenuItem = new ColorMenuItemDecorator(new TextMenuItem(MENU_PREV, resourcesManager.font, "PREV", vbom), Color.RED, Color.WHITE);
 
 //		gameOver.attachChild(new Text(400, 400, resourcesManager.game_font, "GAME OVER", vbom));
-		nextMenuItem.setPosition(750, 20);
-		previousMenuItem.setPosition(50, 20);
-
+		nextMenuItem.setPosition(740, 20);
+		previousMenuItem.setPosition(60, 20);
+		skipMenuItem.setPosition(740, 70);
+//		quitMenuItem.setPosition(60, 460);
+		
 		navigation.addMenuItem(skipMenuItem);
-		navigation.addMenuItem(quitMenuItem);
+//		navigation.addMenuItem(quitMenuItem);
 		navigation.addMenuItem(nextMenuItem);
 		navigation.addMenuItem(previousMenuItem);
 		
@@ -134,10 +136,38 @@ public class AnimationScene extends BaseScene implements IOnMenuItemClickListene
 	public boolean onMenuItemClicked(MenuScene pMenuScene, IMenuItem pMenuItem, float pMenuItemLocalX, float pMenuItemLocalY) {
 		switch (pMenuItem.getID()) {
 			case MENU_SKIP:
+				switch (currentAnimation) {
+					case SCENE_ONE:
+						disposeScene();
+						SceneManager.getInstance().loadGameScene(engine, "act1scene1");
+						CleanWaterGame.getInstance().pauseMenuMusic();
+						CleanWaterGame.getInstance().getSharedPreferences(GameLauncher.PREFERENCE_KEY_INGAME, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).edit().putBoolean(GameLauncher.PREFERENCE_KEY_INGAME_MUTE, true).commit();						
+						break;
+					default:
+						break;
+				}
+					
 				break;
-			case MENU_QUIT:
-				break;
+//			case MENU_QUIT:
+//				disposeScene();
+//				SceneManager.getInstance().loadMenuScene(engine);
+//				break;
 			case MENU_PREV:
+				switch (currentAnimation) {
+					case SCENE_ONE:
+						if (currentScene != 0) {
+							detachChild(scene_one.get(currentScene));
+							currentScene--;
+							attachChild(scene_one.get(currentScene));
+						} else {
+							disposeScene();
+							SceneManager.getInstance().loadMenuScene(engine);
+						}
+						
+						break;
+					default:
+						break;
+				}
 				break;
 			case MENU_NEXT:
 				switch (currentAnimation) {
@@ -147,7 +177,7 @@ public class AnimationScene extends BaseScene implements IOnMenuItemClickListene
 							currentScene++;
 							attachChild(scene_one.get(currentScene));
 						} else {
-							dispose();
+							disposeScene();
 							SceneManager.getInstance().loadGameScene(engine, "act1scene1");
 							CleanWaterGame.getInstance().pauseMenuMusic();
 							CleanWaterGame.getInstance().getSharedPreferences(GameLauncher.PREFERENCE_KEY_INGAME, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).edit().putBoolean(GameLauncher.PREFERENCE_KEY_INGAME_MUTE, true).commit();
