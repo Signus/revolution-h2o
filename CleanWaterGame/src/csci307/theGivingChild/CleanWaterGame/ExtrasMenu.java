@@ -1,5 +1,5 @@
 /**
- * Authors: Chris, Tony, Gurpreet, Dylan, Dustin
+* Authors: Chris Card, Dylan Chau, Maria Deslis, Dustin Liang, Gurpreet Nanda, Tony Nguyen
  * Date: 5/15/13
  * Version: 1.0
  * Description: This is the background file for the extras menu

@@ -109,7 +109,7 @@ public class GameLauncher extends Activity {
         if (!MUTE_SOUND_EFX) {
         	CleanWaterGame.getInstance().playBtnSound();
         }
-        Intent play = new Intent(this, ActOneActivity.class);
+        Intent play = new Intent(this, AndEngineGameActivity.class);
         startActivity(play);
     }
 

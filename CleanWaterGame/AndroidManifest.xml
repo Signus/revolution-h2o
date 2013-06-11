@@ -39,7 +39,7 @@
             android:screenOrientation="landscape">
         </activity>
         <activity
-            android:name=".ActOneActivity"
+            android:name=".AndEngineGameActivity"
             android:screenOrientation="landscape">
         </activity>
         <activity

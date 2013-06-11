@@ -29,7 +29,7 @@ import csci307.theGivingChild.CleanWaterGame.scene.GameScene;
 import csci307.theGivingChild.CleanWaterGame.scene.GameScene.PausedType;
 
 
-public class ActOneActivity extends BaseGameActivity {
+public class AndEngineGameActivity extends BaseGameActivity {
 	
 	private BoundCamera camera;
 	private ResourceManager resourceManager;
