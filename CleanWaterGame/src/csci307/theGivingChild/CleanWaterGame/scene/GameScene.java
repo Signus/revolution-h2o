@@ -371,11 +371,6 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 						@Override
 						protected void onManagedUpdate(float pSecondsElapsed) {
 							super.onManagedUpdate(pSecondsElapsed);
-							//side collision
-//							System.out.println("x positions: " + ((player.getX() + player.getWidth()/2.0) + COLLISION_THRESHOLD) + "  > " + (this.getX() - this.getWidth() / 2.0));
-//							System.out.println(((player.getX() + player.getWidth()/2.0)) + "  < " + (this.getX() + this.getWidth() / 2.0));
-//							System.out.println(player.getY() + "   < " + ((this.getY() + this.getHeight()/2.0) + COLLISION_THRESHOLD));
-//							System.out.println(player.getY() + "   > " + ((this.getY() - this.getHeight() / 2.0) - COLLISION_THRESHOLD));
 							
 							if(detectSideCollision(player, this)) {
 								player.bounceBack();
@@ -398,30 +393,23 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 						}
 					};
 					body = PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyType.StaticBody, FALLING_FIX);
-					body.setUserData("fallingPlatform");
+					body.setUserData("fallingPlatform2");
 					physicsWorld.registerPhysicsConnector(new PhysicsConnector(levelObject, body, true, false));
 				}
 				else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_FALLINGPLATFORM)) {
-//					levelObject = new Sprite(x, y, resourcesManager.falling_platform_TR, vbom) {
-//						@Override
-//						protected void onManagedUpdate(float pSecondsElapsed) {
-//							super.onManagedUpdate(pSecondsElapsed);
-//							if (player.collidesWith(this)) {
-//								System.out.println("Player: " + player.getX() + "  , object: " + this.getX());
-//							}
-//						}
-//					};
-//					body = PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyType.StaticBody, FALLING_FIX_2);
-//					body.setUserData("fallingPlatform");
-//					physicsWorld.registerPhysicsConnector(new PhysicsConnector(levelObject, body, true, false));
 					
-					levelObject = new FallingPlatform(x, y, vbom, camera, physicsWorld, resourcesManager.falling_platform_TR) {
+					levelObject = new FallingPlatform(x, y, vbom, camera, physicsWorld, resourcesManager.falling_platform_TR, engine) {
 						@Override
 						protected void onManagedUpdate(float pSecondsElapsed) {
 							super.onManagedUpdate(pSecondsElapsed);
 							
+							if (detectTopCollision(player, this)) {
+								platformFall();
+							}
 							if (detectSideCollision(player, this)) {
-								this.body.setType(BodyType.DynamicBody);
+								player.bounceBack();
+								player.decrementHP();
+								displayHealth(player.getHP());
 							}
 						}
 					};
@@ -518,7 +506,12 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
     }
     
     private boolean detectTopCollision(Player player, IEntity object) {
-    	
+    	if ( ((player.getX() + player.getWidth()/2.0) + COLLISION_THRESHOLD) > (object.getX() - object.getWidth() / 2.0) &&
+				(player.getX() + player.getWidth()/2.0) < (object.getX() + object.getWidth() / 2.0) &&
+				(player.getY() - player.getHeight()/2.0) < (object.getY() + object.getHeight()/2.0 + COLLISION_THRESHOLD) &&
+				(player.getY() - player.getHeight()/2.0) > (object.getY() + object.getHeight()/2.0 - COLLISION_THRESHOLD)) {
+    		return true;
+    	}
     	return false;
     }
 
@@ -539,11 +532,6 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 
                 switch (pSceneTouchEvent.getAction()) {
                     case TouchEvent.ACTION_DOWN:
-//                    	if (!start) {
-//                        	player.setRunning();
-//                        	start = true;
-//                        	break;
-//                        }
                         lastX = pSceneTouchEvent.getX();
                         lastY = pSceneTouchEvent.getY();
                         actionPerformed = false;
@@ -732,12 +720,10 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 
 
 				if (x1.getBody().getUserData() != null && x2.getBody().getUserData() != null) {
-					if (x1.getBody().getUserData().equals("fallingPlatform") && x2.getBody().getUserData().equals("player")) {
-//						System.out.println("x1 " + x1.getBody().getPosition().x);
-//						System.out.println("x2 " + x2.getBody().getPosition().x);
+					if (x1.getBody().getUserData().equals("fallingPlatform2") && x2.getBody().getUserData().equals("player")) {
 						if (x1.getBody().getPosition().y < x2.getBody().getPosition().y &&
 								x1.getBody().getPosition().x > x2.getBody().getPosition().x) {
-							engine.registerUpdateHandler(new TimerHandler(0.27f, new ITimerCallback() {
+							engine.registerUpdateHandler(new TimerHandler(0.2f, new ITimerCallback() {
 
 								@Override
 								public void onTimePassed(TimerHandler pTimerHandler) {
@@ -748,31 +734,21 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 								}
 							}));
 						}
-					} else if (x1.getBody().getUserData().equals("player") && x2.getBody().getUserData().equals("fallingPlatform")) {
-//						System.out.println("distance body: " + x1.getBody().getPosition().dst(x2.getBody().getPosition()));
-//						System.out.println("x1 " + x1.getBody().getPosition().x);
-//						System.out.println("x2 " + x2.getBody().getPosition().x);
+					} else if (x1.getBody().getUserData().equals("player") && x2.getBody().getUserData().equals("fallingPlatform2")) {
 						if (x2.getBody().getPosition().y < x1.getBody().getPosition().y) {
-							engine.registerUpdateHandler(new TimerHandler(0.27f, new ITimerCallback() {
+							engine.registerUpdateHandler(new TimerHandler(0.2f, new ITimerCallback() {
 
 								@Override
 								public void onTimePassed(TimerHandler pTimerHandler) {
 									pTimerHandler.reset();
 									engine.unregisterUpdateHandler(pTimerHandler);
 									x2.getBody().setType(BodyType.DynamicBody);
-							//		x2.getBody().setLinearVelocity(0, -17);
-
 								}
 							}));
 						}
 					}
 				}
 			}
-
-            private boolean contactObject(Fixture x1, Fixture x2, String object) {
-//                return x2.getBody().getUserData().equals("player") || x1.getBody().getUserData().equals("player");
-                return (x2.getBody().getUserData().equals("player") && x1.getBody().getUserData().equals(object)) || (x2.getBody().getUserData().equals(object) && x1.getBody().getUserData().equals("player"));
-            }
 
 			@Override
 			public void endContact(Contact contact) {
