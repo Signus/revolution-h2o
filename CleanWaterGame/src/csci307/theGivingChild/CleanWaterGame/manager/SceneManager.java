@@ -120,7 +120,7 @@ public class SceneManager {
 		}));
 	}
 	
-	public void loadGameScene(final Engine mEngine, final String level) {
+	public void loadGameScene(final Engine mEngine, final String level, final String level2) {
 		setScene(loadingScene);
 		mEngine.registerUpdateHandler(new TimerHandler(.1f, new ITimerCallback() {
 			
@@ -128,7 +128,7 @@ public class SceneManager {
 			public void onTimePassed(TimerHandler pTimerHandler) {
 				mEngine.unregisterUpdateHandler(pTimerHandler);
 				ResourceManager.getInstance().loadGameResources();
-				gameScene = new GameScene(level);
+				gameScene = new GameScene(level, level2);
 				setScene(gameScene);
 				
 			}

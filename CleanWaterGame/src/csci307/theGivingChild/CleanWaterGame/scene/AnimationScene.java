@@ -142,7 +142,7 @@ public class AnimationScene extends BaseScene implements IOnMenuItemClickListene
 				switch (currentAnimation) {
 					case SCENE_ONE:
 						disposeScene();
-						SceneManager.getInstance().loadGameScene(engine, "act1scene1");
+						SceneManager.getInstance().loadGameScene(engine, "act1scene1", "act1scene2");
 						CleanWaterGame.getInstance().pauseMenuMusic();
 						CleanWaterGame.getInstance().getSharedPreferences(GameLauncher.PREFERENCE_KEY_INGAME, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).edit().putBoolean(GameLauncher.PREFERENCE_KEY_INGAME_MUTE, true).commit();						
 						break;
@@ -181,7 +181,7 @@ public class AnimationScene extends BaseScene implements IOnMenuItemClickListene
 							attachChild(scene_one.get(currentScene));
 						} else {
 							disposeScene();
-							SceneManager.getInstance().loadGameScene(engine, "act1scene1");
+							SceneManager.getInstance().loadGameScene(engine, "act1scene1", "act1scene2");
 							CleanWaterGame.getInstance().pauseMenuMusic();
 							CleanWaterGame.getInstance().getSharedPreferences(GameLauncher.PREFERENCE_KEY_INGAME, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).edit().putBoolean(GameLauncher.PREFERENCE_KEY_INGAME_MUTE, true).commit();
 						}

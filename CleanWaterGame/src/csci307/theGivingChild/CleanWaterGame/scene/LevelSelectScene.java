@@ -48,22 +48,22 @@ public class LevelSelectScene extends BaseScene implements IOnMenuItemClickListe
 				CleanWaterGame.getInstance().getSharedPreferences(GameLauncher.PREFERENCE_KEY_INGAME, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).edit().putBoolean(GameLauncher.PREFERENCE_KEY_INGAME_MUTE, true).commit();
 				return true;
 			case SCENE_TWO:
-				SceneManager.getInstance().loadGameScene(engine, "act1scene2");
+				SceneManager.getInstance().loadGameScene(engine, "act1scene2", "act1scene3");
 				CleanWaterGame.getInstance().getSharedPreferences(GameLauncher.PREFERENCE_KEY_INGAME, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).edit().putBoolean(GameLauncher.PREFERENCE_KEY_INGAME_MUTE, true).commit();
 				CleanWaterGame.getInstance().pauseMenuMusic();
 				return true;
 			case SCENE_THREE:
-				SceneManager.getInstance().loadGameScene(engine, "act1scene3");
+				SceneManager.getInstance().loadGameScene(engine, "act1scene3", "act1scene4");
 				CleanWaterGame.getInstance().getSharedPreferences(GameLauncher.PREFERENCE_KEY_INGAME, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).edit().putBoolean(GameLauncher.PREFERENCE_KEY_INGAME_MUTE, true).commit();
 				CleanWaterGame.getInstance().pauseMenuMusic();
 				return true;
 			case SCENE_FOUR:
-				SceneManager.getInstance().loadGameScene(engine, "act1scene4");
+				SceneManager.getInstance().loadGameScene(engine, "act1scene4", "act1scene5");
 				CleanWaterGame.getInstance().getSharedPreferences(GameLauncher.PREFERENCE_KEY_INGAME, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).edit().putBoolean(GameLauncher.PREFERENCE_KEY_INGAME_MUTE, true).commit();
 				CleanWaterGame.getInstance().pauseMenuMusic();
 				return true;
 			case SCENE_FIVE:
-				SceneManager.getInstance().loadGameScene(engine, "act1scene5");
+				SceneManager.getInstance().loadGameScene(engine, "act1scene5", null);
 				CleanWaterGame.getInstance().getSharedPreferences(GameLauncher.PREFERENCE_KEY_INGAME, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).edit().putBoolean(GameLauncher.PREFERENCE_KEY_INGAME_MUTE, true).commit();
 				CleanWaterGame.getInstance().pauseMenuMusic();
 				return true;

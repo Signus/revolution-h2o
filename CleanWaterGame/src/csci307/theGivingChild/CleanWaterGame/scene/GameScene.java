@@ -80,7 +80,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
     private float lastY;
 
     private String currentLevel;
-    private int level;
+    private String nextLevel;
     private boolean start = false;
 
 	private static final String TAG_ENTITY = "entity";
@@ -146,13 +146,14 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
     	PAUSED_GAMEWIN
     }
     
-    public GameScene(String level) {
+    public GameScene(String level, String level2) {
     	this.resourcesManager = ResourceManager.getInstance();
     	this.engine = resourcesManager.engine;
         this.activity = resourcesManager.activity;
         this.vbom = resourcesManager.vbom;
         this.camera = resourcesManager.camera;
         currentLevel = level;
+        nextLevel = level2;
         createScene();
 		loadLevel(level);
 	}
@@ -587,7 +588,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 				resourcesManager.backgroundMusic.stop();
 				clearChildScene();
 				disposeScene();
-				SceneManager.getInstance().loadGameScene(engine, currentLevel);
+				SceneManager.getInstance().loadGameScene(engine, currentLevel, nextLevel);
 				pausedType = PausedType.PAUSED_OFF;
                 isDone = false;
 				return true;
@@ -599,6 +600,9 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 				}
 				return true;
 			case MENU_NEXT:
+				if (currentLevel != "act1scene5") {
+					
+				}
 				return true;
 			default:
 				return false;

@@ -28,7 +28,6 @@ public class ActSelectScene extends BaseScene implements IOnMenuItemClickListene
 	private MenuScene menuScene;
 	
 	private final int MENU_ACT_I = 0;
-	private final int MENU_TEST = 1;
 	
 	@Override
 	public void createScene() {
@@ -69,9 +68,6 @@ public class ActSelectScene extends BaseScene implements IOnMenuItemClickListene
 				SceneManager.getInstance().createLevelSelectScene();
 				SceneManager.getInstance().loadMenuScene(engine);
 				return true;
-			case MENU_TEST:
-				SceneManager.getInstance().loadGameScene(engine, "act1scene2");
-				return true;
 			default:
 				return false;
 		}
@@ -80,14 +76,6 @@ public class ActSelectScene extends BaseScene implements IOnMenuItemClickListene
 	private MenuScene createMenuScene() {
 		menuScene = new MenuScene(camera);
 		menuScene.setPosition(0, 0);
-
-//		final IMenuItem resetMenuItem = new ColorMenuItemDecorator(new TextMenuItem(MENU_ACT_I, resourcesManager.font, "Act I", vbom), new Color(1,0,0), new Color(0,0,0));
-//		resetMenuItem.setBlendFunction(GLES20.GL_SRC_ALPHA, GLES20.GL_ONE_MINUS_SRC_ALPHA);
-//		menuScene.addMenuItem(resetMenuItem);
-//
-//		final IMenuItem quitMenuItem = new ColorMenuItemDecorator(new TextMenuItem(MENU_TEST, resourcesManager.font, "TEst", vbom), new Color(1,0,0), new Color(0,0,0));
-//		quitMenuItem.setBlendFunction(GLES20.GL_SRC_ALPHA, GLES20.GL_ONE_MINUS_SRC_ALPHA);
-//		menuScene.addMenuItem(quitMenuItem);
 		
 		final IMenuItem actOneItem = new ScaleMenuItemDecorator(new SpriteMenuItem(MENU_ACT_I, resourcesManager.act_one_TR, vbom), 1.2f, 1);
 		
