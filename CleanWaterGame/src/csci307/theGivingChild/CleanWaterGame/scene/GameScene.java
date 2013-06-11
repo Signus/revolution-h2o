@@ -65,6 +65,7 @@ import csci307.theGivingChild.CleanWaterGame.GameLauncher;
 import csci307.theGivingChild.CleanWaterGame.manager.ResourceManager;
 import csci307.theGivingChild.CleanWaterGame.manager.SceneManager;
 import csci307.theGivingChild.CleanWaterGame.manager.SceneManager.SceneType;
+import csci307.theGivingChild.CleanWaterGame.objects.FallingPlatform;
 import csci307.theGivingChild.CleanWaterGame.objects.Player;
 
 public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMenuItemClickListener {
@@ -79,6 +80,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
     private float lastY;
 
     private String currentLevel;
+    private int level;
     private boolean start = false;
 
 	private static final String TAG_ENTITY = "entity";
@@ -115,7 +117,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 	private static final short MASKBITS_FALLING_2 = CATEGORYBIT_PLAYER;
 
 	private static final FixtureDef GROUND_FIX = PhysicsFactory.createFixtureDef(0, 0.01f, 0.1f, false, CATEGORYBIT_GROUND, MASKBITS_GROUND, (short)0);
-	private static final FixtureDef FALLING_FIX = PhysicsFactory.createFixtureDef(1, 0, 0.1f, false, CATEGORYBIT_FALLING, MASKBITS_FALLING, (short)0);
+	public static final FixtureDef FALLING_FIX = PhysicsFactory.createFixtureDef(1, 0, 0.1f, false, CATEGORYBIT_FALLING, MASKBITS_FALLING, (short)0);
 	private static final FixtureDef FALLING_FIX_2 = PhysicsFactory.createFixtureDef(1, 0, 0.1f, false, CATEGORYBIT_FALLING, MASKBITS_FALLING_2, (short)0);
 	public static final FixtureDef PLAYER_FIX = PhysicsFactory.createFixtureDef(0, 0, 0, false, CATEGORYBIT_PLAYER, MASKBITS_PLAYER, (short)0);
 
@@ -210,7 +212,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
         		Debug.e(e);
         	}
         }
-        System.out.println("SIIIIIIIIIIIIIIIIIIIIIIIIIIZZZZZZZZZZZZZZEEEEEEEEEE: " + levelObjects.size());
+        
         if (levelObjects.size() > 0) {
         	engine.runOnUpdateThread(new Runnable() {
         		@Override
@@ -228,7 +230,6 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
         }
         levelObjects.clear();
         this.clearChildScene();
-//        this.detachChildren();
         this.reset();
         this.detachSelf();
         physicsWorld.clearForces();
@@ -401,18 +402,29 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 					physicsWorld.registerPhysicsConnector(new PhysicsConnector(levelObject, body, true, false));
 				}
 				else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_FALLINGPLATFORM)) {
-					levelObject = new Sprite(x, y, resourcesManager.falling_platform_TR, vbom) {
+//					levelObject = new Sprite(x, y, resourcesManager.falling_platform_TR, vbom) {
+//						@Override
+//						protected void onManagedUpdate(float pSecondsElapsed) {
+//							super.onManagedUpdate(pSecondsElapsed);
+//							if (player.collidesWith(this)) {
+//								System.out.println("Player: " + player.getX() + "  , object: " + this.getX());
+//							}
+//						}
+//					};
+//					body = PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyType.StaticBody, FALLING_FIX_2);
+//					body.setUserData("fallingPlatform");
+//					physicsWorld.registerPhysicsConnector(new PhysicsConnector(levelObject, body, true, false));
+					
+					levelObject = new FallingPlatform(x, y, vbom, camera, physicsWorld, resourcesManager.falling_platform_TR) {
 						@Override
 						protected void onManagedUpdate(float pSecondsElapsed) {
 							super.onManagedUpdate(pSecondsElapsed);
-							if (player.collidesWith(this)) {
-								System.out.println("Player: " + player.getX() + "  , object: " + this.getX());
+							
+							if (detectSideCollision(player, this)) {
+								this.body.setType(BodyType.DynamicBody);
 							}
 						}
 					};
-					body = PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyType.StaticBody, FALLING_FIX_2);
-					body.setUserData("fallingPlatform");
-					physicsWorld.registerPhysicsConnector(new PhysicsConnector(levelObject, body, true, false));
 				}
 				else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_PLAYER)) {
 					player = new Player(x, y, vbom, camera, physicsWorld, 3, resourcesManager.player_TR) {
@@ -499,6 +511,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 			System.out.println(((player.getX() + player.getWidth()/2.0)) + "  < " + (object.getX() + object.getWidth() / 2.0));
 			System.out.println(((player.getY() - player.getHeight()/2.0) - COLLISION_THRESHOLD) + "   < " + (object.getY() + object.getHeight()/2.0));
 			System.out.println(((player.getY() + player.getHeight()/2.0) + COLLISION_THRESHOLD) + "   > " + ((object.getY() - object.getHeight() / 2.0)));
+			
 			return true;
 		}
     	return false;
