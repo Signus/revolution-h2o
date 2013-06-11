@@ -67,6 +67,7 @@ import csci307.theGivingChild.CleanWaterGame.manager.SceneManager;
 import csci307.theGivingChild.CleanWaterGame.manager.SceneManager.SceneType;
 import csci307.theGivingChild.CleanWaterGame.objects.FallingPlatform;
 import csci307.theGivingChild.CleanWaterGame.objects.Player;
+import csci307.theGivingChild.CleanWaterGame.scene.AnimationScene.Animation;
 
 public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMenuItemClickListener {
 
@@ -137,7 +138,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
     private boolean isDone = false;
     private ArrayList<IEntity> levelObjects = new ArrayList<IEntity>();
     
-    public static PausedType pausedType = PausedType.PAUSED_OFF;
+    public static PausedType pausedType;
     
     public enum PausedType {
     	PAUSED_OFF,
@@ -154,6 +155,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
         this.camera = resourcesManager.camera;
         currentLevel = level;
         nextLevel = level2;
+        pausedType = PausedType.PAUSED_OFF;
         createScene();
 		loadLevel(level);
 	}
@@ -600,9 +602,23 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 				}
 				return true;
 			case MENU_NEXT:
-				if (currentLevel != "act1scene5") {
-					
-				}
+				System.out.println("YO123");
+				if (nextLevel != null) {
+					System.out.println(nextLevel);
+					if (nextLevel.equals("act1scene2")) {
+						System.out.println("YO");
+						SceneManager.getInstance().createAnimationScene(Animation.SCENE_TWO);
+						SceneManager.getInstance().loadAnimationScene(engine);
+					} else if (nextLevel.equals("act1scene3")) {
+						
+					} else if (nextLevel.equals("act1scene4")) {
+						
+					} else if (nextLevel.equals("act1scene5")) {
+						
+					} else {
+						System.out.println("Invalid file detected");
+					}					
+				} 
 				return true;
 			default:
 				return false;
@@ -679,6 +695,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 		restartMenuItem.setPosition(400, menuPositionDifference * 2 + 140);
 		quitMenuItem.setPosition(400, menuPositionDifference + 140);
 		
+		gameWin.attachChild(new Text(400, 400, resourcesManager.font, "YOU WIN!!!", vbom));
 		//setting background transparent
 		background.setBlendFunction(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
 		background.setAlpha(0.5f);

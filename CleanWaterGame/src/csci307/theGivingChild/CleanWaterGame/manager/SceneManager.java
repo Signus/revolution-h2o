@@ -110,6 +110,10 @@ public class SceneManager {
 	
 	public void loadAnimationScene(final Engine mEngine) {
 		ResourceManager.getInstance().unloadMenuGraphics();
+		if (gameScene != null) {
+			gameScene.disposeScene();
+			ResourceManager.getInstance().unloadGameGraphics();
+		}
 		mEngine.registerUpdateHandler(new TimerHandler(0.01f, new ITimerCallback() {
 					
 				@Override
@@ -122,6 +126,9 @@ public class SceneManager {
 	
 	public void loadGameScene(final Engine mEngine, final String level, final String level2) {
 		setScene(loadingScene);
+		if (animationScene != null) {
+			ResourceManager.getInstance().unloadAnimationGraphics();
+		}
 		mEngine.registerUpdateHandler(new TimerHandler(.1f, new ITimerCallback() {
 			
 			@Override
