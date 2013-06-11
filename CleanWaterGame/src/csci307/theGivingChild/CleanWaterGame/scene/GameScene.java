@@ -34,6 +34,7 @@ import org.andengine.entity.scene.menu.item.IMenuItem;
 import org.andengine.entity.scene.menu.item.TextMenuItem;
 import org.andengine.entity.scene.menu.item.decorator.ColorMenuItemDecorator;
 import org.andengine.entity.sprite.Sprite;
+import org.andengine.entity.text.Text;
 import org.andengine.extension.physics.box2d.FixedStepPhysicsWorld;
 import org.andengine.extension.physics.box2d.PhysicsConnector;
 import org.andengine.extension.physics.box2d.PhysicsFactory;
@@ -94,12 +95,12 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_FALLINGPLATFORM_2 = "fallingPlatform2";
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_PLAYER = "player";
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE = "collectable";
+	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_WIN_TRIGGER = "winTrigger";
 
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE_ACT1_SCENE2_GOALS = "twine";
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE_ACT1_SCENE3_GOALS = "stone";
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE_ACT1_SCENE4_GOALS = "mud";
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE_ACT1_SCENE5_GOALS = "wood";
-	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_GROUNDTEST = "ground2";
 
 	//Categories of objects
 	private static final short CATEGORYBIT_GROUND = 1;
@@ -122,6 +123,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 	private final int MENU_QUIT = 1;
 	private final int MENU_RESTART = 2;
 	private final int MENU_OPTIONS = 3;
+	private final int MENU_NEXT = 4;
 	
 	private Sprite heart1;
 	private Sprite heart2;
@@ -138,7 +140,8 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
     public enum PausedType {
     	PAUSED_OFF,
     	PAUSED_ON,
-    	PAUSED_GAMEOVER
+    	PAUSED_GAMEOVER,
+    	PAUSED_GAMEWIN
     }
     
     public GameScene(String level) {
@@ -305,9 +308,6 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
     private void loadLevel(String levelID) {
 		final SimpleLevelLoader levelLoader = new SimpleLevelLoader(vbom);
 
-
-
-
 		levelLoader.registerEntityLoader(new EntityLoader<SimpleLevelEntityLoaderData>(LevelConstants.TAG_LEVEL) {
 
 			@Override
@@ -334,12 +334,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 
 				final IEntity levelObject;
 				final Body body;
-				/*
-				 * Major refactoring has to be done here once the level has images.
-				 * this method will return a level object at the end, rather than what is presented now, where some returns in the if block.
-				 *
-				 * As for now, the rectangles printed in the level will be made as such so that the jumping which involves contactlistener will work.
-				 */
+				
 				if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_HILL)) {
 					levelObject = new Sprite(x, y, resourcesManager.hill_TR, vbom) {
 						@Override
@@ -369,10 +364,6 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 						}
 					};
 					PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyType.StaticBody, GROUND_FIX).setUserData("ground");
-				}
-				else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_GROUNDTEST)) {
-					levelObject = new Sprite(x, y, resourcesManager.ground_TR, vbom);
-					PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyType.StaticBody, GROUND_FIX).setUserData("test");
 				}
 				else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_FLOATINGPLATFORM)) {
 					levelObject = new Sprite(x, y, resourcesManager.floating_platform_ground_TR, vbom) {
@@ -435,6 +426,22 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 						
 					};					
 					levelObject = player;
+				} 
+				else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_WIN_TRIGGER)) {
+					levelObject = new Rectangle(x, y, width, height, vbom) {
+						@Override
+						protected void onManagedUpdate(float pSecondsElapsed) {
+							if (player.collidesWith(this)) {
+								this.setIgnoreUpdate(true);
+								//show level complete scene.
+								System.out.println("TRIGGER WORKS");
+								
+								setChildScene(gameWinScene());
+								pausedType = PausedType.PAUSED_GAMEWIN;
+							}
+						}
+					};
+					levelObject.setVisible(false);
 				}
 				else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE)) {					
 					levelObject = loadCollectable(x, y, resourcesManager.collectable_TR, 20);
@@ -494,6 +501,11 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 			System.out.println(((player.getY() + player.getHeight()/2.0) + COLLISION_THRESHOLD) + "   > " + ((object.getY() - object.getHeight() / 2.0)));
 			return true;
 		}
+    	return false;
+    }
+    
+    private boolean detectTopCollision(Player player, IEntity object) {
+    	
     	return false;
     }
 
@@ -586,6 +598,8 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 					resourcesManager.backgroundMusic.pause();
 				}
 				return true;
+			case MENU_NEXT:
+				return true;
 			default:
 				return false;
 		}
@@ -634,7 +648,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 		restartMenuItem.setPosition(400, menuPositionDifference * 2 + 140);
 		quitMenuItem.setPosition(400, menuPositionDifference + 140);
 
-//		gameOver.attachChild(new Text(400, 400, resourcesManager.game_font, "GAME OVER", vbom));
+		gameOver.attachChild(new Text(400, 400, resourcesManager.font, "GAME OVER", vbom));
 
 		//setting background transparent
 		background.setBlendFunction(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
@@ -646,6 +660,33 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 		gameOver.setBackgroundEnabled(false);
 		gameOver.setOnMenuItemClickListener(this);
 		return gameOver;
+	}
+	
+	private MenuScene gameWinScene() {
+		final MenuScene gameWin = new MenuScene(camera);
+		
+		final IMenuItem nextMenuItem = new ColorMenuItemDecorator(new TextMenuItem(MENU_NEXT, resourcesManager.font, "NEXT LEVEL", vbom), Color.RED, Color.WHITE);
+		final IMenuItem quitMenuItem = new ColorMenuItemDecorator(new TextMenuItem(MENU_QUIT, resourcesManager.font, "QUIT", vbom), Color.RED, Color.WHITE);
+		final IMenuItem restartMenuItem = new ColorMenuItemDecorator(new TextMenuItem(MENU_RESTART, resourcesManager.font, "REPLAY", vbom), Color.RED, Color.WHITE);
+		final Rectangle background = new Rectangle(400, 240, 300, 200, vbom);
+		
+		int menuPositionDifference = (int) (background.getHeight() / 4);
+		nextMenuItem.setPosition(400, menuPositionDifference * 3 + 140 );
+		restartMenuItem.setPosition(400, menuPositionDifference * 2 + 140);
+		quitMenuItem.setPosition(400, menuPositionDifference + 140);
+		
+		//setting background transparent
+		background.setBlendFunction(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
+		background.setAlpha(0.5f);
+		
+		gameWin.attachChild(background);
+		gameWin.addMenuItem(nextMenuItem);
+		gameWin.addMenuItem(restartMenuItem);
+		gameWin.addMenuItem(quitMenuItem);
+		gameWin.setBackgroundEnabled(false);
+		gameWin.setOnMenuItemClickListener(this);
+		
+		return gameWin;
 	}
 
 	@Override
@@ -660,12 +701,12 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 			case PAUSED_ON:
 				setChildScene(pauseScene());
 				return;
+			case PAUSED_GAMEWIN:
+//				setChildScene(gameWinScene());
+				return;
 			default:
 				super.onManagedUpdate(pSecondsElapsed);
-		}
-		
-//		super.onManagedUpdate(pSecondsElapsed);
-		
+		}				
 	}
 
 	private ContactListener contactListener() {
