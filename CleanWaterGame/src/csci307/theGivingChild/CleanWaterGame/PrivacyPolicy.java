@@ -22,6 +22,7 @@ public class PrivacyPolicy extends Activity {
 		super.onCreate(onSaveInstance);
 		setContentView(R.layout.privacy_policy);
 		
+		//This allows the textview to scroll through the text it contains
 		TextView t = (TextView)findViewById(R.id.privacyPolicy);
 		t.setMovementMethod(new ScrollingMovementMethod());
 	}
