@@ -5,7 +5,7 @@
  * Description: This is the background file for the extras menu
  * 
  * History:
- *   original 1.0
+ *  5/15/13 original 1.0
  */
 
 package csci307.theGivingChild.CleanWaterGame;
@@ -19,9 +19,8 @@ import android.widget.ImageButton;
 
 public class ExtrasMenu extends Activity {
 	private boolean MUTE_SOUND_EFX;
-	public static final String PREFERENCE_KEY = "csci370.thegivingchild.cleanwatergame.preference";
-	public static final String PREFERENCE_KEY_MUTE = "csci370.thegivingchild.cleanwatergame.preference.mute";
-	public static MediaPlayer selectSound;
+	//This is used to tell if we are going to another activity within this app or the whole app is being
+	//put into the background
 	private boolean goingOtheract;
 
 	@Override
@@ -29,20 +28,6 @@ public class ExtrasMenu extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_extras_menu);
 
-		MUTE_SOUND_EFX = CleanWaterGame.getInstance()
-				.getSharedPreferences(PREFERENCE_KEY, MODE_MULTI_PROCESS)
-				.getBoolean(PREFERENCE_KEY_MUTE, false);
-
-		// Set menu music source
-		try {
-			selectSound = MediaPlayer.create(this, R.raw.select_button);
-		} catch (IllegalArgumentException e) {
-			e.printStackTrace();
-		} catch (SecurityException e) {
-			e.printStackTrace();
-		} catch (IllegalStateException e) {
-			e.printStackTrace();
-		}
 	}
 
 	@Override
@@ -50,11 +35,9 @@ public class ExtrasMenu extends Activity {
 		super.onResume();
 		goingOtheract = false;
 		ImageButton im = (ImageButton) findViewById(R.id.extr_muting);
-		MUTE_SOUND_EFX = CleanWaterGame.getInstance()
-				.getSharedPreferences(PREFERENCE_KEY, MODE_MULTI_PROCESS)
-				.getBoolean(PREFERENCE_KEY_MUTE, false);
-		im.setImageResource((MUTE_SOUND_EFX ? R.drawable.mute
-				: R.drawable.unmuted));
+		//gets the apps current mute state and sets the mute/unmute icon appropriately
+		MUTE_SOUND_EFX = CleanWaterGame.getInstance().getSharedPreferences(GameLauncher.PREFERENCE_KEY, MODE_MULTI_PROCESS).getBoolean(GameLauncher.PREFERENCE_KEY_MUTE, false);
+		im.setImageResource((MUTE_SOUND_EFX ? R.drawable.mute : R.drawable.unmuted));
 
 		if (!MUTE_SOUND_EFX) {
 			CleanWaterGame.getInstance().playMenuMusic();
@@ -65,6 +48,7 @@ public class ExtrasMenu extends Activity {
 	public void onPause()
 	{
 		super.onPause();
+		//if we aren't going to another activity pause the music
 		if(!goingOtheract) {
 			CleanWaterGame.getInstance().pauseMenuMusic();
 		}
@@ -81,21 +65,22 @@ public class ExtrasMenu extends Activity {
 	 * This function is linked to the mute button in the
 	 * activity_game_launcher.xml file
 	 * 
-	 * @param v
-	 *            The view that is calling this method
+	 * @param The view that is calling this method
 	 */
 	public void toggleMute(View v) {
 		ImageButton im = (ImageButton) v;
-		MUTE_SOUND_EFX = (CleanWaterGame.getInstance()
-				.getSharedPreferences(PREFERENCE_KEY, MODE_MULTI_PROCESS)
-				.getBoolean(PREFERENCE_KEY_MUTE, false) ? false : true);
-		im.setImageResource((MUTE_SOUND_EFX ? R.drawable.mute
-				: R.drawable.unmuted));
-		CleanWaterGame.getInstance()
-				.getSharedPreferences(PREFERENCE_KEY, MODE_MULTI_PROCESS)
-				.edit().putBoolean(PREFERENCE_KEY_MUTE, MUTE_SOUND_EFX)
+		
+		//when the mute/unmute icon is clicked this changes the apps mute preference and modifies the icon to the appropriate image
+		MUTE_SOUND_EFX = (CleanWaterGame.getInstance().getSharedPreferences(GameLauncher.PREFERENCE_KEY, MODE_MULTI_PROCESS)
+				.getBoolean(GameLauncher.PREFERENCE_KEY_MUTE, false) ? false : true);
+		
+		im.setImageResource((MUTE_SOUND_EFX ? R.drawable.mute : R.drawable.unmuted));
+		
+		CleanWaterGame.getInstance().getSharedPreferences(GameLauncher.PREFERENCE_KEY, MODE_MULTI_PROCESS)
+				.edit().putBoolean(GameLauncher.PREFERENCE_KEY_MUTE, MUTE_SOUND_EFX)
 				.commit();
 
+		//Then pauses or plays the music as desired
 		if (!MUTE_SOUND_EFX) {
 			CleanWaterGame.getInstance().playMenuMusic();
 		} else {
@@ -106,12 +91,11 @@ public class ExtrasMenu extends Activity {
 	/**
 	 * This will show the user the privacy policy
 	 * 
-	 * @param the
-	 *            view calling this method
+	 * @param the view calling this method
 	 */
 	public void showPolicy(View v) {
 		if (!MUTE_SOUND_EFX) {
-			selectSound.start();
+			CleanWaterGame.getInstance().playBtnSound();
 		}
 		Intent privacy = new Intent(this, PrivacyPolicy.class);
 		startActivity(privacy);
@@ -125,7 +109,7 @@ public class ExtrasMenu extends Activity {
 	 */
 	public void credits(View v) {
 		if (!MUTE_SOUND_EFX) {
-			selectSound.start();
+			CleanWaterGame.getInstance().playBtnSound();
 		}
 		Intent about = new Intent(this, AboutDialog.class);
 		startActivity(about);
@@ -139,10 +123,9 @@ public class ExtrasMenu extends Activity {
 	 */
 	public void feedBack(View v) {
 		if (!MUTE_SOUND_EFX) {
-			selectSound.start();
+			CleanWaterGame.getInstance().playBtnSound();
 		}
 		Intent userbug = new Intent(this, FeedBack.class);
-		userbug.putExtra(FeedBack.ERROR_CODE_KEY, true);
 		startActivity(userbug);
 	}
 
