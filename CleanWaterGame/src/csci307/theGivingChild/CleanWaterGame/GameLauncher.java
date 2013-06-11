@@ -2,7 +2,7 @@
 * Authors: Chris Card, Dylan Chau, Maria Deslis, Dustin Liang, Gurpreet Nanda, Tony Nguyen
 * Date: 5/31/13
 * Version: 1.0
-* Description: This is the main menu for the game play donate and extras
+* Description: This is the main menu that displays the Play, Extras and Donate buttons.
 *
 * History:
 *    5/31/13 original

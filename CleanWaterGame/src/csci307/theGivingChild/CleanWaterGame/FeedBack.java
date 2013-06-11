@@ -1,8 +1,8 @@
 /**
-* Authors: Maria, Chris, Tony, Gurpreet, Dylan, Dustin
+* Authors: Chris Card, Dylan Chau, Maria Deslis, Dustin Liang, Gurpreet Nanda, Tony Nguyen
 * Date: 5/16/13
 * Verson: 1.0
-* Descripion: this activity will show up as a dilog and allow for error reporting
+* Descripion: this activity will show up as a dialog and allows the user to send feedback via e-mail
 *
 * Note: depending on the intent (system report v user report) you'll pass in a boolean
 *   true for user report and no boolean for system
