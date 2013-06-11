@@ -52,13 +52,20 @@ public class SceneManager {
 		SCENE_ANIMATION
 	}
 	
-	
+	/**
+	 * Accepts a BaseScene object, and makes it the currentScene
+	 * @param scene : the BaseScene object that is to be the currentScene
+	 */
 	public void setScene(BaseScene scene) {
 		engine.setScene(scene);
 		currentScene = scene;
 		currentSceneType = scene.getSceneType();
 	}
 	
+	/**
+	 * Accepts a SceneType object, and then calls setScene(BaseScene scene)
+	 * @param sceneType : the type of scene that the currentScene will be switched to
+	 */
 	public void setScene(SceneType sceneType) {
 		switch (sceneType) {
 			case SCENE_ACT_SELECT:
@@ -81,19 +88,11 @@ public class SceneManager {
 		}
 	}
 	
-//	public void createSplashScene(OnCreateSceneCallback pOnCreateSceneCallback) {
-//		ResourceManager.getInstance().loadSplashScreen();
-//		splashScene = new SplashScene();
-//		currentScene = splashScene;
-//		pOnCreateSceneCallback.onCreateSceneFinished(splashScene);
-//	}
-	
 	public void createLevelSelectScene() {
 		ResourceManager.getInstance().loadMenuResources();
 		levelSelectScene = new LevelSelectScene();
 		loadingScene = new LoadingScene();
 		currentScene = levelSelectScene;
-//		pOnCreateSceneCallback.onCreateSceneFinished(levelSelectScene);
 	}
 	
 	public void createActSelectScene(OnCreateSceneCallback pOnCreateSceneCallback) {
@@ -102,20 +101,6 @@ public class SceneManager {
 		currentScene = actSelectScene;
 		pOnCreateSceneCallback.onCreateSceneFinished(actSelectScene);
 	}
-//	public void createMenuScene() {
-//		ResourceManager.getInstance().loadMenuResources();
-//		menuScene = new LevelSelectScene();
-//		loadingScene = new LoadingScene();
-//		SceneManager.getInstance().setScene(menuScene);
-//		disposeSplashScene();
-//	}
-	
-	
-//	private void disposeSplashScene() {
-//		ResourceManager.getInstance().unloadSplashScreen();
-//		splashScene.disposeScene();
-//		splashScene = null;
-//	}
 	
 	public void createAnimationScene(final Animation animation) {
 		ResourceManager.getInstance().loadAnimationResources();
@@ -137,7 +122,6 @@ public class SceneManager {
 	
 	public void loadGameScene(final Engine mEngine, final String level) {
 		setScene(loadingScene);
-//		ResourceManager.getInstance().unloadMenuGraphics();
 		mEngine.registerUpdateHandler(new TimerHandler(.1f, new ITimerCallback() {
 			
 			@Override
@@ -180,11 +164,11 @@ public class SceneManager {
 			public void onTimePassed(TimerHandler pTimerHandler) {
 				mEngine.unregisterUpdateHandler(pTimerHandler);
 				ResourceManager.getInstance().loadMenuGraphics();
-				setScene(levelSelectScene);
-				
+				setScene(levelSelectScene);	
 			}
 		}));
 	}
+	
 	//-------------------------------------
 	//GETTERS & SETTERS
 	//-------------------------------------
