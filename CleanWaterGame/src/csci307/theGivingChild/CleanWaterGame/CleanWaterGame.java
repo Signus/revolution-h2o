@@ -1,3 +1,12 @@
+/**
+* Authors: Chris Card, Dylan Chau, Maria Deslis, Dustin Liang, Gurpreet Nanda, Tony Nguyen
+* Date: 5/31/13
+* Version: 1.0
+* Description: This is the application class that is used for context and bug reporting
+*
+* History:
+*    5/31/13 original
+*/
 package csci307.theGivingChild.CleanWaterGame;
 
 import android.app.Application;

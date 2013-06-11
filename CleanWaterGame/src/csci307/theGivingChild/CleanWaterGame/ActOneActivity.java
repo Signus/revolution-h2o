@@ -1,3 +1,12 @@
+/**
+* Authors: Chris Card, Dylan Chau, Maria Deslis, Dustin Liang, Gurpreet Nanda, Tony Nguyen
+* Date: 5/31/13
+* Version: 1.0
+* Description: This is the menu that loads act1 resources and is the menu for selecting act1
+*
+* History:
+*    5/31/13 original
+*/
 package csci307.theGivingChild.CleanWaterGame;
 
 import java.io.IOException;
