@@ -37,13 +37,10 @@ public class ExtrasMenu extends Activity {
 		try {
 			selectSound = MediaPlayer.create(this, R.raw.select_button);
 		} catch (IllegalArgumentException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (SecurityException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IllegalStateException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -68,8 +65,9 @@ public class ExtrasMenu extends Activity {
 	public void onPause()
 	{
 		super.onPause();
-		
-		if(!goingOtheract) CleanWaterGame.getInstance().pauseMenuMusic();
+		if(!goingOtheract) {
+			CleanWaterGame.getInstance().pauseMenuMusic();
+		}
 	}
 	
 	@Override

@@ -1,5 +1,5 @@
 /**
- * Authors: Chris, Tony, Gurpreet, Maria, Dustin,Dylan
+ * Authors: Chris Card, Dylan Chau, Maria Deslis, Dustin Liang, Gurpreet Nanda, Tony Nguyen
  * Date: 5/22/13
  * Version:1.0
  * Description: This is a dialog containing the privacy policy

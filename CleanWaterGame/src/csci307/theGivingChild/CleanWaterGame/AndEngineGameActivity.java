@@ -2,7 +2,7 @@
 * Authors: Chris Card, Dylan Chau, Maria Deslis, Dustin Liang, Gurpreet Nanda, Tony Nguyen
 * Date: 5/31/13
 * Version: 1.0
-* Description: This is the menu that loads act1 resources and is the menu for selecting act1
+* Description: This is the menu that loads the AndEngine API resources and initiates the ActSelectScene
 *
 * History:
 *    5/31/13 original
@@ -58,7 +58,6 @@ public class AndEngineGameActivity extends BaseGameActivity {
         {
         	ResourceManager.getInstance().backgroundMusic.play();
         }
-//        GameScene.paused = false;
 	}
 	
 	@Override
@@ -71,7 +70,9 @@ public class AndEngineGameActivity extends BaseGameActivity {
 	public void onPause()
 	{
 		super.onPause();
-		if(!goingOtheract) CleanWaterGame.getInstance().pauseMenuMusic();
+		if (!goingOtheract) {
+			CleanWaterGame.getInstance().pauseMenuMusic();
+		}
 		if(CleanWaterGame.getInstance().getSharedPreferences(GameLauncher.PREFERENCE_KEY_INGAME, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).getBoolean(GameLauncher.PREFERENCE_KEY_INGAME_MUTE, false))
 		{
 			ResourceManager.getInstance().backgroundMusic.pause();
@@ -99,22 +100,11 @@ public class AndEngineGameActivity extends BaseGameActivity {
 
 	@Override
 	public void onCreateScene(OnCreateSceneCallback pOnCreateSceneCallback)	throws IOException {
-//		SceneManager.getInstance().createSplashScene(pOnCreateSceneCallback);
-//		SceneManager.getInstance().createLevelSelectScene(pOnCreateSceneCallback);
 		SceneManager.getInstance().createActSelectScene(pOnCreateSceneCallback);
-		
 	}
 
 	@Override
 	public void onPopulateScene(Scene pScene, OnPopulateSceneCallback pOnPopulateSceneCallback) throws IOException {
-//		mEngine.registerUpdateHandler(new TimerHandler(2f, new ITimerCallback() {
-//			
-//			@Override
-//			public void onTimePassed(TimerHandler pTimerHandler) {
-//				mEngine.unregisterUpdateHandler(pTimerHandler);
-//				SceneManager.getInstance().createMenuScene();				
-//			}
-//		}));
 		pOnPopulateSceneCallback.onPopulateSceneFinished();
 	}    
 	
