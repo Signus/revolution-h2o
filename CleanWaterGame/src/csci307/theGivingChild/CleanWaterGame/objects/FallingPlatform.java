@@ -1,6 +1,9 @@
 package csci307.theGivingChild.CleanWaterGame.objects;
 
+import org.andengine.engine.Engine;
 import org.andengine.engine.camera.Camera;
+import org.andengine.engine.handler.timer.ITimerCallback;
+import org.andengine.engine.handler.timer.TimerHandler;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.extension.physics.box2d.PhysicsConnector;
 import org.andengine.extension.physics.box2d.PhysicsFactory;
@@ -16,10 +19,12 @@ import csci307.theGivingChild.CleanWaterGame.scene.GameScene;
 public class FallingPlatform extends Sprite {
 	
 	public Body body;
+	private Engine mEngine;
 	
-	public FallingPlatform(float pX, float pY, VertexBufferObjectManager vbom, Camera camera, PhysicsWorld physicsWorld, ITextureRegion region) {
+	public FallingPlatform(float pX, float pY, VertexBufferObjectManager vbom, Camera camera, PhysicsWorld physicsWorld, ITextureRegion region, Engine engine) {
 		super(pX, pY, region, vbom);
 		createPhysics(camera, physicsWorld);
+		mEngine = engine;
 	}
 	
 	private void createPhysics(final Camera camera, PhysicsWorld physicsWorld) {
@@ -28,5 +33,18 @@ public class FallingPlatform extends Sprite {
 		body.setFixedRotation(true);
 		
 		physicsWorld.registerPhysicsConnector(new PhysicsConnector(this, body, true, false));
+	}
+	
+	public void platformFall() {
+		mEngine.registerUpdateHandler(new TimerHandler(.35f, new ITimerCallback() {
+
+			@Override
+			public void onTimePassed(TimerHandler pTimerHandler) {
+				pTimerHandler.reset();
+				mEngine.unregisterUpdateHandler(pTimerHandler);
+				body.setType(BodyType.DynamicBody);
+				
+			}
+		}));
 	}
 }
