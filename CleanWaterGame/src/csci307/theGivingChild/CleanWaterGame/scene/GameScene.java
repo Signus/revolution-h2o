@@ -420,6 +420,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 						@Override
 						public void onDie() {
                             isDone = true;
+                            displayHealth(player.getHP());
 							pausedType = PausedType.PAUSED_GAMEOVER;
 							camera.setChaseEntity(null);
 						}

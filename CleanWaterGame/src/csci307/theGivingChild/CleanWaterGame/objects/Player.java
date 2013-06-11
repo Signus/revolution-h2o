@@ -86,6 +86,7 @@ public class Player extends AnimatedSprite {
 
 				if (getY() <= 0)
 				{
+					hitpoints = 0;
 					onDie();
 				}
 				
@@ -206,6 +207,10 @@ public class Player extends AnimatedSprite {
 
     public void decrementHP() {
     	hitpoints--;
+    }
+    
+    public void setHP(int hp) {
+    	hitpoints = hp;
     }
 
     public int getHP() {
