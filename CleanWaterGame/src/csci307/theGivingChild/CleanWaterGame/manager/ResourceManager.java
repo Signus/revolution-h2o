@@ -103,6 +103,7 @@ public class ResourceManager {
 	public void loadAnimationResources() {
 		loadAnimationGraphics();
 		loadMenuFonts();
+		loadGameAudio();
 	}
 	//------------------------------------------------
 	//SPLASH RESOURCES
