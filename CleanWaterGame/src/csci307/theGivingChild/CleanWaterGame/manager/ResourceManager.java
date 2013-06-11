@@ -69,7 +69,7 @@ public class ResourceManager {
 	public ITextureRegion ground_TR, floating_platform_ground_TR, hill_TR, falling_platform_2_TR, falling_platform_TR;
 	
 	//animation textures
-	public ITextureRegion animation_one_one, animation_one_two;
+	public ITextureRegion animation_one_one, animation_one_two, animation_one_three, animation_one_four, animation_one_five, animation_one_six, animation_one_seven, animation_one_eight;
 	public ITextureRegion animation_two_one;
 	
 	//texture atlas
@@ -102,6 +102,7 @@ public class ResourceManager {
 	
 	public void loadAnimationResources() {
 		loadAnimationGraphics();
+		loadMenuFonts();
 	}
 	//------------------------------------------------
 	//SPLASH RESOURCES
@@ -201,11 +202,17 @@ public class ResourceManager {
     }
 	
 	private void loadAnimationGraphics() {
-		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/animation");
+		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/animation/");
 		
 		animationOneTA = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 2048, 2048, TextureOptions.BILINEAR);
-		animation_one_one = BitmapTextureAtlasTextureRegionFactory.createFromAsset(animationOneTA, activity, "1.png");
-		animation_one_two = BitmapTextureAtlasTextureRegionFactory.createFromAsset(animationOneTA, activity, "2.png");
+		animation_one_one = BitmapTextureAtlasTextureRegionFactory.createFromAsset(animationOneTA, activity, "Scene1_1.png");
+		animation_one_two = BitmapTextureAtlasTextureRegionFactory.createFromAsset(animationOneTA, activity, "Scene1_2.png");
+		animation_one_three = BitmapTextureAtlasTextureRegionFactory.createFromAsset(animationOneTA, activity, "Scene1_2.png");
+		animation_one_four = BitmapTextureAtlasTextureRegionFactory.createFromAsset(animationOneTA, activity, "Scene1_2.png");
+		animation_one_five = BitmapTextureAtlasTextureRegionFactory.createFromAsset(animationOneTA, activity, "Scene1_2.png");
+		animation_one_six = BitmapTextureAtlasTextureRegionFactory.createFromAsset(animationOneTA, activity, "Scene1_2.png");
+		animation_one_seven = BitmapTextureAtlasTextureRegionFactory.createFromAsset(animationOneTA, activity, "Scene1_2.png");
+		animation_one_eight = BitmapTextureAtlasTextureRegionFactory.createFromAsset(animationOneTA, activity, "Scene1_2.png");
 		
 		try {
 			this.animationOneTA.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 1));

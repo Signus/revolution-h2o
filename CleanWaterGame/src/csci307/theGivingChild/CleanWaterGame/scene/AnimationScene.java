@@ -1,13 +1,11 @@
 package csci307.theGivingChild.CleanWaterGame.scene;
 
-import javax.microedition.khronos.opengles.GL10;
-
-import org.andengine.entity.primitive.Rectangle;
 import org.andengine.entity.scene.menu.MenuScene;
 import org.andengine.entity.scene.menu.MenuScene.IOnMenuItemClickListener;
 import org.andengine.entity.scene.menu.item.IMenuItem;
 import org.andengine.entity.scene.menu.item.TextMenuItem;
 import org.andengine.entity.scene.menu.item.decorator.ColorMenuItemDecorator;
+import org.andengine.entity.sprite.Sprite;
 import org.andengine.util.adt.color.Color;
 
 import csci307.theGivingChild.CleanWaterGame.CleanWaterGame;
@@ -15,16 +13,17 @@ import csci307.theGivingChild.CleanWaterGame.GameLauncher;
 import csci307.theGivingChild.CleanWaterGame.manager.ResourceManager;
 import csci307.theGivingChild.CleanWaterGame.manager.SceneManager;
 import csci307.theGivingChild.CleanWaterGame.manager.SceneManager.SceneType;
-import csci307.theGivingChild.CleanWaterGame.scene.GameScene.PausedType;
 
 public class AnimationScene extends BaseScene implements IOnMenuItemClickListener {
 	
-	public Animation currentAnimation;
+	public Animation currentAnimation = Animation.SCENE_ONE;
 	
 	private final int MENU_NEXT = 0;
 	private final int MENU_PREV = 1;
 	private final int MENU_SKIP = 2;
 	private final int MENU_QUIT = 3;
+	private final Sprite[] scene_one = new Sprite[8];
+	private int currentScene = 0;
 	
 	public enum Animation {
 		SCENE_ONE,
@@ -71,7 +70,8 @@ public class AnimationScene extends BaseScene implements IOnMenuItemClickListene
 	}
 	
 	private void loadAnimation(Animation animation) {
-		switch (animation) {
+		currentAnimation = Animation.SCENE_ONE;
+		switch (currentAnimation) {
 			case SCENE_ONE:
 				displaySceneOne();
 				break;
@@ -112,7 +112,16 @@ public class AnimationScene extends BaseScene implements IOnMenuItemClickListene
 	}
 	
 	private void displaySceneOne() {
+		scene_one[0] = new Sprite(400, 240, resourcesManager.animation_one_one, vbom);
+		scene_one[1] = new Sprite(400, 240, resourcesManager.animation_one_two, vbom);
+		scene_one[2] = new Sprite(400, 240, resourcesManager.animation_one_three, vbom);
+		scene_one[3] = new Sprite(400, 240, resourcesManager.animation_one_four, vbom);
+		scene_one[4] = new Sprite(400, 240, resourcesManager.animation_one_five, vbom);
+		scene_one[5] = new Sprite(400, 240, resourcesManager.animation_one_six, vbom);
+		scene_one[6] = new Sprite(400, 240, resourcesManager.animation_one_seven, vbom);
+		scene_one[7] = new Sprite(400, 240, resourcesManager.animation_one_eight, vbom);
 		
+		attachChild(scene_one[currentScene]);
 	}
 
 
@@ -126,6 +135,23 @@ public class AnimationScene extends BaseScene implements IOnMenuItemClickListene
 			case MENU_PREV:
 				break;
 			case MENU_NEXT:
+				switch (currentAnimation) {
+					case SCENE_ONE:
+						if (currentScene != scene_one.length - 1) {
+							detachChild(scene_one[currentScene]);
+							currentScene++;
+							attachChild(scene_one[currentScene]);
+						} else {
+							dispose();
+							SceneManager.getInstance().loadGameScene(engine, "act1scene1");
+							CleanWaterGame.getInstance().pauseMenuMusic();
+							CleanWaterGame.getInstance().getSharedPreferences(GameLauncher.PREFERENCE_KEY_INGAME, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).edit().putBoolean(GameLauncher.PREFERENCE_KEY_INGAME_MUTE, true).commit();
+						}
+						
+						break;
+					default:
+						break;
+				}
 				break;
 			default:
 				return false;

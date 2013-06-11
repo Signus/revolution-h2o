@@ -12,6 +12,8 @@ import org.andengine.engine.handler.timer.TimerHandler;
 import org.andengine.ui.IGameInterface.OnCreateSceneCallback;
 
 import csci307.theGivingChild.CleanWaterGame.scene.ActSelectScene;
+import csci307.theGivingChild.CleanWaterGame.scene.AnimationScene;
+import csci307.theGivingChild.CleanWaterGame.scene.AnimationScene.Animation;
 import csci307.theGivingChild.CleanWaterGame.scene.BaseScene;
 import csci307.theGivingChild.CleanWaterGame.scene.GameScene;
 import csci307.theGivingChild.CleanWaterGame.scene.LevelSelectScene;
@@ -114,10 +116,16 @@ public class SceneManager {
 //		splashScene = null;
 //	}
 	
+	public void loadAnimationScene(final Engine mEngine, final Animation animation) {
+		ResourceManager.getInstance().loadAnimationResources();
+		animationScene = new AnimationScene(animation);
+		currentScene = animationScene;
+	}
+	
 	public void loadGameScene(final Engine mEngine, final String level) {
 		setScene(loadingScene);
 		ResourceManager.getInstance().unloadMenuGraphics();
-		mEngine.registerUpdateHandler(new TimerHandler(0.5f, new ITimerCallback() {
+		mEngine.registerUpdateHandler(new TimerHandler(100f, new ITimerCallback() {
 			
 			@Override
 			public void onTimePassed(TimerHandler pTimerHandler) {

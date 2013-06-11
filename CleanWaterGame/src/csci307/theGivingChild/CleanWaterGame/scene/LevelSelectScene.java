@@ -24,6 +24,7 @@ import csci307.theGivingChild.CleanWaterGame.GameLauncher;
 import csci307.theGivingChild.CleanWaterGame.manager.ResourceManager;
 import csci307.theGivingChild.CleanWaterGame.manager.SceneManager;
 import csci307.theGivingChild.CleanWaterGame.manager.SceneManager.SceneType;
+import csci307.theGivingChild.CleanWaterGame.scene.AnimationScene.Animation;
 
 public class LevelSelectScene extends BaseScene implements IOnMenuItemClickListener {
 
@@ -40,9 +41,10 @@ public class LevelSelectScene extends BaseScene implements IOnMenuItemClickListe
 	public boolean onMenuItemClicked(org.andengine.entity.scene.menu.MenuScene pMenuScene, IMenuItem pMenuItem, float pMenuItemLocalX, float pMenuItemLocalY) {
 		switch (pMenuItem.getID()) {
 			case SCENE_ONE:
-				SceneManager.getInstance().loadGameScene(engine, "act1scene1");
-				CleanWaterGame.getInstance().pauseMenuMusic();
-				CleanWaterGame.getInstance().getSharedPreferences(GameLauncher.PREFERENCE_KEY_INGAME, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).edit().putBoolean(GameLauncher.PREFERENCE_KEY_INGAME_MUTE, true).commit();
+				SceneManager.getInstance().loadAnimationScene(engine, Animation.SCENE_ONE);
+//				SceneManager.getInstance().loadGameScene(engine, "act1scene1");
+//				CleanWaterGame.getInstance().pauseMenuMusic();
+//				CleanWaterGame.getInstance().getSharedPreferences(GameLauncher.PREFERENCE_KEY_INGAME, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).edit().putBoolean(GameLauncher.PREFERENCE_KEY_INGAME_MUTE, true).commit();
 				return true;
 			case SCENE_TWO:
 				SceneManager.getInstance().loadGameScene(engine, "act1scene2");
