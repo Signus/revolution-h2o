@@ -41,10 +41,10 @@ public class LevelSelectScene extends BaseScene implements IOnMenuItemClickListe
 	public boolean onMenuItemClicked(org.andengine.entity.scene.menu.MenuScene pMenuScene, IMenuItem pMenuItem, float pMenuItemLocalX, float pMenuItemLocalY) {
 		switch (pMenuItem.getID()) {
 			case SCENE_ONE:
-				SceneManager.getInstance().loadAnimationScene(engine, Animation.SCENE_ONE);
-//				SceneManager.getInstance().loadGameScene(engine, "act1scene1");
-//				CleanWaterGame.getInstance().pauseMenuMusic();
-//				CleanWaterGame.getInstance().getSharedPreferences(GameLauncher.PREFERENCE_KEY_INGAME, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).edit().putBoolean(GameLauncher.PREFERENCE_KEY_INGAME_MUTE, true).commit();
+//				SceneManager.getInstance().loadAnimationScene(engine, Animation.SCENE_ONE);
+				SceneManager.getInstance().loadGameScene(engine, "act1scene1");
+				CleanWaterGame.getInstance().pauseMenuMusic();
+				CleanWaterGame.getInstance().getSharedPreferences(GameLauncher.PREFERENCE_KEY_INGAME, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).edit().putBoolean(GameLauncher.PREFERENCE_KEY_INGAME_MUTE, true).commit();
 				return true;
 			case SCENE_TWO:
 				SceneManager.getInstance().loadGameScene(engine, "act1scene2");

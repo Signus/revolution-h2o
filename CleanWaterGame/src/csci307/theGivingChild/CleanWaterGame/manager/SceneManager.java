@@ -125,7 +125,7 @@ public class SceneManager {
 	public void loadGameScene(final Engine mEngine, final String level) {
 		setScene(loadingScene);
 		ResourceManager.getInstance().unloadMenuGraphics();
-		mEngine.registerUpdateHandler(new TimerHandler(100f, new ITimerCallback() {
+		mEngine.registerUpdateHandler(new TimerHandler(.1f, new ITimerCallback() {
 			
 			@Override
 			public void onTimePassed(TimerHandler pTimerHandler) {
