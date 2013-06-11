@@ -44,8 +44,8 @@ public class LevelSelectScene extends BaseScene implements IOnMenuItemClickListe
 				SceneManager.getInstance().createAnimationScene(Animation.SCENE_ONE);
 				SceneManager.getInstance().loadAnimationScene(engine);
 //				SceneManager.getInstance().loadGameScene(engine, "act1scene1");
-//				CleanWaterGame.getInstance().pauseMenuMusic();
-//				CleanWaterGame.getInstance().getSharedPreferences(GameLauncher.PREFERENCE_KEY_INGAME, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).edit().putBoolean(GameLauncher.PREFERENCE_KEY_INGAME_MUTE, true).commit();
+				CleanWaterGame.getInstance().pauseMenuMusic();
+				CleanWaterGame.getInstance().getSharedPreferences(GameLauncher.PREFERENCE_KEY_INGAME, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).edit().putBoolean(GameLauncher.PREFERENCE_KEY_INGAME_MUTE, true).commit();
 				return true;
 			case SCENE_TWO:
 				SceneManager.getInstance().loadGameScene(engine, "act1scene2");

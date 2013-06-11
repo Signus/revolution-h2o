@@ -72,7 +72,10 @@ public class ActOneActivity extends BaseGameActivity {
 	{
 		super.onPause();
 		if(!goingOtheract) CleanWaterGame.getInstance().pauseMenuMusic();
-		ResourceManager.getInstance().backgroundMusic.pause();
+		if(CleanWaterGame.getInstance().getSharedPreferences(GameLauncher.PREFERENCE_KEY_INGAME, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).getBoolean(GameLauncher.PREFERENCE_KEY_INGAME_MUTE, false))
+		{
+			ResourceManager.getInstance().backgroundMusic.pause();
+		}
 		GameScene.pausedType = PausedType.PAUSED_ON;
 	}
 	

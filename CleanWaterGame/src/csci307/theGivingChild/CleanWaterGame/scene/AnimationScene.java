@@ -53,6 +53,9 @@ public class AnimationScene extends BaseScene implements IOnMenuItemClickListene
 	public void createScene() {
 			
 		createMenuChildScene();			
+		if (!ResourceManager.getInstance().isMuted()) {
+			this.resourcesManager.backgroundMusic.play();
+		}
 	}
 
 	@Override
@@ -68,7 +71,7 @@ public class AnimationScene extends BaseScene implements IOnMenuItemClickListene
 
 	@Override
 	public void disposeScene() {
-		// TODO Auto-generated method stub
+		this.resourcesManager.backgroundMusic.pause();
 		
 	}
 	
