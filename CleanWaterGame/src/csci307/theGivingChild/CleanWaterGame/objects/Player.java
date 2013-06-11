@@ -49,16 +49,14 @@ public class Player extends AnimatedSprite {
     private boolean isDucking = false;
     private boolean isBouncing = false;
     private int hitpoints = 0;
-    private Engine mEngine;
 
-    public Player(float pX, float pY, VertexBufferObjectManager vbom, Camera camera, PhysicsWorld physicsWorld, int hp, ITiledTextureRegion region, Engine engine) {
+    public Player(float pX, float pY, VertexBufferObjectManager vbom, Camera camera, PhysicsWorld physicsWorld, int hp, ITiledTextureRegion region) {
 		super(pX, pY, region, vbom);
 		createPhysics(camera, physicsWorld);
 		camera.setChaseEntity(this);
         initializeBooleanConditions();
         hitpoints = hp;
         position = BodyPosition.NORMAL;
-        mEngine = engine;
     }
 
     private void initializeBooleanConditions() {
@@ -113,19 +111,6 @@ public class Player extends AnimatedSprite {
                             setToInitialSprite();
                         }
                     }
-                    if (isDucking) {
-                        duckTime--;
-                        System.out.println(duckTime);
-                        if (duckTime <= 0) {
-                            duckTime = MAX_DUCK;
-                            isDucking = false;
-                            newBody(5);
-                            setToInitialSprite();
-
-                        }
-
-                    }
-
                 }
 				if (isBouncing) {
                 	if (!verticalMotion()) {
@@ -168,17 +153,9 @@ public class Player extends AnimatedSprite {
     	animate(100);
     }
 
-    private void setToDuckSprite() {
-//        final long[] PLAYER_ANIMATE = new long[] { 100, 100 };
-//        animate(PLAYER_ANIMATE, 2, 3, true);
-    	animate(100);
-    }
-
     public void setRunning() {
 		canRun = true;
         setToInitialSprite();
-
-//		animate(100);
 	}
 
 	public void jump() {
@@ -200,16 +177,6 @@ public class Player extends AnimatedSprite {
 
         runSpeed += SPRINT_AUGMENT;
 	}
-
-    public void duck() {
-        if (isDucking) return;
-        isDucking = true;
-        //enable ducking sound
-        //if(!ResourceManager.getInstance().isMuted()) ResourceManager.getInstance().duckSound.play();
-        setToDuckSprite();
-        body.setLinearVelocity(runSpeed, body.getLinearVelocity().y);
-        newBody(-5);
-    }
 
     public void bounceBack() {
     	if (isBouncing) return;
@@ -237,13 +204,6 @@ public class Player extends AnimatedSprite {
         return true;
     }
 
-    private void newBody(float height) {
-        //body.setTransform(body.getPosition().x, body.getPosition().y + height, 0);
-//        body = PhysicsFactory.createBoxBody(physicsWorld, 36, 50, 65, height, BodyType.DynamicBody, PhysicsFactory.createFixtureDef(0, 0, 0));
-//        body.setUserData("player");
-//        body.setFixedRotation(true);
-	}
-
     public void decrementHP() {
     	hitpoints--;
     }
@@ -251,22 +211,4 @@ public class Player extends AnimatedSprite {
     public int getHP() {
     	return hitpoints;
     }
-//    private void switchBody() {
-//        if (position == BodyPosition.NORMAL) {
-////            duckingBody = PhysicsFactory.createBoxBody(physicsWorld, this.getX(), this.getY(), this.getWidth(), this.getHeight() / 2, BodyType.DynamicBody, PhysicsFactory.createFixtureDef(0, 0, 0));
-//            position = BodyPosition.DUCKING;
-//        } else {
-//            position = BodyPosition.NORMAL;
-//        }
-//            //body.setTransform(body.getPosition().x, body.getPosition().y + height, 0);
-////        body = PhysicsFactory.createBoxBody(physicsWorld, 36, 50, 65, height, BodyType.DynamicBody, PhysicsFactory.createFixtureDef(0, 0, 0));
-////        body.setUserData("player");
-////        body.setFixedRotation(true);
-//    }
-//
-//    private Body getBody() {
-//        if (position == BodyPosition.NORMAL) {
-//            return;
-//        }
-//    }
 }

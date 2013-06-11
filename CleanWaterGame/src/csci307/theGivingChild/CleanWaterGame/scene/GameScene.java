@@ -415,7 +415,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 					};
 				}
 				else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_PLAYER)) {
-					player = new Player(x, y, vbom, camera, physicsWorld, 3, resourcesManager.player_TR, engine) {
+					player = new Player(x, y, vbom, camera, physicsWorld, 3, resourcesManager.player_TR) {
 												
 						@Override
 						public void onDie() {
@@ -564,8 +564,6 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
             
         } else if (difX > 0 && difX > Math.abs(difY)) {
             player.dash();
-        } else if (difY < 0 && Math.abs(difY) > Math.abs(difX)) {
-        	player.duck();
         }
     }
 
