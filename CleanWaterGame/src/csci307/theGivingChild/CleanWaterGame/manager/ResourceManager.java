@@ -1,8 +1,10 @@
 /*
  * Authors: Chris Card, Tony Nguyen, Gurpreet Nanda, Dylan Chau, Dustin Liang, Maria Deslis
  * Date: 05/22/13
- * Description: Resource Manager Class
- * 				responsible for loading and unloading resources a current scene needs. 
+ * Version: 1.0
+ * Description: ResourceManager is responsible for loading the resources that an AndEngine Scene needs.
+ * 				When a Scene is initiated, it will load the necessary resources required in the Scene.
+ * 				When a resource is no longer needed by the Scene, it will be unloaded.
  */
 
 package csci307.theGivingChild.CleanWaterGame.manager;
@@ -82,6 +84,7 @@ public class ResourceManager {
 	public Sound jumpSound;
 	public Sound dashSound;
 	public Sound duckSound;
+	
 	//music
 	public Music backgroundMusic;
 	
@@ -104,13 +107,6 @@ public class ResourceManager {
 		loadAnimationGraphics();
 		loadMenuFonts();
 		loadGameAudio();
-	}
-	//------------------------------------------------
-	//SPLASH RESOURCES
-	//------------------------------------------------
-	
-	public void loadSplashScreen() {
-		
 	}
 	
 	//------------------------------------------------
@@ -151,7 +147,8 @@ public class ResourceManager {
 	//------------------------------------------------
 	
 	/**
-	 * This toggles the mute value in the shared preferences object should allow for global mute setting
+	 * This toggles the mute value in the shared preferences object
+	 * It toggles the global setting to mute all sounds
 	 */
 	public void toggleMute()
 	{
@@ -160,38 +157,49 @@ public class ResourceManager {
 	}
 	
 	/**
-	 * This returns the value currently saved in the shared preferences listener regarding mute
-	 * @return true if it is muted, false if unmuted
+	 * Returns the value currently saved in the shared preferences listener regarding mute
+	 * @return true if it is muted, false if not muted
 	 */
 	public boolean isMuted()
 	{
 		return CleanWaterGame.getInstance().getSharedPreferences(GameLauncher.PREFERENCE_KEY, Activity.MODE_MULTI_PROCESS).getBoolean(GameLauncher.PREFERENCE_KEY_MUTE, false);
 	}
 	
+	/**
+	 * Loads the necessary graphics for the GameScene
+	 */
 	private void loadGameGraphics() {
-		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/game/");
-
-        gameTA = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 2048, 1024, TextureOptions.BILINEAR);
-
+		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/game/");		//Set the directory path for the all GameScene graphics relative to the 'assets' folder
+		
+        gameTA = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 2048, 1024, TextureOptions.BILINEAR);	//A map that holds textures/graphics for the game character, collectables, backgrounds, and pause button
+        //Player textures
         player_TR = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(gameTA, activity, "player_run_sprite.png", 6, 1);
         player_jump_TR = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(gameTA, activity, "roll_jump.png", 1, 1);
         player_slide_TR = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(gameTA, activity, "roll_slide.png", 2, 1);
+        
+        //HUD Textures Regions
         hitpoints_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTA, activity, "heart.png");
+        pause_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTA, activity, "pause_button.png");
+        
+        //Collectable Texture Regions
         collectable_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTA, activity, "water.png");
         twine_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTA, activity, "twine.png");
         wood_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTA, activity, "wood.png");
         stone_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTA, activity, "stone.png");
-
-        pause_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTA, activity, "pause_button.png");
+        
+        //Background Texture Regions
         scene_background_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTA, activity, "gradient_background.png");
         scene_foreground_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTA, activity, "clouds.png");
-
-        groundTA = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 2048, 1024, TextureOptions.DEFAULT);
+        
+        
+        groundTA = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 2048, 1024, TextureOptions.DEFAULT); //A map that holds textures/graphics for the game's walkables
+        //Level building Texture Regions
         ground_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(groundTA, activity, "ground.png");
         floating_platform_ground_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(groundTA, activity, "floating_platform_ground.png");
         hill_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(groundTA, activity, "hill.png");
         falling_platform_2_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(groundTA, activity, "falling_platform_small.png");
         falling_platform_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(groundTA, activity, "falling_platform_large.png");
+        
         try {
         	this.gameTA.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 1));
         	this.groundTA.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 1));
@@ -201,7 +209,9 @@ public class ResourceManager {
         gameTA.load();
         groundTA.load();
     }
-	
+	/**
+	 * Loads the necessary Graphics for the AnimationScene (the cut scene at the beginning of the GameScene)
+	 */
 	private void loadAnimationGraphics() {
 		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/animation/");
 		
@@ -224,6 +234,9 @@ public class ResourceManager {
 		animationOneTA.load();
 	}
 	
+	/**
+	 * Loads the necessary Font for use in the GameScene
+	 */
 	private void loadGameFonts() {
 		FontFactory.setAssetBasePath("fonts/");
 		final ITexture mainFontTexture = new BitmapTextureAtlas(activity.getTextureManager(), 512, 512, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
@@ -234,6 +247,9 @@ public class ResourceManager {
 		game_font.load();
 	}
 	
+	/**
+	 * Loads the necessary Sound and Music resources
+	 */
 	private void loadGameAudio() {
 		//SOUND
 		SoundFactory.setAssetBasePath("sfx/");
@@ -242,8 +258,11 @@ public class ResourceManager {
 			this.jumpSound.setVolume(.5f);
 			this.dashSound = SoundFactory.createSoundFromAsset(activity.getSoundManager(),activity, "dash.mp3");
 			this.dashSound.setVolume(.7f);
+			
+			/* UNCOMMENT TO LOAD DUCKING SOUND
 			this.duckSound = SoundFactory.createSoundFromAsset(activity.getSoundManager(),activity, "duck.mp3");
 			this.duckSound.setVolume(.3f);
+			*/
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

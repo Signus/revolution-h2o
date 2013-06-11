@@ -1,7 +1,8 @@
 /*
  * Authors: Chris Card, Tony Nguyen, Gurpreet Nanda, Dylan Chau, Dustin Liang, Maria Deslis
  * Date: 05/22/13
- * Description: Scene Manager is used to easily handle switching between scenes. Scenes should be loaded and disposed of properly. 
+ * Version: 1.0
+ * Description: SceneManager is used to easily handle switching between scenes. Scenes should be loaded and disposed of properly. 
  */
 
 package csci307.theGivingChild.CleanWaterGame.manager;
