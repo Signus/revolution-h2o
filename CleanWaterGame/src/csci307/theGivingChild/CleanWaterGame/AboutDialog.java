@@ -5,7 +5,7 @@
  * Description: This is a dialog containing info about the app and The Giving Child (http://thegivingchild.org)
  * 
  * History:
- *   original 5/22/13
+ *  5/22/13 original  1.0
  */
 package csci307.theGivingChild.CleanWaterGame;
 
@@ -23,6 +23,7 @@ public class AboutDialog extends Activity {
 		super.onCreate(onSaveInstance);
 		setContentView(R.layout.about_display);
 		
+		//allows the text view to scroll
 		TextView t = (TextView)findViewById(R.id.aboutDisplay);
 		t.setMovementMethod(new ScrollingMovementMethod());
 	}
