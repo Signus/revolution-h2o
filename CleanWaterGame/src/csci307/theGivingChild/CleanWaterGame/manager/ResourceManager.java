@@ -207,12 +207,12 @@ public class ResourceManager {
 		animationOneTA = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 2048, 2048, TextureOptions.BILINEAR);
 		animation_one_one = BitmapTextureAtlasTextureRegionFactory.createFromAsset(animationOneTA, activity, "Scene1_1.png");
 		animation_one_two = BitmapTextureAtlasTextureRegionFactory.createFromAsset(animationOneTA, activity, "Scene1_2.png");
-		animation_one_three = BitmapTextureAtlasTextureRegionFactory.createFromAsset(animationOneTA, activity, "Scene1_2.png");
-		animation_one_four = BitmapTextureAtlasTextureRegionFactory.createFromAsset(animationOneTA, activity, "Scene1_2.png");
-		animation_one_five = BitmapTextureAtlasTextureRegionFactory.createFromAsset(animationOneTA, activity, "Scene1_2.png");
-		animation_one_six = BitmapTextureAtlasTextureRegionFactory.createFromAsset(animationOneTA, activity, "Scene1_2.png");
-		animation_one_seven = BitmapTextureAtlasTextureRegionFactory.createFromAsset(animationOneTA, activity, "Scene1_2.png");
-		animation_one_eight = BitmapTextureAtlasTextureRegionFactory.createFromAsset(animationOneTA, activity, "Scene1_2.png");
+		animation_one_three = BitmapTextureAtlasTextureRegionFactory.createFromAsset(animationOneTA, activity, "Scene1_3.png");
+		animation_one_four = BitmapTextureAtlasTextureRegionFactory.createFromAsset(animationOneTA, activity, "Scene1_4.png");
+		animation_one_five = BitmapTextureAtlasTextureRegionFactory.createFromAsset(animationOneTA, activity, "Scene1_5.png");
+		animation_one_six = BitmapTextureAtlasTextureRegionFactory.createFromAsset(animationOneTA, activity, "Scene1_6.png");
+		animation_one_seven = BitmapTextureAtlasTextureRegionFactory.createFromAsset(animationOneTA, activity, "Scene1_7.png");
+		animation_one_eight = BitmapTextureAtlasTextureRegionFactory.createFromAsset(animationOneTA, activity, "Scene1_8.png");
 		
 		try {
 			this.animationOneTA.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 1));

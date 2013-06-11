@@ -116,15 +116,27 @@ public class SceneManager {
 //		splashScene = null;
 //	}
 	
-	public void loadAnimationScene(final Engine mEngine, final Animation animation) {
+	public void createAnimationScene(final Animation animation) {
 		ResourceManager.getInstance().loadAnimationResources();
 		animationScene = new AnimationScene(animation);
 		currentScene = animationScene;
 	}
 	
+	public void loadAnimationScene(final Engine mEngine) {
+		ResourceManager.getInstance().unloadMenuGraphics();
+		mEngine.registerUpdateHandler(new TimerHandler(0.01f, new ITimerCallback() {
+					
+				@Override
+				public void onTimePassed(TimerHandler pTimerHandler) {
+					mEngine.unregisterUpdateHandler(pTimerHandler);
+					setScene(animationScene);
+			}
+		}));
+	}
+	
 	public void loadGameScene(final Engine mEngine, final String level) {
 		setScene(loadingScene);
-		ResourceManager.getInstance().unloadMenuGraphics();
+//		ResourceManager.getInstance().unloadMenuGraphics();
 		mEngine.registerUpdateHandler(new TimerHandler(.1f, new ITimerCallback() {
 			
 			@Override
