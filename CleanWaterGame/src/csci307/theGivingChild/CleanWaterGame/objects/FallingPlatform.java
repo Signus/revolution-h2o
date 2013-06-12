@@ -20,10 +20,12 @@ public class FallingPlatform extends Sprite {
 	
 	public Body body;
 	private Engine mEngine;
+	private float fallingTime;
 	
-	public FallingPlatform(float pX, float pY, VertexBufferObjectManager vbom, Camera camera, PhysicsWorld physicsWorld, ITextureRegion region, Engine engine) {
+	public FallingPlatform(float pX, float pY, VertexBufferObjectManager vbom, Camera camera, PhysicsWorld physicsWorld, ITextureRegion region, Engine engine, float time) {
 		super(pX, pY, region, vbom);
 		createPhysics(camera, physicsWorld);
+		fallingTime = time;
 		mEngine = engine;
 	}
 	
@@ -36,7 +38,7 @@ public class FallingPlatform extends Sprite {
 	}
 	
 	public void platformFall() {
-		mEngine.registerUpdateHandler(new TimerHandler(.35f, new ITimerCallback() {
+		mEngine.registerUpdateHandler(new TimerHandler(fallingTime, new ITimerCallback() {
 
 			@Override
 			public void onTimePassed(TimerHandler pTimerHandler) {

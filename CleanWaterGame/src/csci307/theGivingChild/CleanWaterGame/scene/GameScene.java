@@ -250,9 +250,9 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 
     private void createHUD() {
     	gameHUD = new HUD();
-    	heart1 = new Sprite(660, 420, resourcesManager.hitpoints_TR, vbom);
-    	heart2 = new Sprite(710, 420, resourcesManager.hitpoints_TR, vbom);
-    	heart3 = new Sprite(760, 420, resourcesManager.hitpoints_TR, vbom);
+    	heart1 = new Sprite(120, 420, resourcesManager.hitpoints_TR, vbom);
+    	heart2 = new Sprite(170, 420, resourcesManager.hitpoints_TR, vbom);
+    	heart3 = new Sprite(220, 420, resourcesManager.hitpoints_TR, vbom);
 
 
     	final Sprite pauseButton = new Sprite(50, 430, resourcesManager.pause_TR, vbom) {
@@ -401,7 +401,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 				}
 				else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_FALLINGPLATFORM)) {
 
-					levelObject = new FallingPlatform(x, y, vbom, camera, physicsWorld, resourcesManager.falling_platform_TR, engine) {
+					levelObject = new FallingPlatform(x, y, vbom, camera, physicsWorld, resourcesManager.falling_platform_TR, engine, 0.4f) {
 						@Override
 						protected void onManagedUpdate(float pSecondsElapsed) {
 							super.onManagedUpdate(pSecondsElapsed);
@@ -728,73 +728,5 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 			default:
 				super.onManagedUpdate(pSecondsElapsed);
 		}
-	}
-
-	private ContactListener contactListener() {
-		ContactListener contactListener = new ContactListener() {
-
-			@Override
-			public void beginContact(Contact contact) {
-				final Fixture x1 = contact.getFixtureA();
-				final Fixture x2 = contact.getFixtureB();
-
-
-				if (x1.getBody().getUserData() != null && x2.getBody().getUserData() != null) {
-					if (x1.getBody().getUserData().equals("fallingPlatform2") && x2.getBody().getUserData().equals("player")) {
-						if (x1.getBody().getPosition().y < x2.getBody().getPosition().y &&
-								x1.getBody().getPosition().x > x2.getBody().getPosition().x) {
-							engine.registerUpdateHandler(new TimerHandler(0.2f, new ITimerCallback() {
-
-								@Override
-								public void onTimePassed(TimerHandler pTimerHandler) {
-									pTimerHandler.reset();
-									engine.unregisterUpdateHandler(pTimerHandler);
-									x1.getBody().setType(BodyType.DynamicBody);
-
-								}
-							}));
-						}
-					} else if (x1.getBody().getUserData().equals("player") && x2.getBody().getUserData().equals("fallingPlatform2")) {
-						if (x2.getBody().getPosition().y < x1.getBody().getPosition().y) {
-							engine.registerUpdateHandler(new TimerHandler(0.2f, new ITimerCallback() {
-
-								@Override
-								public void onTimePassed(TimerHandler pTimerHandler) {
-									pTimerHandler.reset();
-									engine.unregisterUpdateHandler(pTimerHandler);
-									x2.getBody().setType(BodyType.DynamicBody);
-								}
-							}));
-						}
-					}
-				}
-			}
-
-			@Override
-			public void endContact(Contact contact) {
-				final Fixture x1 = contact.getFixtureA();
-				final Fixture x2 = contact.getFixtureB();
-
-				if (x1.getBody().getUserData() != null && x2.getBody().getUserData() != null)
-				{
-
-				}
-
-			}
-
-			@Override
-			public void preSolve(Contact contact, Manifold oldManifold) {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public void postSolve(Contact contact, ContactImpulse impulse) {
-				// TODO Auto-generated method stub
-
-			}
-
-		};
-		return contactListener;
 	}
 }
