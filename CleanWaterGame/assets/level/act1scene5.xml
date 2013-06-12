@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<level width="10000" height="800">
+<level width="11000" height="800">
 	<entity x="50" y="100" width="70" height="100" type="player"/>
 
 	<!-- obstacles -->
@@ -65,11 +65,9 @@
 	<entity x="8850" y="25" width="100" height="50" type="ground"/>
 	<entity x="8950" y="25" width="100" height="50" type="ground"/>
 	<entity x="9050" y="25" width="100" height="50" type="ground"/>
-	<entity x="9150" y="25" width="100" height="50" type="ground"/>
-	<entity x="9250" y="25" width="100" height="50" type="ground"/>
-	<entity x="9350" y="25" width="100" height="50" type="ground"/>
-	<entity x="9450" y="25" width="100" height="50" type="ground"/>
-	<entity x="9550" y="25" width="100" height="50" type="ground"/>
+	
+	<entity x="9400" y="25" width="100" height="50" type="ground"/>
+	
 	<entity x="9650" y="25" width="100" height="50" type="ground"/>
 	<entity x="9750" y="25" width="100" height="50" type="ground"/>
 	<entity x="9850" y="25" width="100" height="50" type="ground"/>
@@ -165,6 +163,31 @@
 	<entity x="5700" y="340" width="100" height="50" type="floatingPlatform"/>
 	<entity x="6100" y="340" width="100" height="50" type="fallingPlatform2"/>
 	<entity x="6150" y="340" width="50" height="50" type="fallingPlatform2"/>
+	<entity x="6200" y="340" width="50" height="50" type="fallingPlatform2"/>
+	<entity x="6250" y="340" width="50" height="50" type="fallingPlatform2"/>
+	<entity x="6300" y="340" width="50" height="50" type="fallingPlatform2"/>
+	<entity x="6350" y="340" width="50" height="50" type="fallingPlatform"/>
+	
+	<entity x="6550" y="340" width="100" height="50" type="floatingPlatform"/>
+	<entity x="6650" y ="340" width="100" height="50" type="floatingPlatform"/>
+	
+	<entity x="6950" y="340" width="100" height="50" type="floatingPlatform"/>
+	<entity x="7050" y="340" width="100" height="50" type="floatingPlatform"/>
+	<entity x="7250" y="350" width="100" height="50" type="fallingPlatform"/>
+	<entity x="7550" y="350" width="100" height="50" type="fallingPlatform"/>
+	<entity x="7450" y="350" width="100" height="50" type="floatingPlatform"/>
+	<entity x="7525" y="350" width="100" height="50" type="fallingPlatform2"/>
+	<entity x="7575" y="350" width="100" height="50" type="fallingPlatform2"/>
+	<entity x="7625" y="350" width="100" height="50" type="fallingPlatform2"/>
+	<entity x="7625" y="350" width="100" height="50" type="fallingPlatform2"/>
+	<entity x="7675" y="350" width="100" height="50" type="fallingPlatform2"/>
+	<entity x="7725" y="350" width="100" height="50" type="fallingPlatform2"/>
+	<entity x="7775" y="350" width="100" height="50" type="fallingPlatform2"/>
+	<entity x="7825" y="350" width="100" height="50" type="fallingPlatform2"/>
+	<entity x="7900" y="390" width="100" height="50" type="ground"/>
+	<entity x="8000" y="390" width="100" height="50" type="ground"/>
+	<entity x="8100" y="440" width="100" height="50" type="ground"/>
+	<entity x="8200" y="440" width="100" height="50" type="ground"/>
 	
 	<entity x="7550" y="125" width="100" height="50" type="ground"/>
 	<entity x="7650" y="125" width="100" height="50" type="ground"/>
@@ -173,7 +196,37 @@
 	<entity x="8050" y="175" width="100" height="50" type="floatingPlatform"/>
 	
 	<entity x="8750" y="75" width="100" height="50" type="ground"/>
+	<entity x="8850" y="75" width="100" height="50" type="ground"/>
+	<entity x="9050" y="75" width="100" height="50" type="ground"/>
+	<entity x="9125" y="35" width="50" height="50" type="fallingPlatform2"/>
+	<entity x="9175" y="35" width="50" height="50" type="fallingPlatform2"/>
+	<entity x="9225" y="35" width="50" height="50" type="fallingPlatform2"/>
+	<entity x="9275" y="35" width="50" height="50" type="fallingPlatform2"/>
+	<entity x="9325" y="35" width="50" height="50" type="fallingPlatform2"/>
 	
+	<entity x="9475" y="35" width="50" height="50" type="fallingPlatform2"/>
+	<entity x="9525" y="35" width="50" height="50" type="fallingPlatform2"/>
+	<entity x="9575" y="35" width="50" height="50" type="fallingPlatform2"/>
+	
+	<entity x="9650" y="75" width="100" height="50" type="ground"/>
+	<entity x="9750" y="75" width="100" height="50" type="ground"/>
+	<entity x="9825" y="85" width="50" height="50" type="fallingPlatform2"/>
+	<entity x="9875" y="85" width="50" height="50" type="fallingPlatform2"/>
+	<entity x="9925" y="85" width="50" height="50" type="fallingPlatform2"/>
+	<entity x="9975" y="85" width="50" height="50" type="fallingPlatform2"/>
+	<entity x="10025" y="85" width="50" height="50" type="fallingPlatform2"/>
+	<entity x="10075" y="85" width="50" height="50" type="fallingPlatform2"/>
+	<entity x="10150" y="85" width="50" height="50" type="floatingPlatform"/>
+	
+	<entity x="10350" y="125" width="50" height="50" type="floatingPlatform"/>
+	<entity x="10450" y="125" width="50" height="50" type="floatingPlatform"/>
+	<entity x="10525" y="125" width="50" height="50" type="fallingPlatform2"/>
+	<entity x="10575" y="125" width="50" height="50" type="fallingPlatform2"/>
+	<entity x="10625" y="125" width="50" height="50" type="fallingPlatform2"/>
+	<entity x="10675" y="125" width="50" height="50" type="fallingPlatform2"/>
+	<entity x="10750" y="125" width="50" height="50" type="fallingPlatform"/>
+	<entity x="10950" y="185" width="50" height="50" type="floatingPlatform"/>
+	<entity x="11000" y="175" width="5" height="200" type="winTrigger"/>
 	
 	
 	
