@@ -560,7 +560,8 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
             player.jump();
 
         } else if (difX > 0 && difX > Math.abs(difY)) {
-            player.dash();
+        	if (!currentLevel.equals("act1scene1") && !currentLevel.equals("act1scene2"))
+        		player.dash();
         }
     }
 
