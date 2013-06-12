@@ -305,7 +305,6 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 
     private void createPhysics() {
     	physicsWorld = new FixedStepPhysicsWorld(60, new Vector2(0, -17), false);
-    	physicsWorld.setContactListener(contactListener());
     	registerUpdateHandler(physicsWorld);
     }
 
@@ -385,23 +384,18 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 					PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyType.StaticBody, GROUND_FIX).setUserData("test");
 				}
 				else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_FALLINGPLATFORM_2)) {
-					levelObject = new Sprite(x, y, resourcesManager.falling_platform_2_TR, vbom) {
+					levelObject = new FallingPlatform(x, y, vbom, camera, physicsWorld, resourcesManager.falling_platform_2_TR, engine, 0.25f) {
 						@Override
 						protected void onManagedUpdate(float pSecondsElapsed) {
-							super.onManagedUpdate(pSecondsElapsed);
-
-							if (this.getY() < 0) {
-								detachChild(this);
+							if (detectTopCollision(player, this)) {
+								platformFall();
 							}
 						}
 					};
-					body = PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyType.StaticBody, FALLING_FIX);
-					body.setUserData("fallingPlatform2");
-					physicsWorld.registerPhysicsConnector(new PhysicsConnector(levelObject, body, true, false));
 				}
 				else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_FALLINGPLATFORM)) {
 					
-					levelObject = new FallingPlatform(x, y, vbom, camera, physicsWorld, resourcesManager.falling_platform_TR, engine) {
+					levelObject = new FallingPlatform(x, y, vbom, camera, physicsWorld, resourcesManager.falling_platform_TR, engine, 0.4f) {
 						@Override
 						protected void onManagedUpdate(float pSecondsElapsed) {
 							super.onManagedUpdate(pSecondsElapsed);
@@ -511,7 +505,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
     
     private boolean detectTopCollision(Player player, IEntity object) {
     	if ( ((player.getX() + player.getWidth()/2.0) + COLLISION_THRESHOLD) > (object.getX() - object.getWidth() / 2.0) &&
-				(player.getX() + player.getWidth()/2.0) < (object.getX() + object.getWidth() / 2.0) &&
+				(player.getX() - player.getWidth()/2.0) < (object.getX() + object.getWidth() / 2.0) &&
 				(player.getY() - player.getHeight()/2.0) < (object.getY() + object.getHeight()/2.0 + COLLISION_THRESHOLD) &&
 				(player.getY() - player.getHeight()/2.0) > (object.getY() + object.getHeight()/2.0 - COLLISION_THRESHOLD)) {
     		return true;
@@ -728,73 +722,5 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 			default:
 				super.onManagedUpdate(pSecondsElapsed);
 		}				
-	}
-
-	private ContactListener contactListener() {
-		ContactListener contactListener = new ContactListener() {
-
-			@Override
-			public void beginContact(Contact contact) {
-				final Fixture x1 = contact.getFixtureA();
-				final Fixture x2 = contact.getFixtureB();
-
-
-				if (x1.getBody().getUserData() != null && x2.getBody().getUserData() != null) {
-					if (x1.getBody().getUserData().equals("fallingPlatform2") && x2.getBody().getUserData().equals("player")) {
-						if (x1.getBody().getPosition().y < x2.getBody().getPosition().y &&
-								x1.getBody().getPosition().x > x2.getBody().getPosition().x) {
-							engine.registerUpdateHandler(new TimerHandler(0.2f, new ITimerCallback() {
-
-								@Override
-								public void onTimePassed(TimerHandler pTimerHandler) {
-									pTimerHandler.reset();
-									engine.unregisterUpdateHandler(pTimerHandler);
-									x1.getBody().setType(BodyType.DynamicBody);
-
-								}
-							}));
-						}
-					} else if (x1.getBody().getUserData().equals("player") && x2.getBody().getUserData().equals("fallingPlatform2")) {
-						if (x2.getBody().getPosition().y < x1.getBody().getPosition().y) {
-							engine.registerUpdateHandler(new TimerHandler(0.2f, new ITimerCallback() {
-
-								@Override
-								public void onTimePassed(TimerHandler pTimerHandler) {
-									pTimerHandler.reset();
-									engine.unregisterUpdateHandler(pTimerHandler);
-									x2.getBody().setType(BodyType.DynamicBody);
-								}
-							}));
-						}
-					}
-				}
-			}
-
-			@Override
-			public void endContact(Contact contact) {
-				final Fixture x1 = contact.getFixtureA();
-				final Fixture x2 = contact.getFixtureB();
-
-				if (x1.getBody().getUserData() != null && x2.getBody().getUserData() != null)
-				{
-
-				}
-
-			}
-
-			@Override
-			public void preSolve(Contact contact, Manifold oldManifold) {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public void postSolve(Contact contact, ContactImpulse impulse) {
-				// TODO Auto-generated method stub
-
-			}
-
-		};
-		return contactListener;
 	}
 }
