@@ -109,11 +109,10 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 	private static final short CATEGORYBIT_GROUND = 1;
 	private static final short CATEGORYBIT_FALLING = 2;
 	private static final short CATEGORYBIT_PLAYER = 4;
-	private static final short CATEGORYBIT_FALLING_2 = 8;
 
 	//What shoiuld collide with what objects.
 	private static final short MASKBITS_GROUND = CATEGORYBIT_GROUND + CATEGORYBIT_PLAYER;
-	private static final short MASKBITS_FALLING = CATEGORYBIT_FALLING + CATEGORYBIT_PLAYER;
+	private static final short MASKBITS_FALLING = CATEGORYBIT_PLAYER;
 	private static final short MASKBITS_PLAYER = CATEGORYBIT_FALLING + CATEGORYBIT_GROUND;
 	private static final short MASKBITS_FALLING_2 = CATEGORYBIT_PLAYER;
 
