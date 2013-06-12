@@ -127,7 +127,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 	private final int MENU_RESTART = 2;
 	private final int MENU_OPTIONS = 3;
 	private final int MENU_NEXT = 4;
-	
+
 	private Sprite heart1;
 	private Sprite heart2;
 	private Sprite heart3;
@@ -137,16 +137,16 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
     public static boolean paused = false;
     private boolean isDone = false;
     private ArrayList<IEntity> levelObjects = new ArrayList<IEntity>();
-    
+
     public static PausedType pausedType;
-    
+
     public enum PausedType {
     	PAUSED_OFF,
     	PAUSED_ON,
     	PAUSED_GAMEOVER,
     	PAUSED_GAMEWIN
     }
-    
+
     public GameScene(String level, String level2) {
     	this.resourcesManager = ResourceManager.getInstance();
     	this.engine = resourcesManager.engine;
@@ -205,7 +205,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
         camera.setCenter(400, 240);
         camera.setBounds(0, 0, 800, 480);
         this.resourcesManager.backgroundMusic.stop();
-        
+
         Iterator<Body> allBodies = this.physicsWorld.getBodies();
         while (allBodies.hasNext()) {
         	try {
@@ -215,7 +215,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
         		Debug.e(e);
         	}
         }
-        
+
         if (levelObjects.size() > 0) {
         	engine.runOnUpdateThread(new Runnable() {
         		@Override
@@ -229,7 +229,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
                 	}
         		}
         	});
-        	
+
         }
         levelObjects.clear();
         this.clearChildScene();
@@ -250,10 +250,10 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 
     private void createHUD() {
     	gameHUD = new HUD();
-    	heart1 = new Sprite(120, 420, resourcesManager.hitpoints_TR, vbom);
-    	heart2 = new Sprite(170, 420, resourcesManager.hitpoints_TR, vbom);
-    	heart3 = new Sprite(220, 420, resourcesManager.hitpoints_TR, vbom);
-    	
+    	heart1 = new Sprite(660, 420, resourcesManager.hitpoints_TR, vbom);
+    	heart2 = new Sprite(710, 420, resourcesManager.hitpoints_TR, vbom);
+    	heart3 = new Sprite(760, 420, resourcesManager.hitpoints_TR, vbom);
+
 
     	final Sprite pauseButton = new Sprite(50, 430, resourcesManager.pause_TR, vbom) {
     		@Override
@@ -274,10 +274,10 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
     	gameHUD.attachChild(heart2);
     	gameHUD.attachChild(heart3);
     	displayHealth(3);
-    	
+
     	camera.setHUD(gameHUD);
     }
-    
+
     private void displayHealth(int hitpoints) {
     	switch (hitpoints) {
 	    	case 0:
@@ -299,7 +299,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
     			heart1.setVisible(true);
     			heart2.setVisible(true);
     			heart3.setVisible(true);
-    			break;	
+    			break;
     	}
     }
 
@@ -338,7 +338,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 
 				final IEntity levelObject;
 				final Body body;
-				
+
 				if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_HILL)) {
 					levelObject = new Sprite(x, y, resourcesManager.hill_TR, vbom) {
 						@Override
@@ -374,7 +374,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 						@Override
 						protected void onManagedUpdate(float pSecondsElapsed) {
 							super.onManagedUpdate(pSecondsElapsed);
-							
+
 							if(detectSideCollision(player, this)) {
 								player.bounceBack();
 								player.decrementHP();
@@ -400,12 +400,12 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 					physicsWorld.registerPhysicsConnector(new PhysicsConnector(levelObject, body, true, false));
 				}
 				else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_FALLINGPLATFORM)) {
-					
+
 					levelObject = new FallingPlatform(x, y, vbom, camera, physicsWorld, resourcesManager.falling_platform_TR, engine) {
 						@Override
 						protected void onManagedUpdate(float pSecondsElapsed) {
 							super.onManagedUpdate(pSecondsElapsed);
-							
+
 							if (detectTopCollision(player, this)) {
 								platformFall();
 							}
@@ -419,7 +419,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 				}
 				else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_PLAYER)) {
 					player = new Player(x, y, vbom, camera, physicsWorld, 3, resourcesManager.player_TR) {
-												
+
 						@Override
 						public void onDie() {
                             isDone = true;
@@ -427,10 +427,10 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 							pausedType = PausedType.PAUSED_GAMEOVER;
 							camera.setChaseEntity(null);
 						}
-						
-					};					
+
+					};
 					levelObject = player;
-				} 
+				}
 				else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_WIN_TRIGGER)) {
 					levelObject = new Rectangle(x, y, width, height, vbom) {
 						@Override
@@ -439,7 +439,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 								this.setIgnoreUpdate(true);
 								//show level complete scene.
 								System.out.println("TRIGGER WORKS");
-								
+
 								setChildScene(gameWinScene());
 								pausedType = PausedType.PAUSED_GAMEWIN;
 							}
@@ -447,12 +447,12 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 					};
 					levelObject.setVisible(false);
 				}
-				else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE)) {					
+				else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE)) {
 					levelObject = loadCollectable(x, y, resourcesManager.collectable_TR, 20);
 				}
 				else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE_ACT1_SCENE2_GOALS)) {
 					levelObject = loadCollectable(x, y, resourcesManager.twine_TR, 20);
-				} 
+				}
 				else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE_ACT1_SCENE3_GOALS)) {
 					levelObject = loadCollectable(x, y, resourcesManager.wood_TR, 20);
 				}
@@ -475,7 +475,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 
 		levelLoader.loadLevelFromAsset(activity.getAssets(), "level/" + levelID + ".xml");
 	}
-    
+
     private Sprite loadCollectable(float x, float y, ITextureRegion region, int score) {
     	Sprite sprite = new Sprite(x, y, region, vbom) {
     		@Override
@@ -487,28 +487,28 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 					this.setIgnoreUpdate(true);
 				}
 			}
-    	};   
-    	    	
+    	};
+
     	sprite.registerEntityModifier(new LoopEntityModifier(new ScaleModifier(1, 1, 1.3f)));
     	return sprite;
     }
-    
+
     private boolean detectSideCollision(Player player, IEntity object) {
     	if ( ((player.getX() + player.getWidth()/2.0) + COLLISION_THRESHOLD) > (object.getX() - object.getWidth() / 2.0) &&
 				(player.getX() + player.getWidth()/2.0) < (object.getX() + object.getWidth() / 2.0) &&
-				((player.getY() - player.getHeight()/2.0) + COLLISION_THRESHOLD) < (object.getY() + object.getHeight()/2.0) && 
+				((player.getY() - player.getHeight()/2.0) + COLLISION_THRESHOLD) < (object.getY() + object.getHeight()/2.0) &&
 				((player.getY() + player.getHeight()/2.0) - COLLISION_THRESHOLD) > (object.getY() - object.getHeight() / 2.0) ) {
 			System.out.println("SIDE COLLISION");
 			System.out.println("x positions: " + ((player.getX() + player.getWidth()/2.0) + COLLISION_THRESHOLD) + "  > " + (object.getX() - object.getWidth() / 2.0));
 			System.out.println(((player.getX() + player.getWidth()/2.0)) + "  < " + (object.getX() + object.getWidth() / 2.0));
 			System.out.println(((player.getY() - player.getHeight()/2.0) - COLLISION_THRESHOLD) + "   < " + (object.getY() + object.getHeight()/2.0));
 			System.out.println(((player.getY() + player.getHeight()/2.0) + COLLISION_THRESHOLD) + "   > " + ((object.getY() - object.getHeight() / 2.0)));
-			
+
 			return true;
 		}
     	return false;
     }
-    
+
     private boolean detectTopCollision(Player player, IEntity object) {
     	if ( ((player.getX() + player.getWidth()/2.0) + COLLISION_THRESHOLD) > (object.getX() - object.getWidth() / 2.0) &&
 				(player.getX() + player.getWidth()/2.0) < (object.getX() + object.getWidth() / 2.0) &&
@@ -563,9 +563,9 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 
     private void performPlayerAction(float difX, float difY, double moveDistance) {
         if (difY > 0 && Math.abs(difY) > Math.abs(difX) || moveDistance <= TAP_THRESHOLD) {
-        	
+
             player.jump();
-            
+
         } else if (difX > 0 && difX > Math.abs(difY)) {
             player.dash();
         }
@@ -610,15 +610,15 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 						SceneManager.getInstance().createAnimationScene(Animation.SCENE_TWO);
 						SceneManager.getInstance().loadAnimationScene(engine);
 					} else if (nextLevel.equals("act1scene3")) {
-						
+
 					} else if (nextLevel.equals("act1scene4")) {
-						
+
 					} else if (nextLevel.equals("act1scene5")) {
-						
+
 					} else {
 						System.out.println("Invalid file detected");
-					}					
-				} 
+					}
+				}
 				return true;
 			default:
 				return false;
@@ -681,32 +681,32 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 		gameOver.setOnMenuItemClickListener(this);
 		return gameOver;
 	}
-	
+
 	private MenuScene gameWinScene() {
 		final MenuScene gameWin = new MenuScene(camera);
-		
+
 		final IMenuItem nextMenuItem = new ColorMenuItemDecorator(new TextMenuItem(MENU_NEXT, resourcesManager.font, "NEXT LEVEL", vbom), Color.RED, Color.WHITE);
 		final IMenuItem quitMenuItem = new ColorMenuItemDecorator(new TextMenuItem(MENU_QUIT, resourcesManager.font, "QUIT", vbom), Color.RED, Color.WHITE);
 		final IMenuItem restartMenuItem = new ColorMenuItemDecorator(new TextMenuItem(MENU_RESTART, resourcesManager.font, "REPLAY", vbom), Color.RED, Color.WHITE);
 		final Rectangle background = new Rectangle(400, 240, 300, 200, vbom);
-		
+
 		int menuPositionDifference = (int) (background.getHeight() / 4);
 		nextMenuItem.setPosition(400, menuPositionDifference * 3 + 140 );
 		restartMenuItem.setPosition(400, menuPositionDifference * 2 + 140);
 		quitMenuItem.setPosition(400, menuPositionDifference + 140);
-		
+
 		gameWin.attachChild(new Text(400, 400, resourcesManager.font, "YOU WIN!!!", vbom));
 		//setting background transparent
 		background.setBlendFunction(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
 		background.setAlpha(0.5f);
-		
+
 		gameWin.attachChild(background);
 		gameWin.addMenuItem(nextMenuItem);
 		gameWin.addMenuItem(restartMenuItem);
 		gameWin.addMenuItem(quitMenuItem);
 		gameWin.setBackgroundEnabled(false);
 		gameWin.setOnMenuItemClickListener(this);
-		
+
 		return gameWin;
 	}
 
@@ -727,7 +727,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 				return;
 			default:
 				super.onManagedUpdate(pSecondsElapsed);
-		}				
+		}
 	}
 
 	private ContactListener contactListener() {
