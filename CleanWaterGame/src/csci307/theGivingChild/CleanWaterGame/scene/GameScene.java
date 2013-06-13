@@ -18,8 +18,6 @@ import java.util.Iterator;
 import javax.microedition.khronos.opengles.GL10;
 
 import org.andengine.engine.camera.hud.HUD;
-import org.andengine.engine.handler.timer.ITimerCallback;
-import org.andengine.engine.handler.timer.TimerHandler;
 import org.andengine.entity.IEntity;
 import org.andengine.entity.modifier.LoopEntityModifier;
 import org.andengine.entity.modifier.ScaleModifier;
@@ -35,13 +33,14 @@ import org.andengine.entity.scene.menu.item.TextMenuItem;
 import org.andengine.entity.scene.menu.item.decorator.ColorMenuItemDecorator;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.entity.text.Text;
+import org.andengine.entity.text.TextOptions;
 import org.andengine.extension.physics.box2d.FixedStepPhysicsWorld;
-import org.andengine.extension.physics.box2d.PhysicsConnector;
 import org.andengine.extension.physics.box2d.PhysicsFactory;
 import org.andengine.extension.physics.box2d.PhysicsWorld;
 import org.andengine.input.touch.TouchEvent;
 import org.andengine.opengl.texture.region.ITextureRegion;
 import org.andengine.util.SAXUtils;
+import org.andengine.util.adt.align.HorizontalAlign;
 import org.andengine.util.adt.color.Color;
 import org.andengine.util.debug.Debug;
 import org.andengine.util.level.EntityLoader;
@@ -53,12 +52,7 @@ import org.xml.sax.Attributes;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
-import com.badlogic.gdx.physics.box2d.Contact;
-import com.badlogic.gdx.physics.box2d.ContactImpulse;
-import com.badlogic.gdx.physics.box2d.ContactListener;
-import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
-import com.badlogic.gdx.physics.box2d.Manifold;
 
 import csci307.theGivingChild.CleanWaterGame.CleanWaterGame;
 import csci307.theGivingChild.CleanWaterGame.GameLauncher;
@@ -75,6 +69,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
     private static final double SWIPE_THRESHOLD = 80;
     private static final double COLLISION_THRESHOLD = 1.0;
     private HUD gameHUD;
+    private Text scoreText;
 	private PhysicsWorld physicsWorld;
 
 	private float lastX;
@@ -267,9 +262,14 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
     			return true;
     		};
     	};
+    	
+    	scoreText = new Text(400, 420, resourcesManager.font, "Score: 0", new TextOptions(HorizontalAlign.LEFT), vbom);
+    	scoreText.setAnchorCenter(0, 0);
+    	
 
     	gameHUD.registerTouchArea(pauseButton);
     	gameHUD.attachChild(pauseButton);
+    	gameHUD.attachChild(scoreText);
     	gameHUD.attachChild(heart1);
     	gameHUD.attachChild(heart2);
     	gameHUD.attachChild(heart3);
