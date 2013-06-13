@@ -167,7 +167,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
         createPhysics();
 
         setOnSceneTouchListener(this);
-        this.resourcesManager.backgroundMusic.play();
+        if(!this.resourcesManager.backgroundMusic.isPlaying())this.resourcesManager.backgroundMusic.play();
         if (ResourceManager.getInstance().isMuted())
         {
         	this.resourcesManager.backgroundMusic.pause();
@@ -262,7 +262,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
     				paused = true;
     				pausedType = PausedType.PAUSED_ON;
 //    				setChildScene(pauseScene(), false, true, true);
-    				resourcesManager.backgroundMusic.pause();
+    				if(resourcesManager.backgroundMusic.isPlaying())resourcesManager.backgroundMusic.pause();
     			}
     			return true;
     		};

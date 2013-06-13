@@ -56,7 +56,7 @@ public class AndEngineGameActivity extends BaseGameActivity {
 		}
         if((!MUTE_SOUND_EFX) && CleanWaterGame.getInstance().getSharedPreferences(GameLauncher.PREFERENCE_KEY_INGAME, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).getBoolean(GameLauncher.PREFERENCE_KEY_INGAME_MUTE, false))
         {
-        	ResourceManager.getInstance().backgroundMusic.play();
+        	if(!ResourceManager.getInstance().backgroundMusic.isPlaying())ResourceManager.getInstance().backgroundMusic.play();
         }
 	}
 	
