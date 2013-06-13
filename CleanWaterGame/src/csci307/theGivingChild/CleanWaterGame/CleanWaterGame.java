@@ -28,6 +28,7 @@ import org.acra.annotation.*;
 public class CleanWaterGame extends Application {
 	private static CleanWaterGame instance;
 	 private MediaPlayer menuMusic;
+	 private MediaPlayer gameMusic;
 	 private MediaPlayer selectSound;
 	 
 	 
@@ -43,6 +44,8 @@ public class CleanWaterGame extends Application {
         try {
 			menuMusic = MediaPlayer.create(this, R.raw.menumusic);
 			menuMusic.setLooping(true);
+			gameMusic = MediaPlayer.create(this, R.raw.gamemusic);
+			gameMusic.setLooping(true);
 			selectSound = MediaPlayer.create(this, R.raw.select_button);
 		} catch (IllegalArgumentException e) {
 			// TODO Auto-generated catch block
@@ -72,7 +75,17 @@ public class CleanWaterGame extends Application {
 	{
 		//If this check is not done it results in an error
 		//the mediaplayer can only be paused when it is playing music
-		if(menuMusic.isPlaying())menuMusic.pause();
+		if (menuMusic.isPlaying()) {
+			menuMusic.pause();
+		}
+	}
+	public void pauseGameMusic()
+	{
+		//If this check is not done it results in an error
+		//the mediaplayer can only be paused when it is playing music
+		if (gameMusic.isPlaying()) {
+			gameMusic.pause();
+		}
 	}
 	
 	/**
@@ -81,6 +94,11 @@ public class CleanWaterGame extends Application {
 	public void playMenuMusic()
 	{
 		menuMusic.start();
+	}
+	
+	public void playGameMusic()
+	{
+		gameMusic.start();
 	}
 	
 	/**

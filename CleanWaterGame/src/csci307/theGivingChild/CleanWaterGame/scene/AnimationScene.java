@@ -53,15 +53,20 @@ public class AnimationScene extends BaseScene implements IOnMenuItemClickListene
 	public void createScene() {
 			
 		createMenuChildScene();
-		if(ResourceManager.getInstance().backgroundMusic.isPlaying())ResourceManager.getInstance().backgroundMusic.pause();
-		ResourceManager.getInstance().backgroundMusic.play();
-		if (ResourceManager.getInstance().isMuted()) {
-			ResourceManager.getInstance().backgroundMusic.pause();
+		if (!ResourceManager.getInstance().isMuted()) {
+			CleanWaterGame.getInstance().playGameMusic();
 		}
+//		if (!ResourceManager.getInstance().isMuted()) {
+//			CleanWaterGame.getInstance().playGameMusic();
+//		}
 	}
 
 	@Override
 	public void onBackKeyPressed() {
+		if (!ResourceManager.getInstance().isMuted()) {
+			CleanWaterGame.getInstance().playMenuMusic();
+		}
+		CleanWaterGame.getInstance().getSharedPreferences(GameLauncher.PREFERENCE_KEY_INGAME, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).edit().putBoolean(GameLauncher.PREFERENCE_KEY_INGAME_MUTE, false).commit();
 		SceneManager.getInstance().loadMenuScene(engine);
 		
 	}
@@ -73,7 +78,7 @@ public class AnimationScene extends BaseScene implements IOnMenuItemClickListene
 
 	@Override
 	public void disposeScene() {
-		if(ResourceManager.getInstance().backgroundMusic.isPlaying())ResourceManager.getInstance().backgroundMusic.stop();
+		CleanWaterGame.getInstance().pauseGameMusic();
 		this.clearChildScene();
 		this.detachChildren();
 		this.reset();
@@ -150,18 +155,31 @@ public class AnimationScene extends BaseScene implements IOnMenuItemClickListene
 			case MENU_SKIP:
 				switch (currentAnimation) {
 					case SCENE_ONE:
-						disposeScene();
-						if(ResourceManager.getInstance().backgroundMusic.isPlaying())ResourceManager.getInstance().backgroundMusic.pause();
 						SceneManager.getInstance().loadGameScene(engine, "act1scene1", "act1scene2");
 						CleanWaterGame.getInstance().pauseMenuMusic();
 						CleanWaterGame.getInstance().getSharedPreferences(GameLauncher.PREFERENCE_KEY_INGAME, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).edit().putBoolean(GameLauncher.PREFERENCE_KEY_INGAME_MUTE, true).commit();						
 						break;
 					case SCENE_TWO:
-						disposeScene();
-						if(ResourceManager.getInstance().backgroundMusic.isPlaying())ResourceManager.getInstance().backgroundMusic.pause();
 						SceneManager.getInstance().loadGameScene(engine, "act1scene2", "act1scene3");
 						CleanWaterGame.getInstance().pauseMenuMusic();
 						CleanWaterGame.getInstance().getSharedPreferences(GameLauncher.PREFERENCE_KEY_INGAME, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).edit().putBoolean(GameLauncher.PREFERENCE_KEY_INGAME_MUTE, true).commit();
+					case SCENE_THREE:
+						SceneManager.getInstance().loadGameScene(engine, "act1scene3", "act1scene4");
+						CleanWaterGame.getInstance().pauseMenuMusic();
+						CleanWaterGame.getInstance().getSharedPreferences(GameLauncher.PREFERENCE_KEY_INGAME, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).edit().putBoolean(GameLauncher.PREFERENCE_KEY_INGAME_MUTE, true).commit();
+						break;
+					case SCENE_FOUR:
+						SceneManager.getInstance().loadGameScene(engine, "act1scene4", "act1scene5");
+						CleanWaterGame.getInstance().pauseMenuMusic();
+						CleanWaterGame.getInstance().getSharedPreferences(GameLauncher.PREFERENCE_KEY_INGAME, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).edit().putBoolean(GameLauncher.PREFERENCE_KEY_INGAME_MUTE, true).commit();
+						break;
+					case SCENE_FIVE:
+						SceneManager.getInstance().loadGameScene(engine, "act1scene5", null);
+						CleanWaterGame.getInstance().pauseMenuMusic();
+						CleanWaterGame.getInstance().getSharedPreferences(GameLauncher.PREFERENCE_KEY_INGAME, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).edit().putBoolean(GameLauncher.PREFERENCE_KEY_INGAME_MUTE, true).commit();
+						break;
+					case SCENE_SIX:
+						break;
 					default:
 						break;
 				}
@@ -188,6 +206,29 @@ public class AnimationScene extends BaseScene implements IOnMenuItemClickListene
 						}
 						
 						break;
+					case SCENE_THREE:
+						if (currentScene != 0) {
+						} else {
+							disposeScene();
+							SceneManager.getInstance().loadMenuScene(engine);
+						}
+						break;
+					case SCENE_FOUR:
+						if (currentScene != 0) {
+						} else {
+							disposeScene();
+							SceneManager.getInstance().loadMenuScene(engine);
+						}
+						break;
+					case SCENE_FIVE:
+						if (currentScene != 0) {
+						} else {
+							disposeScene();
+							SceneManager.getInstance().loadMenuScene(engine);
+						}
+						break;
+					case SCENE_SIX:
+						break;
 					default:
 						break;
 				}
@@ -200,8 +241,6 @@ public class AnimationScene extends BaseScene implements IOnMenuItemClickListene
 							currentScene++;
 							attachChild(scene_one.get(currentScene));
 						} else {
-							disposeScene();
-							if(ResourceManager.getInstance().backgroundMusic.isPlaying())ResourceManager.getInstance().backgroundMusic.pause();
 							SceneManager.getInstance().loadGameScene(engine, "act1scene1", "act1scene2");
 							CleanWaterGame.getInstance().pauseMenuMusic();
 							CleanWaterGame.getInstance().getSharedPreferences(GameLauncher.PREFERENCE_KEY_INGAME, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).edit().putBoolean(GameLauncher.PREFERENCE_KEY_INGAME_MUTE, true).commit();
@@ -212,13 +251,40 @@ public class AnimationScene extends BaseScene implements IOnMenuItemClickListene
 						if (currentScene != scene_one.size() - 1) {
 							
 						} else {
-							disposeScene();
-							if(ResourceManager.getInstance().backgroundMusic.isPlaying())ResourceManager.getInstance().backgroundMusic.pause();
 							SceneManager.getInstance().loadGameScene(engine, "act1scene2", "act1scene3");
 							CleanWaterGame.getInstance().pauseMenuMusic();
 							CleanWaterGame.getInstance().getSharedPreferences(GameLauncher.PREFERENCE_KEY_INGAME, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).edit().putBoolean(GameLauncher.PREFERENCE_KEY_INGAME_MUTE, true).commit();
 						}
 						
+						break;
+					case SCENE_THREE:
+						if (currentScene != scene_one.size() - 1) {
+							
+						} else {
+							SceneManager.getInstance().loadGameScene(engine, "act1scene3", "act1scene4");
+							CleanWaterGame.getInstance().pauseMenuMusic();
+							CleanWaterGame.getInstance().getSharedPreferences(GameLauncher.PREFERENCE_KEY_INGAME, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).edit().putBoolean(GameLauncher.PREFERENCE_KEY_INGAME_MUTE, true).commit();
+						}
+						break;
+					case SCENE_FOUR:
+						if (currentScene != scene_one.size() - 1) {
+							
+						} else {
+							SceneManager.getInstance().loadGameScene(engine, "act1scene4", "act1scene5");
+							CleanWaterGame.getInstance().pauseMenuMusic();
+							CleanWaterGame.getInstance().getSharedPreferences(GameLauncher.PREFERENCE_KEY_INGAME, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).edit().putBoolean(GameLauncher.PREFERENCE_KEY_INGAME_MUTE, true).commit();
+						}
+						break;
+					case SCENE_FIVE:
+						if (currentScene != scene_one.size() - 1) {
+							
+						} else {
+							SceneManager.getInstance().loadGameScene(engine, "act1scene5", null);
+							CleanWaterGame.getInstance().pauseMenuMusic();
+							CleanWaterGame.getInstance().getSharedPreferences(GameLauncher.PREFERENCE_KEY_INGAME, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).edit().putBoolean(GameLauncher.PREFERENCE_KEY_INGAME_MUTE, true).commit();
+						}
+						break;
+					case SCENE_SIX:
 						break;
 					default:
 						break;

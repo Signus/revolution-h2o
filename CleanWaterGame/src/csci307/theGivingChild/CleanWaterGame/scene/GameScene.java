@@ -164,11 +164,10 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
         createPhysics();
 
         setOnSceneTouchListener(this);
-        if(ResourceManager.getInstance().backgroundMusic.isPlaying())ResourceManager.getInstance().backgroundMusic.pause();
-        ResourceManager.getInstance().backgroundMusic.play();
-        if (ResourceManager.getInstance().isMuted())
+       
+        if (!ResourceManager.getInstance().isMuted())
         {
-        	ResourceManager.getInstance().backgroundMusic.pause();
+        	CleanWaterGame.getInstance().playGameMusic();
         }
     }
 
@@ -189,7 +188,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 //    	}
     	
     	if (pausedType.equals(PausedType.PAUSED_ON)) {
-    		if(!ResourceManager.getInstance().isMuted()) ResourceManager.getInstance().backgroundMusic.play();
+    		if(!ResourceManager.getInstance().isMuted()) CleanWaterGame.getInstance().playGameMusic();
     		clearChildScene();
     		pausedType = PausedType.PAUSED_OFF;
     	} else {
@@ -211,7 +210,9 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
         camera.setHUD(null);
         camera.setCenter(400, 240);
         camera.setBounds(0, 0, 800, 480);
-        ResourceManager.getInstance().backgroundMusic.stop();
+        if(!ResourceManager.getInstance().isMuted()) {
+        	CleanWaterGame.getInstance().pauseGameMusic();
+        }
 
         Iterator<Body> allBodies = this.physicsWorld.getBodies();
         while (allBodies.hasNext()) {
@@ -269,7 +270,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
     				paused = true;
     				pausedType = PausedType.PAUSED_ON;
 //    				setChildScene(pauseScene(), false, true, true);
-    				if(resourcesManager.backgroundMusic.isPlaying())resourcesManager.backgroundMusic.pause();
+    				CleanWaterGame.getInstance().pauseGameMusic();
     			}
     			return true;
     		};
@@ -590,7 +591,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 		switch (pMenuItem.getID()) {
 			case MENU_RESUME:
 				clearChildScene();
-				if(!ResourceManager.getInstance().isMuted()) ResourceManager.getInstance().backgroundMusic.resume();
+				if(!ResourceManager.getInstance().isMuted()) CleanWaterGame.getInstance().playGameMusic();
 				pausedType = PausedType.PAUSED_OFF;
 				return true;
 			case MENU_QUIT:
@@ -601,7 +602,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 				pausedType = PausedType.PAUSED_OFF;
 				return true;
 			case MENU_RESTART:
-				resourcesManager.backgroundMusic.stop();
+				CleanWaterGame.getInstance().pauseGameMusic();
 				clearChildScene();
 				disposeScene();
 				SceneManager.getInstance().loadGameScene(engine, currentLevel, nextLevel);
@@ -612,7 +613,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 				ResourceManager.getInstance().toggleMute();
 				if(ResourceManager.getInstance().isMuted())
 				{
-					resourcesManager.backgroundMusic.pause();
+					CleanWaterGame.getInstance().pauseGameMusic();
 				}
 				return true;
 			case MENU_NEXT:
@@ -622,11 +623,14 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 						SceneManager.getInstance().createAnimationScene(Animation.SCENE_TWO);
 						SceneManager.getInstance().loadAnimationScene(engine);
 					} else if (nextLevel.equals("act1scene3")) {
-
+						SceneManager.getInstance().createAnimationScene(Animation.SCENE_THREE);
+						SceneManager.getInstance().loadAnimationScene(engine);
 					} else if (nextLevel.equals("act1scene4")) {
-
+						SceneManager.getInstance().createAnimationScene(Animation.SCENE_FOUR);
+						SceneManager.getInstance().loadAnimationScene(engine);
 					} else if (nextLevel.equals("act1scene5")) {
-
+						SceneManager.getInstance().createAnimationScene(Animation.SCENE_FIVE);
+						SceneManager.getInstance().loadAnimationScene(engine);
 					} else {
 						System.out.println("Invalid file detected");
 					}
