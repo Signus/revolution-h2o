@@ -167,9 +167,10 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
         createPhysics();
 
         setOnSceneTouchListener(this);
-        if (!ResourceManager.getInstance().isMuted())
+        if(!this.resourcesManager.backgroundMusic.isPlaying())this.resourcesManager.backgroundMusic.play();
+        if (ResourceManager.getInstance().isMuted())
         {
-        	this.resourcesManager.backgroundMusic.play();
+        	this.resourcesManager.backgroundMusic.pause();
         }
     }
 
@@ -261,7 +262,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
     				paused = true;
     				pausedType = PausedType.PAUSED_ON;
 //    				setChildScene(pauseScene(), false, true, true);
-    				resourcesManager.backgroundMusic.pause();
+    				if(resourcesManager.backgroundMusic.isPlaying())resourcesManager.backgroundMusic.pause();
     			}
     			return true;
     		};
@@ -432,6 +433,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 								this.setIgnoreUpdate(true);
 								//show level complete scene.
 								System.out.println("TRIGGER WORKS");
+                                CleanWaterGame.getInstance().getSharedPreferences(LevelSelectScene.LEVEL_SELECT_PREFERENCE, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).edit().putBoolean(currentLevel, true).commit();
 
 								setChildScene(gameWinScene());
 								pausedType = PausedType.PAUSED_GAMEWIN;
@@ -560,7 +562,8 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
             player.jump();
 
         } else if (difX > 0 && difX > Math.abs(difY)) {
-            player.dash();
+        	if (!currentLevel.equals("act1scene1") && !currentLevel.equals("act1scene2"))
+        		player.dash();
         }
     }
 

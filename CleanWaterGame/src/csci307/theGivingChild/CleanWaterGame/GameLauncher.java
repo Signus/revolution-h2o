@@ -7,7 +7,7 @@
 * History:
 *    5/31/13 original 1.0
 */
- 
+
 package csci307.theGivingChild.CleanWaterGame;
 
 import csci307.theGivingChild.CleanWaterGame.manager.ResourceManager;
@@ -22,40 +22,41 @@ public class GameLauncher extends Activity {
 
     private boolean MUTE_SOUND_EFX;
     private final String gvingChildUrl = "http://www.thegivingchild.org/home/DONATE.html";
-    
+
     //These are keys for the shared preference that is used through out this app
     //This is the mute preference for the app
     public static final String PREFERENCE_KEY = "csci370.thegivingchild.cleanwatergame.preference";
     public static final String PREFERENCE_KEY_MUTE = "csci370.thegivingchild.cleanwatergame.preference.mute";
-    
+
     //this allows us to detect if we are in a scene and determine what music to play
     public static final String PREFERENCE_KEY_INGAME = "csci370.thegivingchild.cleanwatergame.preference.ingame";
     public static final String PREFERENCE_KEY_INGAME_MUTE = "csci370.thegivingchild.cleanwatergame.preference.ingamemute";
-   
+    public static final String LOCK_LEVELS = "csci370.thegivingchild.cleanwatergame.preference.levellocks";
+
     //This tells us if we are going to another activity in this app or the app is being put into the background
    private boolean goingOtheract;
-    
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_launcher);
     }
-    
+
     @Override
     public void onResume(){
     	super.onResume();
     	 goingOtheract = false;
     	ImageButton im = (ImageButton)findViewById(R.id.muting);
-    	
+
     	//sets up the mute/unmute icon to the appropriate icon
     	MUTE_SOUND_EFX = CleanWaterGame.getInstance().getSharedPreferences(PREFERENCE_KEY, MODE_MULTI_PROCESS).getBoolean(PREFERENCE_KEY_MUTE, false);
-    	
+
     	im.setImageResource((MUTE_SOUND_EFX ? R.drawable.mute : R.drawable.unmuted));
-    	
+
     	//This ensures that the ingame preference is false when we start other wise an error occurs
     	CleanWaterGame.getInstance().getSharedPreferences(GameLauncher.PREFERENCE_KEY_INGAME, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).edit()
     			.putBoolean(GameLauncher.PREFERENCE_KEY_INGAME_MUTE, false).commit();
-    	
+
     	if (!MUTE_SOUND_EFX) {
     		CleanWaterGame.getInstance().playMenuMusic();
     	}
@@ -65,7 +66,7 @@ public class GameLauncher extends Activity {
     public void onPause()
     {
     	super.onPause();
-    	
+
     	if(!goingOtheract)
     	{
     		CleanWaterGame.getInstance().pauseMenuMusic();
@@ -79,14 +80,14 @@ public class GameLauncher extends Activity {
     public void toggleMute(View v)
     {
         ImageButton im = (ImageButton)v;
-        
+
         //sets mute_sound_efex and the mute/unmute icon to the appropriate values as well as the apps mute preference
         MUTE_SOUND_EFX = (CleanWaterGame.getInstance().getSharedPreferences(PREFERENCE_KEY, MODE_MULTI_PROCESS).getBoolean(PREFERENCE_KEY_MUTE, false) ? false : true);
-        
+
         im.setImageResource((MUTE_SOUND_EFX ? R.drawable.mute : R.drawable.unmuted));
-        
+
         CleanWaterGame.getInstance().getSharedPreferences(PREFERENCE_KEY, MODE_MULTI_PROCESS).edit().putBoolean(PREFERENCE_KEY_MUTE,MUTE_SOUND_EFX).commit();
-        
+
         //plays and pauses the music as desired
         if (!MUTE_SOUND_EFX) {
         	CleanWaterGame.getInstance().playMenuMusic();
@@ -139,5 +140,5 @@ public class GameLauncher extends Activity {
         Intent extra = new Intent(this, ExtrasMenu.class);
         startActivity(extra);
     }
-    
+
 }

@@ -1,12 +1,14 @@
 /*
  * Authors: Chris Card, Tony Nguyen, Gurpreet Nanda, Dylan Chau, Dustin Liang, Maria Deslis
  * Date: 05/22/13
- * Description: Level selection for act 1. This scene will display the levels that the user can choose to play. 
+ * Description: Level selection for act 1. This scene will display the levels that the user can choose to play.
  */
 
 
 package csci307.theGivingChild.CleanWaterGame.scene;
 
+import android.content.SharedPreferences;
+import android.graphics.PorterDuff;
 import org.andengine.entity.scene.background.AutoParallaxBackground;
 import org.andengine.entity.scene.background.Background;
 import org.andengine.entity.scene.background.ParallaxBackground.ParallaxEntity;
@@ -28,15 +30,16 @@ import csci307.theGivingChild.CleanWaterGame.scene.AnimationScene.Animation;
 
 public class LevelSelectScene extends BaseScene implements IOnMenuItemClickListener {
 
-	private MenuScene menuChildScene;
-	
+    public static final String LEVEL_SELECT_PREFERENCE = "csci370.theGivingChild.CleanWaterGame.LEVEL_SELECT";
+    private MenuScene menuChildScene;
+
 	private final int SCENE_ONE = 0;
 	private final int SCENE_TWO = 1;
 	private final int SCENE_THREE = 2;
 	private final int SCENE_FOUR = 3;
 	private final int SCENE_FIVE = 4;
-	
-	
+
+
 	@Override
 	public boolean onMenuItemClicked(org.andengine.entity.scene.menu.MenuScene pMenuScene, IMenuItem pMenuItem, float pMenuItemLocalX, float pMenuItemLocalY) {
 		switch (pMenuItem.getID()) {
@@ -71,17 +74,17 @@ public class LevelSelectScene extends BaseScene implements IOnMenuItemClickListe
 				return false;
 		}
 	}
-	
+
 
 	@Override
 	public void createScene() {
 		createBackground();
-		createMenuChildScene();		
+		createMenuChildScene();
 	}
 
 	@Override
 	public void onBackKeyPressed() {
-		SceneManager.getInstance().loadActSelectScene(engine);	
+		SceneManager.getInstance().loadActSelectScene(engine);
 	}
 
 	@Override
@@ -92,46 +95,58 @@ public class LevelSelectScene extends BaseScene implements IOnMenuItemClickListe
 	@Override
 	public void disposeScene() {
 		// TODO Auto-generated method stub
-		
+
 	}
-	
+
 	private void createBackground() {
 //		setBackground(new Background(Color.BLACK));
 		AutoParallaxBackground autoParallaxBackground = new AutoParallaxBackground(0, 0, 0, 5);
 		autoParallaxBackground.attachParallaxEntity(new ParallaxEntity(0.0f, new Sprite(.5f*camera.getWidth() , .5f*camera.getHeight(), resourcesManager.menu_background_TR, vbom)));
 		setBackground(autoParallaxBackground);
-		attachChild(new Text(400, camera.getHeight() - 40, resourcesManager.font, "Act I", vbom));		
+		attachChild(new Text(400, camera.getHeight() - 40, resourcesManager.font, "Act I", vbom));
 	}
-	
+
 	//create buttons here
 	private void createMenuChildScene() {
+
 		menuChildScene = new MenuScene(camera);
 		menuChildScene.setPosition(0, 0);
-		
+
 		final IMenuItem levelOneMenuItem = new ScaleMenuItemDecorator(new SpriteMenuItem(SCENE_ONE, resourcesManager.scene_one_TR, vbom), 1.2f, 1);
 		final IMenuItem levelTwoMenuItem = new ScaleMenuItemDecorator(new SpriteMenuItem(SCENE_TWO, resourcesManager.scene_two_TR, vbom), 1.2f, 1);
 		final IMenuItem levelThreeMenuItem = new ScaleMenuItemDecorator(new SpriteMenuItem(SCENE_THREE, resourcesManager.scene_three_TR, vbom), 1.2f, 1);
 		final IMenuItem levelFourMenuItem = new ScaleMenuItemDecorator(new SpriteMenuItem(SCENE_FOUR, resourcesManager.scene_four_TR, vbom), 1.2f, 1);
 		final IMenuItem levelFiveMenuItem = new ScaleMenuItemDecorator(new SpriteMenuItem(SCENE_FIVE, resourcesManager.scene_five_TR, vbom), 1.2f, 1);
-		
-		menuChildScene.addMenuItem(levelOneMenuItem);
-		menuChildScene.addMenuItem(levelTwoMenuItem);
-		menuChildScene.addMenuItem(levelThreeMenuItem);
-		menuChildScene.addMenuItem(levelFourMenuItem);
-		menuChildScene.addMenuItem(levelFiveMenuItem);
-		
+
 		menuChildScene.buildAnimations();
 		menuChildScene.setBackgroundEnabled(false);
-		
+
+        menuChildScene.addMenuItem(levelOneMenuItem);
 		levelOneMenuItem.setPosition(100, 100);
-		levelTwoMenuItem.setPosition(250, 100);
-		levelThreeMenuItem.setPosition(400, 100);
-		levelFourMenuItem.setPosition(550,100);
-		levelFiveMenuItem.setPosition(700,100);
-		
-		
+
+        if (CleanWaterGame.getInstance().getSharedPreferences(LEVEL_SELECT_PREFERENCE, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).getBoolean("act1scene1", false)) {
+            menuChildScene.addMenuItem(levelTwoMenuItem);
+            levelTwoMenuItem.setPosition(250, 100);
+        }
+
+        if (CleanWaterGame.getInstance().getSharedPreferences(LEVEL_SELECT_PREFERENCE, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).getBoolean("act1scene2", false)) {
+            menuChildScene.addMenuItem(levelThreeMenuItem);
+            levelThreeMenuItem.setPosition(400, 100);
+        }
+
+        if (CleanWaterGame.getInstance().getSharedPreferences(LEVEL_SELECT_PREFERENCE, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).getBoolean("act1scene3", false)) {
+            menuChildScene.addMenuItem(levelFourMenuItem);
+            levelFourMenuItem.setPosition(550,100);
+        }
+
+
+        if (CleanWaterGame.getInstance().getSharedPreferences(LEVEL_SELECT_PREFERENCE, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).getBoolean("act1scene4", false)) {
+            menuChildScene.addMenuItem(levelFiveMenuItem);
+            levelFiveMenuItem.setPosition(700,100);
+        }
+
 		menuChildScene.setOnMenuItemClickListener(this);
-				
+
 		setChildScene(menuChildScene);
-	}	
+	}
 }
