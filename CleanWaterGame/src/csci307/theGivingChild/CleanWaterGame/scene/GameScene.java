@@ -167,10 +167,11 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
         createPhysics();
 
         setOnSceneTouchListener(this);
-        if(!this.resourcesManager.backgroundMusic.isPlaying())this.resourcesManager.backgroundMusic.play();
+        if(ResourceManager.getInstance().backgroundMusic.isPlaying())ResourceManager.getInstance().backgroundMusic.pause();
+        ResourceManager.getInstance().backgroundMusic.play();
         if (ResourceManager.getInstance().isMuted())
         {
-        	this.resourcesManager.backgroundMusic.pause();
+        	ResourceManager.getInstance().backgroundMusic.pause();
         }
     }
 
@@ -204,7 +205,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
         camera.setHUD(null);
         camera.setCenter(400, 240);
         camera.setBounds(0, 0, 800, 480);
-        this.resourcesManager.backgroundMusic.stop();
+        ResourceManager.getInstance().backgroundMusic.stop();
 
         Iterator<Body> allBodies = this.physicsWorld.getBodies();
         while (allBodies.hasNext()) {
@@ -572,7 +573,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 		switch (pMenuItem.getID()) {
 			case MENU_RESUME:
 				clearChildScene();
-				if(!ResourceManager.getInstance().isMuted()) resourcesManager.backgroundMusic.resume();
+				if(!ResourceManager.getInstance().isMuted()) ResourceManager.getInstance().backgroundMusic.resume();
 				pausedType = PausedType.PAUSED_OFF;
 				return true;
 			case MENU_QUIT:

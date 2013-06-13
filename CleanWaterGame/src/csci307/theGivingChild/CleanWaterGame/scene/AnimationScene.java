@@ -38,11 +38,10 @@ public class AnimationScene extends BaseScene implements IOnMenuItemClickListene
 	}
 
 	public AnimationScene(Animation animation) {
-    	this.resourcesManager = ResourceManager.getInstance();
-    	this.engine = resourcesManager.engine;
-        this.activity = resourcesManager.activity;
-        this.vbom = resourcesManager.vbom;
-        this.camera = resourcesManager.camera;
+    	this.engine = ResourceManager.getInstance().engine;
+        this.activity = ResourceManager.getInstance().activity;
+        this.vbom = ResourceManager.getInstance().vbom;
+        this.camera = ResourceManager.getInstance().camera;
         currentAnimation = animation;
         currentScene = 0;
         createScene();
@@ -53,9 +52,11 @@ public class AnimationScene extends BaseScene implements IOnMenuItemClickListene
 	@Override
 	public void createScene() {
 			
-		createMenuChildScene();			
-		if (!ResourceManager.getInstance().isMuted()) {
-			this.resourcesManager.backgroundMusic.play();
+		createMenuChildScene();
+		if(ResourceManager.getInstance().backgroundMusic.isPlaying())ResourceManager.getInstance().backgroundMusic.pause();
+		ResourceManager.getInstance().backgroundMusic.play();
+		if (ResourceManager.getInstance().isMuted()) {
+			ResourceManager.getInstance().backgroundMusic.pause();
 		}
 	}
 
@@ -72,7 +73,7 @@ public class AnimationScene extends BaseScene implements IOnMenuItemClickListene
 
 	@Override
 	public void disposeScene() {
-		this.resourcesManager.backgroundMusic.pause();
+		if(ResourceManager.getInstance().backgroundMusic.isPlaying())ResourceManager.getInstance().backgroundMusic.stop();
 		
 	}
 	
@@ -101,9 +102,9 @@ public class AnimationScene extends BaseScene implements IOnMenuItemClickListene
 		final MenuScene navigation = new MenuScene(camera);
 
 //		final IMenuItem quitMenuItem = new ColorMenuItemDecorator(new TextMenuItem(MENU_QUIT, resourcesManager.font, "QUIT", vbom), Color.RED, Color.WHITE);
-		final IMenuItem skipMenuItem = new ColorMenuItemDecorator(new TextMenuItem(MENU_SKIP, resourcesManager.font, "SKIP", vbom), Color.RED, Color.WHITE);
-		final IMenuItem nextMenuItem = new ColorMenuItemDecorator(new TextMenuItem(MENU_NEXT, resourcesManager.font, "NEXT", vbom), Color.RED, Color.WHITE);
-		final IMenuItem previousMenuItem = new ColorMenuItemDecorator(new TextMenuItem(MENU_PREV, resourcesManager.font, "PREV", vbom), Color.RED, Color.WHITE);
+		final IMenuItem skipMenuItem = new ColorMenuItemDecorator(new TextMenuItem(MENU_SKIP, ResourceManager.getInstance().font, "SKIP", vbom), Color.RED, Color.WHITE);
+		final IMenuItem nextMenuItem = new ColorMenuItemDecorator(new TextMenuItem(MENU_NEXT, ResourceManager.getInstance().font, "NEXT", vbom), Color.RED, Color.WHITE);
+		final IMenuItem previousMenuItem = new ColorMenuItemDecorator(new TextMenuItem(MENU_PREV, ResourceManager.getInstance().font, "PREV", vbom), Color.RED, Color.WHITE);
 
 //		gameOver.attachChild(new Text(400, 400, resourcesManager.game_font, "GAME OVER", vbom));
 		nextMenuItem.setPosition(740, 20);
@@ -125,14 +126,14 @@ public class AnimationScene extends BaseScene implements IOnMenuItemClickListene
 	
 	private void displaySceneOne() {
 		scene_one = new ArrayList<Sprite>();
-		scene_one.add(new Sprite(400, 240, resourcesManager.animation_one_one, vbom));
-		scene_one.add(new Sprite(400, 240, resourcesManager.animation_one_two, vbom));
-		scene_one.add(new Sprite(400, 240, resourcesManager.animation_one_three, vbom));
-		scene_one.add(new Sprite(400, 240, resourcesManager.animation_one_four, vbom));
-		scene_one.add(new Sprite(400, 240, resourcesManager.animation_one_five, vbom));
-		scene_one.add(new Sprite(400, 240, resourcesManager.animation_one_six, vbom));
-		scene_one.add(new Sprite(400, 240, resourcesManager.animation_one_seven, vbom));
-		scene_one.add(new Sprite(400, 240, resourcesManager.animation_one_eight, vbom));
+		scene_one.add(new Sprite(400, 240, ResourceManager.getInstance().animation_one_one, vbom));
+		scene_one.add(new Sprite(400, 240, ResourceManager.getInstance().animation_one_two, vbom));
+		scene_one.add(new Sprite(400, 240, ResourceManager.getInstance().animation_one_three, vbom));
+		scene_one.add(new Sprite(400, 240, ResourceManager.getInstance().animation_one_four, vbom));
+		scene_one.add(new Sprite(400, 240, ResourceManager.getInstance().animation_one_five, vbom));
+		scene_one.add(new Sprite(400, 240, ResourceManager.getInstance().animation_one_six, vbom));
+		scene_one.add(new Sprite(400, 240, ResourceManager.getInstance().animation_one_seven, vbom));
+		scene_one.add(new Sprite(400, 240, ResourceManager.getInstance().animation_one_eight, vbom));
 		attachChild(scene_one.get(currentScene));
 	}
 
@@ -147,12 +148,14 @@ public class AnimationScene extends BaseScene implements IOnMenuItemClickListene
 				switch (currentAnimation) {
 					case SCENE_ONE:
 						disposeScene();
+						if(ResourceManager.getInstance().backgroundMusic.isPlaying())ResourceManager.getInstance().backgroundMusic.pause();
 						SceneManager.getInstance().loadGameScene(engine, "act1scene1", "act1scene2");
 						CleanWaterGame.getInstance().pauseMenuMusic();
 						CleanWaterGame.getInstance().getSharedPreferences(GameLauncher.PREFERENCE_KEY_INGAME, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).edit().putBoolean(GameLauncher.PREFERENCE_KEY_INGAME_MUTE, true).commit();						
 						break;
 					case SCENE_TWO:
 						disposeScene();
+						if(ResourceManager.getInstance().backgroundMusic.isPlaying())ResourceManager.getInstance().backgroundMusic.pause();
 						SceneManager.getInstance().loadGameScene(engine, "act1scene2", "act1scene3");
 						CleanWaterGame.getInstance().pauseMenuMusic();
 						CleanWaterGame.getInstance().getSharedPreferences(GameLauncher.PREFERENCE_KEY_INGAME, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).edit().putBoolean(GameLauncher.PREFERENCE_KEY_INGAME_MUTE, true).commit();
@@ -195,6 +198,7 @@ public class AnimationScene extends BaseScene implements IOnMenuItemClickListene
 							attachChild(scene_one.get(currentScene));
 						} else {
 							disposeScene();
+							if(ResourceManager.getInstance().backgroundMusic.isPlaying())ResourceManager.getInstance().backgroundMusic.pause();
 							SceneManager.getInstance().loadGameScene(engine, "act1scene1", "act1scene2");
 							CleanWaterGame.getInstance().pauseMenuMusic();
 							CleanWaterGame.getInstance().getSharedPreferences(GameLauncher.PREFERENCE_KEY_INGAME, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).edit().putBoolean(GameLauncher.PREFERENCE_KEY_INGAME_MUTE, true).commit();
@@ -206,6 +210,7 @@ public class AnimationScene extends BaseScene implements IOnMenuItemClickListene
 							
 						} else {
 							disposeScene();
+							if(ResourceManager.getInstance().backgroundMusic.isPlaying())ResourceManager.getInstance().backgroundMusic.pause();
 							SceneManager.getInstance().loadGameScene(engine, "act1scene2", "act1scene3");
 							CleanWaterGame.getInstance().pauseMenuMusic();
 							CleanWaterGame.getInstance().getSharedPreferences(GameLauncher.PREFERENCE_KEY_INGAME, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).edit().putBoolean(GameLauncher.PREFERENCE_KEY_INGAME_MUTE, true).commit();

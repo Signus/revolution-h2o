@@ -270,6 +270,7 @@ public class ResourceManager {
 		//MUSIC
 		MusicFactory.setAssetBasePath("sfx/");
 		try {
+			if(null != this.backgroundMusic && this.backgroundMusic.isPlaying()) this.backgroundMusic.stop();
 			this.backgroundMusic = MusicFactory.createMusicFromAsset(activity.getMusicManager(),activity, "gameMusic.mp3");
 			this.backgroundMusic.setLooping(true);
 			this.backgroundMusic.setVolume(.9f);
