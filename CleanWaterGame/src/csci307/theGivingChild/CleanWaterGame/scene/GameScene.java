@@ -210,7 +210,9 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
         camera.setHUD(null);
         camera.setCenter(400, 240);
         camera.setBounds(0, 0, 800, 480);
-        CleanWaterGame.getInstance().pauseGameMusic();
+        if(!ResourceManager.getInstance().isMuted()) {
+        	CleanWaterGame.getInstance().pauseGameMusic();
+        }
 
         Iterator<Body> allBodies = this.physicsWorld.getBodies();
         while (allBodies.hasNext()) {

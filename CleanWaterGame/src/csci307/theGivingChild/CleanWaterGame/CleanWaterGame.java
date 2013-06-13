@@ -75,13 +75,17 @@ public class CleanWaterGame extends Application {
 	{
 		//If this check is not done it results in an error
 		//the mediaplayer can only be paused when it is playing music
-		if(menuMusic.isPlaying())menuMusic.pause();
+		if (menuMusic.isPlaying()) {
+			menuMusic.pause();
+		}
 	}
 	public void pauseGameMusic()
 	{
 		//If this check is not done it results in an error
 		//the mediaplayer can only be paused when it is playing music
-		if(gameMusic.isPlaying())gameMusic.pause();
+		if (gameMusic.isPlaying()) {
+			gameMusic.pause();
+		}
 	}
 	
 	/**

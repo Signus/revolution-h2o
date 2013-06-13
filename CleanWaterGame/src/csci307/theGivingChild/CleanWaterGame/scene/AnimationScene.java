@@ -53,7 +53,9 @@ public class AnimationScene extends BaseScene implements IOnMenuItemClickListene
 	public void createScene() {
 			
 		createMenuChildScene();
-		CleanWaterGame.getInstance().playGameMusic();
+		if (!ResourceManager.getInstance().isMuted()) {
+			CleanWaterGame.getInstance().playGameMusic();
+		}
 //		if (!ResourceManager.getInstance().isMuted()) {
 //			CleanWaterGame.getInstance().playGameMusic();
 //		}
@@ -61,7 +63,9 @@ public class AnimationScene extends BaseScene implements IOnMenuItemClickListene
 
 	@Override
 	public void onBackKeyPressed() {
-		if(!ResourceManager.getInstance().isMuted()) CleanWaterGame.getInstance().playMenuMusic();
+		if (!ResourceManager.getInstance().isMuted()) {
+			CleanWaterGame.getInstance().playMenuMusic();
+		}
 		CleanWaterGame.getInstance().getSharedPreferences(GameLauncher.PREFERENCE_KEY_INGAME, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).edit().putBoolean(GameLauncher.PREFERENCE_KEY_INGAME_MUTE, false).commit();
 		SceneManager.getInstance().loadMenuScene(engine);
 		

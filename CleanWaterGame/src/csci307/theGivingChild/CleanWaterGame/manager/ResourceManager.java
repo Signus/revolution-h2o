@@ -86,7 +86,7 @@ public class ResourceManager {
 	public Sound duckSound;
 
 	//music
-	public Music backgroundMusic;
+	//public Music backgroundMusic;
 
 	//------------------------------------------------
 	//CALLS TO LOAD ALL RESOURCES
@@ -266,7 +266,7 @@ public class ResourceManager {
 		}
 
 		//MUSIC
-		MusicFactory.setAssetBasePath("sfx/");
+		//MusicFactory.setAssetBasePath("sfx/");
 //		try {
 //			if(null != this.backgroundMusic && this.backgroundMusic.isPlaying()) this.backgroundMusic.stop();
 //			this.backgroundMusic = MusicFactory.createMusicFromAsset(activity.getMusicManager(),activity, "gameMusic.mp3");
