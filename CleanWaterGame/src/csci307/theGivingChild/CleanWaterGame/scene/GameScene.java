@@ -71,6 +71,8 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
     private HUD gameHUD;
     private Text scoreText;
 	private PhysicsWorld physicsWorld;
+	
+	private int score = 0;
 
 	private float lastX;
     private float lastY;
@@ -173,19 +175,28 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
     @Override
     public void onBackKeyPressed()
     {
-    	if (hasChildScene()) {
+//    	if (hasChildScene()) {
+//    		if(!ResourceManager.getInstance().isMuted()) ResourceManager.getInstance().backgroundMusic.play();
+//    		//if(!ResourceManager.getInstance().isMuted()) CleanWaterGame.getInstance().playMenuMusic();
+//    		//CleanWaterGame.getInstance().getSharedPreferences(GameLauncher.PREFERENCE_KEY_INGAME, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).edit().putBoolean(GameLauncher.PREFERENCE_KEY_INGAME_MUTE, false).commit();
+//    		clearChildScene();
+//    		paused = false;
+//    		pausedType = PausedType.PAUSED_OFF;
+//    	} else {
+//    		if(!ResourceManager.getInstance().isMuted()) CleanWaterGame.getInstance().playMenuMusic();
+//    		CleanWaterGame.getInstance().getSharedPreferences(GameLauncher.PREFERENCE_KEY_INGAME, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).edit().putBoolean(GameLauncher.PREFERENCE_KEY_INGAME_MUTE, false).commit();
+//    		SceneManager.getInstance().loadMenuScene(engine);
+//    	}
+    	
+    	if (pausedType.equals(PausedType.PAUSED_ON)) {
     		if(!ResourceManager.getInstance().isMuted()) ResourceManager.getInstance().backgroundMusic.play();
-    		//if(!ResourceManager.getInstance().isMuted()) CleanWaterGame.getInstance().playMenuMusic();
-    		//CleanWaterGame.getInstance().getSharedPreferences(GameLauncher.PREFERENCE_KEY_INGAME, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).edit().putBoolean(GameLauncher.PREFERENCE_KEY_INGAME_MUTE, false).commit();
     		clearChildScene();
-    		paused = false;
     		pausedType = PausedType.PAUSED_OFF;
     	} else {
     		if(!ResourceManager.getInstance().isMuted()) CleanWaterGame.getInstance().playMenuMusic();
     		CleanWaterGame.getInstance().getSharedPreferences(GameLauncher.PREFERENCE_KEY_INGAME, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).edit().putBoolean(GameLauncher.PREFERENCE_KEY_INGAME_MUTE, false).commit();
     		SceneManager.getInstance().loadMenuScene(engine);
     	}
-
     }
 
     @Override
@@ -264,9 +275,9 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
     		};
     	};
     	
-    	scoreText = new Text(400, 420, resourcesManager.font, "Score: 0", new TextOptions(HorizontalAlign.LEFT), vbom);
-    	scoreText.setAnchorCenter(0, 0);
-    	
+    	scoreText = new Text(300, 440, resourcesManager.font, "Score: 0123456", new TextOptions(HorizontalAlign.LEFT), vbom);
+//    	scoreText.setAnchorCenter(0, 0);
+    	scoreText.setText("Score: 0");
 
     	gameHUD.registerTouchArea(pauseButton);
     	gameHUD.attachChild(pauseButton);
@@ -302,6 +313,11 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
     			heart3.setVisible(true);
     			break;
     	}
+    }
+    
+    private void addToScore(int i) {
+    	score += i;
+    	scoreText.setText("Score: " + score);
     }
 
     private void createPhysics() {
@@ -444,19 +460,19 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 					levelObject.setVisible(false);
 				}
 				else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE)) {
-					levelObject = loadCollectable(x, y, resourcesManager.collectable_TR, 20);
+					levelObject = loadCollectable(x, y, resourcesManager.collectable_TR, 10);
 				}
 				else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE_ACT1_SCENE2_GOALS)) {
-					levelObject = loadCollectable(x, y, resourcesManager.twine_TR, 20);
+					levelObject = loadCollectable(x, y, resourcesManager.twine_TR, 40);
 				}
 				else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE_ACT1_SCENE3_GOALS)) {
-					levelObject = loadCollectable(x, y, resourcesManager.wood_TR, 20);
+					levelObject = loadCollectable(x, y, resourcesManager.wood_TR, 40);
 				}
 				else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE_ACT1_SCENE4_GOALS)) {
-					levelObject = loadCollectable(x, y, resourcesManager.stone_TR, 20);
+					levelObject = loadCollectable(x, y, resourcesManager.stone_TR, 40);
 				}
 				else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE_ACT1_SCENE5_GOALS)) {
-					levelObject = loadCollectable(x, y, resourcesManager.collectable_TR, 20);
+					levelObject = loadCollectable(x, y, resourcesManager.collectable_TR, 40);
 				} else {
 					throw new IllegalArgumentException();
 				}
@@ -472,13 +488,14 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 		levelLoader.loadLevelFromAsset(activity.getAssets(), "level/" + levelID + ".xml");
 	}
 
-    private Sprite loadCollectable(float x, float y, ITextureRegion region, int score) {
+    private Sprite loadCollectable(float x, float y, ITextureRegion region, final int s) {
     	Sprite sprite = new Sprite(x, y, region, vbom) {
     		@Override
     		protected void onManagedUpdate(float pSecondsElapsed) {
 				super.onManagedUpdate(pSecondsElapsed);
 
 				if (player.collidesWith(this)) {
+					addToScore(s);
 					this.setVisible(false);
 					this.setIgnoreUpdate(true);
 				}
@@ -599,11 +616,9 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 				}
 				return true;
 			case MENU_NEXT:
-				System.out.println("YO123");
 				if (nextLevel != null) {
 					System.out.println(nextLevel);
 					if (nextLevel.equals("act1scene2")) {
-						System.out.println("YO");
 						SceneManager.getInstance().createAnimationScene(Animation.SCENE_TWO);
 						SceneManager.getInstance().loadAnimationScene(engine);
 					} else if (nextLevel.equals("act1scene3")) {
