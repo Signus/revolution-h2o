@@ -74,7 +74,10 @@ public class AnimationScene extends BaseScene implements IOnMenuItemClickListene
 	@Override
 	public void disposeScene() {
 		if(ResourceManager.getInstance().backgroundMusic.isPlaying())ResourceManager.getInstance().backgroundMusic.stop();
-		
+		this.clearChildScene();
+		this.detachChildren();
+		this.reset();
+		this.detachSelf();
 	}
 	
 	private void loadAnimation(Animation animation) {
