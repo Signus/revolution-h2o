@@ -136,22 +136,19 @@ public class Player extends AnimatedSprite {
 	}
 
     private void setToInitialSprite() {
-//        final long[] PLAYER_ANIMATE = new long[] { 100, 100, 100, 100, 100, 100 };
-//        animate(PLAYER_ANIMATE, 0, 5, true);
-    	animate(100);
+        final long[] PLAYER_ANIMATE = new long[] { 100, 100, 100, 100, 100, 100 };
+        animate(PLAYER_ANIMATE, 0, 5, true);
     }
 
     // Need to change for new sprites
     private void setToJumpSprite() {
-//        final long[] PLAYER_ANIMATE = new long[] { 100, 100 };
-//        animate(PLAYER_ANIMATE, 0, 1, true);
-        animate(100);
+        final long[] PLAYER_ANIMATE = new long[] { 100, 10000 };
+        animate(PLAYER_ANIMATE, 5, 6, true);
     }
 
     private void setToDashSprite() {
-//        final long[] PLAYER_ANIMATE = new long[] { 100, 100 };
-//        animate(PLAYER_ANIMATE, 4, 5, true);
-    	animate(100);
+        final long[] PLAYER_ANIMATE = new long[] { 50, 50, 50, 50, 50, 50 };
+        animate(PLAYER_ANIMATE, 0, 5, true);
     }
 
     public void setRunning() {
