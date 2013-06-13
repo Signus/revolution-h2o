@@ -432,6 +432,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 								this.setIgnoreUpdate(true);
 								//show level complete scene.
 								System.out.println("TRIGGER WORKS");
+                                CleanWaterGame.getInstance().getSharedPreferences(LevelSelectScene.LEVEL_SELECT_PREFERENCE, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).edit().putBoolean(currentLevel, true).commit();
 
 								setChildScene(gameWinScene());
 								pausedType = PausedType.PAUSED_GAMEWIN;
