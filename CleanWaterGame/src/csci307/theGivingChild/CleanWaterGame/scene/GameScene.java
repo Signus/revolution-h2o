@@ -167,9 +167,10 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
         createPhysics();
 
         setOnSceneTouchListener(this);
-        if (!ResourceManager.getInstance().isMuted())
+        this.resourcesManager.backgroundMusic.play();
+        if (ResourceManager.getInstance().isMuted())
         {
-        	this.resourcesManager.backgroundMusic.play();
+        	this.resourcesManager.backgroundMusic.pause();
         }
     }
 
