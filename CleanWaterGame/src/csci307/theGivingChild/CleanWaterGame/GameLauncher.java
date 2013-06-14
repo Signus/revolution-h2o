@@ -15,8 +15,14 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 public class GameLauncher extends Activity {
 
@@ -35,11 +41,25 @@ public class GameLauncher extends Activity {
 
     //This tells us if we are going to another activity in this app or the app is being put into the background
    private boolean goingOtheract;
-
+   
+   private final static int INVISIBLE=4;
+   private final static int VISIBLE=0;
+   
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_launcher);
+        
+        ((LinearLayout)findViewById(R.id.main_layout)).setVisibility(INVISIBLE);
+        ((ImageButton)findViewById(R.id.muting)).setVisibility(INVISIBLE);
+        
+        new Handler().postDelayed(new Runnable(){
+            @Override
+            public void run() {
+               ((LinearLayout)findViewById(R.id.main_layout)).setVisibility(VISIBLE);
+               ((ImageButton)findViewById(R.id.muting)).setVisibility(VISIBLE);
+            }
+        }, 1500);
     }
 
     @Override
