@@ -43,8 +43,10 @@ public class CleanWaterGame extends Application {
 		 //Set menu music source
         try {
 			menuMusic = MediaPlayer.create(this, R.raw.menumusic);
+			//menuMusic.setVolume(.7f,.7f);
 			menuMusic.setLooping(true);
 			gameMusic = MediaPlayer.create(this, R.raw.gamemusic);
+			gameMusic.setVolume(1.2f,1.2f);
 			gameMusic.setLooping(true);
 			selectSound = MediaPlayer.create(this, R.raw.select_button);
 		} catch (IllegalArgumentException e) {
