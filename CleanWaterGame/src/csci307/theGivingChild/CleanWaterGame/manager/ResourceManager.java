@@ -72,13 +72,13 @@ public class ResourceManager {
 
 	//animation textures
 	public ITextureRegion animation_one_one, animation_one_two, animation_one_three, animation_one_four, animation_one_five, animation_one_six, animation_one_seven, animation_one_eight;
-	public ITextureRegion animation_two_one;
+	public ITextureRegion animation_two_one, animation_two_two, animation_two_three, animation_two_four;
 
 	//texture atlas
 	private BuildableBitmapTextureAtlas menuTA;
 	private BuildableBitmapTextureAtlas gameTA;
 	private BuildableBitmapTextureAtlas groundTA;
-	private BuildableBitmapTextureAtlas animationOneTA;
+	private BuildableBitmapTextureAtlas animationOneTA, animationTwoTA, animationThreeTA, animationFourTA;
 
 	//sounds
 	public Sound jumpSound;
@@ -224,14 +224,22 @@ public class ResourceManager {
 		animation_one_six = BitmapTextureAtlasTextureRegionFactory.createFromAsset(animationOneTA, activity, "Scene1_6.png");
 		animation_one_seven = BitmapTextureAtlasTextureRegionFactory.createFromAsset(animationOneTA, activity, "Scene1_7.png");
 		animation_one_eight = BitmapTextureAtlasTextureRegionFactory.createFromAsset(animationOneTA, activity, "Scene1_8.png");
+		
+		animationTwoTA = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 2048, 1024, TextureOptions.BILINEAR);
+		animation_two_one = BitmapTextureAtlasTextureRegionFactory.createFromAsset(animationTwoTA, activity, "Scene2_1.png");
+		animation_two_two = BitmapTextureAtlasTextureRegionFactory.createFromAsset(animationTwoTA, activity, "Scene2_2.png");
+		animation_two_three = BitmapTextureAtlasTextureRegionFactory.createFromAsset(animationTwoTA, activity, "Scene2_3.png");
+		animation_two_four = BitmapTextureAtlasTextureRegionFactory.createFromAsset(animationTwoTA, activity, "Scene2_4.png");
 
 		try {
 			this.animationOneTA.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 1));
+			this.animationTwoTA.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 1));
 		} catch (final TextureAtlasBuilderException e) {
 			Debug.e(e);
 		}
 
 		animationOneTA.load();
+		animationTwoTA.load();
 	}
 
 	/**
@@ -302,6 +310,7 @@ public class ResourceManager {
 
 	public void unloadAnimationGraphics() {
 		animationOneTA.unload();
+		animationTwoTA.unload();
 	}
 
 	//------------------------------------------------
