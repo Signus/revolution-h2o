@@ -63,7 +63,7 @@ public class ResourceManager {
 	public ITextureRegion act_one_TR;
 
 	//game textures
-	public ITiledTextureRegion player_TR;
+	public ITiledTextureRegion player_TR, alligator_TR;
 	public ITextureRegion collectable_TR,twine_TR,wood_TR,stone_TR, mud_TR;
 	public ITextureRegion scene_background_TR;
 	public ITextureRegion scene_foreground_TR;
@@ -198,6 +198,7 @@ public class ResourceManager {
         hill_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(groundTA, activity, "hill.png");
         falling_platform_2_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(groundTA, activity, "falling_platform_small.png");
         falling_platform_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(groundTA, activity, "falling_platform_large.png");
+        alligator_TR = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(groundTA, activity, "alligator_blink_sprite.png", 10, 1);
 
         try {
         	this.gameTA.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 1));
