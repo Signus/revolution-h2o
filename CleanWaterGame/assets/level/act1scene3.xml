@@ -177,6 +177,190 @@
 	<!--<entity x="1700" y="80" width="100" height="75" type="floatingPlatform"/>-->
 
 <!-- collectables -->
+    <!-- ground collectable -->
+    <entity x="50" y="100" width="100" height="50" type="collectable"/>
+    <entity x="150" y="100" width="100" height="50" type="collectable"/>
+    <entity x="250" y="100" width="100" height="50" type="collectable"/>
+    <entity x="350" y="100" width="100" height="50" type="collectable"/>
+    <entity x="450" y="100" width="100" height="50" type="collectable"/>
+    <entity x="550" y="100" width="100" height="50" type="collectable"/>
+
+    <!-- hill collectable -->
+    <entity x="650" y="175" width="200" height="90" type="collectable"/>
+    <entity x="750" y="175" width="200" height="90" type="collectable"/>
+
+    <!-- hill collectable -->
+    <entity x="850" y="250" width="200" height="90" type="collectable"/>
+    <entity x="950" y="250" width="200" height="90" type="collectable"/>
+
+    <entity x="1050" y="325" width="200" height="90" type="collectable"/>
+    <entity x="1150" y="325" width="200" height="90" type="collectable"/>
+
+    <entity x="1250" y="250" width="200" height="90" type="collectable"/>
+    <entity x="1350" y="250" width="200" height="90" type="collectable"/>
+
+    <entity x="1450" y="175" width="200" height="90" type="collectable"/>
+    <entity x="1550" y="175" width="200" height="90" type="collectable"/>
+
+    <!-- floatingPlatform collectable -->
+    <entity x="1400" y="375" width="100" height="20" type="collectable"/>
+    <entity x="1500" y="375" width="100" height="20" type="collectable"/>
+    <!--<entity x="1600" y="300" width="100" height="20" type="floatingPlatform"/>-->
+    <entity x="1700" y="375" width="100" height="20" type="collectable"/>
+    <entity x="1800" y="375" width="100" height="20" type="collectable"/>
+    <!--<entity x="1900" y="300" width="100" height="20" type="floatingPlatform"/>-->
+    <!--<entity x="2000" y="300" width="100" height="20" type="floatingPlatform"/>-->
+    <entity x="2100" y="375" width="100" height="20" type="collectable"/>
+    <entity x="2200" y="375" width="100" height="20" type="collectable"/>
+    <entity x="2300" y="375" width="100" height="20" type="collectable"/>
+
+    <!-- ground collectable -->
+    <entity x="1650" y="100" width="100" height="50" type="collectable"/>
+    <entity x="1750" y="100" width="100" height="50" type="collectable"/>
+    -->
+
+    <entity x="2050" y="100" width="100" height="50" type="collectable"/>
+    <entity x="2150" y="100" width="100" height="50" type="collectable"/>
+
+    <!-- hill collectable -->
+    <entity x="2250" y="175" width="200" height="90" type="collectable"/>
+    <entity x="2350" y="175" width="200" height="90" type="collectable"/>
+
+    <entity x="2450" y="250" width="200" height="90" type="collectable"/>
+    <entity x="2550" y="250" width="200" height="90" type="collectable"/>
+
+    <!-- fallingPlatform2 collectable -->
+    <entity x="2625" y="260" width="50" height="50" type="collectable"/>
+    <entity x="2675" y="260" width="50" height="50" type="collectable"/>
+    <entity x="2725" y="260" width="50" height="50" type="collectable"/>
+    <entity x="2775" y="260" width="50" height="50" type="collectable"/>
+    <entity x="2825" y="260" width="50" height="50" type="collectable"/>
+    <entity x="2875" y="260" width="50" height="50" type="collectable"/>
+    <entity x="2925" y="260" width="50" height="50" type="collectable"/>
+    <entity x="2975" y="260" width="50" height="50" type="collectable"/>
+    <entity x="3025" y="260" width="50" height="50" type="collectable"/>
+
+    <entity x="3075" y="260" width="100" height="20" type="collectable"/>
+
+    <entity x="3150" y="260" width="50" height="50" type="collectable"/>
+    <entity x="3200" y="260" width="50" height="50" type="collectable"/>
+    <entity x="3250" y="260" width="50" height="50" type="collectable"/>
+    <entity x="3300" y="260" width="50" height="50" type="collectable"/>
+    <entity x="3350" y="260" width="50" height="50" type="collectable"/>
+    <entity x="3400" y="260" width="50" height="50" type="collectable"/>
+    <entity x="3450" y="260" width="50" height="50" type="collectable"/>
+    <entity x="3500" y="260" width="50" height="50" type="collectable"/>
+    <entity x="3550" y="260" width="50" height="50" type="collectable"/>
+
+    <!-- hill collectable -->
+    <entity x="3600" y="250" width="200" height="90" type="collectable"/>
+    <entity x="3700" y="250" width="200" height="90" type="collectable"/>
+
+    <!-- fallingPlatform collectable -->
+    <entity x="3950" y="260" width="100" height="50" type="collectable"/>
+    <entity x="4150" y="220" width="100" height="50" type="collectable"/>
+    <entity x="4350" y="180" width="100" height="50" type="collectable"/>
+
+    <!-- ground collectable -->
+    <entity x="4550" y="100" width="100" height="50" type="collectable"/>
+    <!--<entity x="4525" y="100" width="70" height="100" type="player"/>-->
+
+    <entity x="4750" y="100" width="100" height="50" type="collectable"/>
+    <entity x="4850" y="100" width="100" height="50" type="collectable"/>
+    <!-- hill collectable -->
+    <entity x="4950" y="175" width="200" height="90" type="collectable"/>
+
+    <!--High path-->
+    <!-- floating/falling Platform collectable -->
+    <entity x="5175" y="260" width="100" height="20" type="collectable"/>
+    <entity x="5525" y="290" width="100" height="20" type="collectable"/>
+    <entity x="5925" y="330" width="100" height="20" type="collectable"/>
+    <entity x="6125" y="340" width="100" height="20" type="collectable"/>
+    <entity x="6435" y="310" width="100" height="20" type="collectable"/>
+    <entity x="6625" y="340" width="100" height="20" type="collectable"/>
+    <entity x="6955" y="375" width="100" height="20" type="collectable"/>
+    <entity x="7300" y="415" width="100" height="20" type="collectable"/>
+    <entity x="7600" y="415" width="100" height="20" type="collectable"/>
+    <entity x="7675" y="415" width="100" height="20" type="collectable"/>
+    <!--End high path-->
+
+    <!--Low path-->
+    <!-- ground collectable -->
+    <entity x="5050" y="100" width="100" height="50" type="collectable"/>
+    <entity x="5150" y="100" width="100" height="50" type="collectable"/>
+
+    <!-- fallingPlatform2 collectable -->
+    <entity x="5225" y="110" width="50" height="50" type="collectable"/>
+    <entity x="5275" y="110" width="50" height="50" type="collectable"/>
+    <entity x="5325" y="110" width="50" height="50" type="collectable"/>
+    <entity x="5375" y="110" width="50" height="50" type="collectable"/>
+    <entity x="5425" y="110" width="50" height="50" type="collectable"/>
+    <entity x="5475" y="110" width="50" height="50" type="collectable"/>
+    <entity x="5525" y="110" width="50" height="50" type="collectable"/>
+    <entity x="5575" y="110" width="50" height="50" type="collectable"/>
+    <!-- ground collectable -->
+    <entity x="5650" y="100" width="100" height="50" type="collectable"/>
+
+    <entity x="5950" y="100" width="100" height="50" type="collectable"/>
+    <!-- fallingPlatform2 collectable -->
+    <entity x="6025" y="110" width="50" height="50" type="collectable"/>
+    <entity x="6075" y="110" width="50" height="50" type="collectable"/>
+    <entity x="6125" y="110" width="50" height="50" type="collectable"/>
+    <entity x="6175" y="110" width="50" height="50" type="collectable"/>
+    <entity x="6225" y="110" width="50" height="50" type="collectable"/>
+    <entity x="6275" y="110" width="50" height="50" type="collectable"/>
+    <entity x="6325" y="110" width="50" height="50" type="collectable"/>
+    <entity x="6375" y="110" width="50" height="50" type="collectable"/>
+    <!-- ground collectable -->
+    <entity x="6450" y="100" width="100" height="50" type="collectable"/>
+
+    <!-- fallingPlatform collectable -->
+    <entity x="6700" y="240" width="100" height="50" type="collectable"/>
+    <!-- ground collectable -->
+    <entity x="6700" y="100" width="100" height="50" type="collectable"/>
+    <entity x="6800" y="100" width="100" height="50" type="collectable"/>
+    <entity x="7900" y="100" width="100" height="50" type="collectable"/>
+    <!-- hill collectable -->
+    <entity x="7050" y="175" width="100" height="50" type="collectable"/>
+    <!-- ground collectable -->
+    <entity x="7150" y="100" width="100" height="50" type="collectable"/>
+    <entity x="7250" y="100" width="100" height="50" type="collectable"/>
+
+    <entity x="7550" y="100" width="100" height="50" type="collectable"/>
+    <entity x="7650" y="100" width="100" height="50" type="collectable"/>
+    <entity x="7750" y="100" width="100" height="50" type="collectable"/>
+    <entity x="7850" y="100" width="100" height="50" type="collectable"/>
+    <!-- fallingPlatform collectable -->
+    <entity x="7975" y="110" width="100" height="50" type="collectable"/>
+    <entity x="8025" y="110" width="100" height="50" type="collectable"/>
+    <entity x="8075" y="110" width="100" height="50" type="collectable"/>
+    <entity x="8125" y="110" width="100" height="50" type="collectable"/>
+    <entity x="8175" y="110" width="100" height="50" type="collectable"/>
+    <entity x="8225" y="110" width="100" height="50" type="collectable"/>
+    <entity x="8275" y="110" width="100" height="50" type="collectable"/>
+    <entity x="8325" y="110" width="100" height="50" type="collectable"/>
+    <!-- ground collectable -->
+    <entity x="8400" y="100" width="100" height="50" type="collectable"/>
+    <!-- fallingPlatform2 collectable -->
+    <entity x="8475" y="110" width="100" height="50" type="collectable"/>
+    <entity x="8525" y="110" width="100" height="50" type="collectable"/>
+    <entity x="8575" y="110" width="100" height="50" type="collectable"/>
+    <entity x="8625" y="110" width="100" height="50" type="collectable"/>
+    <entity x="8675" y="110" width="100" height="50" type="collectable"/>
+    <entity x="8725" y="110" width="100" height="50" type="collectable"/>
+    <entity x="8775" y="110" width="100" height="50" type="collectable"/>
+    <entity x="8825" y="110" width="100" height="50" type="collectable"/>
+    <entity x="8875" y="110" width="100" height="50" type="collectable"/>
+
+    <!-- ground collectable -->
+    <entity x="8850" y="100" width="100" height="50" type="collectable"/>
+    <entity x="8950" y="100" width="100" height="50" type="collectable"/>
+    <entity x="9050" y="100" width="100" height="50" type="collectable"/>
+    <!-- hill collectable -->
+    <entity x="9150" y="175" width="100" height="50" type="collectable"/>
+
+    <!-- fallingPlatform collectable -->
+    <entity x="9325" y="110" width="100" height="20" type="collectable"/>
 
 
 </level>
