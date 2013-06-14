@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <level width="10000" height="800">
-	<!--<entity x="100" y="100" width="70" height="100" type="player"/>-->
+	<entity x="100" y="100" width="70" height="100" type="player"/>
 
 <!-- obstacles -->
 	<entity x="50" y="25" width="100" height="50" type="ground"/>
@@ -82,7 +82,7 @@
 	<entity x="4350" y="105" width="100" height="50" type="fallingPlatform"/>
 
 	<entity x="4550" y="25" width="100" height="50" type="ground"/>
-    <entity x="4525" y="100" width="70" height="100" type="player"/>
+    <!--<entity x="4525" y="100" width="70" height="100" type="player"/>-->
 
 	<entity x="4750" y="25" width="100" height="50" type="ground"/>
 	<entity x="4850" y="25" width="100" height="50" type="ground"/>
