@@ -89,7 +89,7 @@ public class Player extends AnimatedSprite {
 					hitpoints = 0;
 					onDie();
 				}
-				
+
 				if (hitpoints <= 0){
 					onDie();
 				}
@@ -119,7 +119,7 @@ public class Player extends AnimatedSprite {
                 		setToInitialSprite();
                 		canRun = true;
                 		sprintTime = 0;
-                		body.setLinearVelocity(runSpeed, body.getLinearVelocity().y);                		
+                		body.setLinearVelocity(runSpeed, body.getLinearVelocity().y);
                 	}
                 }
 			}
@@ -205,7 +205,7 @@ public class Player extends AnimatedSprite {
     public void decrementHP() {
     	hitpoints--;
     }
-    
+
     public void setHP(int hp) {
     	hitpoints = hp;
     }
