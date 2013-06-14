@@ -6,43 +6,43 @@
 	<entity x="50" y="25" width="100" height="50" type="ground"/>
 	<entity x="150" y="25" width="100" height="50" type="ground"/>
 	<entity x="250" y="25" width="100" height="50" type="ground"/>
-	<entity x="350" y="0" width="100" height="100" type="hill"/>	
+	<entity x="350" y="0" width="100" height="100" type="hill"/>
 	<entity x="450" y="25" width="100" height="50" type="ground"/>
 	<entity x="550" y="25" width="100" height="50" type="ground"/>
 	<entity x="650" y="25" width="100" height="50" type="ground"/>
 	<entity x="750" y="25" width="100" height="50" type="ground"/>
-	
+
 	<entity x="1450" y="25" width="100" height="50" type="ground"/>
 	<entity x="1550" y="25" width="100" height="50" type="ground"/>
 	<entity x="1650" y="0" width="100" height="100" type="hill"/>
 	<entity x="1750" y="0" width="100" height="100" type="hill"/>
-	
+
 	<entity x="1950" y="25" width="100" height="50" type="ground"/>
 	<entity x="2050" y="25" width="100" height="50" type="ground"/>
-	
+
 	<entity x="2250" y="25" width="100" height="50" type="ground"/>
-	
+
 	<entity x="2750" y="25" width="100" height="50" type="ground"/>
 	<entity x="2850" y="25" width="100" height="50" type="ground"/>
 	<entity x="2950" y="25" width="100" height="50" type="ground"/>
-	
+
 	<entity x="3850" y="25" width="100" height="50" type="ground"/>
 	<entity x="3950" y="25" width="100" height="50" type="ground"/>
 	<entity x="4050" y="25" width="100" height="50" type="ground"/>
 	<entity x="4150" y="25" width="100" height="50" type="ground"/>
 	<entity x="4250" y="25" width="100" height="50" type="ground"/>
-	
+
 	<entity x="4450" y="25" width="100" height="50" type="ground"/>
 	<entity x="4550" y="25" width="100" height="50" type="ground"/>
-	
+
 	<entity x="5100" y="25" width="100" height="50" type="ground"/>
-	
+
 	<entity x="5550" y="25" width="100" height="50" type="ground"/>
 	<entity x="5650" y="25" width="100" height="50" type="ground"/>
 	<entity x="5750" y="0" width="100" height="100" type="hill"/>
 	<entity x="5850" y="0" width="100" height="100" type="hill"/>
 	<entity x="5950" y="0" width="100" height="100" type="hill"/>
-	
+
 	<entity x="6050" y="25" width="100" height="50" type="fallingPlatform"/>
 	<entity x="6150" y="25" width="100" height="50" type="fallingPlatform"/>
 	<entity x="6250" y="25" width="100" height="50" type="fallingPlatform"/>
@@ -51,19 +51,19 @@
 	<entity x="6550" y="25" width="100" height="50" type="fallingPlatform"/>
 	<entity x="6650" y="25" width="100" height="50" type="fallingPlatform"/>
 	<entity x="6750" y="25" width="100" height="50" type="fallingPlatform"/>
-	
+
 	<entity x="6850" y="0" width="100" height="100" type="hill"/>
 	<entity x="6950" y="0" width="100" height="100" type="hill"/>
-	
+
 	<entity x="7150" y="0" width="100" height="100" type="hill"/>
-	
+
 	<entity x="7350" y="0" width="100" height="100" type="hill"/>
 	<entity x="7450" y="0" width="100" height="100" type="hill"/>
 	<entity x="7550" y="50" width="100" height="50" type="hill"/>
 	<entity x="7650" y="50" width="100" height="50" type="hill"/>
 	<entity x="7750" y="25" width="100" height="50" type="ground"/>
-	
-	
+
+
 	<entity x="8450" y="25" width="100" height="50" type="ground"/>
 	<entity x="8550" y="25" width="100" height="50" type="ground"/>
 	<entity x="8650" y="25" width="100" height="50" type="ground"/>
@@ -71,26 +71,26 @@
 	<entity x="8850" y="25" width="100" height="50" type="hill"/>
 	<entity x="8950" y="25" width="100" height="50" type="ground"/>
 	<entity x="9050" y="25" width="100" height="50" type="hill"/>
-	
+
 	<entity x="9400" y="25" width="100" height="50" type="ground"/>
-	
+
 	<entity x="9650" y="0" width="100" height="50" type="hill"/>
 	<entity x="9750" y="0" width="100" height="50" type="hill"/>
-	
+
 	<entity x="550" y="135" width="100" height="50" type="floatingPlatform"/>
 	<entity x="750" y="185" width="100" height="50" type="floatingPlatform"/>
 	<entity x="850" y="185" width="100" height="50" type="floatingPlatform"/>
 	<entity x="900" y="185" width="50" height="50" type="fallingPlatform2"/>
 	<entity x="950" y="185" width="50" height="50" type="fallingPlatform2"/>
 	<entity x="1000" y="185" width="50" height="50" type="fallingPlatform2"/>
-	<entity x="1050" y="185" width="50" height="50" type="fallingPlatform2"/>	
+	<entity x="1050" y="185" width="50" height="50" type="fallingPlatform2"/>
 	<entity x="1100" y="185" width="50" height="50" type="fallingPlatform2"/>
 	<entity x="1150" y="185" width="50" height="50" type="fallingPlatform2"/>
 	<entity x="1225" y="185" width="100" height="50" type="floatingPlatform"/>
 	<entity x="1325" y="185" width="100" height="50" type="floatingPlatform"/>
 	<entity x="1550" y="225" width="100" height="50" type="fallingPlatform"/>
 	<entity x="1750" y="275" width="100" height="50" type="fallingPlatform"/>
-	
+
 	<entity x="1950" y="285" width="100" height="50" type="floatingPlatform"/>
 	<entity x="2025" y="285" width="100" height="50" type="fallingPlatform2"/>
 	<entity x="2075" y="285" width="100" height="50" type="fallingPlatform2"/>
@@ -106,7 +106,7 @@
 	<entity x="2815" y="315" width="50" height="50" type="fallingPlatform2"/>
 	<entity x="2875" y="310" width="50" height="50" type="fallingPlatform2"/>
 	<entity x="2950" y="295" width="100" height="100" type="floatingPlatform"/>
-	
+
 	<entity x="2325" y="35" width="100" height="50" type="fallingPlatform2"/>
 	<entity x="2375" y="35" width="100" height="50" type="fallingPlatform2"/>
 	<entity x="2425" y="35" width="100" height="50" type="fallingPlatform2"/>
@@ -117,20 +117,20 @@
 	<entity x="2675" y="35" width="100" height="50" type="fallingPlatform2"/>
 	<entity x="2800" y="0" width="100" height="100" type="hill"/>
 	<entity x="2900" y="0" width="100" height="100" type="hill"/>
-	
-	<entity x="3100" y="150" width="100" height="50" type="floatingPlatform"/>	
+
+	<entity x="3100" y="150" width="100" height="50" type="floatingPlatform"/>
 	<entity x="3200" y="150" width="100" height="50" type="floatingPlatform"/>
 	<entity x="3300" y="180" width="100" height="50" type="floatingPlatform"/>
 	<entity x="3400" y="180" width="100" height="50" type="floatingPlatform"/>
 	<entity x="3500" y="180" width="100" height="50" type="floatingPlatform"/>
-	
+
 	<entity x="3900" y="180" width="100" height="50" type="floatingPlatform"/>
 	<entity x="4000" y="180" width="100" height="50" type="floatingPlatform"/>
 	<entity x="4100" y="180" width="100" height="50" type="floatingPlatform"/>
 	<entity x="4150" y="140" width="50" height="100" type="ground"/>
 	<entity x="4200" y="180" width="50" height="100" type="floatingPlatform"/>
-	
-	
+
+
 	<entity x="4625" y="35" width="50" height="50" type="fallingPlatform2"/>
 	<entity x="4675" y="35" width="50" height="50" type="fallingPlatform2"/>
 	<entity x="4725" y="35" width="50" height="50" type="fallingPlatform2"/>
@@ -140,7 +140,7 @@
 	<entity x="4925" y="35" width="50" height="50" type="fallingPlatform2"/>
 	<entity x="4975" y="35" width="50" height="50" type="fallingPlatform2"/>
 	<entity x="5025" y="35" width="50" height="50" type="fallingPlatform2"/>
-	
+
 	<entity x="5175" y="35" width="50" height="50" type="fallingPlatform2"/>
 	<entity x="5225" y="35" width="50" height="50" type="fallingPlatform2"/>
 	<entity x="5275" y="35" width="50" height="50" type="fallingPlatform2"/>
@@ -148,7 +148,7 @@
 	<entity x="5375" y="35" width="50" height="50" type="fallingPlatform2"/>
 	<entity x="5425" y="35" width="50" height="50" type="fallingPlatform2"/>
 	<entity x="5475" y="35" width="50" height="50" type="fallingPlatform2"/>
-	
+
 	<entity x="4600" y="140" width="50" height="50" type="ground"/>
 	<entity x="4700" y="140" width="50" height="50" type="ground"/>
 	<entity x="4800" y="140" width="50" height="50" type="ground"/>
@@ -159,7 +159,7 @@
 	<entity x="5200" y="140" width="50" height="50" type="ground"/>
 	<entity x="5300" y="140" width="50" height="50" type="ground"/>
 	<entity x="5400" y="140" width="50" height="50" type="ground"/>
-	
+
 	<entity x="5000" y="240" width="100" height="50" type="fallingPlatform"/>
 	<entity x="5200" y="290" width="100" height="50" type="fallingPlatform"/>
 	<entity x="5400" y="340" width="100" height="50" type="floatingPlatform"/>
@@ -171,14 +171,14 @@
 	<entity x="6250" y="340" width="50" height="50" type="fallingPlatform2"/>
 	<entity x="6300" y="340" width="50" height="50" type="fallingPlatform2"/>
 	<entity x="6375" y="340" width="50" height="50" type="fallingPlatform"/>
-	
+
 	<entity x="6550" y="340" width="100" height="50" type="floatingPlatform"/>
 	<entity x="6650" y ="340" width="100" height="50" type="floatingPlatform"/>
-	
+
 	<entity x="6950" y="340" width="100" height="50" type="floatingPlatform"/>
 	<entity x="7050" y="340" width="100" height="50" type="floatingPlatform"/>
 	<entity x="7250" y="350" width="100" height="50" type="fallingPlatform"/>
-	
+
 	<entity x="7450" y="350" width="100" height="50" type="floatingPlatform"/>
 	<entity x="7525" y="350" width="100" height="50" type="fallingPlatform2"/>
 	<entity x="7575" y="350" width="100" height="50" type="fallingPlatform2"/>
@@ -191,21 +191,21 @@
 	<entity x="8000" y="400" width="100" height="50" type="ground"/>
 	<entity x="8100" y="450" width="100" height="50" type="ground"/>
 	<entity x="8200" y="450" width="100" height="50" type="ground"/>
-	
+
 	<entity x="7850" y="175" width="100" height="50" type="floatingPlatform"/>
 	<entity x="7950" y="175" width="100" height="50" type="floatingPlatform"/>
 	<entity x="8050" y="175" width="100" height="50" type="floatingPlatform"/>
-	
+
 	<entity x="9125" y="35" width="50" height="50" type="fallingPlatform2"/>
 	<entity x="9175" y="35" width="50" height="50" type="fallingPlatform2"/>
 	<entity x="9225" y="35" width="50" height="50" type="fallingPlatform2"/>
 	<entity x="9275" y="35" width="50" height="50" type="fallingPlatform2"/>
 	<entity x="9325" y="35" width="50" height="50" type="fallingPlatform2"/>
-	
+
 	<entity x="9475" y="35" width="50" height="50" type="fallingPlatform2"/>
 	<entity x="9525" y="35" width="50" height="50" type="fallingPlatform2"/>
 	<entity x="9575" y="35" width="50" height="50" type="fallingPlatform2"/>
-	
+
 	<entity x="9825" y="85" width="50" height="50" type="fallingPlatform2"/>
 	<entity x="9875" y="85" width="50" height="50" type="fallingPlatform2"/>
 	<entity x="9925" y="85" width="50" height="50" type="fallingPlatform2"/>
@@ -213,7 +213,7 @@
 	<entity x="10025" y="85" width="50" height="50" type="fallingPlatform2"/>
 	<entity x="10075" y="85" width="50" height="50" type="fallingPlatform2"/>
 	<entity x="10150" y="85" width="50" height="50" type="floatingPlatform"/>
-	
+
 	<entity x="10350" y="125" width="50" height="50" type="floatingPlatform"/>
 	<entity x="10450" y="125" width="50" height="50" type="floatingPlatform"/>
 	<entity x="10525" y="125" width="50" height="50" type="fallingPlatform2"/>
@@ -223,7 +223,7 @@
 	<entity x="10750" y="125" width="50" height="50" type="fallingPlatform"/>
 	<entity x="10950" y="185" width="50" height="50" type="floatingPlatform"/>
 	<entity x="11000" y="175" width="5" height="200" type="winTrigger"/>
-	
+
 	<entity x="8500" y="450" width="100" height="50" type="floatingPlatform"/>
 	<entity x="8700" y="420" width="100" height="50" type="floatingPlatform"/>
 	<entity x="8900" y="450" width="100" height="50" type="floatingPlatform"/>
@@ -234,11 +234,11 @@
 	<entity x="9175" y="450" width="50" height="50" type="fallingPlatform2"/>
 	<entity x="9225" y="450" width="50" height="50" type="fallingPlatform2"/>
 	<entity x="9275" y="450" width="50" height="50" type="fallingPlatform2"/>
-	
+
 	<entity x="9500" y="400" width="50" height="50" type="fallingPlatform2"/>
 	<entity x="9700" y="440" width="50" height="50" type="fallingPlatform2"/>
 	<entity x="9900" y="480" width="50" height="50" type="fallingPlatform2"/>
-	
+
 	<entity x="10150" y="480" width="50" height="50" type="floatingPlatform"/>
 	<entity x="10225" y="480" width="50" height="50" type="fallingPlatform2"/>
 	<entity x="10275" y="480" width="50" height="50" type="fallingPlatform2"/>
@@ -255,7 +255,7 @@
 	<entity x="10925" y="480" width="50" height="50" type="fallingPlatform2"/>
 	<entity x="11000" y="500" width="50" height="50" type="hill"/>
 	<entity x="10750" y="450" width="50" height="50" type="floatingPlatform"/>
-	<entity x="10750" y="460" width="100" height="25" type="winTrigger"/>	
+	<entity x="10750" y="460" width="100" height="25" type="winTrigger"/>
 
 	<!-- collectables -->
 	<entity x="350" y="150" width="1" height="1" type="collectable"/>
@@ -267,10 +267,10 @@
 	<entity x="1000" y="235" width="1" height="1" type="wood"/>
 	<entity x="1050" y="235" width="1" height="1" type="collectable"/>
 	<entity x="1100" y="235" width="1" height="1" type="collectable"/>
-	
+
 	<entity x="1225" y="235" width="1" height="1" type="collectable"/>
 	<entity x="1325" y="235" width="1" height="1" type="collectable"/>
-	
+
 	<entity x="1550" y="275" width="1" height="1" type="collectable"/>
 	<entity x="1750" y="325" width="1" height="1" type="collectable"/>
 	<entity x="1950" y="335" width="1" height="1" type="collectable"/>
@@ -280,7 +280,7 @@
 	<entity x="2050" y="335" width="1" height="1" type="collectable"/>
 	<entity x="2100" y="335" width="1" height="1" type="collectable"/>
 	<entity x="2350" y="335" width="1" height="1" type="collectable"/>
-	
+
 	<entity x="2550" y="385" width="1" height="1" type="collectable"/>
 	<entity x="2635" y="380" width="1" height="1" type="collectable"/>
 	<entity x="2695" y="375" width="1" height="1" type="collectable"/>
@@ -302,17 +302,146 @@
 	<entity x="2550" y="75" width="1" height="1" type="collectable"/>
 	<entity x="2800" y="125" width="1" height="1" type="collectable"/>
 	<entity x="2900" y="125" width="1" height="1" type="collectable"/>
-	
+
 	<entity x="3100" y="200" width="1" height="1" type="collectable"/>
 	<entity x="3200" y="200" width="1" height="1" type="collectable"/>
 	<entity x="3300" y="230" width="1" height="1" type="collectable"/>
 	<entity x="3400" y="230" width="1" height="1" type="collectable"/>
 	<entity x="3500" y="230" width="1" height="1" type="collectable"/>
-	
+
 	<entity x="3950" y="75" width="1" height="1" type="collectable"/>
 	<entity x="4050" y="75" width="1" height="1" type="collectable"/>
 	<entity x="4150" y="75" width="1" height="1" type="collectable"/>
-	
+
+    <entity x="4200" y="230" width="50" height="100" type="collectable"/>
+
+
+    <entity x="4625" y="85" width="50" height="50" type="collectable"/>
+    <entity x="4675" y="85" width="50" height="50" type="collectable"/>
+    <entity x="4725" y="85" width="50" height="50" type="collectable"/>
+    <entity x="4775" y="85" width="50" height="50" type="collectable"/>
+    <entity x="4825" y="85" width="50" height="50" type="collectable"/>
+    <entity x="4875" y="85" width="50" height="50" type="collectable"/>
+    <entity x="4925" y="85" width="50" height="50" type="collectable"/>
+    <entity x="4975" y="85" width="50" height="50" type="collectable"/>
+    <entity x="5025" y="85" width="50" height="50" type="collectable"/>
+
+    <entity x="5175" y="85" width="50" height="50" type="collectable"/>
+    <entity x="5225" y="85" width="50" height="50" type="collectable"/>
+    <entity x="5275" y="85" width="50" height="50" type="collectable"/>
+    <entity x="5325" y="85" width="50" height="50" type="collectable"/>
+    <entity x="5375" y="85" width="50" height="50" type="collectable"/>
+    <entity x="5425" y="85" width="50" height="50" type="collectable"/>
+    <entity x="5475" y="85" width="50" height="50" type="collectable"/>
+
+    <entity x="4600" y="190" width="50" height="50" type="collectable"/>
+    <entity x="4700" y="190" width="50" height="50" type="collectable"/>
+    <entity x="4800" y="190" width="50" height="50" type="collectable"/>
+    <entity x="4800" y="240" width="50" height="50" type="collectable"/>
+    <entity x="4900" y="190" width="50" height="50" type="collectable"/>
+    <entity x="5000" y="190" width="50" height="50" type="collectable"/>
+    <entity x="5100" y="190" width="50" height="50" type="collectable"/>
+    <entity x="5200" y="190" width="50" height="50" type="collectable"/>
+    <entity x="5300" y="190" width="50" height="50" type="collectable"/>
+    <entity x="5400" y="190" width="50" height="50" type="collectable"/>
+
+    <entity x="5000" y="290" width="100" height="50" type="collectable"/>
+    <entity x="5200" y="340" width="100" height="50" type="collectable"/>
+    <entity x="5400" y="390" width="100" height="50" type="collectable"/>
+    <entity x="5600" y="390" width="100" height="50" type="collectable"/>
+    <entity x="5700" y="390" width="100" height="50" type="collectable"/>
+    <entity x="6100" y="390" width="100" height="50" type="collectable"/>
+    <entity x="6150" y="390" width="50" height="50" type="collectable"/>
+    <entity x="6200" y="390" width="50" height="50" type="collectable"/>
+    <entity x="6250" y="390" width="50" height="50" type="collectable"/>
+    <entity x="6300" y="390" width="50" height="50" type="collectable"/>
+    <entity x="6375" y="390" width="50" height="50" type="collectable"/>
+
+    <entity x="6550" y="390" width="100" height="50" type="collectable"/>
+    <entity x="6650" y="390" width="100" height="50" type="collectable"/>
+
+    <entity x="6950" y="390" width="100" height="50" type="collectable"/>
+    <entity x="7050" y="390" width="100" height="50" type="collectable"/>
+    <entity x="7250" y="400" width="100" height="50" type="collectable"/>
+
+    <entity x="7450" y="400" width="100" height="50" type="collectable"/>
+    <entity x="7525" y="400" width="100" height="50" type="collectable"/>
+    <entity x="7575" y="400" width="100" height="50" type="collectable"/>
+    <entity x="7625" y="400" width="100" height="50" type="collectable"/>
+    <entity x="7675" y="400" width="100" height="50" type="collectable"/>
+    <entity x="7725" y="400" width="100" height="50" type="collectable"/>
+    <entity x="7775" y="400" width="100" height="50" type="collectable"/>
+    <entity x="7825" y="400" width="100" height="50" type="collectable"/>
+    <entity x="7900" y="450" width="100" height="50" type="collectable"/>
+    <entity x="8000" y="450" width="100" height="50" type="collectable"/>
+    <entity x="8100" y="500" width="100" height="50" type="collectable"/>
+    <entity x="8200" y="500" width="100" height="50" type="collectable"/>
+
+    <entity x="7850" y="225" width="100" height="50" type="collectable"/>
+    <entity x="7950" y="225" width="100" height="50" type="collectable"/>
+    <entity x="8050" y="225" width="100" height="50" type="collectable"/>
+
+    <entity x="9125" y="85" width="50" height="50" type="collectable"/>
+    <entity x="9175" y="85" width="50" height="50" type="collectable"/>
+    <entity x="9225" y="85" width="50" height="50" type="collectable"/>
+    <entity x="9275" y="85" width="50" height="50" type="collectable"/>
+    <entity x="9325" y="85" width="50" height="50" type="collectable"/>
+
+    <entity x="9475" y="85" width="50" height="50" type="collectable"/>
+    <entity x="9525" y="85" width="50" height="50" type="collectable"/>
+    <entity x="9575" y="85" width="50" height="50" type="collectable"/>
+
+    <entity x="9825" y="135" width="50" height="50" type="collectable"/>
+    <entity x="9875" y="135" width="50" height="50" type="collectable"/>
+    <entity x="9925" y="135" width="50" height="50" type="collectable"/>
+    <entity x="9975" y="135" width="50" height="50" type="collectable"/>
+    <entity x="10025" y="135" width="50" height="50" type="collectable"/>
+    <entity x="10075" y="135" width="50" height="50" type="collectable"/>
+    <entity x="10150" y="135" width="50" height="50" type="collectable"/>
+
+    <entity x="10350" y="175" width="50" height="50" type="collectable"/>
+    <entity x="10450" y="175" width="50" height="50" type="collectable"/>
+    <entity x="10525" y="175" width="50" height="50" type="collectable"/>
+    <entity x="10575" y="175" width="50" height="50" type="collectable"/>
+    <entity x="10625" y="175" width="50" height="50" type="collectable"/>
+    <entity x="10675" y="175" width="50" height="50" type="collectable"/>
+    <entity x="10750" y="155" width="50" height="50" type="collectable"/>
+    <entity x="10950" y="235" width="50" height="50" type="collectable"/>
+
+    <entity x="8500" y="500" width="100" height="50" type="collectable"/>
+    <entity x="8700" y="470" width="100" height="50" type="collectable"/>
+    <entity x="8900" y="500" width="100" height="50" type="collectable"/>
+    <entity x="8975" y="500" width="50" height="50" type="collectable"/>
+    <entity x="9025" y="500" width="50" height="50" type="collectable"/>
+    <entity x="9075" y="500" width="50" height="50" type="collectable"/>
+    <entity x="9125" y="500" width="50" height="50" type="collectable"/>
+    <entity x="9175" y="500" width="50" height="50" type="collectable"/>
+    <entity x="9225" y="500" width="50" height="50" type="collectable"/>
+    <entity x="9275" y="500" width="50" height="50" type="collectable"/>
+
+    <entity x="9500" y="450" width="50" height="50" type="collectable"/>
+    <entity x="9700" y="490" width="50" height="50" type="collectable"/>
+    <entity x="9900" y="530" width="50" height="50" type="collectable"/>
+
+    <entity x="10150" y="530" width="50" height="50" type="collectable"/>
+    <entity x="10225" y="530" width="50" height="50" type="collectable"/>
+    <entity x="10275" y="530" width="50" height="50" type="collectable"/>
+    <entity x="10325" y="530" width="50" height="50" type="collectable"/>
+    <entity x="10375" y="530" width="50" height="50" type="collectable"/>
+    <entity x="10450" y="530" width="50" height="50" type="collectable"/>
+    <entity x="10525" y="530" width="50" height="50" type="collectable"/>
+    <entity x="10575" y="530" width="50" height="50" type="collectable"/>
+    <entity x="10650" y="530" width="50" height="50" type="collectable"/>
+    <entity x="10725" y="530" width="50" height="50" type="collectable"/>
+    <entity x="10775" y="530" width="50" height="50" type="collectable"/>
+    <entity x="10825" y="530" width="50" height="50" type="collectable"/>
+    <entity x="10875" y="530" width="50" height="50" type="collectable"/>
+    <entity x="10925" y="530" width="50" height="50" type="collectable"/>
+    <entity x="11000" y="650" width="50" height="50" type="collectable"/>
+    <entity x="10750" y="500" width="50" height="50" type="collectable"/>
+
+
+
 
 
 </level>

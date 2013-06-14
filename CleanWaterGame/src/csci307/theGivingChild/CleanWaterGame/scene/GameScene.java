@@ -469,8 +469,12 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
                         protected void onManagedUpdate(float pSecondsElapsed) {
                             super.onManagedUpdate(pSecondsElapsed);
                             //side collision
-                            if(detectTopCollision(player, this)) {
-                                player.bounceBack();
+                            if (detectSideCollision(player, this)) {
+                                player.gameOver();
+                                displayHealth(player.getHP());
+                            }
+                            //top collision
+                            if (detectTopCollision(player, this)) {
                                 player.gameOver();
                                 displayHealth(player.getHP());
                             }
