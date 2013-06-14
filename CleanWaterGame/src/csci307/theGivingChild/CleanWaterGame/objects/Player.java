@@ -100,10 +100,7 @@ public class Player extends AnimatedSprite {
                     if (isSprinting) {
                         sprintTime--;
                         if (sprintTime <= 0 && !verticalMotion()) {
-                            sprintTime = MAX_SPRINT;
-                            isSprinting = false;
-                            runSpeed -= SPRINT_AUGMENT;
-                            setToInitialSprite();
+                            resetSprint();
                         }
                     }
                     if (isJumping) {
@@ -118,7 +115,7 @@ public class Player extends AnimatedSprite {
                 		isBouncing = false;
                 		setToInitialSprite();
                 		canRun = true;
-                		sprintTime = 0;
+                        resetSprint();
                 		body.setLinearVelocity(runSpeed, body.getLinearVelocity().y);
                 	}
                 }
@@ -126,6 +123,13 @@ public class Player extends AnimatedSprite {
 
 		});
 	}
+
+    private void resetSprint() {
+        sprintTime = MAX_SPRINT;
+        isSprinting = false;
+        runSpeed -= SPRINT_AUGMENT;
+        setToInitialSprite();
+    }
 
 	public boolean isDucking() {
 		return isDucking;
