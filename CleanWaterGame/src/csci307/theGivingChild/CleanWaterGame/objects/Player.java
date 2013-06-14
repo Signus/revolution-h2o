@@ -218,4 +218,8 @@ public class Player extends AnimatedSprite {
     public int getHP() {
     	return hitpoints;
     }
+
+    public void gameOver() {
+        hitpoints = 0;
+    }
 }

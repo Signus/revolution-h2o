@@ -31,6 +31,7 @@ import org.andengine.entity.scene.menu.MenuScene.IOnMenuItemClickListener;
 import org.andengine.entity.scene.menu.item.IMenuItem;
 import org.andengine.entity.scene.menu.item.TextMenuItem;
 import org.andengine.entity.scene.menu.item.decorator.ColorMenuItemDecorator;
+import org.andengine.entity.sprite.AnimatedSprite;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.entity.text.Text;
 import org.andengine.entity.text.TextOptions;
@@ -96,6 +97,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_PLAYER = "player";
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE = "collectable";
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_WIN_TRIGGER = "winTrigger";
+    private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_ALLIGATOR = "alligator";
 
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE_ACT1_SCENE2_GOALS = "twine";
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE_ACT1_SCENE3_GOALS = "stone";
@@ -262,7 +264,6 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
     	heart1 = new Sprite(660, 390, resourcesManager.hitpoints_TR, vbom);
     	heart2 = new Sprite(710, 390, resourcesManager.hitpoints_TR, vbom);
     	heart3 = new Sprite(760, 390, resourcesManager.hitpoints_TR, vbom);
-
 
     	final Sprite pauseButton = new Sprite(50, 430, resourcesManager.pause_TR, vbom) {
     		@Override
@@ -462,6 +463,24 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 					};
 					levelObject.setVisible(false);
 				}
+                else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_ALLIGATOR)) {
+                    AnimatedSprite temp = new AnimatedSprite(x, y, resourcesManager.alligator_TR, vbom){
+                        @Override
+                        protected void onManagedUpdate(float pSecondsElapsed) {
+                            super.onManagedUpdate(pSecondsElapsed);
+                            //side collision
+                            if(detectTopCollision(player, this)) {
+                                player.bounceBack();
+                                player.gameOver();
+                                displayHealth(player.getHP());
+                            }
+                        }
+                    };
+                    temp.animate(100);
+                    levelObject = temp;
+                    temp = null;
+                    PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyType.StaticBody, GROUND_FIX).setUserData("alligator");
+                }
 				else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE)) {
 					levelObject = loadCollectable(x, y, resourcesManager.collectable_TR, 10);
 				}

@@ -4,6 +4,7 @@
 
 <!-- obstacles -->
 	<entity x="50" y="25" width="100" height="50" type="ground"/>
+    <entity x="50" y="70" width="100" height="50" type="alligator"/>
 	<entity x="150" y="25" width="100" height="50" type="ground"/>
 	<entity x="250" y="25" width="100" height="50" type="ground"/>
 	<entity x="350" y="25" width="100" height="50" type="ground"/>
@@ -16,7 +17,7 @@
 	 <!--<entity x="850" y="25" width="100" height="50" type="ground"/> -->
 	 <!--<entity x="950" y="25" width="100" height="50" type="ground"/> -->
 	<entity x="1050" y="25" width="100" height="50" type="ground"/>
-	<entity x="1150" y="25" width="100" height="50" type="ground"/>
+	<entity x="1125" y="25" width="100" height="50" type="ground"/>
     <!-- floating platform with falling platform under -->
     <entity x="1250" y="125" width="100" height="50" type="floatingPlatform"/>
     <entity x="1350" y="125" width="100" height="50" type="floatingPlatform"/>
@@ -30,13 +31,14 @@
     <entity x="1450" y="35" width="100" height="50" type="fallingPlatform2"/>
     <entity x="1500" y="35" width="100" height="50" type="fallingPlatform2"/>
 
-    <entity x="1550" y="25" width="100" height="50" type="ground"/>
+    <entity x="1575" y="25" width="100" height="50" type="ground"/>
     <entity x="1650" y="25" width="100" height="50" type="ground"/>
     <entity x="1750" y="25" width="100" height="50" type="ground"/>
 
     <!-- Aligator stuffs prease -->
     <entity x="1850" y="25" width="100" height="50" type="ground"/>
-    <entity x="1950" y="25" width="100" height="50" type="ground"/>
+    <entity x="1950" y="10" width="100" height="50" type="ground"/>
+    <entity x="1950" y="35" width="100" height="50" type="alligator"/>
 
     <entity x="2050" y="25" width="100" height="50" type="ground"/>
     <entity x="2150" y="25" width="100" height="50" type="ground"/>
@@ -71,14 +73,14 @@
     <entity x="4150" y="105" width="100" height="50" type="fallingPlatform"/>
     <entity x="4325" y="175" width="100" height="50" type="fallingPlatform"/>
     <entity x="4520" y="245" width="100" height="50" type="floatingPlatform"/>
-    <entity x="4750" y="315" width="100" height="50" type="floatingPlatform"/>
+    <entity x="4725" y="315" width="100" height="50" type="floatingPlatform"/>
 
     <entity x="4800" y="315" width="100" height="50" type="fallingPlatform2"/>
     <entity x="4850" y="315" width="100" height="50" type="fallingPlatform2"/>
     <entity x="4900" y="315" width="100" height="50" type="fallingPlatform2"/>
     <entity x="4950" y="315" width="100" height="50" type="fallingPlatform2"/>
     <entity x="5000" y="315" width="100" height="50" type="fallingPlatform2"/>
-    <entity x="5050" y="315" width="100" height="50" type="floatingPlatform"/>
+    <entity x="5075" y="315" width="100" height="50" type="floatingPlatform"/>
 
     <!-- Run for the Hills! -->
     <entity x="5150" y="25" width="100" height="50" type="hill"/>
@@ -101,8 +103,7 @@
     <entity x="6500" y="25" width="100" height="50" type="ground"/>
     <entity x="6550" y="25" width="100" height="50" type="ground"/>
     <entity x="6600" y="25" width="100" height="50" type="ground"/>
-    <entity x="6650" y="25" width="100" height="50" type="ground"/>
-    <entity x="6650" y="25" width="100" height="50" type="ground"/>
+    <entity x="6625" y="25" width="100" height="50" type="ground"/>
 
     <entity x="6700" y="35" width="100" height="50" type="fallingPlatform2"/>
     <entity x="6750" y="35" width="100" height="50" type="fallingPlatform2"/>
@@ -110,7 +111,7 @@
     <entity x="6850" y="35" width="100" height="50" type="fallingPlatform2"/>
     <entity x="6900" y="35" width="100" height="50" type="fallingPlatform2"/>
 
-    <entity x="6950" y="25" width="100" height="50" type="ground"/>
+    <entity x="6975" y="25" width="100" height="50" type="ground"/>
     <entity x="7050" y="25" width="100" height="50" type="ground"/>
 
     <entity x="7150" y="25" width="100" height="50" type="hill"/>
