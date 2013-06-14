@@ -469,13 +469,13 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 					levelObject = loadCollectable(x, y, resourcesManager.twine_TR, 40);
 				}
 				else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE_ACT1_SCENE3_GOALS)) {
-					levelObject = loadCollectable(x, y, resourcesManager.wood_TR, 40);
-				}
-				else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE_ACT1_SCENE4_GOALS)) {
 					levelObject = loadCollectable(x, y, resourcesManager.stone_TR, 40);
 				}
+				else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE_ACT1_SCENE4_GOALS)) {
+					levelObject = loadCollectable(x, y, resourcesManager.mud_TR, 40);
+				}
 				else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE_ACT1_SCENE5_GOALS)) {
-					levelObject = loadCollectable(x, y, resourcesManager.collectable_TR, 40);
+					levelObject = loadCollectable(x, y, resourcesManager.wood_TR, 40);
 				} else {
 					throw new IllegalArgumentException();
 				}
