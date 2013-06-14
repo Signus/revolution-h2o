@@ -25,7 +25,7 @@ public class AnimationScene extends BaseScene implements IOnMenuItemClickListene
 	private final int MENU_SKIP = 2;
 	private final int MENU_QUIT = 3;
 //	private final Sprite[] scene_one = new Sprite[8];
-	private ArrayList<Sprite> scene_one;
+	private ArrayList<Sprite> scene_one, scene_two, scene_three, scene_four, scene_five;
 	private int currentScene;
 	
 	public enum Animation {
@@ -146,7 +146,12 @@ public class AnimationScene extends BaseScene implements IOnMenuItemClickListene
 	}
 
 	private void displaySceneTwo() {
-		
+		scene_two = new ArrayList<Sprite>();
+		scene_two.add(new Sprite(400, 240, ResourceManager.getInstance().animation_two_one, vbom));
+		scene_two.add(new Sprite(400, 240, ResourceManager.getInstance().animation_two_two, vbom));
+		scene_two.add(new Sprite(400, 240, ResourceManager.getInstance().animation_two_three, vbom));
+		scene_two.add(new Sprite(400, 240, ResourceManager.getInstance().animation_two_four, vbom));
+		attachChild(scene_two.get(currentScene));
 	}
 
 	@Override
@@ -200,6 +205,9 @@ public class AnimationScene extends BaseScene implements IOnMenuItemClickListene
 						break;
 					case SCENE_TWO:
 						if (currentScene != 0) {
+							detachChild(scene_two.get(currentScene));
+							currentScene--;
+							attachChild(scene_two.get(currentScene));
 						} else {
 							disposeScene();
 							SceneManager.getInstance().loadMenuScene(engine);
@@ -248,7 +256,10 @@ public class AnimationScene extends BaseScene implements IOnMenuItemClickListene
 						
 						break;
 					case SCENE_TWO:
-						if (currentScene != scene_one.size() - 1) {
+						if (currentScene != scene_two.size() - 1) {
+							detachChild(scene_two.get(currentScene));
+							currentScene++;
+							attachChild(scene_two.get(currentScene));
 							
 						} else {
 							SceneManager.getInstance().loadGameScene(engine, "act1scene2", "act1scene3");
