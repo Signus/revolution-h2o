@@ -23,28 +23,36 @@
         <Button
             android:id="@+id/extra_privacy"
             android:layout_width="180dp"
+            android:layout_marginTop="30dp"
             android:layout_height="wrap_content"
-            android:onClick="showPolicy"
             android:background="@drawable/button"
-            android:text="@string/extra_privacypolicy_btn"/>
+            android:onClick="showPolicy"
+            android:paddingBottom="9dp"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:text="@string/extra_privacypolicy_btn" />
 
         <Button
             android:id="@+id/extra_credits"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:onClick="credits"
+            android:layout_marginTop="10dp"
             android:background="@drawable/button"
-            android:text="@string/extra_credits_btn"
-            android:layout_marginTop="20dp"/>
+            android:onClick="credits"
+            android:paddingBottom="9dp"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:text="@string/extra_credits_btn" />
         
         <Button
             android:id="@+id/estra_feedBack"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:onClick="feedBack"
+            android:layout_marginTop="10dp"
             android:background="@drawable/button"
-            android:text="@string/extra_feedback_btn"
-            android:layout_marginTop="20dp"/>
+            android:onClick="feedBack"
+            android:paddingBottom="9dp"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:text="@string/extra_feedback_btn" />
+
     </LinearLayout>
     
     <ImageButton
