@@ -492,16 +492,16 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 					levelObject = loadCollectable(x, y, resourcesManager.collectable_TR, 10, ResourceManager.getInstance().waterdropSound);
 				}
 				else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE_ACT1_SCENE2_GOALS)) {
-					levelObject = loadCollectable(x, y, resourcesManager.twine_TR, 40, ResourceManager.getInstance().waterdropSound);
+					levelObject = loadCollectable(x, y, resourcesManager.twine_TR, 40, ResourceManager.getInstance().collectSound);
 				}
 				else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE_ACT1_SCENE3_GOALS)) {
-					levelObject = loadCollectable(x, y, resourcesManager.stone_TR, 40, ResourceManager.getInstance().waterdropSound);
+					levelObject = loadCollectable(x, y, resourcesManager.stone_TR, 40, ResourceManager.getInstance().collectSound);
 				}
 				else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE_ACT1_SCENE4_GOALS)) {
-					levelObject = loadCollectable(x, y, resourcesManager.mud_TR, 40, ResourceManager.getInstance().waterdropSound);
+					levelObject = loadCollectable(x, y, resourcesManager.mud_TR, 40, ResourceManager.getInstance().collectSound);
 				}
 				else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE_ACT1_SCENE5_GOALS)) {
-					levelObject = loadCollectable(x, y, resourcesManager.wood_TR, 40, ResourceManager.getInstance().waterdropSound);
+					levelObject = loadCollectable(x, y, resourcesManager.wood_TR, 40, ResourceManager.getInstance().collectSound);
 				} else {
 					throw new IllegalArgumentException();
 				}
@@ -524,7 +524,9 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 				super.onManagedUpdate(pSecondsElapsed);
 
 				if (player.collidesWith(this)) {
-					sound.play();
+					if (!ResourceManager.getInstance().isMuted()) {
+						sound.play();
+					}
 					addToScore(s);
 					this.setVisible(false);
 					this.setIgnoreUpdate(true);
