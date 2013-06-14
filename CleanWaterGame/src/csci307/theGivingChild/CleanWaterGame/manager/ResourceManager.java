@@ -84,9 +84,7 @@ public class ResourceManager {
 	public Sound jumpSound;
 	public Sound dashSound;
 	public Sound duckSound;
-
-	//music
-	//public Music backgroundMusic;
+	public Sound waterdropSound;
 
 	//------------------------------------------------
 	//CALLS TO LOAD ALL RESOURCES
@@ -266,7 +264,9 @@ public class ResourceManager {
 			this.jumpSound.setVolume(.5f);
 			this.dashSound = SoundFactory.createSoundFromAsset(activity.getSoundManager(),activity, "dash.mp3");
 			this.dashSound.setVolume(.7f);
-
+			this.waterdropSound = SoundFactory.createSoundFromAsset(activity.getSoundManager(),activity, "waterdrop.mp3");
+			this.waterdropSound.setVolume(.2f);
+			
 			/* UNCOMMENT TO LOAD DUCKING SOUND
 			this.duckSound = SoundFactory.createSoundFromAsset(activity.getSoundManager(),activity, "duck.mp3");
 			this.duckSound.setVolume(.3f);
@@ -275,16 +275,6 @@ public class ResourceManager {
 			e.printStackTrace();
 		}
 
-		//MUSIC
-		//MusicFactory.setAssetBasePath("sfx/");
-//		try {
-//			if(null != this.backgroundMusic && this.backgroundMusic.isPlaying()) this.backgroundMusic.stop();
-//			this.backgroundMusic = MusicFactory.createMusicFromAsset(activity.getMusicManager(),activity, "gameMusic.mp3");
-//			this.backgroundMusic.setLooping(true);
-//			this.backgroundMusic.setVolume(.9f);
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
 	}
 
 	//------------------------------------------------
