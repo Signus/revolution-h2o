@@ -38,9 +38,10 @@ public class Player extends AnimatedSprite {
     // VARIABLES
 	public Body body;
 	private boolean canRun = false;
-    private float runSpeed = 5;
+    private static final float SPRINT_SPEED = 9;
+    private static final float NORMAL_SPEED = 5;
+    private float runSpeed = NORMAL_SPEED;
     private static final int MAX_SPRINT = 100;
-    private static final float SPRINT_AUGMENT = 4;
     private int sprintTime = MAX_SPRINT;
     private static final int MAX_DUCK = 10;
     private int duckTime = MAX_DUCK;
@@ -127,7 +128,7 @@ public class Player extends AnimatedSprite {
     private void resetSprint() {
         sprintTime = MAX_SPRINT;
         isSprinting = false;
-        runSpeed -= SPRINT_AUGMENT;
+        runSpeed = NORMAL_SPEED;
         setToInitialSprite();
     }
 
@@ -177,7 +178,7 @@ public class Player extends AnimatedSprite {
 
         //dash sprite
 
-        runSpeed += SPRINT_AUGMENT;
+        runSpeed = SPRINT_SPEED;
 	}
 
     public void bounceBack() {
