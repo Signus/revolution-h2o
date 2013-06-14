@@ -78,7 +78,7 @@ public class ResourceManager {
 	private BuildableBitmapTextureAtlas menuTA;
 	private BuildableBitmapTextureAtlas gameTA;
 	private BuildableBitmapTextureAtlas groundTA;
-	private BuildableBitmapTextureAtlas animationOneTA, animationTwoTA;
+	private BuildableBitmapTextureAtlas animationOneTA, animationTwoTA, animationThreeTA, animationFourTA;
 
 	//sounds
 	public Sound jumpSound;
