@@ -17,6 +17,7 @@ import java.util.Iterator;
 
 import javax.microedition.khronos.opengles.GL10;
 
+import org.andengine.audio.sound.Sound;
 import org.andengine.engine.camera.hud.HUD;
 import org.andengine.entity.IEntity;
 import org.andengine.entity.modifier.LoopEntityModifier;
@@ -488,19 +489,19 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
                     PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyType.StaticBody, GROUND_FIX).setUserData("alligator");
                 }
 				else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE)) {
-					levelObject = loadCollectable(x, y, resourcesManager.collectable_TR, 10);
+					levelObject = loadCollectable(x, y, resourcesManager.collectable_TR, 10, ResourceManager.getInstance().waterdropSound);
 				}
 				else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE_ACT1_SCENE2_GOALS)) {
-					levelObject = loadCollectable(x, y, resourcesManager.twine_TR, 40);
+					levelObject = loadCollectable(x, y, resourcesManager.twine_TR, 40, ResourceManager.getInstance().collectSound);
 				}
 				else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE_ACT1_SCENE3_GOALS)) {
-					levelObject = loadCollectable(x, y, resourcesManager.stone_TR, 40);
+					levelObject = loadCollectable(x, y, resourcesManager.stone_TR, 40, ResourceManager.getInstance().collectSound);
 				}
 				else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE_ACT1_SCENE4_GOALS)) {
-					levelObject = loadCollectable(x, y, resourcesManager.mud_TR, 40);
+					levelObject = loadCollectable(x, y, resourcesManager.mud_TR, 40, ResourceManager.getInstance().collectSound);
 				}
 				else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE_ACT1_SCENE5_GOALS)) {
-					levelObject = loadCollectable(x, y, resourcesManager.wood_TR, 40);
+					levelObject = loadCollectable(x, y, resourcesManager.wood_TR, 40, ResourceManager.getInstance().collectSound);
 				} else {
 					throw new IllegalArgumentException();
 				}
@@ -516,13 +517,16 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 		levelLoader.loadLevelFromAsset(activity.getAssets(), "level/" + levelID + ".xml");
 	}
 
-    private Sprite loadCollectable(float x, float y, ITextureRegion region, final int s) {
+    private Sprite loadCollectable(float x, float y, ITextureRegion region, final int s, final Sound sound) {
     	Sprite sprite = new Sprite(x, y, region, vbom) {
     		@Override
     		protected void onManagedUpdate(float pSecondsElapsed) {
 				super.onManagedUpdate(pSecondsElapsed);
 
 				if (player.collidesWith(this)) {
+					if (!ResourceManager.getInstance().isMuted()) {
+						sound.play();
+					}
 					addToScore(s);
 					this.setVisible(false);
 					this.setIgnoreUpdate(true);

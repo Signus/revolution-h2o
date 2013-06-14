@@ -111,13 +111,13 @@ public class AnimationScene extends BaseScene implements IOnMenuItemClickListene
 
 //		final IMenuItem quitMenuItem = new ColorMenuItemDecorator(new TextMenuItem(MENU_QUIT, resourcesManager.font, "QUIT", vbom), Color.RED, Color.WHITE);
 		final IMenuItem skipMenuItem = new ColorMenuItemDecorator(new TextMenuItem(MENU_SKIP, ResourceManager.getInstance().font, "SKIP", vbom), Color.RED, Color.WHITE);
-		final IMenuItem nextMenuItem = new ColorMenuItemDecorator(new TextMenuItem(MENU_NEXT, ResourceManager.getInstance().font, "NEXT", vbom), Color.RED, Color.WHITE);
-		final IMenuItem previousMenuItem = new ColorMenuItemDecorator(new TextMenuItem(MENU_PREV, ResourceManager.getInstance().font, "PREV", vbom), Color.RED, Color.WHITE);
+		final IMenuItem nextMenuItem = new ColorMenuItemDecorator(new TextMenuItem(MENU_NEXT, ResourceManager.getInstance().font, ">", vbom), Color.RED, Color.WHITE);
+		final IMenuItem previousMenuItem = new ColorMenuItemDecorator(new TextMenuItem(MENU_PREV, ResourceManager.getInstance().font, "<", vbom), Color.RED, Color.WHITE);
 
 //		gameOver.attachChild(new Text(400, 400, resourcesManager.game_font, "GAME OVER", vbom));
-		nextMenuItem.setPosition(740, 20);
-		previousMenuItem.setPosition(60, 20);
-		skipMenuItem.setPosition(740, 70);
+		nextMenuItem.setPosition(740, 240);
+		previousMenuItem.setPosition(50, 240);
+		skipMenuItem.setPosition(400, 20);
 //		quitMenuItem.setPosition(60, 460);
 		
 		navigation.addMenuItem(skipMenuItem);
