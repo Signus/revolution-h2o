@@ -21,8 +21,9 @@
 
         <Button
             android:id="@+id/playGame"
-            android:layout_width="206dp"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
             android:background="@drawable/button"
             android:onClick="openMiniGames"
             android:paddingBottom="9dp"
@@ -33,7 +34,7 @@
             android:id="@+id/extraBtn"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:background="@drawable/button"
             android:onClick="openExtras"
             android:paddingRight="@dimen/activity_horizontal_margin"
@@ -44,7 +45,7 @@
             android:id="@+id/donateBtn"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:background="@drawable/button"
             android:onClick="openDonate"
             android:paddingRight="@dimen/activity_horizontal_margin"
