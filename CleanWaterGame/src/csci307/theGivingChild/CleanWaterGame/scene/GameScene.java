@@ -132,6 +132,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
     private Sprite currentCollectable;
 
 	private Player player;
+	private Text tapToStartText;
     private boolean actionPerformed = false;
     public static boolean paused = false;
     private boolean isDone = false;
@@ -165,9 +166,10 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
         createBackground();
         createHUD();
         createPhysics();
-
+        tapToStartText = new Text(400, 400, resourcesManager.font, "TAP TO START", vbom);
+        attachChild(tapToStartText);
         setOnSceneTouchListener(this);
-
+        
         if (!ResourceManager.getInstance().isMuted())
         {
         	CleanWaterGame.getInstance().playGameMusic();
@@ -565,6 +567,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 				if (pSceneTouchEvent.isActionUp()) {
 					player.setRunning();
                 	start = true;
+                	this.detachChild(tapToStartText);
                 	return true;
 				}
 			} else {
