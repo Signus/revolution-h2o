@@ -178,8 +178,6 @@
 
 <!-- collectables -->
     <!-- ground collectable -->
-    <entity x="50" y="100" width="100" height="50" type="collectable"/>
-    <entity x="150" y="100" width="100" height="50" type="collectable"/>
     <entity x="250" y="100" width="100" height="50" type="collectable"/>
     <entity x="350" y="100" width="100" height="50" type="collectable"/>
     <entity x="450" y="100" width="100" height="50" type="collectable"/>
@@ -193,8 +191,7 @@
     <entity x="850" y="250" width="200" height="90" type="collectable"/>
     <entity x="950" y="250" width="200" height="90" type="collectable"/>
 
-    <entity x="1050" y="325" width="200" height="90" type="collectable"/>
-    <entity x="1150" y="325" width="200" height="90" type="collectable"/>
+    <entity x="1100" y="325" width="200" height="90" type="stone"/>
 
     <entity x="1250" y="250" width="200" height="90" type="collectable"/>
     <entity x="1350" y="250" width="200" height="90" type="collectable"/>
@@ -217,7 +214,13 @@
     <!-- ground collectable -->
     <entity x="1650" y="100" width="100" height="50" type="collectable"/>
     <entity x="1750" y="100" width="100" height="50" type="collectable"/>
+
+    <!--air collectable-->
+    <entity x="1900" y="150" width="100" height="50" type="collectable"/>
+    <entity x="1950" y="425" width="100" height="50" type="collectable"/>
     -->
+
+
 
     <entity x="2050" y="100" width="100" height="50" type="collectable"/>
     <entity x="2150" y="100" width="100" height="50" type="collectable"/>
@@ -240,7 +243,7 @@
     <entity x="2975" y="260" width="50" height="50" type="collectable"/>
     <entity x="3025" y="260" width="50" height="50" type="collectable"/>
 
-    <entity x="3075" y="260" width="100" height="20" type="collectable"/>
+    <entity x="3075" y="260" width="100" height="20" type="stone"/>
 
     <entity x="3150" y="260" width="50" height="50" type="collectable"/>
     <entity x="3200" y="260" width="50" height="50" type="collectable"/>
@@ -259,7 +262,7 @@
     <!-- fallingPlatform collectable -->
     <entity x="3950" y="260" width="100" height="50" type="collectable"/>
     <entity x="4150" y="220" width="100" height="50" type="collectable"/>
-    <entity x="4350" y="180" width="100" height="50" type="collectable"/>
+    <entity x="4350" y="180" width="100" height="50" type="stone"/>
 
     <!-- ground collectable -->
     <entity x="4550" y="100" width="100" height="50" type="collectable"/>
@@ -301,6 +304,8 @@
     <!-- ground collectable -->
     <entity x="5650" y="100" width="100" height="50" type="collectable"/>
 
+    <entity x="5800" y="150" width="100" height="50" type="collectable"/>
+
     <entity x="5950" y="100" width="100" height="50" type="collectable"/>
     <!-- fallingPlatform2 collectable -->
     <entity x="6025" y="110" width="50" height="50" type="collectable"/>
@@ -312,10 +317,10 @@
     <entity x="6325" y="110" width="50" height="50" type="collectable"/>
     <entity x="6375" y="110" width="50" height="50" type="collectable"/>
     <!-- ground collectable -->
-    <entity x="6450" y="100" width="100" height="50" type="collectable"/>
+    <entity x="6500" y="160" width="100" height="50" type="collectable"/>
 
     <!-- fallingPlatform collectable -->
-    <entity x="6700" y="240" width="100" height="50" type="collectable"/>
+    <!--<entity x="6700" y="240" width="100" height="50" type="collectable"/>-->
     <!-- ground collectable -->
     <entity x="6700" y="100" width="100" height="50" type="collectable"/>
     <entity x="6800" y="100" width="100" height="50" type="collectable"/>
@@ -340,7 +345,7 @@
     <entity x="8275" y="110" width="100" height="50" type="collectable"/>
     <entity x="8325" y="110" width="100" height="50" type="collectable"/>
     <!-- ground collectable -->
-    <entity x="8400" y="100" width="100" height="50" type="collectable"/>
+    <entity x="8400" y="100" width="100" height="50" type="stone"/>
     <!-- fallingPlatform2 collectable -->
     <entity x="8475" y="110" width="100" height="50" type="collectable"/>
     <entity x="8525" y="110" width="100" height="50" type="collectable"/>
@@ -360,7 +365,7 @@
     <entity x="9150" y="175" width="100" height="50" type="collectable"/>
 
     <!-- fallingPlatform collectable -->
-    <entity x="9325" y="110" width="100" height="20" type="collectable"/>
+    <entity x="9325" y="110" width="100" height="20" type="stone"/>
 
 
 </level>

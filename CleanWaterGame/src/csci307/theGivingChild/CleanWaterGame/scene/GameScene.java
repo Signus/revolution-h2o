@@ -71,7 +71,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
     private HUD gameHUD;
     private Text scoreText;
 	private PhysicsWorld physicsWorld;
-	
+
 	private int score = 0;
 
 	private float lastX;
@@ -127,6 +127,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 	private Sprite heart1;
 	private Sprite heart2;
 	private Sprite heart3;
+    private Sprite currentCollectable;
 
 	private Player player;
     private boolean actionPerformed = false;
@@ -164,7 +165,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
         createPhysics();
 
         setOnSceneTouchListener(this);
-       
+
         if (!ResourceManager.getInstance().isMuted())
         {
         	CleanWaterGame.getInstance().playGameMusic();
@@ -186,7 +187,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 //    		CleanWaterGame.getInstance().getSharedPreferences(GameLauncher.PREFERENCE_KEY_INGAME, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).edit().putBoolean(GameLauncher.PREFERENCE_KEY_INGAME_MUTE, false).commit();
 //    		SceneManager.getInstance().loadMenuScene(engine);
 //    	}
-    	
+
     	if (pausedType.equals(PausedType.PAUSED_ON)) {
     		if(!ResourceManager.getInstance().isMuted()) CleanWaterGame.getInstance().playGameMusic();
     		clearChildScene();
@@ -258,9 +259,9 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 
     private void createHUD() {
     	gameHUD = new HUD();
-    	heart1 = new Sprite(660, 420, resourcesManager.hitpoints_TR, vbom);
-    	heart2 = new Sprite(710, 420, resourcesManager.hitpoints_TR, vbom);
-    	heart3 = new Sprite(760, 420, resourcesManager.hitpoints_TR, vbom);
+    	heart1 = new Sprite(660, 390, resourcesManager.hitpoints_TR, vbom);
+    	heart2 = new Sprite(710, 390, resourcesManager.hitpoints_TR, vbom);
+    	heart3 = new Sprite(760, 390, resourcesManager.hitpoints_TR, vbom);
 
 
     	final Sprite pauseButton = new Sprite(50, 430, resourcesManager.pause_TR, vbom) {
@@ -275,8 +276,8 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
     			return true;
     		};
     	};
-    	
-    	scoreText = new Text(300, 440, resourcesManager.font, "Score: 0123456", new TextOptions(HorizontalAlign.LEFT), vbom);
+
+    	scoreText = new Text(700, 440, resourcesManager.font, "Score: 0123456", new TextOptions(HorizontalAlign.LEFT), vbom);
 //    	scoreText.setAnchorCenter(0, 0);
     	scoreText.setText("Score: 0");
 
@@ -287,6 +288,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
     	gameHUD.attachChild(heart2);
     	gameHUD.attachChild(heart3);
     	displayHealth(3);
+
 
     	camera.setHUD(gameHUD);
     }
@@ -315,7 +317,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
     			break;
     	}
     }
-    
+
     private void addToScore(int i) {
     	score += i;
     	scoreText.setText("Score: " + score);
@@ -467,13 +469,13 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 					levelObject = loadCollectable(x, y, resourcesManager.twine_TR, 40);
 				}
 				else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE_ACT1_SCENE3_GOALS)) {
-					levelObject = loadCollectable(x, y, resourcesManager.wood_TR, 40);
-				}
-				else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE_ACT1_SCENE4_GOALS)) {
 					levelObject = loadCollectable(x, y, resourcesManager.stone_TR, 40);
 				}
+				else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE_ACT1_SCENE4_GOALS)) {
+					levelObject = loadCollectable(x, y, resourcesManager.mud_TR, 40);
+				}
 				else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE_ACT1_SCENE5_GOALS)) {
-					levelObject = loadCollectable(x, y, resourcesManager.collectable_TR, 40);
+					levelObject = loadCollectable(x, y, resourcesManager.wood_TR, 40);
 				} else {
 					throw new IllegalArgumentException();
 				}
@@ -745,4 +747,5 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 				super.onManagedUpdate(pSecondsElapsed);
 		}
 	}
+
 }

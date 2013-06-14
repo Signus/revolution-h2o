@@ -38,9 +38,10 @@ public class Player extends AnimatedSprite {
     // VARIABLES
 	public Body body;
 	private boolean canRun = false;
-    private float runSpeed = 5;
+    private static final float SPRINT_SPEED = 9;
+    private static final float NORMAL_SPEED = 5;
+    private float runSpeed = NORMAL_SPEED;
     private static final int MAX_SPRINT = 100;
-    private static final float SPRINT_AUGMENT = 4;
     private int sprintTime = MAX_SPRINT;
     private static final int MAX_DUCK = 10;
     private int duckTime = MAX_DUCK;
@@ -89,7 +90,7 @@ public class Player extends AnimatedSprite {
 					hitpoints = 0;
 					onDie();
 				}
-				
+
 				if (hitpoints <= 0){
 					onDie();
 				}
@@ -100,10 +101,7 @@ public class Player extends AnimatedSprite {
                     if (isSprinting) {
                         sprintTime--;
                         if (sprintTime <= 0 && !verticalMotion()) {
-                            sprintTime = MAX_SPRINT;
-                            isSprinting = false;
-                            runSpeed -= SPRINT_AUGMENT;
-                            setToInitialSprite();
+                            resetSprint();
                         }
                     }
                     if (isJumping) {
@@ -118,14 +116,21 @@ public class Player extends AnimatedSprite {
                 		isBouncing = false;
                 		setToInitialSprite();
                 		canRun = true;
-                		sprintTime = 0;
-                		body.setLinearVelocity(runSpeed, body.getLinearVelocity().y);                		
+                        resetSprint();
+                		body.setLinearVelocity(runSpeed, body.getLinearVelocity().y);
                 	}
                 }
 			}
 
 		});
 	}
+
+    private void resetSprint() {
+        sprintTime = MAX_SPRINT;
+        isSprinting = false;
+        runSpeed = NORMAL_SPEED;
+        setToInitialSprite();
+    }
 
 	public boolean isDucking() {
 		return isDucking;
@@ -173,7 +178,7 @@ public class Player extends AnimatedSprite {
 
         //dash sprite
 
-        runSpeed += SPRINT_AUGMENT;
+        runSpeed = SPRINT_SPEED;
 	}
 
     public void bounceBack() {
@@ -205,7 +210,7 @@ public class Player extends AnimatedSprite {
     public void decrementHP() {
     	hitpoints--;
     }
-    
+
     public void setHP(int hp) {
     	hitpoints = hp;
     }

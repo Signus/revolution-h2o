@@ -64,7 +64,7 @@ public class ResourceManager {
 
 	//game textures
 	public ITiledTextureRegion player_TR;
-	public ITextureRegion collectable_TR,twine_TR,wood_TR,stone_TR;
+	public ITextureRegion collectable_TR,twine_TR,wood_TR,stone_TR, mud_TR;
 	public ITextureRegion scene_background_TR;
 	public ITextureRegion scene_foreground_TR;
 	public ITextureRegion pause_TR, hitpoints_TR;
@@ -184,6 +184,7 @@ public class ResourceManager {
         twine_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTA, activity, "twine.png");
         wood_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTA, activity, "wood.png");
         stone_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTA, activity, "stone.png");
+        mud_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTA, activity, "mud.png");
 
         //Background Texture Regions
         scene_background_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTA, activity, "gradient_background.png");
