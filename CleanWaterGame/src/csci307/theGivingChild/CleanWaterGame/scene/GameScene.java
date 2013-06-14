@@ -754,10 +754,10 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 				super.onManagedUpdate(pSecondsElapsed);
 				break;
 			case PAUSED_GAMEOVER:
-				setChildScene(gameOverScene());
+				setChildScene(gameOverScene(), false, true, true);
 				return;
 			case PAUSED_ON:
-				setChildScene(pauseScene());
+				setChildScene(pauseScene(), false, true, true);
 				return;
 			case PAUSED_GAMEWIN:
 //				setChildScene(gameWinScene());
