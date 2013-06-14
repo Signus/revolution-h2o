@@ -16,33 +16,40 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:gravity="center">
+        android:gravity="center"
+        android:id="@+id/main_layout">
 
         <Button
             android:id="@+id/playGame"
             android:layout_width="206dp"
             android:layout_height="wrap_content"
-            android:text="@string/menu_play_game"
+            android:background="@drawable/button"
             android:onClick="openMiniGames"
-            android:background="@drawable/button"/>
+            android:paddingBottom="9dp"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:text="@string/menu_play_game" />
 
         <Button
             android:id="@+id/extraBtn"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="@string/menu_extra_btn"
-            android:onClick="openExtras"
+            android:layout_marginTop="20dp"
             android:background="@drawable/button"
-            android:layout_marginTop="20dp"/>
+            android:onClick="openExtras"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingBottom="9dp"
+            android:text="@string/menu_extra_btn" />
 
         <Button
             android:id="@+id/donateBtn"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="@string/menu_donate_btn"
-            android:onClick="openDonate"
+            android:layout_marginTop="20dp"
             android:background="@drawable/button"
-            android:layout_marginTop="20dp"/>
+            android:onClick="openDonate"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingBottom="9dp"
+            android:text="@string/menu_donate_btn" />
 
     </LinearLayout>
 
