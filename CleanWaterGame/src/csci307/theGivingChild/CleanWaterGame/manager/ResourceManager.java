@@ -11,8 +11,6 @@ package csci307.theGivingChild.CleanWaterGame.manager;
 
 import java.io.IOException;
 
-import org.andengine.audio.music.Music;
-import org.andengine.audio.music.MusicFactory;
 import org.andengine.audio.sound.Sound;
 import org.andengine.audio.sound.SoundFactory;
 import org.andengine.engine.Engine;
@@ -33,11 +31,11 @@ import org.andengine.opengl.vbo.VertexBufferObjectManager;
 import org.andengine.ui.activity.BaseGameActivity;
 import org.andengine.util.debug.Debug;
 
-import csci307.theGivingChild.CleanWaterGame.CleanWaterGame;
-import csci307.theGivingChild.CleanWaterGame.GameLauncher;
-
 import android.app.Activity;
 import android.graphics.Color;
+
+import csci307.theGivingChild.CleanWaterGame.CleanWaterGame;
+import csci307.theGivingChild.CleanWaterGame.GameLauncher;
 
 public class ResourceManager {
 	private static final ResourceManager INSTANCE = new ResourceManager();
@@ -169,7 +167,7 @@ public class ResourceManager {
 	 */
 	private void loadGameGraphics() {
 		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/game/");		//Set the directory path for the all GameScene graphics relative to the 'assets' folder
-
+		
         gameTA = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 2048, 1024, TextureOptions.BILINEAR);	//A map that holds textures/graphics for the game character, collectables, backgrounds, and pause button
         //Player textures
         player_TR = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(gameTA, activity, "player_run_sprite.png", 7, 1);
