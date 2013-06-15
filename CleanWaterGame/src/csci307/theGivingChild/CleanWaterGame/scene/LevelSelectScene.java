@@ -7,10 +7,7 @@
 
 package csci307.theGivingChild.CleanWaterGame.scene;
 
-import android.content.SharedPreferences;
-import android.graphics.PorterDuff;
 import org.andengine.entity.scene.background.AutoParallaxBackground;
-import org.andengine.entity.scene.background.Background;
 import org.andengine.entity.scene.background.ParallaxBackground.ParallaxEntity;
 import org.andengine.entity.scene.menu.MenuScene;
 import org.andengine.entity.scene.menu.MenuScene.IOnMenuItemClickListener;
@@ -19,7 +16,6 @@ import org.andengine.entity.scene.menu.item.SpriteMenuItem;
 import org.andengine.entity.scene.menu.item.decorator.ScaleMenuItemDecorator;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.entity.text.Text;
-import org.andengine.util.adt.color.Color;
 
 import csci307.theGivingChild.CleanWaterGame.CleanWaterGame;
 import csci307.theGivingChild.CleanWaterGame.GameLauncher;
@@ -30,7 +26,7 @@ import csci307.theGivingChild.CleanWaterGame.scene.AnimationScene.Animation;
 
 public class LevelSelectScene extends BaseScene implements IOnMenuItemClickListener {
 
-    public static final String LEVEL_SELECT_PREFERENCE = "csci370.theGivingChild.CleanWaterGame.LEVEL_SELECT";
+    public static final String LEVEL_PREFERENCE = "csci370.theGivingChild.CleanWaterGame.LEVEL_SELECT";
     private MenuScene menuChildScene;
 
 	private final int SCENE_ONE = 0;
@@ -124,39 +120,25 @@ public class LevelSelectScene extends BaseScene implements IOnMenuItemClickListe
 		menuChildScene.setBackgroundEnabled(false);
 
         menuChildScene.addMenuItem(levelOneMenuItem);
-        //added back for testing
-        menuChildScene.addMenuItem(levelTwoMenuItem);
-        menuChildScene.addMenuItem(levelThreeMenuItem);
-        menuChildScene.addMenuItem(levelFourMenuItem);
-        menuChildScene.addMenuItem(levelFiveMenuItem);
-
-
 		levelOneMenuItem.setPosition(100, 100);
-		//added back for testing
-		levelTwoMenuItem.setPosition(250, 100);
-		levelThreeMenuItem.setPosition(400, 100);
-		levelFourMenuItem.setPosition(550,100);
-		levelFiveMenuItem.setPosition(700,100);
 
-
-
-        if (CleanWaterGame.getInstance().getSharedPreferences(LEVEL_SELECT_PREFERENCE, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).getBoolean("act1scene1", false)) {
+        if (CleanWaterGame.getInstance().getSharedPreferences(LEVEL_PREFERENCE, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).getBoolean("act1scene1_done", false)) {
             menuChildScene.addMenuItem(levelTwoMenuItem);
             levelTwoMenuItem.setPosition(250, 100);
         }
 
-        if (CleanWaterGame.getInstance().getSharedPreferences(LEVEL_SELECT_PREFERENCE, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).getBoolean("act1scene2", false)) {
+        if (CleanWaterGame.getInstance().getSharedPreferences(LEVEL_PREFERENCE, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).getBoolean("act1scene2_done", false)) {
             menuChildScene.addMenuItem(levelThreeMenuItem);
             levelThreeMenuItem.setPosition(400, 100);
         }
 
-        if (CleanWaterGame.getInstance().getSharedPreferences(LEVEL_SELECT_PREFERENCE, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).getBoolean("act1scene3", false)) {
+        if (CleanWaterGame.getInstance().getSharedPreferences(LEVEL_PREFERENCE, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).getBoolean("act1scene3_done", false)) {
             menuChildScene.addMenuItem(levelFourMenuItem);
             levelFourMenuItem.setPosition(550,100);
         }
 
 
-        if (CleanWaterGame.getInstance().getSharedPreferences(LEVEL_SELECT_PREFERENCE, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).getBoolean("act1scene4", false)) {
+        if (CleanWaterGame.getInstance().getSharedPreferences(LEVEL_PREFERENCE, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).getBoolean("act1scene4_done", false)) {
             menuChildScene.addMenuItem(levelFiveMenuItem);
             levelFiveMenuItem.setPosition(700,100);
         }

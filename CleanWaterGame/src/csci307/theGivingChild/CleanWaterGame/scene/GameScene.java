@@ -170,7 +170,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
         tapToStartText = new Text(400, 400, resourcesManager.font, "TAP TO START", vbom);
         attachChild(tapToStartText);
         setOnSceneTouchListener(this);
-        
+
         if (!ResourceManager.getInstance().isMuted())
         {
         	CleanWaterGame.getInstance().playGameMusic();
@@ -457,7 +457,8 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 								this.setIgnoreUpdate(true);
 								//show level complete scene.
 								System.out.println("TRIGGER WORKS");
-                                CleanWaterGame.getInstance().getSharedPreferences(LevelSelectScene.LEVEL_SELECT_PREFERENCE, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).edit().putBoolean(currentLevel, true).commit();
+                                CleanWaterGame.getInstance().getSharedPreferences(LevelSelectScene.LEVEL_PREFERENCE, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).edit().putBoolean(currentLevel+"_done", true).commit();
+                                CleanWaterGame.getInstance().getSharedPreferences(LevelSelectScene.LEVEL_PREFERENCE, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).edit().putInt(currentLevel+"_score", score).commit();
 
 								setChildScene(gameWinScene());
 								pausedType = PausedType.PAUSED_GAMEWIN;
