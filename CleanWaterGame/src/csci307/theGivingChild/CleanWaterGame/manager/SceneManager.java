@@ -101,13 +101,7 @@ public class SceneManager {
 		currentScene = actSelectScene;
 		pOnCreateSceneCallback.onCreateSceneFinished(actSelectScene);
 	}
-	
-	public void createActSelectScene() {
-		ResourceManager.getInstance().loadMenuResources();
-		actSelectScene = new ActSelectScene();
-		currentScene = actSelectScene;
-	}
-	
+		
 	public void createAnimationScene(final Animation animation) {
 		ResourceManager.getInstance().loadAnimationResources();
 		animationScene = new AnimationScene(animation);
