@@ -92,7 +92,10 @@ public class LevelSelectScene extends BaseScene implements IOnMenuItemClickListe
 
 	@Override
 	public void disposeScene() {
-		// TODO Auto-generated method stub
+		this.clearChildScene();
+		this.detachChildren();
+		this.reset();
+		this.detachSelf();
 
 	}
 

@@ -102,6 +102,12 @@ public class SceneManager {
 		pOnCreateSceneCallback.onCreateSceneFinished(actSelectScene);
 	}
 	
+	public void createActSelectScene() {
+		ResourceManager.getInstance().loadMenuResources();
+		actSelectScene = new ActSelectScene();
+		currentScene = actSelectScene;
+	}
+	
 	public void createAnimationScene(final Animation animation) {
 		ResourceManager.getInstance().loadAnimationResources();
 		animationScene = new AnimationScene(animation);
@@ -113,6 +119,11 @@ public class SceneManager {
 		if (gameScene != null) {
 			gameScene.disposeScene();
 			ResourceManager.getInstance().unloadGameGraphics();
+			gameScene = null;
+		}
+		if (levelSelectScene != null) {
+			levelSelectScene.disposeScene();
+			levelSelectScene = null;
 		}
 		mEngine.registerUpdateHandler(new TimerHandler(0.01f, new ITimerCallback() {
 					
@@ -129,6 +140,7 @@ public class SceneManager {
 		if (animationScene != null) {
 			animationScene.disposeScene();
 			ResourceManager.getInstance().unloadAnimationGraphics();
+			animationScene = null;
 		}
 		mEngine.registerUpdateHandler(new TimerHandler(.1f, new ITimerCallback() {
 			
@@ -145,6 +157,7 @@ public class SceneManager {
 	
 	public void loadActSelectScene(final Engine mEngine) {
 		ResourceManager.getInstance().unloadMenuGraphics();
+		if (levelSelectScene != null) levelSelectScene.disposeScene();
 		mEngine.registerUpdateHandler(new TimerHandler(0.01f, new ITimerCallback() {
 			
 			@Override
@@ -161,13 +174,14 @@ public class SceneManager {
 			setScene(loadingScene);
 			gameScene.disposeScene();
 			ResourceManager.getInstance().unloadGameGraphics();
+			gameScene = null;
 		}
 		if (animationScene != null) {
 			setScene(loadingScene);
 			animationScene.disposeScene();
 			ResourceManager.getInstance().unloadAnimationGraphics();
+			animationScene = null;
 		}
-		
 		mEngine.registerUpdateHandler(new TimerHandler(0.1f, new ITimerCallback() {			
 			@Override
 			public void onTimePassed(TimerHandler pTimerHandler) {

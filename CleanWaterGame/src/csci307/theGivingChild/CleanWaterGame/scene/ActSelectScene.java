@@ -49,7 +49,6 @@ public class ActSelectScene extends BaseScene implements IOnMenuItemClickListene
 
 	@Override
 	public void disposeScene() {
-		// TODO Auto-generated method stub
 		
 	}
 	

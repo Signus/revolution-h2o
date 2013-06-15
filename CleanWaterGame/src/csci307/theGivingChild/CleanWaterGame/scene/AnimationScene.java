@@ -67,6 +67,7 @@ public class AnimationScene extends BaseScene implements IOnMenuItemClickListene
 			CleanWaterGame.getInstance().playMenuMusic();
 		}
 		CleanWaterGame.getInstance().getSharedPreferences(GameLauncher.PREFERENCE_KEY_INGAME, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).edit().putBoolean(GameLauncher.PREFERENCE_KEY_INGAME_MUTE, false).commit();
+		SceneManager.getInstance().createLevelSelectScene();
 		SceneManager.getInstance().loadMenuScene(engine);
 		
 	}
@@ -198,7 +199,7 @@ public class AnimationScene extends BaseScene implements IOnMenuItemClickListene
 							currentScene--;
 							attachChild(scene_one.get(currentScene));
 						} else {
-							disposeScene();
+							SceneManager.getInstance().createLevelSelectScene();
 							SceneManager.getInstance().loadMenuScene(engine);
 						}
 						
@@ -209,7 +210,7 @@ public class AnimationScene extends BaseScene implements IOnMenuItemClickListene
 							currentScene--;
 							attachChild(scene_two.get(currentScene));
 						} else {
-							disposeScene();
+							SceneManager.getInstance().createLevelSelectScene();
 							SceneManager.getInstance().loadMenuScene(engine);
 						}
 						
@@ -217,21 +218,21 @@ public class AnimationScene extends BaseScene implements IOnMenuItemClickListene
 					case SCENE_THREE:
 						if (currentScene != 0) {
 						} else {
-							disposeScene();
+							SceneManager.getInstance().createLevelSelectScene();
 							SceneManager.getInstance().loadMenuScene(engine);
 						}
 						break;
 					case SCENE_FOUR:
 						if (currentScene != 0) {
 						} else {
-							disposeScene();
+							SceneManager.getInstance().createLevelSelectScene();
 							SceneManager.getInstance().loadMenuScene(engine);
 						}
 						break;
 					case SCENE_FIVE:
 						if (currentScene != 0) {
 						} else {
-							disposeScene();
+							SceneManager.getInstance().createLevelSelectScene();
 							SceneManager.getInstance().loadMenuScene(engine);
 						}
 						break;
