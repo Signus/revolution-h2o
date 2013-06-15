@@ -69,6 +69,7 @@ import csci307.theGivingChild.CleanWaterGame.scene.AnimationScene.Animation;
 
 public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMenuItemClickListener {
 
+	public static final String TUTORIAL_PREFERENCE = "csci370.theGivingchild.cleanWaterGame.JUMP_TUTORIAL";
     private static final double TAP_THRESHOLD = 60;
     private static final double SWIPE_THRESHOLD = 80;
     private static final double COLLISION_THRESHOLD = 1.0;
@@ -100,6 +101,8 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_PLAYER = "player";
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE = "collectable";
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_WIN_TRIGGER = "winTrigger";
+	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_JUMP_TUTORIAL_TRIGGER = "jumpTutorialTrigger";
+	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_JUMP_TRIGGER = "jumpTrigger";
     private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_ALLIGATOR = "alligator";
 
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE_ACT1_SCENE2_GOALS = "twine";
@@ -116,11 +119,9 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 	private static final short MASKBITS_GROUND = CATEGORYBIT_GROUND + CATEGORYBIT_PLAYER;
 	private static final short MASKBITS_FALLING = CATEGORYBIT_PLAYER;
 	private static final short MASKBITS_PLAYER = CATEGORYBIT_FALLING + CATEGORYBIT_GROUND;
-	private static final short MASKBITS_FALLING_2 = CATEGORYBIT_PLAYER;
 
 	private static final FixtureDef GROUND_FIX = PhysicsFactory.createFixtureDef(0, 0.01f, 0.1f, false, CATEGORYBIT_GROUND, MASKBITS_GROUND, (short)0);
 	public static final FixtureDef FALLING_FIX = PhysicsFactory.createFixtureDef(1, 0, 0.1f, false, CATEGORYBIT_FALLING, MASKBITS_FALLING, (short)0);
-	private static final FixtureDef FALLING_FIX_2 = PhysicsFactory.createFixtureDef(1, 0, 0.1f, false, CATEGORYBIT_FALLING, MASKBITS_FALLING_2, (short)0);
 	public static final FixtureDef PLAYER_FIX = PhysicsFactory.createFixtureDef(0, 0, 0, false, CATEGORYBIT_PLAYER, MASKBITS_PLAYER, (short)0);
 
 	private final int MENU_RESUME = 0;
@@ -132,10 +133,9 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 	private Sprite heart1;
 	private Sprite heart2;
 	private Sprite heart3;
-    private Sprite currentCollectable;
 
 	private Player player;
-	private Text tapToStartText;
+	private static Text tapToStartText;
     private boolean actionPerformed = false;
     public static boolean paused = false;
     private boolean isDone = false;
@@ -147,7 +147,8 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
     	PAUSED_OFF,
     	PAUSED_ON,
     	PAUSED_GAMEOVER,
-    	PAUSED_GAMEWIN
+    	PAUSED_GAMEWIN,
+    	PAUSED_JUMPTUTORIAL
     }
 
     public GameScene(String level, String level2) {
@@ -472,6 +473,24 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 					};
 					levelObject.setVisible(false);
 				}
+				else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_JUMP_TUTORIAL_TRIGGER)) {
+//					if (CleanWaterGame.getInstance().getSharedPreferences(TUTORIAL_PREFERENCE, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).getBoolean("jump_tutorial_done",  false)) {
+					if (true) {	
+						System.out.println("JUMP TUTORIAL ACTIVATE");
+						levelObject = new Rectangle(x, y, width, height, vbom) {
+							@Override
+							protected void onManagedUpdate(float pSecondsElapsed) {
+								if (player.collidesWith(this)) {
+									this.setIgnoreUpdate(true);
+									CleanWaterGame.getInstance().getSharedPreferences(GameScene.TUTORIAL_PREFERENCE, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).edit().putBoolean("jump_tutorial_done", true).commit();
+									pausedType = PausedType.PAUSED_JUMPTUTORIAL;
+								}
+							}
+						};
+					} else {
+						levelObject = new Rectangle(1, 1, 1, 1, vbom);
+					}
+				}
                 else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_ALLIGATOR)) {
                     AnimatedSprite temp = new AnimatedSprite(x, y, resourcesManager.alligator_TR, vbom){
                         @Override
@@ -494,12 +513,13 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
                         }
                     };
                     temp.animate(100);
-//                    levelObject = temp;
-//                    temp = null;
-                    body = createAlligatorBody(temp);
-                   // PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyType.StaticBody, GROUND_FIX).setUserData("alligator");
-                    physicsWorld.registerPhysicsConnector(new PhysicsConnector(temp, body, true, true));
                     levelObject = temp;
+//                    temp = null;
+//                    body = createAlligatorBody(temp);
+                    PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyType.StaticBody, GROUND_FIX).setUserData("alligator");
+ //                   physicsWorld.registerPhysicsConnector(new PhysicsConnector(temp, body, false, false));
+ //                   PhysicsFactory.createPolygonBody(physicsWorld, temp, createAlligatorBody(), BodyType.StaticBody, GROUND_FIX);
+ //                   levelObject = temp;
                     temp = null;
                 }
 				else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE)) {
@@ -531,7 +551,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 		levelLoader.loadLevelFromAsset(activity.getAssets(), "level/" + levelID + ".xml");
 	}
 
-    private static Body createAlligatorBody(final IShape pAreaShape) {
+    private static Vector2[] createAlligatorBody() {
     	float PTM_RATIO = 32;
 		final Vector2[] vertices = {
 	    	new Vector2(-10.0f / PTM_RATIO , -28.0f / PTM_RATIO),
@@ -555,7 +575,8 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 	    	new Vector2(-9.0f / PTM_RATIO, -28.0f / PTM_RATIO)
     	};
 		
-		return PhysicsFactory.createPolygonBody(physicsWorld, pAreaShape, vertices, BodyType.StaticBody, GROUND_FIX);
+//		return PhysicsFactory.createPolygonBody(physicsWorld, pAreaShape, vertices, BodyType.StaticBody, GROUND_FIX);
+		return vertices;
     }
     private Sprite loadCollectable(float x, float y, ITextureRegion region, final int s, final Sound sound) {
     	Sprite sprite = new Sprite(x, y, region, vbom) {
@@ -611,7 +632,8 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 				if (pSceneTouchEvent.isActionUp()) {
 					player.setRunning();
                 	start = true;
-                	this.detachChild(tapToStartText);
+                	detachChild(tapToStartText);
+                	tapToStartText.setVisible(false);
                 	return true;
 				}
 			} else {
@@ -798,6 +820,29 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 
 		return gameWin;
 	}
+	
+	private MenuScene jumpTutorialScene() {
+		final MenuScene jumpTutorial = new MenuScene(camera);
+		
+		final Rectangle background = new Rectangle(400, 240, 350, 200, vbom);
+		jumpTutorial.attachChild(background);
+		final IMenuItem resumeMenuItem = new ColorMenuItemDecorator(new TextMenuItem(MENU_RESUME, resourcesManager.font, ">>", vbom), Color.RED, Color.WHITE);
+		resumeMenuItem.setPosition(530, 160);
+		jumpTutorial.attachChild(new Text(400, 300, resourcesManager.font, "TAP OR SWIPE UP", vbom));
+		jumpTutorial.attachChild(new Text(400, 250, resourcesManager.font, "TO JUMP", vbom));
+		
+		
+		
+		background.setBlendFunction(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
+		background.setAlpha(0.5f);
+		
+		jumpTutorial.addMenuItem(resumeMenuItem);
+		
+		jumpTutorial.setBackgroundEnabled(false);
+		jumpTutorial.setOnMenuItemClickListener(this);
+		
+		return jumpTutorial;
+	}
 
 	@Override
 	protected void onManagedUpdate(float pSecondsElapsed) {
@@ -813,6 +858,9 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 				return;
 			case PAUSED_GAMEWIN:
 //				setChildScene(gameWinScene());
+				return;
+			case PAUSED_JUMPTUTORIAL:
+				setChildScene(jumpTutorialScene());
 				return;
 			default:
 				super.onManagedUpdate(pSecondsElapsed);
