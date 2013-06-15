@@ -124,6 +124,18 @@ public class LevelSelectScene extends BaseScene implements IOnMenuItemClickListe
 
         menuChildScene.addMenuItem(levelOneMenuItem);
 		levelOneMenuItem.setPosition(100, 100);
+//added back for testing
+		menuChildScene.addMenuItem(levelTwoMenuItem);
+		menuChildScene.addMenuItem(levelThreeMenuItem);
+		menuChildScene.addMenuItem(levelFourMenuItem);
+		menuChildScene.addMenuItem(levelFiveMenuItem);
+				//added back for testing
+				levelTwoMenuItem.setPosition(250, 100);
+				levelThreeMenuItem.setPosition(400, 100);
+				levelFourMenuItem.setPosition(550,100);
+				levelFiveMenuItem.setPosition(700,100);
+
+
 
         if (CleanWaterGame.getInstance().getSharedPreferences(LEVEL_PREFERENCE, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).getBoolean("act1scene1_done", false)) {
             menuChildScene.addMenuItem(levelTwoMenuItem);

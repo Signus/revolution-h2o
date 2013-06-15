@@ -32,11 +32,13 @@ import org.andengine.entity.scene.menu.MenuScene.IOnMenuItemClickListener;
 import org.andengine.entity.scene.menu.item.IMenuItem;
 import org.andengine.entity.scene.menu.item.TextMenuItem;
 import org.andengine.entity.scene.menu.item.decorator.ColorMenuItemDecorator;
+import org.andengine.entity.shape.IShape;
 import org.andengine.entity.sprite.AnimatedSprite;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.entity.text.Text;
 import org.andengine.entity.text.TextOptions;
 import org.andengine.extension.physics.box2d.FixedStepPhysicsWorld;
+import org.andengine.extension.physics.box2d.PhysicsConnector;
 import org.andengine.extension.physics.box2d.PhysicsFactory;
 import org.andengine.extension.physics.box2d.PhysicsWorld;
 import org.andengine.input.touch.TouchEvent;
@@ -72,7 +74,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
     private static final double COLLISION_THRESHOLD = 1.0;
     private HUD gameHUD;
     private Text scoreText;
-	private PhysicsWorld physicsWorld;
+	private static PhysicsWorld physicsWorld;
 
 	private int score = 0;
 
@@ -475,22 +477,30 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
                         @Override
                         protected void onManagedUpdate(float pSecondsElapsed) {
                             super.onManagedUpdate(pSecondsElapsed);
-                            //side collision
-                            if (detectSideCollision(player, this)) {
-                                player.gameOver();
-                                displayHealth(player.getHP());
-                            }
-                            //top collision
-                            if (detectTopCollision(player, this)) {
-                                player.gameOver();
-                                displayHealth(player.getHP());
+//                            //side collision
+//                            if (detectSideCollision(player, this)) {
+//                                player.gameOver();
+//                                displayHealth(player.getHP());
+//                            }
+//                            //top collision
+//                            if (detectTopCollision(player, this)) {
+//                                player.gameOver();
+//                                displayHealth(player.getHP());
+//                            }
+                            if (player.collidesWith(this)) {
+                            	player.gameOver();
+                            	displayHealth(player.getHP());
                             }
                         }
                     };
                     temp.animate(100);
+//                    levelObject = temp;
+//                    temp = null;
+                    body = createAlligatorBody(temp);
+                   // PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyType.StaticBody, GROUND_FIX).setUserData("alligator");
+                    physicsWorld.registerPhysicsConnector(new PhysicsConnector(temp, body, true, true));
                     levelObject = temp;
                     temp = null;
-                    PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyType.StaticBody, GROUND_FIX).setUserData("alligator");
                 }
 				else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE)) {
 					levelObject = loadCollectable(x, y, resourcesManager.collectable_TR, 10, ResourceManager.getInstance().waterdropSound);
@@ -521,6 +531,32 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 		levelLoader.loadLevelFromAsset(activity.getAssets(), "level/" + levelID + ".xml");
 	}
 
+    private static Body createAlligatorBody(final IShape pAreaShape) {
+    	float PTM_RATIO = 32;
+		final Vector2[] vertices = {
+	    	new Vector2(-10.0f / PTM_RATIO , -28.0f / PTM_RATIO),
+	    	new Vector2(-40.0f / PTM_RATIO, -15.0f / PTM_RATIO),
+	    	new Vector2(-41.0f / PTM_RATIO, -14.0f / PTM_RATIO),
+	    	new Vector2(-41.0f / PTM_RATIO, -5.0f / PTM_RATIO),
+	    	new Vector2(-35.0f / PTM_RATIO, 6.0f / PTM_RATIO),
+	    	new Vector2(-21.0f / PTM_RATIO, 20.0f / PTM_RATIO),
+	    	new Vector2(-16.0f / PTM_RATIO, 23.0f / PTM_RATIO),
+	    	new Vector2(-11.0f / PTM_RATIO, 25.0f / PTM_RATIO),
+	    	new Vector2(-4.0f / PTM_RATIO, 26.0f / PTM_RATIO),
+	    	new Vector2(3.0f / PTM_RATIO, 26.0f / PTM_RATIO),
+	    	new Vector2(29.0f / PTM_RATIO, 16.0f / PTM_RATIO),
+	    	new Vector2(33.0f / PTM_RATIO, 12.0f / PTM_RATIO),
+	    	new Vector2(40.0f / PTM_RATIO, 3.0f / PTM_RATIO),
+	    	new Vector2(40.0f / PTM_RATIO, 1.0f / PTM_RATIO),
+	    	new Vector2(38.0f / PTM_RATIO, -9.0f / PTM_RATIO),
+	    	new Vector2(37.0f / PTM_RATIO, -12.0f / PTM_RATIO),
+	    	new Vector2(36.0f / PTM_RATIO, -14.0f / PTM_RATIO),
+	    	new Vector2(35.0f / PTM_RATIO, -15.0f / PTM_RATIO),
+	    	new Vector2(-9.0f / PTM_RATIO, -28.0f / PTM_RATIO)
+    	};
+		
+		return PhysicsFactory.createPolygonBody(physicsWorld, pAreaShape, vertices, BodyType.StaticBody, GROUND_FIX);
+    }
     private Sprite loadCollectable(float x, float y, ITextureRegion region, final int s, final Sound sound) {
     	Sprite sprite = new Sprite(x, y, region, vbom) {
     		@Override
