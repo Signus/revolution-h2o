@@ -84,19 +84,14 @@ public class Player extends AnimatedSprite {
 			{
 				super.onUpdate(pSecondsElapsed);
 				camera.onUpdate(0.1f);
-
-				if (getY() <= 0)
+			
+				if (getY() <= 0 || hitpoints <= 0) //If character is falling below ground and off screen
 				{
-					hitpoints = 0;
-					onDie();
+					hitpoints = 0;	//Set hitpoints to zero
+					onDie();		//Kill player
 				}
 
-				if (hitpoints <= 0){
-					onDie();
-				}
-
-				if (canRun)
-				{
+				if (canRun) {
 					body.setLinearVelocity(new Vector2(runSpeed, body.getLinearVelocity().y));
                     if (isSprinting) {
                         sprintTime--;
@@ -104,21 +99,18 @@ public class Player extends AnimatedSprite {
                             resetSprint();
                         }
                     }
-                    if (isJumping) {
-                        if (!verticalMotion()) {
-                            isJumping = false;
-                            setToInitialSprite();
-                        }
+                    if (isJumping && !verticalMotion()) {
+                        isJumping = false;
+                        setToInitialSprite();
+                        
                     }
                 }
-				if (isBouncing) {
-                	if (!verticalMotion()) {
-                		isBouncing = false;
-                		setToInitialSprite();
-                		canRun = true;
-                        resetSprint();
-                		body.setLinearVelocity(runSpeed, body.getLinearVelocity().y);
-                	}
+				if (isBouncing && !verticalMotion()) {
+            		isBouncing = false;
+            		setToInitialSprite();
+            		canRun = true;
+                    resetSprint();
+            		body.setLinearVelocity(runSpeed, body.getLinearVelocity().y);
                 }
 			}
 
