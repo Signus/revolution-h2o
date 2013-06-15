@@ -90,17 +90,19 @@
 
     <!--High path-->
 	<entity x="5175" y="185" width="100" height="20" type="floatingPlatform"/>
+	<entity x="5225" y="185" width="100" height="20" type="floatingPlatform"/>
 	<entity x="5525" y="215" width="100" height="20" type="fallingPlatform"/>
 	<entity x="5925" y="255" width="100" height="20" type="fallingPlatform"/>
     <entity x="6125" y="265" width="100" height="20" type="floatingPlatform"/>
     <entity x="6450" y="270" width="100" height="20" type="fallingPlatform"/>
-
+	<entity x="6500" y="270" width="100" height="50" type="fallingPlatform"/>
+	
     <entity x="6885" y="245" width="100" height="20" type="floatingPlatform"/>
 
     <entity x="7060" y="260" width="100" height="20" type="fallingPlatform"/>
     <entity x="7300" y="325" width="100" height="20" type="floatingPlatform"/>
     <entity x="7600" y="340" width="100" height="20" type="floatingPlatform"/>
-    <entity x="7675" y="340" width="100" height="20" type="fallingPlatform"/>
+    <entity x="7675" y="340" width="100" height="20" type="floatingPlatform"/>
     <!--End high path-->
 
     <!--Low path-->
@@ -128,7 +130,6 @@
 	<entity x="6375" y="35" width="50" height="50" type="fallingPlatform2"/>
 	<entity x="6450" y="25" width="100" height="50" type="ground"/>
 
-	<entity x="6700" y="165" width="100" height="50" type="fallingPlatform"/>
 	<entity x="6700" y="25" width="100" height="50" type="ground"/>
 	<entity x="6800" y="25" width="100" height="50" type="ground"/>
 	<entity x="7900" y="25" width="100" height="50" type="ground"/>
@@ -302,8 +303,7 @@
 
     <entity x="6460" y="315" width="100" height="20" type="collectable"/>
     <!--fall-->
-    <entity x="6550" y="285" width="100" height="20" type="collectable"/>
-    <entity x="6630" y="250" width="100" height="20" type="collectable"/>
+
 
     <!--jump-->
     <entity x="6785" y="325" width="100" height="20" type="collectable"/>
@@ -351,8 +351,6 @@
     <entity x="6580" y="140" width="100" height="50" type="collectable"/>
     <entity x="6650" y="120" width="100" height="50" type="collectable"/>
 
-    <!-- fallingPlatform collectable -->
-    <entity x="6700" y="240" width="100" height="50" type="collectable"/>
     <!-- ground collectable -->
     <entity x="6700" y="100" width="100" height="50" type="collectable"/>
     <entity x="6800" y="100" width="100" height="50" type="collectable"/>
