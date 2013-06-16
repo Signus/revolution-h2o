@@ -6,7 +6,7 @@
 	<entity x="50" y="25" width="100" height="50" type="ground"/>
 	<entity x="150" y="25" width="100" height="50" type="ground"/>
 	<entity x="250" y="25" width="100" height="50" type="ground"/>
-	<entity x="250" y="50" width="10" height="100" type="jumpTutorialTrigger"/>
+	<entity x="250" y="100" width="10" height="100" type="jumpTutorialTrigger"/>
 	<entity x="350" y="25" width="100" height="50" type="ground"/>
 	<entity x="450" y="25" width="100" height="50" type="ground"/>
 	<entity x="550" y="-10" width="100" height="90" type="hill"/>
