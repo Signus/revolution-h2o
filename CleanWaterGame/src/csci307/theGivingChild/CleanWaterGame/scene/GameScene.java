@@ -473,8 +473,8 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 					levelObject.setVisible(false);
 				}
 				else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_JUMP_TUTORIAL_TRIGGER)) {
-//					if (CleanWaterGame.getInstance().getSharedPreferences(TUTORIAL_PREFERENCE, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).getBoolean("jump_tutorial_done",  false)) {
-					if (true) {	
+					if (!CleanWaterGame.getInstance().getSharedPreferences(TUTORIAL_PREFERENCE, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).getBoolean("jump_tutorial_done",  false)) {
+//					if (true) {
 						System.out.println("JUMP TUTORIAL ACTIVATE");
 						levelObject = new Rectangle(x, y, width, height, vbom) {
 							@Override
