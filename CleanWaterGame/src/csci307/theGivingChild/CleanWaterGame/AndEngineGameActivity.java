@@ -87,6 +87,7 @@ public class AndEngineGameActivity extends BaseGameActivity {
 		engineOptions.getRenderOptions().setDithering(true);
 		engineOptions.getAudioOptions().setNeedsMusic(true);
 		engineOptions.getAudioOptions().setNeedsSound(true);
+		engineOptions.setUpdateThreadPriority(android.os.Process.THREAD_PRIORITY_URGENT_DISPLAY);
 		return engineOptions;
 	}
 
