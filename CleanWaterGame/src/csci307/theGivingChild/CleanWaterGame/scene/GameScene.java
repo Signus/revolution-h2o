@@ -32,13 +32,11 @@ import org.andengine.entity.scene.menu.MenuScene.IOnMenuItemClickListener;
 import org.andengine.entity.scene.menu.item.IMenuItem;
 import org.andengine.entity.scene.menu.item.TextMenuItem;
 import org.andengine.entity.scene.menu.item.decorator.ColorMenuItemDecorator;
-import org.andengine.entity.shape.IShape;
 import org.andengine.entity.sprite.AnimatedSprite;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.entity.text.Text;
 import org.andengine.entity.text.TextOptions;
 import org.andengine.extension.physics.box2d.FixedStepPhysicsWorld;
-import org.andengine.extension.physics.box2d.PhysicsConnector;
 import org.andengine.extension.physics.box2d.PhysicsFactory;
 import org.andengine.extension.physics.box2d.PhysicsWorld;
 import org.andengine.input.touch.TouchEvent;
@@ -332,7 +330,8 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
     }
 
     private void createPhysics() {
-    	physicsWorld = new FixedStepPhysicsWorld(60, new Vector2(0, -17), false);
+    	//physicsWorld = new FixedStepPhysicsWorld(60, new Vector2(0, -17), false);
+    	physicsWorld = new FixedStepPhysicsWorld(50,1, new Vector2(0, -17), true, 8, 4);
     	registerUpdateHandler(physicsWorld);
     }
 
@@ -860,7 +859,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 //				setChildScene(gameWinScene());
 				return;
 			case PAUSED_JUMPTUTORIAL:
-				setChildScene(jumpTutorialScene());
+				setChildScene(jumpTutorialScene(), false, true, true);
 				return;
 			default:
 				super.onManagedUpdate(pSecondsElapsed);
