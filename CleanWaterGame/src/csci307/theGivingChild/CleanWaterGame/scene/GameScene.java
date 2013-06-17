@@ -83,7 +83,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 	private float lastX;
     private float lastY;
 
-    private String currentLevel;
+    private final String currentLevel;
     private String nextLevel;
     private boolean start = false;
 
@@ -280,24 +280,20 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
     		@Override
     		public boolean onAreaTouched(TouchEvent touchEvent, float pX, float pY) {
     			if (touchEvent.isActionUp()) {
-    				paused = true;
     				pausedType = PausedType.PAUSED_ON;
-//    				setChildScene(pauseScene(), false, true, true);
     				CleanWaterGame.getInstance().pauseGameMusic();
     			}
     			return true;
     		};
     	};
 
-    	scoreText = new Text(700, 440, resourcesManager.font, "Score: 0123456", new TextOptions(HorizontalAlign.LEFT), vbom);
-//    	scoreText.setAnchorCenter(0, 0);
-    	scoreText.setText("Score: 0");
+    	scoreText = new Text(700, 440, resourcesManager.font, "Score: 0", new TextOptions(HorizontalAlign.LEFT), vbom);
     	collectableText = new Text(400, 440, resourcesManager.font, "0/5", new TextOptions(HorizontalAlign.LEFT), vbom);
-    	currentLevel = "act1scene2";
-    	if (currentLevel.equals("act1scene2")) {
-    		final Sprite sprite = new Sprite(350, 440, resourcesManager.twine_TR, vbom);
-    		gameHUD.attachChild(sprite);
-    	}
+    	
+//    	if (currentLevel.equals("act1scene2")) {
+//    		final Sprite sprite = new Sprite(350, 440, resourcesManager.twine_TR, vbom);
+//    		gameHUD.attachChild(sprite);
+//    	}
 
     	gameHUD.registerTouchArea(pauseButton);
     	gameHUD.attachChild(pauseButton);
