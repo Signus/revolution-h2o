@@ -25,16 +25,14 @@ public class AnimationScene extends BaseScene implements IOnMenuItemClickListene
 	private final int MENU_SKIP = 2;
 	private final int MENU_QUIT = 3;
 //	private final Sprite[] scene_one = new Sprite[8];
-	private ArrayList<Sprite> scene_one, scene_two, scene_three, scene_four, scene_five;
+	private ArrayList<Sprite> scene_one, scene_two, scene_three, scene_four;
 	private int currentScene;
 	
 	public enum Animation {
 		SCENE_ONE,
 		SCENE_TWO,
 		SCENE_THREE,
-		SCENE_FOUR,
-		SCENE_FIVE,
-		SCENE_SIX
+		SCENE_FOUR
 	}
 
 	public AnimationScene(Animation animation) {
@@ -96,14 +94,11 @@ public class AnimationScene extends BaseScene implements IOnMenuItemClickListene
 				displaySceneTwo();
 				break;
 			case SCENE_THREE:
+				displaySceneThree();
 				break;
 			case SCENE_FOUR:
-				break;
-			case SCENE_FIVE:
-				break;
-			case SCENE_SIX:
-				break;
-			
+				displaySceneFour();
+				break;			
 		}		
 	}
 	
@@ -155,6 +150,21 @@ public class AnimationScene extends BaseScene implements IOnMenuItemClickListene
 		attachChild(scene_two.get(currentScene));
 	}
 
+	private void displaySceneThree() {
+		scene_three = new ArrayList<Sprite>();
+		scene_three.add(new Sprite(400, 240, ResourceManager.getInstance().animation_three_one, vbom));
+		scene_three.add(new Sprite(400, 240, ResourceManager.getInstance().animation_three_two, vbom));
+		scene_three.add(new Sprite(400, 240, ResourceManager.getInstance().animation_three_three, vbom));
+		attachChild(scene_three.get(currentScene));
+	}
+	
+	private void displaySceneFour() {
+		scene_four = new ArrayList<Sprite>();
+		scene_four.add(new Sprite(400, 240, ResourceManager.getInstance().animation_four_one, vbom));
+		scene_four.add(new Sprite(400, 240, ResourceManager.getInstance().animation_four_two, vbom));
+		scene_four.add(new Sprite(400, 240, ResourceManager.getInstance().animation_four_three, vbom));
+		attachChild(scene_four.get(currentScene));
+	}
 	@Override
 	public boolean onMenuItemClicked(MenuScene pMenuScene, IMenuItem pMenuItem, float pMenuItemLocalX, float pMenuItemLocalY) {
 		switch (pMenuItem.getID()) {
@@ -175,16 +185,11 @@ public class AnimationScene extends BaseScene implements IOnMenuItemClickListene
 						CleanWaterGame.getInstance().getSharedPreferences(GameLauncher.PREFERENCE_KEY_INGAME, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).edit().putBoolean(GameLauncher.PREFERENCE_KEY_INGAME_MUTE, true).commit();
 						break;
 					case SCENE_FOUR:
-						SceneManager.getInstance().loadGameScene(engine, "act1scene4", "act1scene5");
-						CleanWaterGame.getInstance().pauseMenuMusic();
-						CleanWaterGame.getInstance().getSharedPreferences(GameLauncher.PREFERENCE_KEY_INGAME, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).edit().putBoolean(GameLauncher.PREFERENCE_KEY_INGAME_MUTE, true).commit();
-						break;
-					case SCENE_FIVE:
-						SceneManager.getInstance().loadGameScene(engine, "act1scene5", null);
-						CleanWaterGame.getInstance().pauseMenuMusic();
-						CleanWaterGame.getInstance().getSharedPreferences(GameLauncher.PREFERENCE_KEY_INGAME, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).edit().putBoolean(GameLauncher.PREFERENCE_KEY_INGAME_MUTE, true).commit();
-						break;
-					case SCENE_SIX:
+//						SceneManager.getInstance().loadGameScene(engine, "act1scene4", "act1scene5");
+//						CleanWaterGame.getInstance().pauseMenuMusic();
+//						CleanWaterGame.getInstance().getSharedPreferences(GameLauncher.PREFERENCE_KEY_INGAME, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).edit().putBoolean(GameLauncher.PREFERENCE_KEY_INGAME_MUTE, true).commit();
+						SceneManager.getInstance().createLevelSelectScene();
+						SceneManager.getInstance().loadMenuScene(engine);
 						break;
 					default:
 						break;
@@ -217,6 +222,9 @@ public class AnimationScene extends BaseScene implements IOnMenuItemClickListene
 						break;
 					case SCENE_THREE:
 						if (currentScene != 0) {
+							detachChild(scene_three.get(currentScene));
+							currentScene--;
+							attachChild(scene_three.get(currentScene));
 						} else {
 							SceneManager.getInstance().createLevelSelectScene();
 							SceneManager.getInstance().loadMenuScene(engine);
@@ -224,19 +232,13 @@ public class AnimationScene extends BaseScene implements IOnMenuItemClickListene
 						break;
 					case SCENE_FOUR:
 						if (currentScene != 0) {
+							detachChild(scene_four.get(currentScene));
+							currentScene--;
+							attachChild(scene_four.get(currentScene));
 						} else {
 							SceneManager.getInstance().createLevelSelectScene();
 							SceneManager.getInstance().loadMenuScene(engine);
 						}
-						break;
-					case SCENE_FIVE:
-						if (currentScene != 0) {
-						} else {
-							SceneManager.getInstance().createLevelSelectScene();
-							SceneManager.getInstance().loadMenuScene(engine);
-						}
-						break;
-					case SCENE_SIX:
 						break;
 					default:
 						break;
@@ -270,8 +272,10 @@ public class AnimationScene extends BaseScene implements IOnMenuItemClickListene
 						
 						break;
 					case SCENE_THREE:
-						if (currentScene != scene_one.size() - 1) {
-							
+						if (currentScene != scene_three.size() - 1) {
+							detachChild(scene_three.get(currentScene));
+							currentScene++;
+							attachChild(scene_three.get(currentScene));							
 						} else {
 							SceneManager.getInstance().loadGameScene(engine, "act1scene3", "act1scene4");
 							CleanWaterGame.getInstance().pauseMenuMusic();
@@ -279,24 +283,17 @@ public class AnimationScene extends BaseScene implements IOnMenuItemClickListene
 						}
 						break;
 					case SCENE_FOUR:
-						if (currentScene != scene_one.size() - 1) {
-							
+						if (currentScene != scene_four.size() - 1) {
+							detachChild(scene_four.get(currentScene));
+							currentScene++;
+							attachChild(scene_four.get(currentScene));							
 						} else {
-							SceneManager.getInstance().loadGameScene(engine, "act1scene4", "act1scene5");
-							CleanWaterGame.getInstance().pauseMenuMusic();
-							CleanWaterGame.getInstance().getSharedPreferences(GameLauncher.PREFERENCE_KEY_INGAME, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).edit().putBoolean(GameLauncher.PREFERENCE_KEY_INGAME_MUTE, true).commit();
+//							SceneManager.getInstance().loadGameScene(engine, "act1scene4", "act1scene5");
+//							CleanWaterGame.getInstance().pauseMenuMusic();
+//							CleanWaterGame.getInstance().getSharedPreferences(GameLauncher.PREFERENCE_KEY_INGAME, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).edit().putBoolean(GameLauncher.PREFERENCE_KEY_INGAME_MUTE, true).commit();
+							SceneManager.getInstance().createLevelSelectScene();
+							SceneManager.getInstance().loadMenuScene(engine);
 						}
-						break;
-					case SCENE_FIVE:
-						if (currentScene != scene_one.size() - 1) {
-							
-						} else {
-							SceneManager.getInstance().loadGameScene(engine, "act1scene5", null);
-							CleanWaterGame.getInstance().pauseMenuMusic();
-							CleanWaterGame.getInstance().getSharedPreferences(GameLauncher.PREFERENCE_KEY_INGAME, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).edit().putBoolean(GameLauncher.PREFERENCE_KEY_INGAME_MUTE, true).commit();
-						}
-						break;
-					case SCENE_SIX:
 						break;
 					default:
 						break;
@@ -307,5 +304,4 @@ public class AnimationScene extends BaseScene implements IOnMenuItemClickListene
 		}
 		return false;
 	}
-
 }

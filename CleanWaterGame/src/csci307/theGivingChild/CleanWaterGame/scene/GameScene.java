@@ -165,6 +165,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
         nextLevel = level2;
         pausedType = PausedType.PAUSED_OFF;
         createScene();
+        createHUD(level);
 		loadLevel(level);
 	}
 
@@ -172,7 +173,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
     public void createScene()
     {
         createBackground();
-        createHUD();
+        
         createPhysics();
         tapToStartText = new Text(400, 400, resourcesManager.font, "TAP TO START", vbom);
         attachChild(tapToStartText);
@@ -270,7 +271,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 		setBackground(autoParallaxBackground);
     }
 
-    private void createHUD() {
+    private void createHUD(String level) {
     	gameHUD = new HUD();
     	heart1 = new Sprite(660, 390, resourcesManager.hitpoints_TR, vbom);
     	heart2 = new Sprite(710, 390, resourcesManager.hitpoints_TR, vbom);
@@ -293,10 +294,19 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
     		collectableText = new Text(400, 440, resourcesManager.font, "0/5", new TextOptions(HorizontalAlign.LEFT), vbom);
     		gameHUD.attachChild(collectableText);
     	}
-//    	if (currentLevel.equals("act1scene2")) {
-//    		final Sprite sprite = new Sprite(350, 440, resourcesManager.twine_TR, vbom);
-//    		gameHUD.attachChild(sprite);
-//    	}
+    	if (level.equals("act1scene2")) {
+    		final Sprite sprite = new Sprite(350, 440 , resourcesManager.twine_TR, vbom);
+    		gameHUD.attachChild(sprite);
+    	} else if (level.equals("act1scene3")) {
+    		final Sprite sprite = new Sprite(350, 440, resourcesManager.stone_TR, vbom);
+    		gameHUD.attachChild(sprite);
+    	} else if (level.equals("act1scene4")) {
+    		final Sprite sprite = new Sprite(350, 440, resourcesManager.mud_TR, vbom);
+    		gameHUD.attachChild(sprite);
+    	} else if (level.equals("act1scene5")) {
+    		final Sprite sprite = new Sprite(350, 440, resourcesManager.wood_TR, vbom);
+    		gameHUD.attachChild(sprite);
+    	}
 
     	gameHUD.registerTouchArea(pauseButton);
     	gameHUD.attachChild(pauseButton);
@@ -714,13 +724,16 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 						SceneManager.getInstance().createAnimationScene(Animation.SCENE_THREE);
 						SceneManager.getInstance().loadAnimationScene(engine);
 					} else if (nextLevel.equals("act1scene4")) {
+						SceneManager.getInstance().loadGameScene(engine, "act1scene4", "act1scene5");
+					} else if (nextLevel.equals("act1scene5")) {
+						SceneManager.getInstance().loadGameScene(engine, "act1scene5", null);
+					}else {
+						System.out.println("Invalid file detected");
+					}
+				} else {
+					if (currentLevel.equals("act1scene5")) {
 						SceneManager.getInstance().createAnimationScene(Animation.SCENE_FOUR);
 						SceneManager.getInstance().loadAnimationScene(engine);
-					} else if (nextLevel.equals("act1scene5")) {
-						SceneManager.getInstance().createAnimationScene(Animation.SCENE_FIVE);
-						SceneManager.getInstance().loadAnimationScene(engine);
-					} else {
-						System.out.println("Invalid file detected");
 					}
 				}
 				return true;
