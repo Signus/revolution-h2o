@@ -347,8 +347,8 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 
     private void createPhysics() {
     	//physicsWorld = new FixedStepPhysicsWorld(60, new Vector2(0, -17), false);
-    	physicsWorld = new PhysicsWorld(new Vector2(0, -17),false);
-    	//physicsWorld = new FixedStepPhysicsWorld(50, 1, new Vector2(0, -17), true, 3, 2);
+    	//physicsWorld = new PhysicsWorld(new Vector2(0, -17),false);
+    	physicsWorld = new FixedStepPhysicsWorld(60, 1, new Vector2(0, -17), false, 3, 2);
     	registerUpdateHandler(physicsWorld);
     }
 
