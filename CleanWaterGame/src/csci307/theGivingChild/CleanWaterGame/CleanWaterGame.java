@@ -81,6 +81,10 @@ public class CleanWaterGame extends Application {
 			menuMusic.pause();
 		}
 	}
+	
+	/**
+	 * Pauses the game music
+	 */
 	public void pauseGameMusic()
 	{
 		//If this check is not done it results in an error
@@ -98,6 +102,9 @@ public class CleanWaterGame extends Application {
 		menuMusic.start();
 	}
 	
+	/**
+	 * Plays the game music
+	 */
 	public void playGameMusic()
 	{
 		gameMusic.start();
