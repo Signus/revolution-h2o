@@ -50,9 +50,11 @@ public class GameLauncher extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_launcher);
         
+        //This hides the menu buttons and mute button so that it looks like a start up screen
         ((LinearLayout)findViewById(R.id.main_layout)).setVisibility(INVISIBLE);
         ((ImageButton)findViewById(R.id.muting)).setVisibility(INVISIBLE);
         
+        //this is a delayed thread that shows the main menu and mute button after a certain amount of time
         new Handler().postDelayed(new Runnable(){
             @Override
             public void run() {
@@ -73,7 +75,7 @@ public class GameLauncher extends Activity {
 
     	im.setImageResource((MUTE_SOUND_EFX ? R.drawable.mute : R.drawable.unmuted));
 
-    	//This ensures that the ingame preference is false when we start other wise an error occurs
+    	//This ensures that the in game preference is false when we start other wise an error occurs
     	CleanWaterGame.getInstance().getSharedPreferences(GameLauncher.PREFERENCE_KEY_INGAME, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).edit()
     			.putBoolean(GameLauncher.PREFERENCE_KEY_INGAME_MUTE, false).commit();
 
