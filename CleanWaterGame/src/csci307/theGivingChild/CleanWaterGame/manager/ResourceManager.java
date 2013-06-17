@@ -58,6 +58,7 @@ public class ResourceManager {
 	public ITextureRegion act_menu_background_TR;
 	public ITextureRegion menu_background_TR;
 	public ITextureRegion scene_one_TR, scene_two_TR, scene_three_TR, scene_four_TR, scene_five_TR;
+    public ITextureRegion locked_scene_TR;
 	public ITextureRegion act_one_TR;
 
 	//game textures
@@ -119,6 +120,7 @@ public class ResourceManager {
 		scene_four_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(menuTA, activity, "scene_four_button.png");
 		scene_five_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(menuTA, activity, "scene_five_button.png");
 		menu_background_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(menuTA, activity, "act_one_background.png");
+        locked_scene_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(menuTA, activity, "locked.png");
 		act_menu_background_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(menuTA, activity, "act_menu_background.png");
 		act_one_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(menuTA, activity, "act_one_button.png");
 
