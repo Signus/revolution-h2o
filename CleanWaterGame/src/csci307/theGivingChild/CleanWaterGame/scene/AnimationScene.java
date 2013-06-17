@@ -1,3 +1,12 @@
+/**
+* Authors: Chris Card, Dylan Chau, Maria Deslis, Dustin Liang, Gurpreet Nanda, Tony Nguyen
+* Date: 6/10/13
+* Version: 1.0
+* Description: This class displays the animation scenes
+*
+* History:
+*    6/10/13 original 1.0
+*/
 package csci307.theGivingChild.CleanWaterGame.scene;
 
 import java.util.ArrayList;
