@@ -33,6 +33,8 @@ public class AndEngineGameActivity extends BaseGameActivity {
 	
 	private BoundCamera camera;
 	private ResourceManager resourceManager;
+	
+	//This is  flag that helps determine if we are going to another activity or it is being put into the background
 	private boolean goingOtheract;
 	private boolean MUTE_SOUND_EFX;
 	
@@ -49,11 +51,13 @@ public class AndEngineGameActivity extends BaseGameActivity {
 		MUTE_SOUND_EFX = CleanWaterGame.getInstance()
 				.getSharedPreferences(GameLauncher.PREFERENCE_KEY, MODE_MULTI_PROCESS)
 				.getBoolean(GameLauncher.PREFERENCE_KEY_MUTE, false);
+		//determines if we are suppose to mute the menu music because we are in a level or we are muted
 		boolean inLevel = MUTE_SOUND_EFX || CleanWaterGame.getInstance().getSharedPreferences(GameLauncher.PREFERENCE_KEY_INGAME, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).getBoolean(GameLauncher.PREFERENCE_KEY_INGAME_MUTE, false);
 
 		if (!inLevel) {
 			CleanWaterGame.getInstance().playMenuMusic();
 		}
+		//determines if we are in a level or the sfx are muted
         if((!MUTE_SOUND_EFX) && CleanWaterGame.getInstance().getSharedPreferences(GameLauncher.PREFERENCE_KEY_INGAME, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).getBoolean(GameLauncher.PREFERENCE_KEY_INGAME_MUTE, false))
         {
         	CleanWaterGame.getInstance().playGameMusic();
@@ -70,9 +74,11 @@ public class AndEngineGameActivity extends BaseGameActivity {
 	public void onPause()
 	{
 		super.onPause();
+		//if we aren't going to another activity then pause the menu music
 		if (!goingOtheract) {
 			CleanWaterGame.getInstance().pauseMenuMusic();
 		}
+		//if we are leaving the game for the home screen pause game music
 		if(CleanWaterGame.getInstance().getSharedPreferences(GameLauncher.PREFERENCE_KEY_INGAME, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).getBoolean(GameLauncher.PREFERENCE_KEY_INGAME_MUTE, false))
 		{
 			CleanWaterGame.getInstance().pauseGameMusic();
