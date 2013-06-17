@@ -110,12 +110,6 @@ public class ResourceManager {
 		loadMenuFonts();
 		loadGameAudio();
 	}
-	
-//	public void loadAnimationTwoResources() {
-//		loadAnimationTwoGraphics();
-//		loadMenuFonts();
-//		loadGameAudio();
-//	}
 
 	//------------------------------------------------
 	//MENU RESOURCES
