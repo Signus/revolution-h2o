@@ -91,7 +91,9 @@ public class SceneManager {
 	public void createLevelSelectScene() {
 		ResourceManager.getInstance().loadMenuResources();
 		levelSelectScene = new LevelSelectScene();
+		ResourceManager.getInstance().loadLoadingGraphics();
 		loadingScene = new LoadingScene();
+		
 		currentScene = levelSelectScene;
 	}
 	

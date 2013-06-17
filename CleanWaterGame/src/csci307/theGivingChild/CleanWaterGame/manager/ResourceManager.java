@@ -60,6 +60,7 @@ public class ResourceManager {
 	public ITextureRegion scene_one_TR, scene_two_TR, scene_three_TR, scene_four_TR, scene_five_TR;
     public ITextureRegion locked_scene_TR;
 	public ITextureRegion act_one_TR;
+	public ITextureRegion loading_TR;
 
 	//game textures
 	public ITiledTextureRegion player_TR, alligator_TR;
@@ -79,6 +80,7 @@ public class ResourceManager {
 	private BuildableBitmapTextureAtlas menuTA;
 	private BuildableBitmapTextureAtlas gameTA;
 	private BuildableBitmapTextureAtlas groundTA;
+	private BuildableBitmapTextureAtlas loadingTA;
 	private BuildableBitmapTextureAtlas animationOneTA, animationTwoTA, animationThreeTA, animationFourTA;
 
 	//sounds
@@ -135,6 +137,19 @@ public class ResourceManager {
 		try {
 			this.menuTA.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 1));
 			this.menuTA.load();
+		}
+		catch (final TextureAtlasBuilderException e) {
+			Debug.e(e);
+		}
+	}
+	
+	public void loadLoadingGraphics() {
+		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/game/");
+		loadingTA = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 512, TextureOptions.BILINEAR);
+		loading_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(loadingTA, activity, "loading.png");
+		try {
+			this.loadingTA.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 1));
+			this.loadingTA.load();
 		}
 		catch (final TextureAtlasBuilderException e) {
 			Debug.e(e);
