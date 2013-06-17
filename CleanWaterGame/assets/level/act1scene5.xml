@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Dustin Liang | This is act1 scene 5 level xml for the and engine it defines
+		what objects will be displayed for the level | 6/13/13 -->
 <level width="11000" height="800">
 	<entity x="50" y="100" width="70" height="100" type="player"/>
 
