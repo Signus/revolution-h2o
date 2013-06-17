@@ -91,7 +91,9 @@ public class SceneManager {
 	public void createLevelSelectScene() {
 		ResourceManager.getInstance().loadMenuResources();
 		levelSelectScene = new LevelSelectScene();
+		ResourceManager.getInstance().loadLoadingGraphics();
 		loadingScene = new LoadingScene();
+		
 		currentScene = levelSelectScene;
 	}
 	
@@ -107,6 +109,12 @@ public class SceneManager {
 		animationScene = new AnimationScene(animation);
 		currentScene = animationScene;
 	}
+	
+//	public void createAnimationTwoScene(final Animation animation) {
+//		ResourceManager.getInstance().loadAnimationTwoResources();
+//		animationScene = new AnimationScene(animation);
+//		currentScene = animationScene;
+//	}
 	
 	public void loadAnimationScene(final Engine mEngine) {
 		ResourceManager.getInstance().unloadMenuGraphics();

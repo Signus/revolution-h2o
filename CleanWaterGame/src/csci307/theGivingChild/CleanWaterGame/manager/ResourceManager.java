@@ -60,6 +60,7 @@ public class ResourceManager {
 	public ITextureRegion scene_one_TR, scene_two_TR, scene_three_TR, scene_four_TR, scene_five_TR;
     public ITextureRegion locked_scene_TR;
 	public ITextureRegion act_one_TR;
+	public ITextureRegion loading_TR;
 
 	//game textures
 	public ITiledTextureRegion player_TR, alligator_TR;
@@ -72,11 +73,14 @@ public class ResourceManager {
 	//animation textures
 	public ITextureRegion animation_one_one, animation_one_two, animation_one_three, animation_one_four, animation_one_five, animation_one_six, animation_one_seven, animation_one_eight;
 	public ITextureRegion animation_two_one, animation_two_two, animation_two_three, animation_two_four;
+	public ITextureRegion animation_three_one, animation_three_two, animation_three_three;
+	public ITextureRegion animation_four_one, animation_four_two, animation_four_three;
 
 	//texture atlas
 	private BuildableBitmapTextureAtlas menuTA;
 	private BuildableBitmapTextureAtlas gameTA;
 	private BuildableBitmapTextureAtlas groundTA;
+	private BuildableBitmapTextureAtlas loadingTA;
 	private BuildableBitmapTextureAtlas animationOneTA, animationTwoTA, animationThreeTA, animationFourTA;
 
 	//sounds
@@ -106,6 +110,12 @@ public class ResourceManager {
 		loadMenuFonts();
 		loadGameAudio();
 	}
+	
+//	public void loadAnimationTwoResources() {
+//		loadAnimationTwoGraphics();
+//		loadMenuFonts();
+//		loadGameAudio();
+//	}
 
 	//------------------------------------------------
 	//MENU RESOURCES
@@ -127,6 +137,19 @@ public class ResourceManager {
 		try {
 			this.menuTA.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 1));
 			this.menuTA.load();
+		}
+		catch (final TextureAtlasBuilderException e) {
+			Debug.e(e);
+		}
+	}
+	
+	public void loadLoadingGraphics() {
+		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/game/");
+		loadingTA = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 512, TextureOptions.BILINEAR);
+		loading_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(loadingTA, activity, "loading.png");
+		try {
+			this.loadingTA.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 1));
+			this.loadingTA.load();
 		}
 		catch (final TextureAtlasBuilderException e) {
 			Debug.e(e);
@@ -230,15 +253,43 @@ public class ResourceManager {
 		animation_two_three = BitmapTextureAtlasTextureRegionFactory.createFromAsset(animationTwoTA, activity, "Scene2_3.png");
 		animation_two_four = BitmapTextureAtlasTextureRegionFactory.createFromAsset(animationTwoTA, activity, "Scene2_4.png");
 
+
+
+
+//	}
+//	
+//	private void loadAnimationTwoGraphics() {
+//		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/animation/");
+		
+		animationThreeTA = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 2048, 1024, TextureOptions.BILINEAR);
+		animation_three_one = BitmapTextureAtlasTextureRegionFactory.createFromAsset(animationThreeTA, activity, "Scene3_1.png");
+		animation_three_two = BitmapTextureAtlasTextureRegionFactory.createFromAsset(animationThreeTA, activity, "Scene3_2.png");
+		animation_three_three = BitmapTextureAtlasTextureRegionFactory.createFromAsset(animationThreeTA, activity, "Scene3_3.png");
+		
+		animationFourTA = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 2048, 1024, TextureOptions.BILINEAR);
+		animation_four_one = BitmapTextureAtlasTextureRegionFactory.createFromAsset(animationFourTA, activity, "Scene4_1.png");
+		animation_four_two = BitmapTextureAtlasTextureRegionFactory.createFromAsset(animationFourTA, activity, "Scene4_2.png");
+		animation_four_three = BitmapTextureAtlasTextureRegionFactory.createFromAsset(animationFourTA, activity, "Scene4_3.png");
+		
+//		try {
+//			this.animationThreeTA.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 1));
+//			this.animationFourTA.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 1));
+//		} catch (final TextureAtlasBuilderException e) {
+//			Debug.e(e);
+//		}
 		try {
 			this.animationOneTA.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 1));
 			this.animationTwoTA.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 1));
+			this.animationThreeTA.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 1));
+			this.animationFourTA.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 1));
 		} catch (final TextureAtlasBuilderException e) {
 			Debug.e(e);
 		}
-
+		
 		animationOneTA.load();
 		animationTwoTA.load();
+		animationThreeTA.load();
+		animationFourTA.load();
 	}
 
 	/**
@@ -303,7 +354,14 @@ public class ResourceManager {
 	public void unloadAnimationGraphics() {
 		animationOneTA.unload();
 		animationTwoTA.unload();
+//	}
+//	
+//	public void unloadAnimationTwoGraphics() {
+		animationThreeTA.unload();
+		animationFourTA.unload();
 	}
+	
+	
 
 	//------------------------------------------------
 	//MANAGER FUNCTIONS
