@@ -339,10 +339,12 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
     	score += i;
     	scoreText.setText("Score: " + score);
     }
-    
+
     private void addToCollectable() {
     	collectableCount++;
-    	collectableText.setText(collectableCount + "/" + COLLECTABLE_COUNT_GOAL);
+        if (collectableCount <= 5) {
+            collectableText.setText(collectableCount + "/" + COLLECTABLE_COUNT_GOAL);
+        }
     }
 
     private void createPhysics() {
@@ -523,7 +525,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 					}
 					levelObject.setVisible(false);
 				}
-				
+
                 else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_ALLIGATOR)) {
                     AnimatedSprite temp = new AnimatedSprite(x, y, resourcesManager.alligator_TR, vbom){
                         @Override
@@ -813,48 +815,48 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 
 		return gameWin;
 	}
-	
+
 	private MenuScene jumpTutorialScene() {
 		final MenuScene jumpTutorial = new MenuScene(camera);
-		
+
 		final Rectangle background = new Rectangle(400, 240, 350, 200, vbom);
 		jumpTutorial.attachChild(background);
 		final IMenuItem resumeMenuItem = new ColorMenuItemDecorator(new TextMenuItem(MENU_RESUME, resourcesManager.font, ">>", vbom), Color.RED, Color.WHITE);
 		resumeMenuItem.setPosition(530, 160);
 		jumpTutorial.attachChild(new Text(400, 300, resourcesManager.font, "TAP OR SWIPE UP", vbom));
 		jumpTutorial.attachChild(new Text(400, 250, resourcesManager.font, "TO JUMP", vbom));
-		
-		
-		
+
+
+
 		background.setBlendFunction(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
 		background.setAlpha(0.5f);
-		
+
 		jumpTutorial.addMenuItem(resumeMenuItem);
-		
+
 		jumpTutorial.setBackgroundEnabled(false);
 		jumpTutorial.setOnMenuItemClickListener(this);
-		
+
 		return jumpTutorial;
 	}
-	
+
 	private MenuScene dashTutorialScene() {
 		final MenuScene dashTutorial = new MenuScene(camera);
-		
+
 		final Rectangle background = new Rectangle(400, 240, 350, 200, vbom);
 		dashTutorial.attachChild(background);
 		final IMenuItem resumeMenuItem = new ColorMenuItemDecorator(new TextMenuItem(MENU_RESUME, resourcesManager.font, ">>", vbom), Color.RED, Color.WHITE);
 		resumeMenuItem.setPosition(530, 160);
 		dashTutorial.attachChild(new Text(400, 300, resourcesManager.font, "SWIPE RIGHT", vbom));
-		dashTutorial.attachChild(new Text(400, 250, resourcesManager.font, "TO JUMP", vbom));		
-		
+		dashTutorial.attachChild(new Text(400, 250, resourcesManager.font, "TO JUMP", vbom));
+
 		background.setBlendFunction(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
 		background.setAlpha(0.5f);
-		
+
 		dashTutorial.addMenuItem(resumeMenuItem);
-		
+
 		dashTutorial.setBackgroundEnabled(false);
 		dashTutorial.setOnMenuItemClickListener(this);
-		
+
 		return dashTutorial;
 	}
 
@@ -883,7 +885,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 				super.onManagedUpdate(pSecondsElapsed);
 		}
 	}
-	
+
 	private boolean hasCollectables(){
 		return (currentLevel != "act1scene1");
 	}
