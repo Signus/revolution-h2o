@@ -473,8 +473,8 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 					levelObject.setVisible(false);
 				}
 				else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_JUMP_TUTORIAL_TRIGGER)) {
-//					if (CleanWaterGame.getInstance().getSharedPreferences(TUTORIAL_PREFERENCE, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).getBoolean("jump_tutorial_done",  false)) {
-					if (true) {	
+					if (!CleanWaterGame.getInstance().getSharedPreferences(TUTORIAL_PREFERENCE, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).getBoolean("jump_tutorial_done",  false)) {
+//					if (true) {
 						System.out.println("JUMP TUTORIAL ACTIVATE");
 						levelObject = new Rectangle(x, y, width, height, vbom) {
 							@Override
@@ -513,12 +513,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
                     };
                     temp.animate(100);
                     levelObject = temp;
-//                    temp = null;
-//                    body = createAlligatorBody(temp);
                     PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyType.StaticBody, GROUND_FIX).setUserData("alligator");
- //                   physicsWorld.registerPhysicsConnector(new PhysicsConnector(temp, body, false, false));
- //                   PhysicsFactory.createPolygonBody(physicsWorld, temp, createAlligatorBody(), BodyType.StaticBody, GROUND_FIX);
- //                   levelObject = temp;
                     temp = null;
                 }
 				else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE)) {
@@ -550,33 +545,6 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 		levelLoader.loadLevelFromAsset(activity.getAssets(), "level/" + levelID + ".xml");
 	}
 
-    private static Vector2[] createAlligatorBody() {
-    	float PTM_RATIO = 32;
-		final Vector2[] vertices = {
-	    	new Vector2(-10.0f / PTM_RATIO , -28.0f / PTM_RATIO),
-	    	new Vector2(-40.0f / PTM_RATIO, -15.0f / PTM_RATIO),
-	    	new Vector2(-41.0f / PTM_RATIO, -14.0f / PTM_RATIO),
-	    	new Vector2(-41.0f / PTM_RATIO, -5.0f / PTM_RATIO),
-	    	new Vector2(-35.0f / PTM_RATIO, 6.0f / PTM_RATIO),
-	    	new Vector2(-21.0f / PTM_RATIO, 20.0f / PTM_RATIO),
-	    	new Vector2(-16.0f / PTM_RATIO, 23.0f / PTM_RATIO),
-	    	new Vector2(-11.0f / PTM_RATIO, 25.0f / PTM_RATIO),
-	    	new Vector2(-4.0f / PTM_RATIO, 26.0f / PTM_RATIO),
-	    	new Vector2(3.0f / PTM_RATIO, 26.0f / PTM_RATIO),
-	    	new Vector2(29.0f / PTM_RATIO, 16.0f / PTM_RATIO),
-	    	new Vector2(33.0f / PTM_RATIO, 12.0f / PTM_RATIO),
-	    	new Vector2(40.0f / PTM_RATIO, 3.0f / PTM_RATIO),
-	    	new Vector2(40.0f / PTM_RATIO, 1.0f / PTM_RATIO),
-	    	new Vector2(38.0f / PTM_RATIO, -9.0f / PTM_RATIO),
-	    	new Vector2(37.0f / PTM_RATIO, -12.0f / PTM_RATIO),
-	    	new Vector2(36.0f / PTM_RATIO, -14.0f / PTM_RATIO),
-	    	new Vector2(35.0f / PTM_RATIO, -15.0f / PTM_RATIO),
-	    	new Vector2(-9.0f / PTM_RATIO, -28.0f / PTM_RATIO)
-    	};
-		
-//		return PhysicsFactory.createPolygonBody(physicsWorld, pAreaShape, vertices, BodyType.StaticBody, GROUND_FIX);
-		return vertices;
-    }
     private Sprite loadCollectable(float x, float y, ITextureRegion region, final int s, final Sound sound) {
     	Sprite sprite = new Sprite(x, y, region, vbom) {
     		@Override

@@ -151,7 +151,10 @@ public class SceneManager {
 	
 	public void loadActSelectScene(final Engine mEngine) {
 		ResourceManager.getInstance().unloadMenuGraphics();
-		if (levelSelectScene != null) levelSelectScene.disposeScene();
+		if (levelSelectScene != null) {
+			levelSelectScene.disposeScene();
+			levelSelectScene = null;
+		}
 		mEngine.registerUpdateHandler(new TimerHandler(0.01f, new ITimerCallback() {
 			
 			@Override
