@@ -287,9 +287,12 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
     		};
     	};
 
-    	scoreText = new Text(700, 440, resourcesManager.font, "Score: 0", new TextOptions(HorizontalAlign.LEFT), vbom);
-    	collectableText = new Text(400, 440, resourcesManager.font, "0/5", new TextOptions(HorizontalAlign.LEFT), vbom);
-    	
+    	scoreText = new Text(690, 440, resourcesManager.font, "Score: 0123456", new TextOptions(HorizontalAlign.LEFT), vbom);
+    	scoreText.setText("Score: 0");
+    	if (hasCollectables()) {
+    		collectableText = new Text(400, 440, resourcesManager.font, "0/5", new TextOptions(HorizontalAlign.LEFT), vbom);
+    		gameHUD.attachChild(collectableText);
+    	}
 //    	if (currentLevel.equals("act1scene2")) {
 //    		final Sprite sprite = new Sprite(350, 440, resourcesManager.twine_TR, vbom);
 //    		gameHUD.attachChild(sprite);
@@ -298,7 +301,6 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
     	gameHUD.registerTouchArea(pauseButton);
     	gameHUD.attachChild(pauseButton);
     	gameHUD.attachChild(scoreText);
-    	gameHUD.attachChild(collectableText);
     	gameHUD.attachChild(heart1);
     	gameHUD.attachChild(heart2);
     	gameHUD.attachChild(heart3);
@@ -880,5 +882,9 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 			default:
 				super.onManagedUpdate(pSecondsElapsed);
 		}
+	}
+	
+	private boolean hasCollectables(){
+		return (currentLevel != "act1scene1");
 	}
 }
