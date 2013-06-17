@@ -92,10 +92,10 @@ public class ActSelectScene extends BaseScene implements IOnMenuItemClickListene
 		menuScene.buildAnimations();
 		menuScene.setBackgroundEnabled(false);
 		
-		actOneItem.setPosition(400, 200);
-		actTwoItem.setPosition(550, 200);
-		actThreeItem.setPosition(600, 200);
-		actFourItem.setPosition(650, 200);
+		actOneItem.setPosition(350, 200);
+		actTwoItem.setPosition(500, 200);
+		actThreeItem.setPosition(550, 200);
+		actFourItem.setPosition(600, 200);
 		
 
 		menuScene.setOnMenuItemClickListener(this);
