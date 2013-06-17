@@ -1,7 +1,11 @@
-/*
+/**
  * Authors: Chris Card, Tony Nguyen, Gurpreet Nanda, Dylan Chau, Dustin Liang, Maria Deslis
  * Date: 05/22/13
+ * Version: 1.0
  * Description: Level selection for act 1. This scene will display the levels that the user can choose to play.
+ * 
+ * History:
+ *  05/22/13 Original 1.0
  */
 
 

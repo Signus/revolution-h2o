@@ -1,8 +1,11 @@
-/*
+/**
  * Authors: Chris Card, Tony Nguyen, Gurpreet Nanda, Dylan Chau, Dustin Liang, Maria Deslis
  * Date: 05/22/13
+ * Version: 1.0
  * Description: Running Game Scene
  *
+ * History:
+ *  05/22/13 original 1.0
  * TODO --------
  * -HUD
  * -collision (contact listener)
