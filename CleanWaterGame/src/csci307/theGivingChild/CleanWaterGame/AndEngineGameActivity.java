@@ -36,10 +36,10 @@ public class AndEngineGameActivity extends BaseGameActivity {
 	private boolean goingOtheract;
 	private boolean MUTE_SOUND_EFX;
 	
-	@Override
-	public Engine onCreateEngine(EngineOptions pEngineOptions) {
-		return new FixedStepEngine(pEngineOptions, 60);
-	}
+//	@Override
+//	public Engine onCreateEngine(EngineOptions pEngineOptions) {
+//		return new FixedStepEngine(pEngineOptions, 60);
+//	}
 	
 	@Override
 	public void onResume()
