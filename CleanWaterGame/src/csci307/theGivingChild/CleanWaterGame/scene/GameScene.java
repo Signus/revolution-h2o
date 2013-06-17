@@ -73,9 +73,12 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
     private static final double COLLISION_THRESHOLD = 1.0;
     private HUD gameHUD;
     private Text scoreText;
+    private Text collectableText;
 	private static PhysicsWorld physicsWorld;
 
 	private int score = 0;
+	private int collectableCount = 0;
+	private static final int COLLECTABLE_COUNT_GOAL = 5;
 
 	private float lastX;
     private float lastY;
@@ -101,6 +104,8 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_WIN_TRIGGER = "winTrigger";
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_JUMP_TUTORIAL_TRIGGER = "jumpTutorialTrigger";
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_JUMP_TRIGGER = "jumpTrigger";
+	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_DASH_TUTORIAL_TRIGGER = "dashTutorialTrigger";
+	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_DASH_TRIGGER = "dashTrigger";
     private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_ALLIGATOR = "alligator";
 
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE_ACT1_SCENE2_GOALS = "twine";
@@ -146,7 +151,8 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
     	PAUSED_ON,
     	PAUSED_GAMEOVER,
     	PAUSED_GAMEWIN,
-    	PAUSED_JUMPTUTORIAL
+    	PAUSED_JUMPTUTORIAL,
+    	PAUSED_DASHTUTORIAL
     }
 
     public GameScene(String level, String level2) {
@@ -286,10 +292,17 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
     	scoreText = new Text(700, 440, resourcesManager.font, "Score: 0123456", new TextOptions(HorizontalAlign.LEFT), vbom);
 //    	scoreText.setAnchorCenter(0, 0);
     	scoreText.setText("Score: 0");
+    	collectableText = new Text(400, 440, resourcesManager.font, "0/5", new TextOptions(HorizontalAlign.LEFT), vbom);
+    	currentLevel = "act1scene2";
+    	if (currentLevel.equals("act1scene2")) {
+    		final Sprite sprite = new Sprite(350, 440, resourcesManager.twine_TR, vbom);
+    		gameHUD.attachChild(sprite);
+    	}
 
     	gameHUD.registerTouchArea(pauseButton);
     	gameHUD.attachChild(pauseButton);
     	gameHUD.attachChild(scoreText);
+    	gameHUD.attachChild(collectableText);
     	gameHUD.attachChild(heart1);
     	gameHUD.attachChild(heart2);
     	gameHUD.attachChild(heart3);
@@ -327,6 +340,11 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
     private void addToScore(int i) {
     	score += i;
     	scoreText.setText("Score: " + score);
+    }
+    
+    private void addToCollectable() {
+    	collectableCount++;
+    	collectableText.setText(collectableCount + "/" + COLLECTABLE_COUNT_GOAL);
     }
 
     private void createPhysics() {
@@ -474,8 +492,6 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 				}
 				else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_JUMP_TUTORIAL_TRIGGER)) {
 					if (!CleanWaterGame.getInstance().getSharedPreferences(TUTORIAL_PREFERENCE, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).getBoolean("jump_tutorial_done",  false)) {
-//					if (true) {
-						System.out.println("JUMP TUTORIAL ACTIVATE");
 						levelObject = new Rectangle(x, y, width, height, vbom) {
 							@Override
 							protected void onManagedUpdate(float pSecondsElapsed) {
@@ -489,22 +505,31 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 					} else {
 						levelObject = new Rectangle(1, 1, 1, 1, vbom);
 					}
+					levelObject.setVisible(false);
 				}
+				else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_DASH_TUTORIAL_TRIGGER)) {
+					if (!CleanWaterGame.getInstance().getSharedPreferences(TUTORIAL_PREFERENCE, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).getBoolean("dash_tutorial_done", false)) {
+						levelObject = new Rectangle(x, y, width, height, vbom) {
+							@Override
+							protected void onManagedUpdate(float pSecondsElapsed) {
+								if (player.collidesWith(this)) {
+									this.setIgnoreUpdate(true);
+									CleanWaterGame.getInstance().getSharedPreferences(GameScene.TUTORIAL_PREFERENCE, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).edit().putBoolean("dash_tutorial_done", true).commit();
+									pausedType = PausedType.PAUSED_DASHTUTORIAL;
+								}
+							}
+						};
+					} else {
+						levelObject = new Rectangle(1, 1, 1, 1, vbom);
+					}
+					levelObject.setVisible(false);
+				}
+				
                 else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_ALLIGATOR)) {
                     AnimatedSprite temp = new AnimatedSprite(x, y, resourcesManager.alligator_TR, vbom){
                         @Override
                         protected void onManagedUpdate(float pSecondsElapsed) {
                             super.onManagedUpdate(pSecondsElapsed);
-//                            //side collision
-//                            if (detectSideCollision(player, this)) {
-//                                player.gameOver();
-//                                displayHealth(player.getHP());
-//                            }
-//                            //top collision
-//                            if (detectTopCollision(player, this)) {
-//                                player.gameOver();
-//                                displayHealth(player.getHP());
-//                            }
                             if (player.collidesWith(this)) {
                             	player.gameOver();
                             	displayHealth(player.getHP());
@@ -517,19 +542,19 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
                     temp = null;
                 }
 				else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE)) {
-					levelObject = loadCollectable(x, y, resourcesManager.collectable_TR, 10, ResourceManager.getInstance().waterdropSound);
+					levelObject = loadCollectable(x, y, resourcesManager.collectable_TR, 10, ResourceManager.getInstance().waterdropSound, false);
 				}
 				else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE_ACT1_SCENE2_GOALS)) {
-					levelObject = loadCollectable(x, y, resourcesManager.twine_TR, 40, ResourceManager.getInstance().collectSound);
+					levelObject = loadCollectable(x, y, resourcesManager.twine_TR, 40, ResourceManager.getInstance().collectSound, true);
 				}
 				else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE_ACT1_SCENE3_GOALS)) {
-					levelObject = loadCollectable(x, y, resourcesManager.stone_TR, 40, ResourceManager.getInstance().collectSound);
+					levelObject = loadCollectable(x, y, resourcesManager.stone_TR, 40, ResourceManager.getInstance().collectSound, true);
 				}
 				else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE_ACT1_SCENE4_GOALS)) {
-					levelObject = loadCollectable(x, y, resourcesManager.mud_TR, 40, ResourceManager.getInstance().collectSound);
+					levelObject = loadCollectable(x, y, resourcesManager.mud_TR, 40, ResourceManager.getInstance().collectSound, true);
 				}
 				else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE_ACT1_SCENE5_GOALS)) {
-					levelObject = loadCollectable(x, y, resourcesManager.wood_TR, 40, ResourceManager.getInstance().collectSound);
+					levelObject = loadCollectable(x, y, resourcesManager.wood_TR, 40, ResourceManager.getInstance().collectSound, true);
 				} else {
 					throw new IllegalArgumentException();
 				}
@@ -545,7 +570,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 		levelLoader.loadLevelFromAsset(activity.getAssets(), "level/" + levelID + ".xml");
 	}
 
-    private Sprite loadCollectable(float x, float y, ITextureRegion region, final int s, final Sound sound) {
+    private Sprite loadCollectable(float x, float y, ITextureRegion region, final int s, final Sound sound, final boolean goal) {
     	Sprite sprite = new Sprite(x, y, region, vbom) {
     		@Override
     		protected void onManagedUpdate(float pSecondsElapsed) {
@@ -554,6 +579,9 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 				if (player.collidesWith(this)) {
 					if (!ResourceManager.getInstance().isMuted()) {
 						sound.play();
+					}
+					if (goal) {
+						addToCollectable();
 					}
 					addToScore(s);
 					this.setVisible(false);
@@ -599,7 +627,6 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 				if (pSceneTouchEvent.isActionUp()) {
 					player.setRunning();
                 	start = true;
-                	detachChild(tapToStartText);
                 	tapToStartText.setVisible(false);
                 	return true;
 				}
@@ -810,6 +837,27 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 		
 		return jumpTutorial;
 	}
+	
+	private MenuScene dashTutorialScene() {
+		final MenuScene dashTutorial = new MenuScene(camera);
+		
+		final Rectangle background = new Rectangle(400, 240, 350, 200, vbom);
+		dashTutorial.attachChild(background);
+		final IMenuItem resumeMenuItem = new ColorMenuItemDecorator(new TextMenuItem(MENU_RESUME, resourcesManager.font, ">>", vbom), Color.RED, Color.WHITE);
+		resumeMenuItem.setPosition(530, 160);
+		dashTutorial.attachChild(new Text(400, 300, resourcesManager.font, "SWIPE RIGHT", vbom));
+		dashTutorial.attachChild(new Text(400, 250, resourcesManager.font, "TO JUMP", vbom));		
+		
+		background.setBlendFunction(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
+		background.setAlpha(0.5f);
+		
+		dashTutorial.addMenuItem(resumeMenuItem);
+		
+		dashTutorial.setBackgroundEnabled(false);
+		dashTutorial.setOnMenuItemClickListener(this);
+		
+		return dashTutorial;
+	}
 
 	@Override
 	protected void onManagedUpdate(float pSecondsElapsed) {
@@ -829,9 +877,11 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 			case PAUSED_JUMPTUTORIAL:
 				setChildScene(jumpTutorialScene(), false, true, true);
 				return;
+			case PAUSED_DASHTUTORIAL:
+				setChildScene(dashTutorialScene(), false, true, true);
+				return;
 			default:
 				super.onManagedUpdate(pSecondsElapsed);
 		}
 	}
-
 }
