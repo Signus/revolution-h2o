@@ -28,6 +28,7 @@ public class ActSelectScene extends BaseScene implements IOnMenuItemClickListene
 	private MenuScene menuScene;
 	
 	private final int MENU_ACT_I = 0;
+	private final int MENU_LOCKED = 1;
 	
 	@Override
 	public void createScene() {
@@ -67,6 +68,8 @@ public class ActSelectScene extends BaseScene implements IOnMenuItemClickListene
 				SceneManager.getInstance().createLevelSelectScene();
 				SceneManager.getInstance().loadMenuScene(engine);
 				return true;
+			case MENU_LOCKED:
+				return true;
 			default:
 				return false;
 		}
@@ -77,13 +80,23 @@ public class ActSelectScene extends BaseScene implements IOnMenuItemClickListene
 		menuScene.setPosition(0, 0);
 		
 		final IMenuItem actOneItem = new ScaleMenuItemDecorator(new SpriteMenuItem(MENU_ACT_I, resourcesManager.act_one_TR, vbom), 1.2f, 1);
+		final IMenuItem actTwoItem = new ScaleMenuItemDecorator(new SpriteMenuItem(MENU_LOCKED, resourcesManager.act_two_TR, vbom), 1.2f, 1);
+		final IMenuItem actThreeItem = new ScaleMenuItemDecorator(new SpriteMenuItem(MENU_LOCKED, resourcesManager.act_three_TR, vbom), 1.2f, 1);
+		final IMenuItem actFourItem = new ScaleMenuItemDecorator(new SpriteMenuItem(MENU_LOCKED, resourcesManager.act_four_TR, vbom), 1.2f, 1);
 		
 		menuScene.addMenuItem(actOneItem);
+		menuScene.addMenuItem(actTwoItem);
+		menuScene.addMenuItem(actThreeItem);
+		menuScene.addMenuItem(actFourItem);
 		
 		menuScene.buildAnimations();
 		menuScene.setBackgroundEnabled(false);
 		
 		actOneItem.setPosition(400, 200);
+		actTwoItem.setPosition(550, 200);
+		actThreeItem.setPosition(600, 200);
+		actFourItem.setPosition(650, 200);
+		
 
 		menuScene.setOnMenuItemClickListener(this);
 		setChildScene(menuScene);

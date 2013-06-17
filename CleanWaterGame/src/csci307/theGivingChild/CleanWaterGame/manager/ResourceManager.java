@@ -59,7 +59,7 @@ public class ResourceManager {
 	public ITextureRegion menu_background_TR;
 	public ITextureRegion scene_one_TR, scene_two_TR, scene_three_TR, scene_four_TR, scene_five_TR;
     public ITextureRegion locked_scene_TR;
-	public ITextureRegion act_one_TR;
+	public ITextureRegion act_one_TR, act_two_TR, act_three_TR, act_four_TR;
 	public ITextureRegion loading_TR;
 
 	//game textures
@@ -133,6 +133,9 @@ public class ResourceManager {
         locked_scene_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(menuTA, activity, "locked.png");
 		act_menu_background_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(menuTA, activity, "act_menu_background.png");
 		act_one_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(menuTA, activity, "act_one_button.png");
+		act_two_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(menuTA, activity, "act_two_button.png");
+		act_three_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(menuTA, activity, "act_three_button.png");
+		act_four_TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(menuTA, activity, "act_four_button.png");
 
 		try {
 			this.menuTA.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 1));
