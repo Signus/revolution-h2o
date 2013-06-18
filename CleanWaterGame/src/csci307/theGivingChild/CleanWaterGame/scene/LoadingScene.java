@@ -2,7 +2,7 @@
 * Authors: Chris Card, Dylan Chau, Maria Deslis, Dustin Liang, Gurpreet Nanda, Tony Nguyen
 * Date: 5/31/13
 * Version: 1.0
-* Description: This is what you see when the levels loadings
+* Description: This is what you see when the levels are loadings
 *
 * History:
 *    5/31/13 original
@@ -24,8 +24,6 @@ public class LoadingScene extends BaseScene
 	@Override
 	public void createScene()
 	{
-//		setBackground(new Background(Color.WHITE));
-//		attachChild(new Text(400, 240, resourcesManager.font, "Loading...", vbom));
 		AutoParallaxBackground autoParallaxBackground = new AutoParallaxBackground(0, 0, 0, 5);
 		autoParallaxBackground.attachParallaxEntity(new ParallaxEntity(0.0f, new Sprite(.5f*camera.getWidth() , .5f*camera.getHeight(), resourcesManager.loading_TR, vbom)));
 		setBackground(autoParallaxBackground);
