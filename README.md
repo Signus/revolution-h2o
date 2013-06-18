@@ -157,4 +157,16 @@ Code Files:
 
 		-select_button.mp3: The sound when buttons are clicked
 
-		
+	res/drawable:
+
+		-ic_launcher.png: the launcher icon
+
+		-menu_background.png: background for the main menu
+
+		-menu_pressed.png: grpahic for when the menu button is pressed
+
+		-menu_unpressed.png: graphic for when menu button is not pressed
+
+		-mute.png: mute button graphic
+
+		-unmuted.png: graphic for when sound is not muted
