@@ -309,16 +309,16 @@ public class AnimationScene extends BaseScene implements IOnMenuItemClickListene
 	private void TheMethodThatWillShowThePlayersHowThankfulWeAreThatTheyDecidedToDownloadThisGameAndPlayItScene() {
 		final MenuScene endScene = new MenuScene(camera);
 
-		final Rectangle background = new Rectangle(400, 240, 350, 200, vbom);
+		final Rectangle background = new Rectangle(400, 240, 620, 200, vbom);
 		endScene.attachChild(background);
 		final IMenuItem resumeMenuItem = new ColorMenuItemDecorator(new TextMenuItem(MENU_QUIT, resourcesManager.font, ">>", vbom), Color.RED, Color.WHITE);
-		resumeMenuItem.setPosition(530, 160);
+		resumeMenuItem.setPosition(680, 150);
 		endScene.attachChild(new Text(400, 300, resourcesManager.font, "THANK YOU FOR PLAYING", vbom));
 		endScene.attachChild(new Text(400, 250, resourcesManager.font, "THE LITE VERSION OF", vbom));
 		endScene.attachChild(new Text(400, 200, resourcesManager.font, "REVOLUTION:H2O", vbom));
 
 		background.setBlendFunction(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
-		background.setAlpha(0.5f);
+		background.setAlpha(0.7f);
 
 		endScene.addMenuItem(resumeMenuItem);
 
