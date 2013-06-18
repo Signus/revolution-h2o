@@ -292,16 +292,16 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
     		gameHUD.attachChild(collectableText);
     	}
     	if (level.equals("act1scene2")) {
-    		final Sprite sprite = new Sprite(350, 440 , resourcesManager.twine_TR, vbom);
+    		final Sprite sprite = new Sprite(340, 440 , resourcesManager.twine_TR, vbom);
     		gameHUD.attachChild(sprite);
     	} else if (level.equals("act1scene3")) {
-    		final Sprite sprite = new Sprite(350, 440, resourcesManager.stone_TR, vbom);
+    		final Sprite sprite = new Sprite(340, 440, resourcesManager.stone_TR, vbom);
     		gameHUD.attachChild(sprite);
     	} else if (level.equals("act1scene4")) {
-    		final Sprite sprite = new Sprite(350, 440, resourcesManager.mud_TR, vbom);
+    		final Sprite sprite = new Sprite(340, 440, resourcesManager.mud_TR, vbom);
     		gameHUD.attachChild(sprite);
     	} else if (level.equals("act1scene5")) {
-    		final Sprite sprite = new Sprite(350, 440, resourcesManager.wood_TR, vbom);
+    		final Sprite sprite = new Sprite(340, 440, resourcesManager.wood_TR, vbom);
     		gameHUD.attachChild(sprite);
     	}
 
