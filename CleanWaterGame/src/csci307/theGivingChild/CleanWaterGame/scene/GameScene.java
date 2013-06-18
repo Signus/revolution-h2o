@@ -1,8 +1,11 @@
-/*
+/**
  * Authors: Chris Card, Tony Nguyen, Gurpreet Nanda, Dylan Chau, Dustin Liang, Maria Deslis
  * Date: 05/22/13
+ * Version: 1.0
  * Description: Running Game Scene
  *
+ * History:
+ *  05/22/13 original 1.0
  * TODO --------
  * -HUD
  * -collision (contact listener)
@@ -103,9 +106,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE = "collectable";
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_WIN_TRIGGER = "winTrigger";
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_JUMP_TUTORIAL_TRIGGER = "jumpTutorialTrigger";
-	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_JUMP_TRIGGER = "jumpTrigger";
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_DASH_TUTORIAL_TRIGGER = "dashTutorialTrigger";
-	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_DASH_TRIGGER = "dashTrigger";
     private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_ALLIGATOR = "alligator";
 
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE_ACT1_SCENE2_GOALS = "twine";
@@ -165,6 +166,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
         nextLevel = level2;
         pausedType = PausedType.PAUSED_OFF;
         createScene();
+        createHUD(level);
 		loadLevel(level);
 	}
 
@@ -172,7 +174,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
     public void createScene()
     {
         createBackground();
-        createHUD();
+        
         createPhysics();
         tapToStartText = new Text(400, 400, resourcesManager.font, "TAP TO START", vbom);
         attachChild(tapToStartText);
@@ -187,19 +189,6 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
     @Override
     public void onBackKeyPressed()
     {
-//    	if (hasChildScene()) {
-//    		if(!ResourceManager.getInstance().isMuted()) ResourceManager.getInstance().backgroundMusic.play();
-//    		//if(!ResourceManager.getInstance().isMuted()) CleanWaterGame.getInstance().playMenuMusic();
-//    		//CleanWaterGame.getInstance().getSharedPreferences(GameLauncher.PREFERENCE_KEY_INGAME, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).edit().putBoolean(GameLauncher.PREFERENCE_KEY_INGAME_MUTE, false).commit();
-//    		clearChildScene();
-//    		paused = false;
-//    		pausedType = PausedType.PAUSED_OFF;
-//    	} else {
-//    		if(!ResourceManager.getInstance().isMuted()) CleanWaterGame.getInstance().playMenuMusic();
-//    		CleanWaterGame.getInstance().getSharedPreferences(GameLauncher.PREFERENCE_KEY_INGAME, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).edit().putBoolean(GameLauncher.PREFERENCE_KEY_INGAME_MUTE, false).commit();
-//    		SceneManager.getInstance().loadMenuScene(engine);
-//    	}
-
     	if (pausedType.equals(PausedType.PAUSED_ON)) {
     		if(!ResourceManager.getInstance().isMuted()) CleanWaterGame.getInstance().playGameMusic();
     		clearChildScene();
@@ -218,6 +207,12 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
         return SceneType.SCENE_GAME;
     }
 
+    /**
+     * Proper disposal of GameScene
+     * -removes all sprites
+     * -removes all physics bodies
+     * -detaches the gamescene itself. 
+     */
     @Override
     public void disposeScene()
     {
@@ -262,7 +257,6 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
     }
 
     private void createBackground() {
-//    	setBackground(new Background(Color.BLUE));
     	AutoParallaxBackground autoParallaxBackground = new AutoParallaxBackground(0, 0, 0, 5);
 		autoParallaxBackground.attachParallaxEntity(new ParallaxEntity(0.0f, new Sprite(.5f*camera.getWidth() , .5f*camera.getHeight(), resourcesManager.scene_background_TR, vbom)));
 		Sprite cloudSprite = new Sprite(.5f*camera.getWidth(), .5f*camera.getHeight()+60f, resourcesManager.scene_foreground_TR, vbom);
@@ -270,7 +264,11 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 		setBackground(autoParallaxBackground);
     }
 
-    private void createHUD() {
+    /**
+     * Game heads up display that moves with the camera. Shows score, health, collectable score, and pause button
+     * @param level
+     */
+    private void createHUD(String level) {
     	gameHUD = new HUD();
     	heart1 = new Sprite(660, 390, resourcesManager.hitpoints_TR, vbom);
     	heart2 = new Sprite(710, 390, resourcesManager.hitpoints_TR, vbom);
@@ -293,10 +291,19 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
     		collectableText = new Text(400, 440, resourcesManager.font, "0/5", new TextOptions(HorizontalAlign.LEFT), vbom);
     		gameHUD.attachChild(collectableText);
     	}
-//    	if (currentLevel.equals("act1scene2")) {
-//    		final Sprite sprite = new Sprite(350, 440, resourcesManager.twine_TR, vbom);
-//    		gameHUD.attachChild(sprite);
-//    	}
+    	if (level.equals("act1scene2")) {
+    		final Sprite sprite = new Sprite(350, 440 , resourcesManager.twine_TR, vbom);
+    		gameHUD.attachChild(sprite);
+    	} else if (level.equals("act1scene3")) {
+    		final Sprite sprite = new Sprite(350, 440, resourcesManager.stone_TR, vbom);
+    		gameHUD.attachChild(sprite);
+    	} else if (level.equals("act1scene4")) {
+    		final Sprite sprite = new Sprite(350, 440, resourcesManager.mud_TR, vbom);
+    		gameHUD.attachChild(sprite);
+    	} else if (level.equals("act1scene5")) {
+    		final Sprite sprite = new Sprite(350, 440, resourcesManager.wood_TR, vbom);
+    		gameHUD.attachChild(sprite);
+    	}
 
     	gameHUD.registerTouchArea(pauseButton);
     	gameHUD.attachChild(pauseButton);
@@ -310,6 +317,10 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
     	camera.setHUD(gameHUD);
     }
 
+    /**
+     * Decides how many hearts to display on the screen as health.
+     * FUTURE: change to a data structure for more hearts. 
+     */
     private void displayHealth(int hitpoints) {
     	switch (hitpoints) {
 	    	case 0:
@@ -348,12 +359,14 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
     }
 
     private void createPhysics() {
-    	//physicsWorld = new FixedStepPhysicsWorld(60, new Vector2(0, -17), false);
-    	//physicsWorld = new PhysicsWorld(new Vector2(0, -17),false);
     	physicsWorld = new FixedStepPhysicsWorld(60, 1, new Vector2(0, -17), false, 3, 2);
     	registerUpdateHandler(physicsWorld);
     }
 
+    /**
+     * Andengine's method for loading levels through xml's
+     * @param levelID
+     */
     private void loadLevel(String levelID) {
 		final SimpleLevelLoader levelLoader = new SimpleLevelLoader(vbom);
 
@@ -382,7 +395,6 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 				final String type = SAXUtils.getAttributeOrThrow(pAttributes, TAG_ENTITY_ATTRIBUTE_TYPE);
 
 				final IEntity levelObject;
-				final Body body;
 
 				if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_HILL)) {
 					levelObject = new Sprite(x, y, resourcesManager.hill_TR, vbom) {
@@ -467,7 +479,6 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 							pausedType = PausedType.PAUSED_GAMEOVER;
 							camera.setChaseEntity(null);
 						}
-
 					};
 					levelObject = player;
 				}
@@ -477,15 +488,19 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 						protected void onManagedUpdate(float pSecondsElapsed) {
 							if (player.collidesWith(this)) {
 								this.setIgnoreUpdate(true);
-								//show level complete scene.
-								System.out.println("TRIGGER WORKS");
-                                CleanWaterGame.getInstance().getSharedPreferences(LevelSelectScene.LEVEL_PREFERENCE, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).edit().putBoolean(currentLevel+"_done", true).commit();
-                                Integer highScore = CleanWaterGame.getInstance().getSharedPreferences(LevelSelectScene.LEVEL_PREFERENCE, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).getInt(currentLevel+"_score", 0);
-                                if (score > highScore)
-                                    CleanWaterGame.getInstance().getSharedPreferences(LevelSelectScene.LEVEL_PREFERENCE, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).edit().putInt(currentLevel+"_score", score).commit();
-
-								setChildScene(gameWinScene());
-								pausedType = PausedType.PAUSED_GAMEWIN;
+								
+								if (collectableCount < COLLECTABLE_COUNT_GOAL && !currentLevel.equals("act1scene1")) {
+									setChildScene(gameOverScene());
+									pausedType = PausedType.PAUSED_GAMEOVER;
+								} else {
+	                                CleanWaterGame.getInstance().getSharedPreferences(LevelSelectScene.LEVEL_PREFERENCE, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).edit().putBoolean(currentLevel+"_done", true).commit();
+	                                Integer highScore = CleanWaterGame.getInstance().getSharedPreferences(LevelSelectScene.LEVEL_PREFERENCE, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).getInt(currentLevel+"_score", 0);
+	                                if (score > highScore)
+	                                    CleanWaterGame.getInstance().getSharedPreferences(LevelSelectScene.LEVEL_PREFERENCE, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).edit().putInt(currentLevel+"_score", score).commit();
+	
+									setChildScene(gameWinScene());
+									pausedType = PausedType.PAUSED_GAMEWIN;
+								}
 							}
 						}
 					};
@@ -595,6 +610,9 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
     	return sprite;
     }
 
+    /**
+     * Method for detecting the left side of a box IEntity object
+     */
     private boolean detectSideCollision(Player player, IEntity object) {
     	if ( ((player.getX() + player.getWidth()/2.0) + COLLISION_THRESHOLD) > (object.getX() - object.getWidth() / 2.0) &&
 				(player.getX() + player.getWidth()/2.0) < (object.getX() + object.getWidth() / 2.0) &&
@@ -611,6 +629,9 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
     	return false;
     }
 
+    /**
+     * Method for detecting the top side of a box IEntity object
+     */
     private boolean detectTopCollision(Player player, IEntity object) {
     	if ( ((player.getX() + player.getWidth()/2.0) + COLLISION_THRESHOLD) > (object.getX() - object.getWidth() / 2.0) &&
 				(player.getX() - player.getWidth()/2.0) < (object.getX() + object.getWidth() / 2.0) &&
@@ -664,11 +685,12 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 		return false;
 	}
 
+	/**
+	 * detect difference between swiping up or swiping left
+	 */
     private void performPlayerAction(float difX, float difY, double moveDistance) {
         if (difY > 0 && Math.abs(difY) > Math.abs(difX) || moveDistance <= TAP_THRESHOLD) {
-
             player.jump();
-
         } else if (difX > 0 && difX > Math.abs(difY)) {
         	if (!currentLevel.equals("act1scene1") && !currentLevel.equals("act1scene2"))
         		player.dash();
@@ -716,13 +738,16 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 						SceneManager.getInstance().createAnimationScene(Animation.SCENE_THREE);
 						SceneManager.getInstance().loadAnimationScene(engine);
 					} else if (nextLevel.equals("act1scene4")) {
+						SceneManager.getInstance().loadGameScene(engine, "act1scene4", "act1scene5");
+					} else if (nextLevel.equals("act1scene5")) {
+						SceneManager.getInstance().loadGameScene(engine, "act1scene5", null);
+					}else {
+						System.out.println("Invalid file detected");
+					}
+				} else {
+					if (currentLevel.equals("act1scene5")) {
 						SceneManager.getInstance().createAnimationScene(Animation.SCENE_FOUR);
 						SceneManager.getInstance().loadAnimationScene(engine);
-					} else if (nextLevel.equals("act1scene5")) {
-						SceneManager.getInstance().createAnimationScene(Animation.SCENE_FIVE);
-						SceneManager.getInstance().loadAnimationScene(engine);
-					} else {
-						System.out.println("Invalid file detected");
 					}
 				}
 				return true;
@@ -731,6 +756,9 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 		}
 	}
 
+	/**
+	 * Scene that is created when game is paused via the pause button.
+	 */
 	private MenuScene pauseScene() {
 		final MenuScene pauseGame = new MenuScene(camera);
 
@@ -763,6 +791,9 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 		return pauseGame;
 	}
 
+	/**
+	 * Scene that is called when the player dies
+	 */
 	private MenuScene gameOverScene() {
 		final MenuScene gameOver = new MenuScene(camera);
 
@@ -788,6 +819,9 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 		return gameOver;
 	}
 
+	/**
+	 * Scene that is called when player wins the game. 
+	 */
 	private MenuScene gameWinScene() {
 		final MenuScene gameWin = new MenuScene(camera);
 
@@ -816,6 +850,9 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 		return gameWin;
 	}
 
+	/**
+	 * tutorial scene for jumping in level 1
+	 */
 	private MenuScene jumpTutorialScene() {
 		final MenuScene jumpTutorial = new MenuScene(camera);
 
@@ -839,6 +876,9 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 		return jumpTutorial;
 	}
 
+	/**
+	 * tutorial scene for dashing in level 3
+	 */
 	private MenuScene dashTutorialScene() {
 		final MenuScene dashTutorial = new MenuScene(camera);
 

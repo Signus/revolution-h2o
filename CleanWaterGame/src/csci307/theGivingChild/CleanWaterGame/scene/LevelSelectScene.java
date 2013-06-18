@@ -1,7 +1,11 @@
-/*
+/**
  * Authors: Chris Card, Tony Nguyen, Gurpreet Nanda, Dylan Chau, Dustin Liang, Maria Deslis
  * Date: 05/22/13
+ * Version: 1.0
  * Description: Level selection for act 1. This scene will display the levels that the user can choose to play.
+ * 
+ * History:
+ *  05/22/13 Original 1.0
  */
 
 
@@ -54,7 +58,9 @@ public class LevelSelectScene extends BaseScene implements IOnMenuItemClickListe
 				CleanWaterGame.getInstance().pauseMenuMusic();
 				return true;
 			case SCENE_THREE:
-				SceneManager.getInstance().loadGameScene(engine, "act1scene3", "act1scene4");
+				SceneManager.getInstance().createAnimationScene(Animation.SCENE_THREE);
+				SceneManager.getInstance().loadAnimationScene(engine);
+				//SceneManager.getInstance().loadGameScene(engine, "act1scene3", "act1scene4");
 				CleanWaterGame.getInstance().getSharedPreferences(GameLauncher.PREFERENCE_KEY_INGAME, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).edit().putBoolean(GameLauncher.PREFERENCE_KEY_INGAME_MUTE, true).commit();
 				CleanWaterGame.getInstance().pauseMenuMusic();
 				return true;

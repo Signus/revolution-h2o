@@ -1,3 +1,12 @@
+/**
+* Authors: Chris Card, Dylan Chau, Maria Deslis, Dustin Liang, Gurpreet Nanda, Tony Nguyen
+* Date: 6/4/13
+* Version: 1.0
+* Description: This Class controls the physics of the falling platforms
+*
+* History:
+*    6/4/13 original 1.0
+*/
 package csci307.theGivingChild.CleanWaterGame.objects;
 
 import org.andengine.engine.Engine;
@@ -22,6 +31,17 @@ public class FallingPlatform extends Sprite {
 	private Engine mEngine;
 	private float fallingTime;
 	
+	/**
+	 * ADD COMMENTS HERE
+	 * @param pX
+	 * @param pY
+	 * @param vbom
+	 * @param camera
+	 * @param physicsWorld
+	 * @param region
+	 * @param engine
+	 * @param time
+	 */
 	public FallingPlatform(float pX, float pY, VertexBufferObjectManager vbom, Camera camera, PhysicsWorld physicsWorld, ITextureRegion region, Engine engine, float time) {
 		super(pX, pY, region, vbom);
 		createPhysics(camera, physicsWorld);
