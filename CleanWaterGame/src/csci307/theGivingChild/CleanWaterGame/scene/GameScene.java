@@ -887,7 +887,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 		final IMenuItem resumeMenuItem = new ColorMenuItemDecorator(new TextMenuItem(MENU_RESUME, resourcesManager.font, ">>", vbom), Color.RED, Color.WHITE);
 		resumeMenuItem.setPosition(530, 160);
 		dashTutorial.attachChild(new Text(400, 300, resourcesManager.font, "SWIPE RIGHT", vbom));
-		dashTutorial.attachChild(new Text(400, 250, resourcesManager.font, "TO JUMP", vbom));
+		dashTutorial.attachChild(new Text(400, 250, resourcesManager.font, "TO DASH", vbom));
 
 		background.setBlendFunction(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
 		background.setAlpha(0.5f);
