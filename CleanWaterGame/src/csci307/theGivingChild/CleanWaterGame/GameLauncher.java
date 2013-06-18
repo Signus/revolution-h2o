@@ -126,7 +126,6 @@ public class GameLauncher extends Activity {
     */
     public void openDonate(View v)
     {
-    	 goingOtheract = true;
         if (!MUTE_SOUND_EFX) {
         	CleanWaterGame.getInstance().playBtnSound();
         }
