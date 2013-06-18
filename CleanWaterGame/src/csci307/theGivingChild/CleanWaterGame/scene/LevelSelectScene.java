@@ -145,12 +145,12 @@ public class LevelSelectScene extends BaseScene implements IOnMenuItemClickListe
 		menuChildScene.setBackgroundEnabled(false);
 
         menuChildScene.addMenuItem(levelOneMenuItem);
-		levelOneMenuItem.setPosition(100, 100);
-
 		menuChildScene.addMenuItem(levelTwoMenuItem);
 		menuChildScene.addMenuItem(levelThreeMenuItem);
 		menuChildScene.addMenuItem(levelFourMenuItem);
 		menuChildScene.addMenuItem(levelFiveMenuItem);
+		
+		levelOneMenuItem.setPosition(100, 100);
         levelTwoMenuItem.setPosition(250, 100);
         levelThreeMenuItem.setPosition(400, 100);
         levelFourMenuItem.setPosition(550,100);
