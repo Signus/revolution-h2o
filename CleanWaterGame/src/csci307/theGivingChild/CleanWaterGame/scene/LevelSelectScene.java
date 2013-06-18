@@ -46,21 +46,18 @@ public class LevelSelectScene extends BaseScene implements IOnMenuItemClickListe
 			case SCENE_ONE:
 				SceneManager.getInstance().createAnimationScene(Animation.SCENE_ONE);
 				SceneManager.getInstance().loadAnimationScene(engine);
-//				SceneManager.getInstance().loadGameScene(engine, "act1scene1");
 				CleanWaterGame.getInstance().pauseMenuMusic();
 				CleanWaterGame.getInstance().getSharedPreferences(GameLauncher.PREFERENCE_KEY_INGAME, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).edit().putBoolean(GameLauncher.PREFERENCE_KEY_INGAME_MUTE, true).commit();
 				return true;
 			case SCENE_TWO:
 				SceneManager.getInstance().createAnimationScene(Animation.SCENE_TWO);
 				SceneManager.getInstance().loadAnimationScene(engine);
-//				SceneManager.getInstance().loadGameScene(engine, "act1scene2", "act1scene3");
 				CleanWaterGame.getInstance().getSharedPreferences(GameLauncher.PREFERENCE_KEY_INGAME, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).edit().putBoolean(GameLauncher.PREFERENCE_KEY_INGAME_MUTE, true).commit();
 				CleanWaterGame.getInstance().pauseMenuMusic();
 				return true;
 			case SCENE_THREE:
 				SceneManager.getInstance().createAnimationScene(Animation.SCENE_THREE);
 				SceneManager.getInstance().loadAnimationScene(engine);
-				//SceneManager.getInstance().loadGameScene(engine, "act1scene3", "act1scene4");
 				CleanWaterGame.getInstance().getSharedPreferences(GameLauncher.PREFERENCE_KEY_INGAME, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).edit().putBoolean(GameLauncher.PREFERENCE_KEY_INGAME_MUTE, true).commit();
 				CleanWaterGame.getInstance().pauseMenuMusic();
 				return true;
@@ -106,7 +103,6 @@ public class LevelSelectScene extends BaseScene implements IOnMenuItemClickListe
 	}
 
 	private void createBackground() {
-//		setBackground(new Background(Color.BLACK));
 		AutoParallaxBackground autoParallaxBackground = new AutoParallaxBackground(0, 0, 0, 5);
 		autoParallaxBackground.attachParallaxEntity(new ParallaxEntity(0.0f, new Sprite(.5f*camera.getWidth() , .5f*camera.getHeight(), resourcesManager.menu_background_TR, vbom)));
 		setBackground(autoParallaxBackground);
@@ -151,36 +147,14 @@ public class LevelSelectScene extends BaseScene implements IOnMenuItemClickListe
         menuChildScene.addMenuItem(levelOneMenuItem);
 		levelOneMenuItem.setPosition(100, 100);
 
-        //added back for testing
 		menuChildScene.addMenuItem(levelTwoMenuItem);
 		menuChildScene.addMenuItem(levelThreeMenuItem);
 		menuChildScene.addMenuItem(levelFourMenuItem);
 		menuChildScene.addMenuItem(levelFiveMenuItem);
-        //added back for testing
         levelTwoMenuItem.setPosition(250, 100);
         levelThreeMenuItem.setPosition(400, 100);
         levelFourMenuItem.setPosition(550,100);
         levelFiveMenuItem.setPosition(700,100);
-
-//        if (CleanWaterGame.getInstance().getSharedPreferences(LEVEL_PREFERENCE, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).getBoolean("act1scene1_done", false)) {
-//            menuChildScene.addMenuItem(levelTwoMenuItem);
-//            levelTwoMenuItem.setPosition(250, 100);
-//        }
-
-//        if (CleanWaterGame.getInstance().getSharedPreferences(LEVEL_PREFERENCE, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).getBoolean("act1scene2_done", false)) {
-//            menuChildScene.addMenuItem(levelThreeMenuItem);
-//            levelThreeMenuItem.setPosition(400, 100);
-//        }
-
-//        if (CleanWaterGame.getInstance().getSharedPreferences(LEVEL_PREFERENCE, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).getBoolean("act1scene3_done", false)) {
-//            menuChildScene.addMenuItem(levelFourMenuItem);
-//            levelFourMenuItem.setPosition(550,100);
-//        }
-
-//        if (CleanWaterGame.getInstance().getSharedPreferences(LEVEL_PREFERENCE, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).getBoolean("act1scene4_done", false)) {
-//            menuChildScene.addMenuItem(levelFiveMenuItem);
-//            levelFiveMenuItem.setPosition(700,100);
-//        }
 
 		menuChildScene.setOnMenuItemClickListener(this);
 
