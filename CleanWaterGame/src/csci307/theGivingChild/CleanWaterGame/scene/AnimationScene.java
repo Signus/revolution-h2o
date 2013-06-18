@@ -288,8 +288,6 @@ public class AnimationScene extends BaseScene implements IOnMenuItemClickListene
 							attachChild(scene_four.get(currentScene));							
 						} else {
 							TheMethodThatWillShowThePlayersHowThankfulWeAreThatTheyDecidedToDownloadThisGameAndPlayItScene();
-//							SceneManager.getInstance().createLevelSelectScene();
-//							SceneManager.getInstance().loadMenuScene(engine);
 						}
 						break;
 					default:
