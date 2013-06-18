@@ -87,10 +87,14 @@ Code Files:
 		csci307.theGivingChild.CleanWaterGame.objects:
 	
 				-Player.java: This is the animated sprite for the main character. It contains all code dealing with movement and physics of the character
+
+				-FallingPlatform.java: This Class controls the physics of the falling platforms
 	
 		csci307.theGivingChild.CleanWaterGame.scene:
 	
 				-ActSelectScene.java: This contains the AND Egine code that generates the act selection menu and leads to scene selection menu. all done with and engine
+
+				-AnimationScene.java: This Class controls the physics of the falling platforms
 	
 				-BaseScene.java: This is an abstract class that other scenes will extend.
 	
@@ -98,6 +102,8 @@ Code Files:
 								 other game play acpects for each scene
 	
 				-LevelSelectScene.java: This contains the code for selecting a scene to play all done with and engine.
+
+				-LoadingScene: This is what you see when the levels are loading
 	
 				-PauseScene.java: This contains the code for the pause menu when a user pauses the game
 	
@@ -118,6 +124,12 @@ Code Files:
 
 			-act1scene2.xml: This file contains all the objects(both obsticles and collectables) and their size and position in scene 2, also defines the scene's total size
 
+			-act1scene3.xml: This file contains all the objects(both obsticles and collectables) and their size and position in scene 3, also defines the scene's total size
+
+			-act1scene4.xml: This file contains all the objects(both obsticles and collectables) and their size and position in scene 4, also defines the scene's total size
+
+			-act1scene5.xml: This file contains all the objects(both obsticles and collectables) and their size and position in scene 5, also defines the scene's total size
+
 		-sfx: cotains all soundeffect files for the game
 
 
@@ -136,3 +148,13 @@ Code Files:
 		-privacy_policy.xml: contains the layout for the privacy policy dialog
 
 		-userbugreport.xml: contains the layout for the feedback dialog
+
+	res/raw:
+
+		-gamemusic.mp3: The in game background music
+
+		-menumusic.mp3: The menu music background music
+
+		-select_button.mp3: The sound when buttons are clicked
+
+		

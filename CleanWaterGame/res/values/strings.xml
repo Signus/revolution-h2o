@@ -41,13 +41,7 @@
 								THE GIVING CHILD.</string>
 
     <!-- Bug reporting activity -->
-    <string name="userbug_subject_title">Subject</string>
-    <string name="userbug_subject_hint">I have a problem with ....</string>
     <string name="userbug_relatedto_title">What is your feedback related to?</string>
-    <string name="userbug_body_title">Body</string>
-    <string name="userbug_body_hint">Describe the problem you are having</string>
-    <string name="sysbug_error_code">Error Code:</string>
-    <string name="sysbug_error_descript">Description:</string>
 
     <string-array name="userbug_relatedto_spinner">
         <item>General feedback</item>
