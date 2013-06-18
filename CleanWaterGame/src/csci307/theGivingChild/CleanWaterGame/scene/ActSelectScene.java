@@ -46,8 +46,7 @@ public class ActSelectScene extends BaseScene implements IOnMenuItemClickListene
 
 	@Override
 	public void onBackKeyPressed() {
-		System.exit(0);
-		
+		System.exit(0);		
 	}
 
 	@Override
@@ -61,7 +60,6 @@ public class ActSelectScene extends BaseScene implements IOnMenuItemClickListene
 	}
 	
 	private void createBackground() {
-//		setBackground(new Background(Color.GREEN));
 		AutoParallaxBackground autoParallaxBackground = new AutoParallaxBackground(0, 0, 0, 5);
 		autoParallaxBackground.attachParallaxEntity(new ParallaxEntity(0.0f, new Sprite(.5f*camera.getWidth() , .5f*camera.getHeight(), resourcesManager.act_menu_background_TR, vbom)));
 		setBackground(autoParallaxBackground);
@@ -88,6 +86,9 @@ public class ActSelectScene extends BaseScene implements IOnMenuItemClickListene
 		}
 	}
 	
+	/*
+	 * Shows the act buttons. 
+	 */
 	private MenuScene createMenuScene() {
 		menuScene = new MenuScene(camera);
 		menuScene.setPosition(0, 0);
@@ -115,6 +116,9 @@ public class ActSelectScene extends BaseScene implements IOnMenuItemClickListene
 		return menuScene;
 	}
 	
+	/*
+	 * Creates the message scene to show that the act is locked. 
+	 */
 	private MenuScene createMessageScene() {
 		messageScene = new MenuScene(camera);
 		
