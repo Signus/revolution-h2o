@@ -230,6 +230,7 @@ public class ResourceManager {
     }
 	/**
 	 * Loads the necessary Graphics for the AnimationScene (the cut scene at the beginning of the GameScene)
+	 * As of right now, loading in all these resources for animation is really slow. Would be better for future to separate into different methods. 
 	 */
 	private void loadAnimationGraphics() {
 		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/animation/");
@@ -249,14 +250,6 @@ public class ResourceManager {
 		animation_two_two = BitmapTextureAtlasTextureRegionFactory.createFromAsset(animationTwoTA, activity, "Scene2_2.png");
 		animation_two_three = BitmapTextureAtlasTextureRegionFactory.createFromAsset(animationTwoTA, activity, "Scene2_3.png");
 		animation_two_four = BitmapTextureAtlasTextureRegionFactory.createFromAsset(animationTwoTA, activity, "Scene2_4.png");
-
-
-
-
-//	}
-//	
-//	private void loadAnimationTwoGraphics() {
-//		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/animation/");
 		
 		animationThreeTA = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 2048, 1024, TextureOptions.BILINEAR);
 		animation_three_one = BitmapTextureAtlasTextureRegionFactory.createFromAsset(animationThreeTA, activity, "Scene3_1.png");
@@ -267,13 +260,6 @@ public class ResourceManager {
 		animation_four_one = BitmapTextureAtlasTextureRegionFactory.createFromAsset(animationFourTA, activity, "Scene4_1.png");
 		animation_four_two = BitmapTextureAtlasTextureRegionFactory.createFromAsset(animationFourTA, activity, "Scene4_2.png");
 		animation_four_three = BitmapTextureAtlasTextureRegionFactory.createFromAsset(animationFourTA, activity, "Scene4_3.png");
-		
-//		try {
-//			this.animationThreeTA.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 1));
-//			this.animationFourTA.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 1));
-//		} catch (final TextureAtlasBuilderException e) {
-//			Debug.e(e);
-//		}
 		try {
 			this.animationOneTA.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 1));
 			this.animationTwoTA.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 1));
@@ -331,17 +317,8 @@ public class ResourceManager {
 	//UNLOADING RESOURCES
 	//------------------------------------------------
 
-	public void unloadSplashScreen() {
-	//	splashTA.unload();
-	//	splash_icon_TR = null;
-	}
-
 	public void unloadMenuGraphics() {
 		menuTA.unload();
-	}
-
-	private void unloadMenuFonts() {
-		font.unload();
 	}
 
 	public void unloadGameGraphics() {
@@ -351,14 +328,9 @@ public class ResourceManager {
 	public void unloadAnimationGraphics() {
 		animationOneTA.unload();
 		animationTwoTA.unload();
-//	}
-//	
-//	public void unloadAnimationTwoGraphics() {
 		animationThreeTA.unload();
 		animationFourTA.unload();
-	}
-	
-	
+	}	
 
 	//------------------------------------------------
 	//MANAGER FUNCTIONS
