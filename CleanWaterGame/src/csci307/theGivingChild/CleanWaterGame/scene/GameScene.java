@@ -489,7 +489,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 							if (player.collidesWith(this)) {
 								this.setIgnoreUpdate(true);
 								
-								if (collectableCount < COLLECTABLE_COUNT_GOAL) {
+								if (collectableCount < COLLECTABLE_COUNT_GOAL && !currentLevel.equals("act1scene1")) {
 									setChildScene(gameOverScene());
 									pausedType = PausedType.PAUSED_GAMEOVER;
 								} else {
