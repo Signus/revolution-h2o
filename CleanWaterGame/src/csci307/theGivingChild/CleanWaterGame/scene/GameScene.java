@@ -191,19 +191,6 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
     @Override
     public void onBackKeyPressed()
     {
-//    	if (hasChildScene()) {
-//    		if(!ResourceManager.getInstance().isMuted()) ResourceManager.getInstance().backgroundMusic.play();
-//    		//if(!ResourceManager.getInstance().isMuted()) CleanWaterGame.getInstance().playMenuMusic();
-//    		//CleanWaterGame.getInstance().getSharedPreferences(GameLauncher.PREFERENCE_KEY_INGAME, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).edit().putBoolean(GameLauncher.PREFERENCE_KEY_INGAME_MUTE, false).commit();
-//    		clearChildScene();
-//    		paused = false;
-//    		pausedType = PausedType.PAUSED_OFF;
-//    	} else {
-//    		if(!ResourceManager.getInstance().isMuted()) CleanWaterGame.getInstance().playMenuMusic();
-//    		CleanWaterGame.getInstance().getSharedPreferences(GameLauncher.PREFERENCE_KEY_INGAME, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).edit().putBoolean(GameLauncher.PREFERENCE_KEY_INGAME_MUTE, false).commit();
-//    		SceneManager.getInstance().loadMenuScene(engine);
-//    	}
-
     	if (pausedType.equals(PausedType.PAUSED_ON)) {
     		if(!ResourceManager.getInstance().isMuted()) CleanWaterGame.getInstance().playGameMusic();
     		clearChildScene();
@@ -266,7 +253,6 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
     }
 
     private void createBackground() {
-//    	setBackground(new Background(Color.BLUE));
     	AutoParallaxBackground autoParallaxBackground = new AutoParallaxBackground(0, 0, 0, 5);
 		autoParallaxBackground.attachParallaxEntity(new ParallaxEntity(0.0f, new Sprite(.5f*camera.getWidth() , .5f*camera.getHeight(), resourcesManager.scene_background_TR, vbom)));
 		Sprite cloudSprite = new Sprite(.5f*camera.getWidth(), .5f*camera.getHeight()+60f, resourcesManager.scene_foreground_TR, vbom);
@@ -361,8 +347,6 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
     }
 
     private void createPhysics() {
-    	//physicsWorld = new FixedStepPhysicsWorld(60, new Vector2(0, -17), false);
-    	//physicsWorld = new PhysicsWorld(new Vector2(0, -17),false);
     	physicsWorld = new FixedStepPhysicsWorld(60, 1, new Vector2(0, -17), false, 3, 2);
     	registerUpdateHandler(physicsWorld);
     }
@@ -480,7 +464,6 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 							pausedType = PausedType.PAUSED_GAMEOVER;
 							camera.setChaseEntity(null);
 						}
-
 					};
 					levelObject = player;
 				}
@@ -689,7 +672,12 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
     private void performPlayerAction(float difX, float difY, double moveDistance) {
         if (difY > 0 && Math.abs(difY) > Math.abs(difX) || moveDistance <= TAP_THRESHOLD) {
             player.jump();
+<<<<<<< HEAD
         } else if (difX > 0 && difX > Math.abs(difY)) {
+=======
+        }
+        else if (difX > 0 && difX > Math.abs(difY)) {
+>>>>>>> 345883ffa8bba5c92d5f391a33c328bda0b37e37
         	if (!currentLevel.equals("act1scene1") && !currentLevel.equals("act1scene2"))
         		player.dash();
         }
