@@ -106,9 +106,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE = "collectable";
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_WIN_TRIGGER = "winTrigger";
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_JUMP_TUTORIAL_TRIGGER = "jumpTutorialTrigger";
-	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_JUMP_TRIGGER = "jumpTrigger";
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_DASH_TUTORIAL_TRIGGER = "dashTutorialTrigger";
-	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_DASH_TRIGGER = "dashTrigger";
     private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_ALLIGATOR = "alligator";
 
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_ITEM_COLLECTABLE_ACT1_SCENE2_GOALS = "twine";
@@ -209,6 +207,12 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
         return SceneType.SCENE_GAME;
     }
 
+    /**
+     * Proper disposal of GameScene
+     * -removes all sprites
+     * -removes all physics bodies
+     * -detaches the gamescene itself. 
+     */
     @Override
     public void disposeScene()
     {
@@ -260,6 +264,10 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 		setBackground(autoParallaxBackground);
     }
 
+    /**
+     * Game heads up display that moves with the camera. Shows score, health, collectable score, and pause button
+     * @param level
+     */
     private void createHUD(String level) {
     	gameHUD = new HUD();
     	heart1 = new Sprite(660, 390, resourcesManager.hitpoints_TR, vbom);
@@ -309,6 +317,10 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
     	camera.setHUD(gameHUD);
     }
 
+    /**
+     * Decides how many hearts to display on the screen as health.
+     * FUTURE: change to a data structure for more hearts. 
+     */
     private void displayHealth(int hitpoints) {
     	switch (hitpoints) {
 	    	case 0:
@@ -351,6 +363,10 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
     	registerUpdateHandler(physicsWorld);
     }
 
+    /**
+     * Andengine's method for loading levels through xml's
+     * @param levelID
+     */
     private void loadLevel(String levelID) {
 		final SimpleLevelLoader levelLoader = new SimpleLevelLoader(vbom);
 
@@ -379,7 +395,6 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 				final String type = SAXUtils.getAttributeOrThrow(pAttributes, TAG_ENTITY_ATTRIBUTE_TYPE);
 
 				final IEntity levelObject;
-				final Body body;
 
 				if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_HILL)) {
 					levelObject = new Sprite(x, y, resourcesManager.hill_TR, vbom) {
@@ -473,15 +488,19 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 						protected void onManagedUpdate(float pSecondsElapsed) {
 							if (player.collidesWith(this)) {
 								this.setIgnoreUpdate(true);
-								//show level complete scene.
-								System.out.println("TRIGGER WORKS");
-                                CleanWaterGame.getInstance().getSharedPreferences(LevelSelectScene.LEVEL_PREFERENCE, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).edit().putBoolean(currentLevel+"_done", true).commit();
-                                Integer highScore = CleanWaterGame.getInstance().getSharedPreferences(LevelSelectScene.LEVEL_PREFERENCE, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).getInt(currentLevel+"_score", 0);
-                                if (score > highScore)
-                                    CleanWaterGame.getInstance().getSharedPreferences(LevelSelectScene.LEVEL_PREFERENCE, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).edit().putInt(currentLevel+"_score", score).commit();
-
-								setChildScene(gameWinScene());
-								pausedType = PausedType.PAUSED_GAMEWIN;
+								
+								if (collectableCount < COLLECTABLE_COUNT_GOAL) {
+									setChildScene(gameOverScene());
+									pausedType = PausedType.PAUSED_GAMEOVER;
+								} else {
+	                                CleanWaterGame.getInstance().getSharedPreferences(LevelSelectScene.LEVEL_PREFERENCE, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).edit().putBoolean(currentLevel+"_done", true).commit();
+	                                Integer highScore = CleanWaterGame.getInstance().getSharedPreferences(LevelSelectScene.LEVEL_PREFERENCE, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).getInt(currentLevel+"_score", 0);
+	                                if (score > highScore)
+	                                    CleanWaterGame.getInstance().getSharedPreferences(LevelSelectScene.LEVEL_PREFERENCE, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).edit().putInt(currentLevel+"_score", score).commit();
+	
+									setChildScene(gameWinScene());
+									pausedType = PausedType.PAUSED_GAMEWIN;
+								}
 							}
 						}
 					};
