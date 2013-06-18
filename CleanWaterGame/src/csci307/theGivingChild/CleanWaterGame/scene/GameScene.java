@@ -608,6 +608,9 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
     	return sprite;
     }
 
+    /**
+     * Method for detecting the left side of a box IEntity object
+     */
     private boolean detectSideCollision(Player player, IEntity object) {
     	if ( ((player.getX() + player.getWidth()/2.0) + COLLISION_THRESHOLD) > (object.getX() - object.getWidth() / 2.0) &&
 				(player.getX() + player.getWidth()/2.0) < (object.getX() + object.getWidth() / 2.0) &&
@@ -624,6 +627,9 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
     	return false;
     }
 
+    /**
+     * Method for detecting the top side of a box IEntity object
+     */
     private boolean detectTopCollision(Player player, IEntity object) {
     	if ( ((player.getX() + player.getWidth()/2.0) + COLLISION_THRESHOLD) > (object.getX() - object.getWidth() / 2.0) &&
 				(player.getX() - player.getWidth()/2.0) < (object.getX() + object.getWidth() / 2.0) &&
@@ -677,11 +683,12 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 		return false;
 	}
 
+	/**
+	 * detect difference between swiping up or swiping left
+	 */
     private void performPlayerAction(float difX, float difY, double moveDistance) {
         if (difY > 0 && Math.abs(difY) > Math.abs(difX) || moveDistance <= TAP_THRESHOLD) {
-
             player.jump();
-
         } else if (difX > 0 && difX > Math.abs(difY)) {
         	if (!currentLevel.equals("act1scene1") && !currentLevel.equals("act1scene2"))
         		player.dash();
@@ -747,6 +754,9 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 		}
 	}
 
+	/**
+	 * Scene that is created when game is paused via the pause button.
+	 */
 	private MenuScene pauseScene() {
 		final MenuScene pauseGame = new MenuScene(camera);
 
@@ -779,6 +789,9 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 		return pauseGame;
 	}
 
+	/**
+	 * Scene that is called when the player dies
+	 */
 	private MenuScene gameOverScene() {
 		final MenuScene gameOver = new MenuScene(camera);
 
@@ -804,6 +817,9 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 		return gameOver;
 	}
 
+	/**
+	 * Scene that is called when player wins the game. 
+	 */
 	private MenuScene gameWinScene() {
 		final MenuScene gameWin = new MenuScene(camera);
 
@@ -832,6 +848,9 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 		return gameWin;
 	}
 
+	/**
+	 * tutorial scene for jumping in level 1
+	 */
 	private MenuScene jumpTutorialScene() {
 		final MenuScene jumpTutorial = new MenuScene(camera);
 
@@ -855,6 +874,9 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 		return jumpTutorial;
 	}
 
+	/**
+	 * tutorial scene for dashing in level 3
+	 */
 	private MenuScene dashTutorialScene() {
 		final MenuScene dashTutorial = new MenuScene(camera);
 
