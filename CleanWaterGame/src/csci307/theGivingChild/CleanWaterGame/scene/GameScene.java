@@ -672,12 +672,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
     private void performPlayerAction(float difX, float difY, double moveDistance) {
         if (difY > 0 && Math.abs(difY) > Math.abs(difX) || moveDistance <= TAP_THRESHOLD) {
             player.jump();
-<<<<<<< HEAD
         } else if (difX > 0 && difX > Math.abs(difY)) {
-=======
-        }
-        else if (difX > 0 && difX > Math.abs(difY)) {
->>>>>>> 345883ffa8bba5c92d5f391a33c328bda0b37e37
         	if (!currentLevel.equals("act1scene1") && !currentLevel.equals("act1scene2"))
         		player.dash();
         }
