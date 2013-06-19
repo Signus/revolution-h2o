@@ -11,12 +11,16 @@ package csci307.theGivingChild.CleanWaterGame.scene;
 
 import java.util.ArrayList;
 
+import javax.microedition.khronos.opengles.GL10;
+
+import org.andengine.entity.primitive.Rectangle;
 import org.andengine.entity.scene.menu.MenuScene;
 import org.andengine.entity.scene.menu.MenuScene.IOnMenuItemClickListener;
 import org.andengine.entity.scene.menu.item.IMenuItem;
 import org.andengine.entity.scene.menu.item.TextMenuItem;
 import org.andengine.entity.scene.menu.item.decorator.ColorMenuItemDecorator;
 import org.andengine.entity.sprite.Sprite;
+import org.andengine.entity.text.Text;
 import org.andengine.util.adt.color.Color;
 
 import csci307.theGivingChild.CleanWaterGame.CleanWaterGame;
@@ -33,7 +37,6 @@ public class AnimationScene extends BaseScene implements IOnMenuItemClickListene
 	private final int MENU_PREV = 1;
 	private final int MENU_SKIP = 2;
 	private final int MENU_QUIT = 3;
-//	private final Sprite[] scene_one = new Sprite[8];
 	private ArrayList<Sprite> scene_one, scene_two, scene_three, scene_four;
 	private int currentScene;
 	
@@ -63,9 +66,6 @@ public class AnimationScene extends BaseScene implements IOnMenuItemClickListene
 		if (!ResourceManager.getInstance().isMuted()) {
 			CleanWaterGame.getInstance().playGameMusic();
 		}
-//		if (!ResourceManager.getInstance().isMuted()) {
-//			CleanWaterGame.getInstance().playGameMusic();
-//		}
 	}
 
 	@Override
@@ -94,7 +94,6 @@ public class AnimationScene extends BaseScene implements IOnMenuItemClickListene
 	}
 	
 	private void loadAnimation(Animation animation) {
-//		currentAnimation = Animation.SCENE_ONE;
 		switch (animation) {
 			case SCENE_ONE:
 				displaySceneOne();
@@ -114,19 +113,15 @@ public class AnimationScene extends BaseScene implements IOnMenuItemClickListene
 	private void createMenuChildScene() {
 		final MenuScene navigation = new MenuScene(camera);
 
-//		final IMenuItem quitMenuItem = new ColorMenuItemDecorator(new TextMenuItem(MENU_QUIT, resourcesManager.font, "QUIT", vbom), Color.RED, Color.WHITE);
 		final IMenuItem skipMenuItem = new ColorMenuItemDecorator(new TextMenuItem(MENU_SKIP, ResourceManager.getInstance().font, "SKIP", vbom), Color.RED, Color.WHITE);
 		final IMenuItem nextMenuItem = new ColorMenuItemDecorator(new TextMenuItem(MENU_NEXT, ResourceManager.getInstance().font, ">", vbom), Color.RED, Color.WHITE);
 		final IMenuItem previousMenuItem = new ColorMenuItemDecorator(new TextMenuItem(MENU_PREV, ResourceManager.getInstance().font, "<", vbom), Color.RED, Color.WHITE);
 
-//		gameOver.attachChild(new Text(400, 400, resourcesManager.game_font, "GAME OVER", vbom));
 		nextMenuItem.setPosition(740, 240);
 		previousMenuItem.setPosition(50, 240);
 		skipMenuItem.setPosition(400, 20);
-//		quitMenuItem.setPosition(60, 460);
 		
 		navigation.addMenuItem(skipMenuItem);
-//		navigation.addMenuItem(quitMenuItem);
 		navigation.addMenuItem(nextMenuItem);
 		navigation.addMenuItem(previousMenuItem);
 		
@@ -134,7 +129,6 @@ public class AnimationScene extends BaseScene implements IOnMenuItemClickListene
 		navigation.setOnMenuItemClickListener(this);
 		
 		setChildScene(navigation);
-//		return navigation;
 	}
 	
 	private void displaySceneOne() {
@@ -194,11 +188,7 @@ public class AnimationScene extends BaseScene implements IOnMenuItemClickListene
 						CleanWaterGame.getInstance().getSharedPreferences(GameLauncher.PREFERENCE_KEY_INGAME, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).edit().putBoolean(GameLauncher.PREFERENCE_KEY_INGAME_MUTE, true).commit();
 						break;
 					case SCENE_FOUR:
-//						SceneManager.getInstance().loadGameScene(engine, "act1scene4", "act1scene5");
-//						CleanWaterGame.getInstance().pauseMenuMusic();
-//						CleanWaterGame.getInstance().getSharedPreferences(GameLauncher.PREFERENCE_KEY_INGAME, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).edit().putBoolean(GameLauncher.PREFERENCE_KEY_INGAME_MUTE, true).commit();
-						SceneManager.getInstance().createLevelSelectScene();
-						SceneManager.getInstance().loadMenuScene(engine);
+						TheMethodThatWillShowThePlayersHowThankfulWeAreThatTheyDecidedToDownloadThisGameAndPlayItScene();
 						break;
 					default:
 						break;
@@ -297,20 +287,42 @@ public class AnimationScene extends BaseScene implements IOnMenuItemClickListene
 							currentScene++;
 							attachChild(scene_four.get(currentScene));							
 						} else {
-//							SceneManager.getInstance().loadGameScene(engine, "act1scene4", "act1scene5");
-//							CleanWaterGame.getInstance().pauseMenuMusic();
-//							CleanWaterGame.getInstance().getSharedPreferences(GameLauncher.PREFERENCE_KEY_INGAME, ResourceManager.getInstance().activity.MODE_MULTI_PROCESS).edit().putBoolean(GameLauncher.PREFERENCE_KEY_INGAME_MUTE, true).commit();
-							SceneManager.getInstance().createLevelSelectScene();
-							SceneManager.getInstance().loadMenuScene(engine);
+							TheMethodThatWillShowThePlayersHowThankfulWeAreThatTheyDecidedToDownloadThisGameAndPlayItScene();
 						}
 						break;
 					default:
 						break;
 				}
 				break;
+			case MENU_QUIT:
+				SceneManager.getInstance().createLevelSelectScene();
+				SceneManager.getInstance().loadMenuScene(engine);
+				break;
 			default:
 				return false;
 		}
 		return false;
+	}
+	
+	private void TheMethodThatWillShowThePlayersHowThankfulWeAreThatTheyDecidedToDownloadThisGameAndPlayItScene() {
+		final MenuScene endScene = new MenuScene(camera);
+
+		final Rectangle background = new Rectangle(400, 240, 620, 200, vbom);
+		endScene.attachChild(background);
+		final IMenuItem resumeMenuItem = new ColorMenuItemDecorator(new TextMenuItem(MENU_QUIT, resourcesManager.font, ">>", vbom), Color.RED, Color.WHITE);
+		resumeMenuItem.setPosition(680, 150);
+		endScene.attachChild(new Text(400, 300, resourcesManager.font, "THANK YOU FOR PLAYING", vbom));
+		endScene.attachChild(new Text(400, 250, resourcesManager.font, "THE LITE VERSION OF", vbom));
+		endScene.attachChild(new Text(400, 200, resourcesManager.font, "REVOLUTION:H2O", vbom));
+
+		background.setBlendFunction(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
+		background.setAlpha(0.7f);
+
+		endScene.addMenuItem(resumeMenuItem);
+
+		endScene.setBackgroundEnabled(false);
+		endScene.setOnMenuItemClickListener(this);
+
+		setChildScene(endScene);
 	}
 }

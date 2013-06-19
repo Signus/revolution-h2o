@@ -137,6 +137,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 	private Sprite heart1;
 	private Sprite heart2;
 	private Sprite heart3;
+	private Sprite heart4;
 
 	private Player player;
 	private static Text tapToStartText;
@@ -271,8 +272,9 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
     private void createHUD(String level) {
     	gameHUD = new HUD();
     	heart1 = new Sprite(660, 390, resourcesManager.hitpoints_TR, vbom);
-    	heart2 = new Sprite(710, 390, resourcesManager.hitpoints_TR, vbom);
-    	heart3 = new Sprite(760, 390, resourcesManager.hitpoints_TR, vbom);
+    	heart2 = new Sprite(700, 390, resourcesManager.hitpoints_TR, vbom);
+    	heart3 = new Sprite(740, 390, resourcesManager.hitpoints_TR, vbom);
+    	heart4 = new Sprite(780, 390, resourcesManager.hitpoints_TR, vbom);
 
     	final Sprite pauseButton = new Sprite(50, 430, resourcesManager.pause_TR, vbom) {
     		@Override
@@ -292,16 +294,16 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
     		gameHUD.attachChild(collectableText);
     	}
     	if (level.equals("act1scene2")) {
-    		final Sprite sprite = new Sprite(350, 440 , resourcesManager.twine_TR, vbom);
+    		final Sprite sprite = new Sprite(340, 440 , resourcesManager.twine_TR, vbom);
     		gameHUD.attachChild(sprite);
     	} else if (level.equals("act1scene3")) {
-    		final Sprite sprite = new Sprite(350, 440, resourcesManager.stone_TR, vbom);
+    		final Sprite sprite = new Sprite(340, 440, resourcesManager.stone_TR, vbom);
     		gameHUD.attachChild(sprite);
     	} else if (level.equals("act1scene4")) {
-    		final Sprite sprite = new Sprite(350, 440, resourcesManager.mud_TR, vbom);
+    		final Sprite sprite = new Sprite(340, 440, resourcesManager.mud_TR, vbom);
     		gameHUD.attachChild(sprite);
     	} else if (level.equals("act1scene5")) {
-    		final Sprite sprite = new Sprite(350, 440, resourcesManager.wood_TR, vbom);
+    		final Sprite sprite = new Sprite(340, 440, resourcesManager.wood_TR, vbom);
     		gameHUD.attachChild(sprite);
     	}
 
@@ -311,7 +313,8 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
     	gameHUD.attachChild(heart1);
     	gameHUD.attachChild(heart2);
     	gameHUD.attachChild(heart3);
-    	displayHealth(3);
+    	gameHUD.attachChild(heart4);
+    	displayHealth(4);
 
 
     	camera.setHUD(gameHUD);
@@ -327,21 +330,31 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 				heart1.setVisible(false);
 				heart2.setVisible(false);
 				heart3.setVisible(false);
+				heart4.setVisible(false);
 				break;
     		case 1:
     			heart1.setVisible(true);
     			heart2.setVisible(false);
     			heart3.setVisible(false);
+    			heart4.setVisible(false);
     			break;
     		case 2:
     			heart1.setVisible(true);
     			heart2.setVisible(true);
     			heart3.setVisible(false);
+    			heart4.setVisible(false);
     			break;
     		case 3:
     			heart1.setVisible(true);
     			heart2.setVisible(true);
     			heart3.setVisible(true);
+    			heart4.setVisible(false);
+    			break;
+    		case 4:
+    			heart1.setVisible(true);
+    			heart2.setVisible(true);
+    			heart3.setVisible(true);
+    			heart4.setVisible(true);
     			break;
     	}
     }
@@ -470,7 +483,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 					};
 				}
 				else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_PLAYER)) {
-					player = new Player(x, y, vbom, camera, physicsWorld, 3, resourcesManager.player_TR) {
+					player = new Player(x, y, vbom, camera, physicsWorld, 4, resourcesManager.player_TR) {
 
 						@Override
 						public void onDie() {
@@ -887,7 +900,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 		final IMenuItem resumeMenuItem = new ColorMenuItemDecorator(new TextMenuItem(MENU_RESUME, resourcesManager.font, ">>", vbom), Color.RED, Color.WHITE);
 		resumeMenuItem.setPosition(530, 160);
 		dashTutorial.attachChild(new Text(400, 300, resourcesManager.font, "SWIPE RIGHT", vbom));
-		dashTutorial.attachChild(new Text(400, 250, resourcesManager.font, "TO JUMP", vbom));
+		dashTutorial.attachChild(new Text(400, 250, resourcesManager.font, "TO DASH", vbom));
 
 		background.setBlendFunction(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
 		background.setAlpha(0.5f);
