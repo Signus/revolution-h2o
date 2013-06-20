@@ -100,7 +100,8 @@
     <entity x="6125" y="265" width="100" height="20" type="floatingPlatform"/>
     <entity x="6225" y="265" width="100" height="20" type="floatingPlatform"/>
     <entity x="6450" y="270" width="100" height="20" type="fallingPlatform"/>
-	<entity x="6500" y="270" width="100" height="50" type="fallingPlatform"/>
+
+	<entity x="6700" y="195" width="100" height="50" type="fallingPlatform"/>
 
     <entity x="6885" y="245" width="100" height="20" type="floatingPlatform"/>
 
@@ -226,8 +227,6 @@
     <!--air collectable-->
     <entity x="1900" y="150" width="100" height="50" type="collectable"/>
     <entity x="1950" y="425" width="100" height="50" type="collectable"/>
-    -->
-
 
 
     <entity x="2050" y="100" width="100" height="50" type="collectable"/>
