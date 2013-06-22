@@ -730,6 +730,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener, IOnMe
 				CleanWaterGame.getInstance().pauseGameMusic();
 				clearChildScene();
 				disposeScene();
+				ResourceManager.getInstance().unloadGameGraphics();
 				SceneManager.getInstance().loadGameScene(engine, currentLevel, nextLevel);
 				pausedType = PausedType.PAUSED_OFF;
                 isDone = false;
