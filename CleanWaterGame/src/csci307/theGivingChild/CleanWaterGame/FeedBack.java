@@ -50,12 +50,10 @@ public class FeedBack extends Activity {
 				String subject = related.getSelectedItem().toString()+":";
 				//This sets up an email and uses the user email, the to line and the subject
 				//to facilitate a easier feed back experience when they hit the compose button
-				Intent gmail = new Intent(Intent.ACTION_VIEW);
-				gmail.setClassName("com.google.android.gm","com.google.android.gm.ComposeActivityGmail");
-				gmail.putExtra(Intent.EXTRA_EMAIL, new String[] {"thegivingchild@gmail.com"});//set this to the feed back email site
-				gmail.setData(Uri.parse("thegivingchild@gmail.com"));
+				Intent gmail = new Intent(Intent.ACTION_SEND);
+				gmail.putExtra(Intent.EXTRA_EMAIL, new String[] {"thegivingchild@gmail.com"});//set this to the feed back email sit
 				gmail.putExtra(Intent.EXTRA_SUBJECT, subject);
-				gmail.setType("plain/text");
+				gmail.setType("message/rfc822");
 				startActivity(gmail);
 				finish();
 			}
