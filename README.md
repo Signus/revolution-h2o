@@ -16,6 +16,7 @@ This will be the lite version of the game, only containing the first act, that o
 
 
 Core Requirements of the Game:
+
 1. Educational:
  - The game needs to teach kids about the importance of clean water and its affect on developing countries
  - Show them why they should get involved
@@ -31,7 +32,7 @@ Core Requirements of the Game:
 
 # Required enviroments:
 All these enviroments 
-- Designed for Android 17, min android 8
+- Designed for Android *17*, min android *8*
 
 - [And Engine](https://github.com/nicolasgramlich/AndEngine.git):
 Open source graphics engine for android
@@ -41,7 +42,7 @@ Open source graphics engine for android
 Open source physics extension for and engine
  - Use branch: GLES2-AnchorCenter
 
-Both AndEngine and AndEginePhysicsBox2DExtension have to be open in your working directory to run.
+- Both *AndEngine* and *AndEginePhysicsBox2DExtension* have to be open in your working directory to run.
 	They also have to be added as libraries to the project.
 
 - ACRA:
@@ -54,10 +55,8 @@ May need to added it as a library to your project
 Name space: ```csci307.theGivingChild.CleanWaterGame```
 
 - src:
-
  - ```csci307.theGivingChild.CleanWaterGame```:
-	
-   - AboutDialog.java: This file contains code for reading in form a text file and creating a dialog that shows
+  - AboutDialog.java: This file contains code for reading in form a text file and creating a dialog that shows
 		 information about the app, The Giving child, and developers
 	
    - CleanWaterGame.java: This is the code pertaining to the whole application and is where the ACRA reporting library is implemented
@@ -73,20 +72,20 @@ like general feedback, about the animations, about sound, about characters etc.
 	
    - PrivacyPolicy.java: This contains code to generate a dialog containing the giving childs privacy policy
 	
- - ```csci307.theGivingChild.CleanWaterGame.manager```:
+- ```csci307.theGivingChild.CleanWaterGame.manager```:
 	
    - ResourceManager.java: This file contains code to load resources that are needed by the current scene being played
 	
    - SceneManager.java: This is used to easily switch between scenes, and is used to properly load and dispose of scenes
 	
-  - ```csci307.theGivingChild.CleanWaterGame.objects```:
+- ```csci307.theGivingChild.CleanWaterGame.objects```:
 	
    - Player.java: This is the animated sprite for the main character. It contains all code dealing with movement and physics of the character
 
    - FallingPlatform.java: This Class controls the physics of the falling platforms
-	
-  - ```csci307.theGivingChild.CleanWaterGame.scene```:
-	
+
+- ```csci307.theGivingChild.CleanWaterGame.scene```:
+
    - ActSelectScene.java: This contains the AND Egine code that generates the act selection menu and leads to scene selection menu. all done with and engine
 
    - AnimationScene.java: This Class controls the physics of the falling platforms
@@ -101,8 +100,8 @@ other game play acpects for each scene
    - LoadingScene: This is what you see when the levels are loading
 	
    - PauseScene.java: This contains the code for the pause menu when a user pauses the game
-	
-  - ```assets```:
+
+- ```assets```:
 
    - fonts: contains font files
 
@@ -112,7 +111,7 @@ other game play acpects for each scene
 
    - gfx/menu: contains all menu related images
 
- - ```level```: folder contains all scene xml definitions
+- ```level```: folder contains all scene xml definitions
 
    - act1scene1.xml: This file contains all the objects(both obsticles and collectables) and their size and position in scene 1, also defines the scene's total size
 
@@ -126,11 +125,11 @@ other game play acpects for each scene
 
    - sfx: cotains all soundeffect files for the game
 
-  - ```libs```:
+- ```libs```:
 
    - acra-4.5.0.jar: This library is for acra and is used for bug reporting after the app is deployed
 
- - ```res/layout```:
+- ```res/layout```:
 
    - about_display.xml: This contains the layout for the about dilog
 
@@ -142,24 +141,24 @@ other game play acpects for each scene
 
    - userbugreport.xml: contains the layout for the feedback dialog
 
- - ```res/raw```:
+- ```res/raw```:
 
-	- gamemusic.mp3: The in game background music
+   - gamemusic.mp3: The in game background music
 
-	- menumusic.mp3: The menu music background music
+   - menumusic.mp3: The menu music background music
 
-	- select_button.mp3: The sound when buttons are clicked
+   - select_button.mp3: The sound when buttons are clicked
 
- - ```res/drawable```:
+- ```res/drawable```:
 
-	- ic_launcher.png: the launcher icon
+   - ic_launcher.png: the launcher icon
 
-	- menu_background.png: background for the main menu
+   - menu_background.png: background for the main menu
 
-	- menu_pressed.png: grpahic for when the menu button is pressed
+   - menu_pressed.png: grpahic for when the menu button is pressed
 
-	- menu_unpressed.png: graphic for when menu button is not pressed
+   - menu_unpressed.png: graphic for when menu button is not pressed
 
-	- mute.png: mute button graphic
+   - mute.png: mute button graphic
 
-	- unmuted.png: graphic for when sound is not muted
+   - unmuted.png: graphic for when sound is not muted
