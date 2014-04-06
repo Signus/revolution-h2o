@@ -1,4 +1,4 @@
-CleanWaterGame
+Revolution-H2O (CleanWaterGame)
 ==============
 
 # Team Members:
@@ -8,6 +8,9 @@ CleanWaterGame
 - Dustin Liang (*dliang*)
 - Gurpreet Nanda (*gnanda*)
 - Tony Nguyen (*tonnguye*)
+
+# Game
+Check out the game on Google Play -- https://play.google.com/store/apps/details?id=csci307.theGivingChild.CleanWaterGame
 
 # Description:
 This repository contains the CSCI370 field session project Clean Water Game for The Giving Child.
