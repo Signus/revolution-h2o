@@ -1,9 +1,0 @@
-/*
- * AUTHOR: Maria Deslis
- * DATE: 05/15/13
- * VERSION: 1.0
- * DESCRIPTION: This is a file for error testing
- * NOTE:
- * HISTORY: original
- **/
-<!---Maria Deslis, Error Reporting, 05/15/13-->
